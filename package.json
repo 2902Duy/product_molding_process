@@ -1,0 +1,9 @@
+{
+  "name": "duango-root",
+  "version": "1.0.0",
+  "scripts": {
+    "dev:backend": "echo \"Backend not started; Maven missing.\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "npm run dev:frontend"
+  }
+}

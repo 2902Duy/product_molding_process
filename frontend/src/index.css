@@ -1,0 +1,105 @@
+/* Google Fonts: Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ============================================
+   Notion Design System — Tailwind v4 Theme
+   Based on design.md specification
+   ============================================ */
+@theme {
+  /* ---- Color Palette ---- */
+  --color-notion-white: #ffffff;
+  --color-notion-black: rgba(0,0,0,0.95);
+  --color-notion-blue: #0075de;
+  --color-notion-blue-hover: #005bab;
+  --color-deep-navy: #213183;
+
+  /* Warm Neutral Scale */
+  --color-warm-white: #f6f5f4;
+  --color-warm-dark: #31302e;
+  --color-warm-gray-100: #f6f5f4;
+  --color-warm-gray-300: #a39e98;
+  --color-warm-gray-400: #8a857f;
+  --color-warm-gray-500: #615d59;
+  --color-warm-gray-600: #4a4744;
+
+  /* Semantic Accents */
+  --color-success-green: #1aae39;
+  --color-warning-orange: #dd5b00;
+  --color-teal: #2a9d99;
+  --color-pink: #ff64c8;
+  --color-purple: #391c57;
+  --color-brown: #523410;
+
+  /* Interactive */
+  --color-focus-blue: #097fe8;
+  --color-badge-bg: #f2f9ff;
+  --color-badge-text: #097fe8;
+  --color-link-blue: #0075de;
+  --color-link-light-blue: #62aef0;
+
+  /* Whisper Border */
+  --color-whisper: rgba(0,0,0,0.1);
+
+  /* ---- Shadows (multi-layer stacks) ---- */
+  --shadow-card: rgba(0,0,0,0.04) 0px 4px 18px,
+                 rgba(0,0,0,0.027) 0px 2.025px 7.84688px,
+                 rgba(0,0,0,0.02) 0px 0.8px 2.925px,
+                 rgba(0,0,0,0.01) 0px 0.175px 1.04062px;
+
+  --shadow-deep: rgba(0,0,0,0.01) 0px 1px 3px,
+                 rgba(0,0,0,0.02) 0px 3px 7px,
+                 rgba(0,0,0,0.02) 0px 7px 15px,
+                 rgba(0,0,0,0.04) 0px 14px 28px,
+                 rgba(0,0,0,0.05) 0px 23px 52px;
+
+  --shadow-whisper: 0 1px 2px rgba(0,0,0,0.04);
+
+  /* ---- Typography ---- */
+  --font-sans: 'Inter', -apple-system, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+/* ---- Base Layer ---- */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-notion-white);
+    color: var(--color-notion-black);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  /* Remove default focus outlines, add custom */
+  :focus-visible {
+    outline: 2px solid var(--color-focus-blue);
+    outline-offset: 2px;
+  }
+
+  /* Lining numerals for tables and numbers */
+  table, .lnum {
+    font-feature-settings: "lnum";
+  }
+
+  /* Hide number input spin buttons */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
