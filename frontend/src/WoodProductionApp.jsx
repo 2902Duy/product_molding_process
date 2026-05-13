@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import ProductionLotList from './pages/ProductionLotList';
 import ProductionLotDetail from './pages/ProductionLotDetail';
+import MoldingSlipDetail from './pages/MoldingSlipDetail';
+import MoldingProductionSlip from './pages/MoldingProductionSlip';
 import InventoryList from './pages/InventoryList';
 import { useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Package, Factory, Menu } from 'lucide-react';
 
 export default function WoodProductionApp() {
-  const [view, setView] = useState('lot-list'); // 'lot-list' | 'lot-detail' | 'inventory'
+  const [view, setView] = useState('lot-list'); // 'lot-list' | 'lot-detail' | 'molding-slip' | 'molding-production-slip' | 'inventory'
   const [lotParams, setLotParams] = useState({});
   const navigate = useNavigate();
 
@@ -57,6 +59,18 @@ export default function WoodProductionApp() {
         )}
         {view === 'inventory' && (
           <InventoryList onNavigate={handleNavigate} />
+        )}
+        {view === 'molding-slip' && (
+          <MoldingSlipDetail
+            onNavigate={handleNavigate}
+            lotId={lotParams.lotId}
+          />
+        )}
+        {view === 'molding-production-slip' && (
+          <MoldingProductionSlip
+            onNavigate={handleNavigate}
+            lotId={lotParams.lotId}
+          />
         )}
       </main>
 

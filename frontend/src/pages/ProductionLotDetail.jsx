@@ -8,6 +8,7 @@ import TargetProductTable from '../components/ProductionLot/TargetProductTable';
 import OrderSelectionModal from '../components/ProductionLot/OrderSelectionModal';
 import OutputTable from '../components/ProductionLot/OutputTable';
 import InventoryModal from '../components/ProductionLot/InventoryModal';
+import LossPrediction from '../components/ProductionLot/LossPrediction';
 
 const ACTIVE_STATUS = 'Đang sản xuất';
 const COMPLETED_STATUS = 'Hoàn thành';
@@ -207,10 +208,13 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
   });
 
   const getCompletionError = () => {
-    if (findInvalidOutputForCompletion()) {
+    // Check for missing volume in Phôi dư/Phế phẩm rows
+    const invalidOutput = findInvalidOutputForCompletion();
+    if (invalidOutput) {
       return 'Các dòng phôi dư hoặc phế phẩm được phép bỏ trống quy cách và số lượng, nhưng bắt buộc phải nhập số khối lớn hơn 0.';
     }
 
+    // Check for invalid input usage
     const invalidInput = selectedInputs.find((item) => {
       const originalQty = Number(item.quantity) || 0;
       const usedQty = item.quantity_used === '' ? NaN : Number(item.quantity_used);
@@ -226,48 +230,56 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
       return 'Nguyên liệu đầu vào đang có dòng dùng vượt quá số lượng hoặc số khối tồn.';
     }
 
+    // Get unique wood types from inputs (for reference, but not strictly required)
     const inputWoodTypes = new Set(
       selectedInputs
         .map((item) => removeVietnameseTones(item.name || ''))
         .filter(Boolean)
     );
 
+    // Filter outputs that have actual data (quantity, volume, or wood type selected)
+    // Consider a row valid if it has at least: name + (quantity OR volume)
     const populatedOutputs = outputs.filter((item) => {
       const qty = Number(item.quantity) || 0;
       const vol = Number(item.volume) || 0;
-      return qty > 0 || vol > 0 || !!item.name;
+      // Must have wood type AND at least quantity or volume
+      return !!item.name && (qty > 0 || vol > 0);
     });
 
+    // If no outputs at all, error
     if (populatedOutputs.length === 0) {
-      return 'Kết quả sản xuất chưa có dòng đầu ra hợp lệ.';
+      return 'Kết quả sản xuất chưa có dòng đầu ra hợp lệ. Vui lòng thêm ít nhất một dòng có loại gỗ và số lượng hoặc số khối.';
     }
 
-    const missingWoodType = populatedOutputs.find((item) => !removeVietnameseTones(item.name || ''));
+    // Check for missing wood type in populated outputs (those with quantity or volume)
+    const missingWoodType = populatedOutputs.find((item) => !item.name);
     if (missingWoodType) {
-      return 'Mỗi dòng đầu ra có dữ liệu đều phải chọn loại gỗ.';
+      return 'Vui lòng chọn loại gỗ cho tất cả các dòng đầu ra có số lượng hoặc số khối.';
     }
 
+    // Warn if output wood type is not in input, but allow it (flexible)
     const outputWoodNotInInput = populatedOutputs.find((item) => !inputWoodTypes.has(removeVietnameseTones(item.name || '')));
-    if (outputWoodNotInInput) {
-      return 'Loại gỗ ở đầu ra phải tồn tại trong nguyên liệu đầu vào. Không được nhập gỗ đầu ra không có ở đầu vào.';
+    if (outputWoodNotInInput && selectedInputs.length > 0) {
+      // Not an error anymore, just a warning - we allow different wood types
+      // This is handled by showing the warning in the UI
     }
 
+    // Check for incomplete finished products - only require quantity OR volume, not all dimensions
     const incompleteFinishedProduct = populatedOutputs.find((item) => {
       if (item.status !== 'Thành phẩm') return false;
 
-      const thickness = Number(item.thickness) || 0;
-      const width = Number(item.width) || 0;
-      const length = Number(item.length) || 0;
       const quantity = Number(item.quantity) || 0;
       const volume = Number(item.volume) || 0;
 
-      return thickness <= 0 || width <= 0 || length <= 0 || quantity <= 0 || volume <= 0;
+      // Thành phẩm chỉ cần có số lượng > 0 HOẶC số khối > 0
+      return quantity <= 0 && volume <= 0;
     });
 
     if (incompleteFinishedProduct) {
-      return 'Dòng thành phẩm phải ghi đầy đủ loại gỗ, dày, rộng, dài, số lượng và số khối trước khi hoàn tất.';
+      return 'Dòng thành phẩm phải có số lượng hoặc số khối lớn hơn 0.';
     }
 
+    // Check total volumes
     const totalInputVolume = selectedInputs.reduce((sum, item) => sum + (Number(item.volume_used) || 0), 0);
     const totalOutputVolume = populatedOutputs.reduce((sum, item) => sum + (Number(item.volume) || 0), 0);
 
@@ -276,7 +288,7 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
     }
 
     if (totalInputVolume > 0 && totalOutputVolume > totalInputVolume) {
-      return 'Tổng số khối đầu ra không được lớn hơn tổng số khối nguyên liệu đầu vào đã dùng.';
+      return `Tổng số khối đầu ra (${totalOutputVolume.toFixed(4)} m³) không được lớn hơn tổng số khối nguyên liệu đầu vào (${totalInputVolume.toFixed(4)} m³).`;
     }
 
     return null;
@@ -290,6 +302,7 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
       date: new Date().toISOString().split('T')[0],
       status: newStatus,
       description,
+      slip_type: 'PHOI_GO',
       targetProducts: selectedTargetProducts,
       inputs: selectedInputs,
       outputs
@@ -506,10 +519,13 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
           onRemoveInputItem={handleRemoveInputItem}
         />
 
+        <LossPrediction inputs={selectedInputs} />
+
         <OutputTable
           outputs={outputs}
           disabled={isCompleted}
           showValidation={showOutputValidation}
+          availableWoodTypes={[...new Set(selectedInputs.map(i => i.name).filter(Boolean))]}
           onAddOutput={handleAddOutput}
           onRemoveOutput={handleRemoveOutput}
           onChangeOutput={handleChangeOutput}

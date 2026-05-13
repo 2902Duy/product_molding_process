@@ -136,6 +136,23 @@ export const db = {
     localStorage.removeItem('wp_production_lots_v3');
     console.log("Đã xóa dữ liệu cũ. Reload lại trang để nhận dữ liệu mới từ code.");
     window.location.reload();
+  },
+
+  // Save custom size requests for production
+  saveCustomRequests: (requests) => {
+    const existing = JSON.parse(localStorage.getItem('wp_custom_requests') || '[]');
+    const newRequests = requests.map(req => ({
+      ...req,
+      id: req.id || `REQ-${Date.now()}`,
+      created_at: new Date().toISOString(),
+      status: 'pending'
+    }));
+    localStorage.setItem('wp_custom_requests', JSON.stringify([...existing, ...newRequests]));
+    return newRequests;
+  },
+
+  getCustomRequests: () => {
+    return JSON.parse(localStorage.getItem('wp_custom_requests') || '[]');
   }
 };
 

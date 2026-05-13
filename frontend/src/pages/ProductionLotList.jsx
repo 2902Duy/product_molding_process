@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Search, ArrowRight, Plus, Trash2, X } from 'lucide-react';
+import { Search, ArrowRight, Plus, Trash2, X, Layers, Square } from 'lucide-react';
 import { db } from '../services/db';
 import { removeVietnameseTones } from '../utils/stringUtils';
 
 export default function ProductionLotList({ onNavigate }) {
   const [search, setSearch] = useState('');
   const [lots, setLots] = useState([]);
+  const [slipFilter, setSlipFilter] = useState('ALL'); // 'ALL' | 'PHOI_GO' | 'DINH_HINH'
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [modal, setModal] = useState({ isOpen: false, type: '', title: '', message: '', onConfirm: null });
 
   const closeModal = () => setModal((prev) => ({ ...prev, isOpen: false }));
@@ -32,10 +34,21 @@ export default function ProductionLotList({ onNavigate }) {
     });
   };
 
+  const handleCreateSlip = (slipType) => {
+    setShowCreateModal(false);
+    if (slipType === 'PHOI_GO') {
+      onNavigate('lot-detail');
+    } else {
+      onNavigate('molding-production-slip', { lotId: 'new' });
+    }
+  };
+
   const filteredLots = lots.filter((lot) => {
     const term = removeVietnameseTones(search);
-    return removeVietnameseTones(lot.name || '').includes(term) ||
+    const matchesSearch = removeVietnameseTones(lot.name || '').includes(term) ||
       removeVietnameseTones(lot.id || '').includes(term);
+    const matchesFilter = slipFilter === 'ALL' || lot.slip_type === slipFilter;
+    return matchesSearch && matchesFilter;
   });
 
   const renderStatusBadge = (lotStatus) => {
@@ -46,10 +59,24 @@ export default function ProductionLotList({ onNavigate }) {
         </span>
       );
     }
-
     return (
       <span className="inline-block px-2 py-[2px] bg-badge-bg text-badge-text rounded-full text-[10px] font-bold uppercase tracking-wider">
         Đang sản xuất
+      </span>
+    );
+  };
+
+  const renderSlipTypeBadge = (slipType) => {
+    if (slipType === 'DINH_HINH') {
+      return (
+        <span className="inline-flex items-center gap-1 px-2 py-[2px] bg-orange-100 text-orange-700 rounded text-[10px] font-bold uppercase tracking-wider">
+          <Square size={8} /> Định hình
+        </span>
+      );
+    }
+    return (
+      <span className="inline-flex items-center gap-1 px-2 py-[2px] bg-blue-100 text-blue-700 rounded text-[10px] font-bold uppercase tracking-wider">
+        <Layers size={8} /> Phôi gỗ
       </span>
     );
   };
@@ -63,20 +90,52 @@ export default function ProductionLotList({ onNavigate }) {
               Lệnh Sản Xuất
             </h1>
             <p className="text-[14px] text-warm-gray-500 mt-1">
-              Quản lý quy trình xẻ sấy, tạo phôi chung.
+              Quản lý quy trình sản xuất phôi gỗ và định hình.
             </p>
           </div>
-          <div className="flex gap-2 shrink-0">
+          <div className="relative shrink-0">
             <button
-              onClick={() => onNavigate('lot-detail')}
+              onClick={() => setShowCreateModal(!showCreateModal)}
               className="flex items-center gap-1 bg-notion-blue hover:bg-notion-blue-hover text-white text-[13px] font-medium px-3 py-[7px] rounded-[4px] transition active:scale-[0.97]"
             >
               <Plus size={14} /> Tạo Lệnh Mới
             </button>
+            {showCreateModal && (
+              <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
+                  Chọn loại phiếu
+                </div>
+                <button
+                  onClick={() => handleCreateSlip('PHOI_GO')}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left hover:bg-blue-50 transition"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <Layers size={16} className="text-blue-600" />
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-800">Phiếu sản xuất phôi gỗ</div>
+                    <div className="text-xs text-gray-500">Xẻ sấy, tạo phôi thô</div>
+                  </div>
+                </button>
+                <button
+                  onClick={() => handleCreateSlip('DINH_HINH')}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left hover:bg-orange-50 transition"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center">
+                    <Square size={16} className="text-orange-600" />
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-800">Phiếu sản xuất định hình</div>
+                    <div className="text-xs text-gray-500">Chỉ dùng phôi thành phẩm/dư</div>
+                  </div>
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="flex mb-5">
+        {/* Filter tabs */}
+        <div className="flex gap-2 mb-5">
           <div className="relative flex-1">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-warm-gray-300" />
             <input
@@ -87,6 +146,25 @@ export default function ProductionLotList({ onNavigate }) {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
+          <div className="flex bg-notion-white border border-whisper rounded-[6px] overflow-hidden shrink-0">
+            {[
+              { key: 'ALL', label: 'Tất cả' },
+              { key: 'PHOI_GO', label: 'Phôi gỗ' },
+              { key: 'DINH_HINH', label: 'Định hình' }
+            ].map(tab => (
+              <button
+                key={tab.key}
+                onClick={() => setSlipFilter(tab.key)}
+                className={`px-3 py-[7px] text-[12px] font-medium transition ${
+                  slipFilter === tab.key
+                    ? 'bg-notion-blue text-white'
+                    : 'text-warm-gray-500 hover:bg-warm-white'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="bg-notion-white border border-whisper rounded-[8px] shadow-card overflow-hidden">
@@ -94,42 +172,42 @@ export default function ProductionLotList({ onNavigate }) {
             <table className="w-full min-w-[700px] text-[13px]">
               <thead className="text-[11px] uppercase text-warm-gray-400 tracking-[0.5px] bg-warm-white border-b border-whisper">
                 <tr>
-                  <th className="px-4 py-2.5 text-left font-semibold w-[18%]">Mã</th>
-                  <th className="px-4 py-2.5 text-left font-semibold w-[36%]">Tên lệnh</th>
-                  <th className="px-4 py-2.5 text-left font-semibold w-[20%]">Trạng thái</th>
-                  <th className="px-4 py-2.5 text-left font-semibold w-[18%]">Ngày</th>
+                  <th className="px-4 py-2.5 text-left font-semibold w-[15%]">Mã</th>
+                  <th className="px-4 py-2.5 text-left font-semibold w-[12%]">Loại phiếu</th>
+                  <th className="px-4 py-2.5 text-left font-semibold w-[29%]">Tên lệnh</th>
+                  <th className="px-4 py-2.5 text-left font-semibold w-[18%]">Trạng thái</th>
+                  <th className="px-4 py-2.5 text-left font-semibold w-[16%]">Ngày</th>
                   <th className="px-4 py-2.5 w-8"></th>
                 </tr>
               </thead>
               <tbody>
                 {filteredLots.length === 0 ? (
                   <tr>
-                    <td colSpan="5" className="px-4 py-8 text-center text-warm-gray-300 text-[13px]">
+                    <td colSpan="6" className="px-4 py-8 text-center text-warm-gray-300 text-[13px]">
                       Không tìm thấy lệnh sản xuất nào.
                     </td>
                   </tr>
-                ) : (
-                  filteredLots.map((lot) => (
-                    <tr
-                      key={lot.id}
-                      className="border-b border-whisper last:border-0 hover:bg-warm-white/60 transition cursor-pointer"
-                      onClick={() => onNavigate('lot-detail', { id: lot.id })}
-                    >
-                      <td className="px-4 py-3 font-semibold">{lot.id}</td>
-                      <td className="px-4 py-3">{lot.name}</td>
-                      <td className="px-4 py-3">{renderStatusBadge(lot.status)}</td>
-                      <td className="px-4 py-3 text-warm-gray-500 text-[12px]">{lot.date}</td>
-                      <td className="px-4 py-3 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <button onClick={(e) => handleDelete(e, lot.id)} className="text-warm-gray-300 hover:text-red-500 transition p-1" title="Xoá lệnh">
-                            <Trash2 size={14} />
-                          </button>
-                          <ArrowRight size={14} className="text-warm-gray-300" />
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
+                ) : filteredLots.map((lot) => (
+                  <tr
+                    key={lot.id}
+                    className="border-b border-whisper last:border-0 hover:bg-warm-white/60 transition cursor-pointer"
+                    onClick={() => onNavigate(lot.slip_type === 'DINH_HINH' ? 'molding-production-slip' : 'lot-detail', { id: lot.id })}
+                  >
+                    <td className="px-4 py-3 font-semibold">{lot.id}</td>
+                    <td className="px-4 py-3">{renderSlipTypeBadge(lot.slip_type)}</td>
+                    <td className="px-4 py-3">{lot.name}</td>
+                    <td className="px-4 py-3">{renderStatusBadge(lot.status)}</td>
+                    <td className="px-4 py-3 text-warm-gray-500 text-[12px]">{lot.date}</td>
+                    <td className="px-4 py-3 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <button onClick={(e) => handleDelete(e, lot.id)} className="text-warm-gray-300 hover:text-red-500 transition p-1" title="Xoá lệnh">
+                          <Trash2 size={14} />
+                        </button>
+                        <ArrowRight size={14} className="text-warm-gray-300" />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

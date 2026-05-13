@@ -5,6 +5,7 @@ export default function OutputTable({
   outputs,
   disabled = false,
   showValidation = false,
+  availableWoodTypes = [],
   onAddOutput,
   onRemoveOutput,
   onChangeOutput
@@ -55,13 +56,21 @@ export default function OutputTable({
                         onChange={(e) => onChangeOutput(item.id, 'name', e.target.value)}
                       >
                         <option value="" disabled>Chọn loại gỗ</option>
-                        <option value="CAO SU">CAO SU</option>
-                        <option value="DẺ GAI">DẺ GAI</option>
-                        <option value="HỒ ĐÀO">HỒ ĐÀO</option>
-                        <option value="SỒI">SỒI</option>
-                        <option value="BẠCH DƯƠNG">BẠCH DƯƠNG</option>
-                        <option value="THÔNG">THÔNG</option>
-                        <option value="TRÀM">TRÀM</option>
+                        {availableWoodTypes.length > 0 ? (
+                          availableWoodTypes.map((woodType) => (
+                            <option key={woodType} value={woodType}>{woodType}</option>
+                          ))
+                        ) : (
+                          <>
+                            <option value="CAO SU">CAO SU</option>
+                            <option value="DẺ GAI">DẺ GAI</option>
+                            <option value="HỒ ĐÀO">HỒ ĐÀO</option>
+                            <option value="SỒI">SỒI</option>
+                            <option value="BẠCH DƯƠNG">BẠCH DƯƠNG</option>
+                            <option value="THÔNG">THÔNG</option>
+                            <option value="TRÀM">TRÀM</option>
+                          </>
+                        )}
                       </select>
                       <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-warm-gray-400 pointer-events-none" />
                     </td>

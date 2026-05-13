@@ -3,7 +3,8 @@ CREATE TABLE "ProductionLots" (
   "name" "VARCHAR(255)",
   "status" "VARCHAR(50)" NOT NULL,
   "created_date" DATE NOT NULL,
-  "description" TEXT
+  "description" TEXT,
+  "slip_type" "VARCHAR(20)" NOT NULL DEFAULT 'PHOI_GO' CHECK ("slip_type" IN ('PHOI_GO', 'DINH_HINH'))
 );
 
 CREATE TABLE "Inventory" (
