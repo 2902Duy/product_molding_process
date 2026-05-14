@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Save, Check, Plus, Trash2, Settings, Search, Package } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowLeft, Save, Check, Plus, Trash2, Settings, Package } from 'lucide-react';
 import { db } from '../services/db';
 
 const STAGES = [
@@ -53,12 +53,6 @@ export default function MoldingSlipDetail({ onNavigate, lotId }) {
 
   // Get semi-finished goods from inventory (type: SEMIFINISHED)
   const semiFinishedInventory = db.getInventory().filter(item => item.type === 'SEMIFINISHED');
-
-  // Step 1: Add products to selection
-  const handleSelectProducts = (products) => {
-    setSelectedProducts(products);
-    setCurrentStep('semi');
-  };
 
   const handleAddProductToSelection = (product) => {
     const exists = selectedProducts.find(p => p.id === product.id);
@@ -152,11 +146,6 @@ export default function MoldingSlipDetail({ onNavigate, lotId }) {
   // Detail editing (step 3)
   const handleAddRow = () => {
     setDetailRows([...detailRows, createDetailRow()]);
-  };
-
-  const handleRemoveRow = (id) => {
-    if (detailRows.length <= 1) return;
-    setDetailRows(detailRows.filter(row => row.id !== id));
   };
 
   const handleRowChange = (id, field, value) => {
@@ -485,7 +474,7 @@ export default function MoldingSlipDetail({ onNavigate, lotId }) {
           </div>
 
           {/* Table rows */}
-          {detailRows.map((row, index) => (
+          {detailRows.map((row) => (
             <div
               key={row.id}
               className={`grid grid-cols-12 gap-2 px-4 py-2 items-center border-b border-gray-100 ${

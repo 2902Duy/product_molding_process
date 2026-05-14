@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowLeft, Save, Check, CheckCircle, X, Lock } from 'lucide-react';
 import { db } from '../services/db';
 import { removeVietnameseTones } from '../utils/stringUtils';
+import { normalizeInventoryType } from '../utils/inventoryTypes';
 
 import InputTable from '../components/ProductionLot/InputTable';
 import TargetProductTable from '../components/ProductionLot/TargetProductTable';
@@ -12,6 +13,8 @@ import LossPrediction from '../components/ProductionLot/LossPrediction';
 
 const ACTIVE_STATUS = 'Đang sản xuất';
 const COMPLETED_STATUS = 'Hoàn thành';
+const DEFAULT_LOT_NAME = 'Phiếu sản xuất phôi mới';
+const LEGACY_DEFAULT_LOT_NAMES = ['Lệnh SX Mới', 'Lệnh sản xuất'];
 
 const createOutputRow = () => ({
   id: `OUT-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
@@ -24,7 +27,26 @@ const createOutputRow = () => ({
   status: 'Thành phẩm'
 });
 
-const createLotId = () => `LSX-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+const createLotId = () => db.createLotId('PHOI_GO');
+
+const getSelectedOrderCodes = (products = []) => {
+  const codes = products.map((product) => product.orderName || product.orderId).filter(Boolean);
+  return [...new Set(codes)];
+};
+
+const shouldUseAutoLotName = (name) => {
+  const trimmed = String(name || '').trim();
+  if (!trimmed) return true;
+  if (trimmed.toLowerCase().startsWith('phiếu bổ sung')) return false;
+  return trimmed === DEFAULT_LOT_NAME || LEGACY_DEFAULT_LOT_NAMES.includes(trimmed);
+};
+
+const buildAutoLotName = (products = []) => {
+  const orderCodes = getSelectedOrderCodes(products);
+  return orderCodes.length > 0
+    ? `Phiếu sản xuất phôi - ${orderCodes.join(', ')}`
+    : DEFAULT_LOT_NAME;
+};
 
 export default function ProductionLotDetail({ onNavigate, lotId }) {
   const [lotName, setLotName] = useState(lotId ? `Lệnh SX ${lotId}` : '');
@@ -48,9 +70,18 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
   useEffect(() => {
     setAvailableInventory(db.getInventory());
     setOrders(db.getOrders() || []);
+    db.syncFromMcp({ orders: { maxOrders: 30, detailOrderLimit: 10, bomProductLimit: 4 } })
+      .then(() => {
+        setAvailableInventory(db.getInventory());
+        setOrders(db.getOrders() || []);
+      })
+      .catch(() => {
+        setAvailableInventory(db.getInventory());
+        setOrders(db.getOrders() || []);
+      });
 
     if (!lotId) {
-      setLotName('Lệnh SX Mới');
+      setLotName(DEFAULT_LOT_NAME);
       return;
     }
 
@@ -126,7 +157,15 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
       return;
     }
 
-    setSelectedInputs([...selectedInputs, { ...item, quantity_used: item.quantity, volume_used: item.volume }]);
+    setSelectedInputs([
+      ...selectedInputs,
+      {
+        ...item,
+        type: normalizeInventoryType(item),
+        quantity_used: item.quantity,
+        volume_used: item.volume
+      }
+    ]);
   };
 
   const handleToggleModalBatchSelection = (batchItems) => {
@@ -139,7 +178,12 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
 
     const newItems = batchItems
       .filter((item) => !selectedInputs.find((input) => input.id === item.id))
-      .map((item) => ({ ...item, quantity_used: item.quantity, volume_used: item.volume }));
+      .map((item) => ({
+        ...item,
+        type: normalizeInventoryType(item),
+        quantity_used: item.quantity,
+        volume_used: item.volume
+      }));
 
     setSelectedInputs([...selectedInputs, ...newItems]);
   };
@@ -296,9 +340,12 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
 
   const saveLotToDb = (newStatus) => {
     const finalLotId = lotId || createLotId();
+    const finalLotName = shouldUseAutoLotName(lotName)
+      ? buildAutoLotName(selectedTargetProducts)
+      : lotName;
     const lot = {
       id: finalLotId,
-      name: lotName || 'Lệnh sản xuất',
+      name: finalLotName,
       date: new Date().toISOString().split('T')[0],
       status: newStatus,
       description,
@@ -309,6 +356,7 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
     };
 
     db.saveLot(lot);
+    setLotName(finalLotName);
     setStatus(newStatus);
     return finalLotId;
   };
@@ -322,6 +370,39 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
       type: 'alert',
       title: 'Thành công',
       message: 'Đã lưu nháp lệnh sản xuất.'
+    });
+  };
+
+  const handleBackToList = () => {
+    if (isCompleted) {
+      onNavigate('lot-list');
+      return;
+    }
+
+    setModal({
+      isOpen: true,
+      type: 'confirm',
+      title: 'Rời khỏi phiếu?',
+      message: 'Bạn có muốn lưu nháp phiếu sản xuất phôi trước khi quay lại danh sách không?',
+      cancelText: 'Không lưu',
+      onCancel: () => onNavigate('lot-list'),
+      onConfirm: () => {
+        saveLotToDb(ACTIVE_STATUS);
+        onNavigate('lot-list');
+      }
+    });
+  };
+
+  const handleCancelLot = () => {
+    setModal({
+      isOpen: true,
+      type: 'confirm',
+      title: 'Xoá phiếu?',
+      message: 'Bạn có chắc muốn huỷ và xoá phiếu sản xuất phôi này không? Hành động này không thể hoàn tác.',
+      onConfirm: () => {
+        if (lotId) db.deleteLot(lotId);
+        onNavigate('lot-list');
+      }
     });
   };
 
@@ -398,7 +479,7 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
             const usedVol = Number(item.volume_used) || 0;
 
             let remainingQty = 0;
-            let remainingVol = 0;
+            let remainingVol;
 
             if (originalQty > 0) {
               remainingQty = originalQty - usedQty;
@@ -439,7 +520,8 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
   };
 
   const filteredInventory = availableInventory.filter((item) => {
-    const matchesTab = invTab === 'ALL' || item.type === invTab;
+    const itemType = normalizeInventoryType(item);
+    const matchesTab = invTab === 'ALL' || itemType === invTab;
     const term = removeVietnameseTones(invSearch);
     const matchesSearch =
       removeVietnameseTones(item.name || '').includes(term) ||
@@ -450,7 +532,7 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
   const groupedInventory = Object.values(filteredInventory.reduce((acc, item) => {
     const batchId = item.batchId || item.id;
     if (!acc[batchId]) {
-      acc[batchId] = { batchId, type: item.type, items: [] };
+      acc[batchId] = { batchId, type: normalizeInventoryType(item), items: [] };
     }
     acc[batchId].items.push(item);
     return acc;
@@ -460,7 +542,7 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
     <div className="w-full min-h-screen bg-warm-white text-notion-black font-sans pb-24">
       <nav className="flex justify-between items-center h-[48px] px-3 md:px-5 border-b border-whisper bg-notion-white sticky top-0 z-40">
         <button
-          onClick={() => onNavigate('lot-list')}
+          onClick={handleBackToList}
           className="flex items-center gap-1.5 text-[14px] font-medium text-warm-gray-500 hover:text-notion-black transition"
         >
           <ArrowLeft size={15} /> Quay lại
@@ -485,12 +567,12 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
             className="w-full text-2xl md:text-[32px] font-bold tracking-[-1px] leading-[1.1] text-notion-black bg-transparent border-none focus:outline-none placeholder-warm-gray-300 mb-3 md:mb-4 disabled:text-warm-gray-500"
             placeholder="Tên lệnh sản xuất..."
           />
-          <input
-            type="text"
+          <textarea
             value={description}
             disabled={isCompleted}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full text-[14px] text-notion-black bg-notion-white border border-whisper rounded-[6px] px-3 py-2.5 md:py-2 focus:outline-none focus:border-notion-blue placeholder-warm-gray-300 mb-4 disabled:bg-gray-50 disabled:text-warm-gray-500"
+            rows={description?.includes('\n') ? 4 : 2}
+            className="w-full resize-y text-[14px] text-notion-black bg-notion-white border border-whisper rounded-[6px] px-3 py-2.5 md:py-2 focus:outline-none focus:border-notion-blue placeholder-warm-gray-300 mb-4 disabled:bg-gray-50 disabled:text-warm-gray-500 whitespace-pre-line"
             placeholder="Ghi chú chi tiết lệnh sản xuất..."
           />
           {isCompleted && (
@@ -534,7 +616,13 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
 
       {!isCompleted && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 md:p-4 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
-          <div className="max-w-[600px] mx-auto flex gap-2 md:gap-3">
+          <div className="max-w-[760px] mx-auto flex gap-2 md:gap-3">
+            <button
+              onClick={handleCancelLot}
+              className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition"
+            >
+              Huỷ
+            </button>
             <button
               onClick={handleSaveDraft}
               className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition"
@@ -562,12 +650,12 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
               {modal.message}
             </div>
             <div className="px-5 py-4 border-t border-gray-100 flex justify-end gap-2 bg-gray-50/50">
-              {modal.type === 'confirm' && (
+              {modal.cancelText && (
                 <button
-                  onClick={closeModal}
-                  className="px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 active:scale-[0.98] transition"
+                  onClick={() => { if (modal.onCancel) modal.onCancel(); else closeModal(); }}
+                  className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 border border-blue-100 rounded-lg hover:bg-blue-100 active:scale-[0.98] transition"
                 >
-                  Huỷ bỏ
+                  {modal.cancelText}
                 </button>
               )}
               <button

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ClipboardList, X, Search, Check, ChevronDown, ChevronRight } from 'lucide-react';
 import { removeVietnameseTones } from '../../utils/stringUtils';
 
 export default function OrderSelectionModal({
   orders,
   selectedTargetProducts,
+  disabledProductIds = [],
   onClose,
   onToggleProductSelection,
   onToggleOrderSelection
@@ -17,6 +18,7 @@ export default function OrderSelectionModal({
   };
 
   const isOrderExpanded = (orderId) => expandedOrders[orderId] !== false;
+  const disabledProductIdSet = new Set(disabledProductIds);
 
   const filteredOrders = orders.map(order => {
     const term = removeVietnameseTones(search);
@@ -64,17 +66,22 @@ export default function OrderSelectionModal({
             <div className="space-y-3">
               {filteredOrders.map(order => {
                 const isExpanded = isOrderExpanded(order.id);
-                const allSelected = order.products.every(p => selectedTargetProducts.find(sp => sp.id === p.id));
+                const selectableProducts = order.products.filter(p => !disabledProductIdSet.has(p.id));
+                const allSelected = selectableProducts.length > 0 && selectableProducts.every(p => selectedTargetProducts.find(sp => sp.id === p.id));
                 const someSelected = order.products.some(p => selectedTargetProducts.find(sp => sp.id === p.id));
                 const isIndeterminate = someSelected && !allSelected;
+                const orderDisabled = selectableProducts.length === 0;
 
                 return (
-                  <div key={order.id} className="bg-white border border-whisper rounded-lg overflow-hidden shadow-sm">
+                  <div key={order.id} className={`bg-white border border-whisper rounded-lg overflow-hidden shadow-sm ${orderDisabled ? 'opacity-70' : ''}`}>
                     {/* Parent Row (Order) */}
                     <div className="flex items-start sm:items-center gap-3 p-3 bg-gray-50/80 border-b border-whisper hover:bg-gray-100/80 transition cursor-pointer" onClick={() => handleToggleOrderOpen(order.id)}>
                       <div
                         className="w-5 h-5 mt-0.5 sm:mt-0 flex items-center justify-center shrink-0"
-                        onClick={(e) => { e.stopPropagation(); onToggleOrderSelection(order); }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (!orderDisabled) onToggleOrderSelection({ ...order, products: selectableProducts });
+                        }}
                       >
                         <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${allSelected ? 'bg-notion-blue border-notion-blue text-white' : isIndeterminate ? 'bg-blue-500 border-blue-500 text-white' : 'border-gray-300 bg-white'}`}>
                           {allSelected && <Check size={12} strokeWidth={3} />}
@@ -102,11 +109,20 @@ export default function OrderSelectionModal({
                       <div className="divide-y divide-whisper">
                         {order.products.map(product => {
                           const isSelected = !!selectedTargetProducts.find(sp => sp.id === product.id);
+                          const isDisabled = disabledProductIdSet.has(product.id);
                           return (
                             <div
                               key={product.id}
-                              onClick={() => onToggleProductSelection(product, order)}
-                              className={`flex items-start sm:items-center gap-2 sm:gap-3 p-2.5 pl-8 sm:pl-10 cursor-pointer transition ${isSelected ? 'bg-blue-50/20' : 'hover:bg-warm-white/50'}`}
+                              onClick={() => {
+                                if (!isDisabled) onToggleProductSelection(product, order);
+                              }}
+                              className={`flex items-start sm:items-center gap-2 sm:gap-3 p-2.5 pl-8 sm:pl-10 transition ${
+                                isDisabled
+                                  ? 'cursor-not-allowed bg-gray-50 text-gray-400'
+                                  : isSelected
+                                    ? 'cursor-pointer bg-blue-50/20'
+                                    : 'cursor-pointer hover:bg-warm-white/50'
+                              }`}
                             >
                               <div className={`w-4 h-4 mt-0.5 sm:mt-0 rounded border flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'bg-notion-blue border-notion-blue text-white' : 'border-gray-300 bg-white'}`}>
                                 {isSelected && <Check size={12} strokeWidth={3} />}
@@ -115,6 +131,11 @@ export default function OrderSelectionModal({
                                 <div className="flex items-center gap-1.5">
                                   <span className="text-gray-300 hidden lg:inline">└─</span>
                                   <span className="font-semibold text-[13px] text-gray-800 truncate">{product.id} - {product.name}</span>
+                                  {isDisabled && (
+                                    <span className="rounded bg-green-50 px-1.5 py-0.5 text-[10px] font-semibold text-green-700">
+                                      Đã định hình
+                                    </span>
+                                  )}
                                 </div>
                               </div>
                               <div className="text-right shrink-0 flex items-center gap-2 sm:gap-4">

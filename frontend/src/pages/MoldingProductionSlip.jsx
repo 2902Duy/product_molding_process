@@ -1,27 +1,76 @@
-import React, { useEffect, useState } from 'react';
-import { ArrowLeft, Save, Check, Plus, Trash2, X, Package, Send, AlertCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowLeft, Save, Check, X } from 'lucide-react';
 import { db } from '../services/db';
 
 import InputTable from '../components/ProductionLot/InputTable';
 import TargetProductTable from '../components/ProductionLot/TargetProductTable';
-import OutputTable from '../components/ProductionLot/OutputTable';
 import MoldingDetailTable from '../components/Molding/MoldingDetailTable';
 import CustomRequestTable from '../components/Molding/CustomRequestTable';
 import OrderSelectionModal from '../components/ProductionLot/OrderSelectionModal';
 import MoldingInventoryModal from '../components/Molding/MoldingInventoryModal';
+import { MOLDING_STAGES } from '../constants/moldingStages';
 
-const createOutputRow = () => ({
-  id: `OUT-DH-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-  name: '',
-  thickness: '',
-  width: '',
-  length: '',
-  quantity: '',
-  volume: '',
-  status: 'Thành phẩm'
-});
+const ACTIVE_STATUS = 'Đang sản xuất';
+const COMPLETED_STATUS = 'Hoàn thành';
+const DEFAULT_LOT_NAME = 'Phiếu định hình đơn hàng mới';
+const LEGACY_DEFAULT_LOT_NAMES = ['Phiếu SX Định hình', 'Phiếu SX Định hình -'];
 
-const createDetailRow = () => ({
+const createStageProgress = (quantity = '', existingStages = [], legacyStageId = null, legacyCompleted = 0) => {
+  const required = Number(quantity) || 0;
+  const selectedStageIds = existingStages.length > 0
+    ? existingStages.map((stage) => stage.id)
+    : MOLDING_STAGES.map((stage) => stage.id);
+
+  return MOLDING_STAGES
+    .filter((stage) => selectedStageIds.includes(stage.id))
+    .map((stage) => {
+    const existing = existingStages.find((item) => item.id === stage.id);
+    const completed = existing
+      ? Number(existing.completed) || 0
+      : stage.id === legacyStageId ? Number(legacyCompleted) || 0 : 0;
+
+    return {
+      ...stage,
+      required,
+      completed: Math.min(required, completed),
+      records: existing?.records || []
+    };
+  });
+};
+
+const getFinalCompleted = (row) => {
+  if (!Array.isArray(row.stages) || row.stages.length === 0) {
+    return Number(row.quantity_completed) || 0;
+  }
+
+  return row.stages.reduce(
+    (min, stage) => Math.min(min, Number(stage.completed) || 0),
+    Number(row.quantity) || 0
+  );
+};
+
+const normalizeDetailRow = (row) => {
+  const quantity = row.quantity ?? '';
+  const legacyCompleted = Number(row.quantity_completed) || 0;
+  const existingStages = Array.isArray(row.stages) ? row.stages : [];
+  const legacyIsFullyCompleted = !existingStages.length && legacyCompleted >= (Number(quantity) || 0) && Number(quantity) > 0;
+  const stages = legacyIsFullyCompleted
+    ? createStageProgress(quantity, MOLDING_STAGES.map((stage) => ({ ...stage, completed: Number(quantity) || 0 })))
+    : createStageProgress(quantity, existingStages, row.stage, legacyCompleted);
+
+  const normalized = {
+    ...row,
+    quantity,
+    stages
+  };
+
+  return {
+    ...normalized,
+    quantity_completed: getFinalCompleted(normalized)
+  };
+};
+
+const createDetailRow = (overrides = {}) => normalizeDetailRow({
   id: `DETAIL-DH-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
   productId: '',
   productName: '',
@@ -34,7 +83,7 @@ const createDetailRow = () => ({
   quantity: '',
   quantity_completed: 0,
   completedRecords: [],
-  stage: 'vao-dinh-hinh'
+  ...overrides
 });
 
 const createCustomRequestRow = () => ({
@@ -44,15 +93,45 @@ const createCustomRequestRow = () => ({
   width: '',
   length: '',
   quantity: '',
+  reason: '',
   note: ''
 });
 
-const createLotId = () => `DH-${Date.now().toString().slice(-6)}`;
+const createLotId = () => db.createLotId('DINH_HINH');
+
+const getSelectedOrderCodes = (products = []) => {
+  const codes = products.map((product) => product.orderName || product.orderId).filter(Boolean);
+  return [...new Set(codes)];
+};
+
+const shouldUseAutoLotName = (name) => {
+  const trimmed = String(name || '').trim();
+  if (!trimmed) return true;
+  if (trimmed.toLowerCase().startsWith('phiếu bổ sung')) return false;
+  return trimmed === DEFAULT_LOT_NAME || LEGACY_DEFAULT_LOT_NAMES.some((defaultName) => trimmed === defaultName || trimmed.startsWith(`${defaultName} `));
+};
+
+const buildAutoLotName = (products = []) => {
+  const orderCodes = getSelectedOrderCodes(products);
+  return orderCodes.length > 0
+    ? `Phiếu định hình - ${orderCodes.join(', ')}`
+    : DEFAULT_LOT_NAME;
+};
+
+const calculateRequestVolume = (request) => {
+  const thickness = Number(request.thickness) || 0;
+  const width = Number(request.width) || 0;
+  const length = Number(request.length) || 0;
+  const quantity = Number(request.quantity) || 0;
+  if (thickness <= 0 || width <= 0 || length <= 0 || quantity <= 0) return '';
+  return Number(((thickness * width * length * quantity) / 1000000000).toFixed(4));
+};
 
 export default function MoldingProductionSlip({ onNavigate, lotId }) {
+  const [newLotId] = useState(createLotId);
   const [lotName, setLotName] = useState('');
   const [slipDate, setSlipDate] = useState(new Date().toISOString().split('T')[0]);
-  const [status, setStatus] = useState('Đang sản xuất');
+  const [status, setStatus] = useState(ACTIVE_STATUS);
   const [description, setDescription] = useState('');
 
   // Target products from orders
@@ -69,23 +148,30 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   // Custom size request
   const [customRequests, setCustomRequests] = useState([]);
 
-  // Outputs
-  const [outputs, setOutputs] = useState([createOutputRow()]);
-  const [showOutputValidation, setShowOutputValidation] = useState(false);
-
   // Detail rows for stages
-  const [detailRows, setDetailRows] = useState([createDetailRow()]);
+  const [detailRows, setDetailRows] = useState([]);
+  const [selectedStageId, setSelectedStageId] = useState(MOLDING_STAGES[0].id);
+  const [stageTickets, setStageTickets] = useState([]);
 
   const [modal, setModal] = useState({ isOpen: false, type: '', title: '', message: '', onConfirm: null });
   const closeModal = () => setModal((prev) => ({ ...prev, isOpen: false }));
-  const isCompleted = status === 'Hoàn thành';
+  const isCompleted = status === COMPLETED_STATUS || status === 'Ho\u00c3\u00a0n th\u00c3\u00a0nh';
 
   useEffect(() => {
     setAvailableInventory(db.getInventory());
     setOrders(db.getOrders() || []);
+    db.syncFromMcp({ orders: { maxOrders: 30, detailOrderLimit: 10, bomProductLimit: 4 } })
+      .then(() => {
+        setAvailableInventory(db.getInventory());
+        setOrders(db.getOrders() || []);
+      })
+      .catch(() => {
+        setAvailableInventory(db.getInventory());
+        setOrders(db.getOrders() || []);
+      });
 
     if (!lotId || lotId === 'new') {
-      setLotName(`Phiếu SX Định hình - ${createLotId()}`);
+      setLotName(DEFAULT_LOT_NAME);
       return;
     }
 
@@ -93,7 +179,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     if (!lot) return;
 
     setLotName(lot.name || '');
-    setStatus(lot.status || 'Đang sản xuất');
+    setStatus(lot.status || ACTIVE_STATUS);
     setDescription(lot.description || '');
     setSlipDate(lot.date || new Date().toISOString().split('T')[0]);
     setSelectedTargetProducts(lot.targetProducts || []);
@@ -102,15 +188,26 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       quantity_used: item.quantity_used ?? item.quantity,
       volume_used: item.volume_used ?? item.volume
     })));
-    setOutputs(lot.outputs && lot.outputs.length > 0 ? lot.outputs : [createOutputRow()]);
     setCustomRequests(lot.customRequests || []);
-    setDetailRows(lot.details && lot.details.length > 0 ? lot.details : [createDetailRow()]);
-  }, [lotId]);
+    setStageTickets(lot.stageTickets || []);
+    setDetailRows(lot.details && lot.details.length > 0 ? lot.details.map(normalizeDetailRow) : []);
+  }, [lotId, newLotId]);
 
-  // Filter inventory for molding - only SEMIFINISHED and SURPLUS
-  const moldingInventory = availableInventory.filter(item =>
-    item.type === 'SEMIFINISHED' || item.type === 'SURPLUS'
-  );
+  const hasValidDimensions = (item) =>
+    Number(item.thickness) > 0 && Number(item.width) > 0 && Number(item.length) > 0;
+
+  const isMoldingInput = (item) => {
+    const sourceLotId = String(item.source_lot_id || '');
+    const isMoldingOutput = sourceLotId.startsWith('DH-') || sourceLotId.startsWith('DDH-');
+    return (
+      (item.type === 'SEMIFINISHED' || item.type === 'SURPLUS') &&
+      hasValidDimensions(item) &&
+      !isMoldingOutput
+    );
+  };
+
+  // Filter inventory for molding: only sized blanks, not outputs from molding slips.
+  const moldingInventory = availableInventory.filter(isMoldingInput);
 
   const filteredInventory = moldingInventory.filter((item) => {
     const term = (invSearch || '').toLowerCase();
@@ -129,8 +226,22 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     return acc;
   }, {}));
 
+  const completedMoldingProductIds = new Set(
+    db.getLots()
+      .filter((lot) => {
+        const sameLot = lot.id === lotId || lot.id === newLotId;
+        const completedStatus = lot.status === COMPLETED_STATUS || lot.status === 'Ho\u00c3\u00a0n th\u00c3\u00a0nh';
+        return !sameLot && lot.slip_type === 'DINH_HINH' && completedStatus;
+      })
+      .flatMap((lot) => lot.targetProducts || [])
+      .map((product) => product.id)
+      .filter(Boolean)
+  );
+
   // Handlers for target products
   const handleToggleProductSelection = (product, order) => {
+    if (completedMoldingProductIds.has(product.id)) return;
+
     const exists = selectedTargetProducts.find(item => item.id === product.id);
     if (exists) {
       setSelectedTargetProducts(selectedTargetProducts.filter(item => item.id !== product.id));
@@ -147,8 +258,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
 
     if (items.length > 0) {
       // Add each item/part as a detail row
-      const newDetailRows = items.map(item => ({
-        ...createDetailRow(),
+      const newDetailRows = items.map(item => createDetailRow({
         productId: product.id,
         productName: product.name,
         semiFinishedId: item.id || '',
@@ -163,8 +273,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       setDetailRows([...detailRows, ...newDetailRows]);
     } else {
       // Fallback: add product as single detail row using product name as semiFinishedName
-      const newDetailRow = {
-        ...createDetailRow(),
+      const newDetailRow = createDetailRow({
         productId: product.id,
         productName: product.name,
         semiFinishedId: product.id,
@@ -175,14 +284,15 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
         base_quantity: 1,
         quantity: productQty,
         quantity_completed: 0
-      };
+      });
       setDetailRows([...detailRows, newDetailRow]);
     }
   };
 
   const handleToggleOrderSelection = (order) => {
     // Toggle all products in this order
-    const orderProducts = order.products || [];
+    const orderProducts = (order.products || []).filter(product => !completedMoldingProductIds.has(product.id));
+    if (orderProducts.length === 0) return;
     const allSelected = orderProducts.every(p => selectedTargetProducts.find(sp => sp.id === p.id));
 
     if (allSelected) {
@@ -203,8 +313,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
           const items = p.items || [];
 
           if (items.length > 0) {
-            return items.map(item => ({
-              ...createDetailRow(),
+            return items.map(item => createDetailRow({
               productId: p.id,
               productName: p.name,
               semiFinishedId: item.id || '',
@@ -217,8 +326,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
               quantity_completed: 0
             }));
           } else {
-            return [{
-              ...createDetailRow(),
+            return [createDetailRow({
               productId: p.id,
               productName: p.name,
               semiFinishedId: p.id,
@@ -229,7 +337,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
               base_quantity: 1,
               quantity: productQty,
               quantity_completed: 0
-            }];
+            })];
           }
         });
 
@@ -239,12 +347,16 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   };
 
   const handleChangeProductQuantity = (id, qty) => {
+    const productQty = qty === '' ? '' : Number(qty);
     setSelectedTargetProducts(selectedTargetProducts.map(product => (
       product.id === id ? { ...product, quantity_produce: qty } : product
     )));
-    // Also update in detail rows
+    // Also update detail rows using each part's base quantity.
     setDetailRows(detailRows.map(row =>
-      row.productId === id ? { ...row, quantity: qty } : row
+      row.productId === id ? normalizeDetailRow({
+        ...row,
+        quantity: productQty === '' ? '' : Math.round((Number(row.base_quantity) || 1) * productQty)
+      }) : row
     ));
   };
 
@@ -317,7 +429,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
 
   const handleSendCustomRequests = () => {
     const validRequests = customRequests.filter(req =>
-      req.woodType && req.thickness && req.width && req.length && req.quantity
+      req.woodType && req.thickness && req.width && req.length && req.quantity && req.reason
     );
 
     if (validRequests.length === 0) {
@@ -325,7 +437,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
         isOpen: true,
         type: 'alert',
         title: 'Lỗi',
-        message: 'Cần nhập đầy đủ thông tin (loại gỗ, dày, rộng, dài, số lượng) để gửi yêu cầu.'
+        message: 'Cần nhập đầy đủ thông tin (loại gỗ, dày, rộng, dài, số lượng, lý do thiếu) để gửi yêu cầu.'
       });
       return;
     }
@@ -336,43 +448,55 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       title: 'Gửi yêu cầu',
       message: `Gửi yêu cầu sản xuất ${validRequests.length} quy cách phôi đến bộ phận sản xuất phôi?`,
       onConfirm: () => {
-        db.saveCustomRequests(validRequests);
+        const sourceLotId = lotId && lotId !== 'new' ? lotId : newLotId;
+        const supplementalLotId = db.createLotId('PHOI_GO');
+        const requestOutputs = validRequests.map((req) => ({
+          id: `OUT-${req.id}`,
+          name: req.woodType || 'Phôi bổ sung',
+          thickness: req.thickness,
+          width: req.width,
+          length: req.length,
+          quantity: req.quantity,
+          volume: calculateRequestVolume(req),
+          status: 'Thành phẩm',
+          request_reason: req.reason || '',
+          source_request_id: req.id
+        }));
+        const requestReasonLines = validRequests
+          .map((req, index) => {
+            const dimensions = `${req.thickness} x ${req.width} x ${req.length}`;
+            return `${index + 1}. ${req.woodType} ${dimensions}, SL ${req.quantity}: ${req.reason}`;
+          })
+          .join('\n');
+
+        db.saveLot({
+          id: supplementalLotId,
+          name: `Phiếu bổ sung phôi - ${sourceLotId}`,
+          date: new Date().toISOString().split('T')[0],
+          status: ACTIVE_STATUS,
+          description: `Bổ sung phôi cho phiếu định hình ${sourceLotId}.\n${requestReasonLines}`,
+          slip_type: 'PHOI_GO',
+          source_molding_lot_id: sourceLotId,
+          targetProducts: selectedTargetProducts,
+          inputs: [],
+          outputs: requestOutputs,
+          customRequests: validRequests
+        });
+
+        db.saveCustomRequests(validRequests.map((req) => ({
+          ...req,
+          source_molding_lot_id: sourceLotId,
+          supplemental_lot_id: supplementalLotId
+        })));
         closeModal();
         setModal({
           isOpen: true,
           type: 'alert',
           title: 'Thành công',
-          message: 'Đã gửi yêu cầu sản xuất phôi đến bộ phận phụ trách.'
+          message: `Đã tạo phiếu bổ sung phôi ${supplementalLotId} và gửi yêu cầu đến bộ phận phụ trách.`
         });
       }
     });
-  };
-
-  // Output handlers
-  const handleAddOutput = () => {
-    setOutputs([...outputs, createOutputRow()]);
-  };
-
-  const handleRemoveOutput = (id) => {
-    if (outputs.length <= 1) return;
-    setOutputs(outputs.filter(item => item.id !== id));
-  };
-
-  const handleChangeOutput = (id, field, value) => {
-    setOutputs(outputs.map(entry => {
-      if (entry.id !== id) return entry;
-      const updated = { ...entry, [field]: value };
-      if (['length', 'width', 'thickness', 'quantity'].includes(field)) {
-        const l = parseFloat(updated.length) || 0;
-        const w = parseFloat(updated.width) || 0;
-        const t = parseFloat(updated.thickness) || 0;
-        const q = parseFloat(updated.quantity) || 0;
-        if (l > 0 && w > 0 && t > 0 && q > 0) {
-          updated.volume = ((l * w * t * q) / 1000000000).toFixed(4);
-        }
-      }
-      return updated;
-    }));
   };
 
   // Detail row handlers
@@ -381,64 +505,234 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   };
 
   const handleRemoveDetailRow = (id) => {
-    if (detailRows.length <= 1) return;
     setDetailRows(detailRows.filter(row => row.id !== id));
   };
 
   const handleRowChange = (id, field, value) => {
     setDetailRows(detailRows.map(row =>
-      row.id === id ? { ...row, [field]: value } : row
+      row.id === id ? normalizeDetailRow({ ...row, [field]: value }) : row
     ));
   };
 
-  const handleCompletePartial = (id, qty) => {
-    setDetailRows(detailRows.map(row => {
-      if (row.id !== id) return row;
+  const applyStageProgress = (rows, stageId, entries, ticketId) => {
+    return rows.map((row) => {
+      const entry = entries.find((item) => item.rowId === row.id);
+      if (!entry) return row;
 
-      const currentCompleted = Number(row.quantity_completed) || 0;
-      const newCompleted = currentCompleted + qty;
-      const neededQty = Number(row.quantity) || 0;
-      const finalCompleted = Math.min(newCompleted, neededQty);
+      const qty = Number(entry.quantity) || 0;
+      if (qty <= 0) return row;
 
       const newRecord = {
         id: `REC-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+        ticketId,
+        stageId,
         quantity: qty,
         date: new Date().toISOString().split('T')[0],
         time: new Date().toLocaleTimeString('vi-VN')
       };
 
-      return {
+      const updated = {
         ...row,
-        quantity_completed: finalCompleted,
+        stages: createStageProgress(row.quantity, row.stages).map((stage) => {
+          if (stage.id !== stageId) return stage;
+
+          const required = Number(stage.required) || 0;
+          const completed = Math.min(required, (Number(stage.completed) || 0) + qty);
+          return {
+            ...stage,
+            completed,
+            records: [...(stage.records || []), newRecord]
+          };
+        }),
         completedRecords: [...(row.completedRecords || []), newRecord]
       };
+
+      return {
+        ...updated,
+        quantity_completed: getFinalCompleted(updated)
+      };
+    });
+  };
+
+  const handleSaveStageProgress = (stageId, entries) => {
+    if (!entries || entries.length === 0) return;
+
+    const ticketId = `TICKET-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const ticket = {
+      id: ticketId,
+      stageId,
+      date: new Date().toISOString().split('T')[0],
+      time: new Date().toLocaleTimeString('vi-VN'),
+      items: entries.map((entry) => ({ ...entry }))
+    };
+
+    const updatedRows = applyStageProgress(detailRows, stageId, entries, ticketId);
+    const updatedTickets = [...stageTickets, ticket];
+    setDetailRows(updatedRows);
+    setStageTickets(updatedTickets);
+    setStatus(ACTIVE_STATUS);
+
+  };
+
+  const handleCompleteAllStages = () => {
+    const date = new Date().toISOString().split('T')[0];
+    const time = new Date().toLocaleTimeString('vi-VN');
+    const batchId = Date.now();
+    const ticketItemsByStage = {};
+
+    const updatedRows = detailRows.map((row) => {
+      const rowRecords = [];
+      const updatedStages = createStageProgress(row.quantity, row.stages).map((stage) => {
+        const required = Number(stage.required) || Number(row.quantity) || 0;
+        const completed = Number(stage.completed) || 0;
+        const remaining = Math.max(0, required - completed);
+        if (remaining <= 0) return stage;
+
+        const ticketId = `TICKET-${batchId}-${stage.id}`;
+        const newRecord = {
+          id: `REC-${batchId}-${row.id}-${stage.id}`,
+          ticketId,
+          stageId: stage.id,
+          quantity: remaining,
+          date,
+          time
+        };
+
+        ticketItemsByStage[stage.id] = [
+          ...(ticketItemsByStage[stage.id] || []),
+          { rowId: row.id, quantity: remaining }
+        ];
+        rowRecords.push(newRecord);
+
+        return {
+          ...stage,
+          required,
+          completed: required,
+          records: [...(stage.records || []), newRecord]
+        };
+      });
+
+      const updated = {
+        ...row,
+        stages: updatedStages,
+        completedRecords: [...(row.completedRecords || []), ...rowRecords]
+      };
+
+      return {
+        ...updated,
+        quantity_completed: getFinalCompleted(updated)
+      };
+    });
+
+    const quickTickets = MOLDING_STAGES
+      .filter((stage) => ticketItemsByStage[stage.id]?.length > 0)
+      .map((stage) => ({
+        id: `TICKET-${batchId}-${stage.id}`,
+        stageId: stage.id,
+        date,
+        time,
+        items: ticketItemsByStage[stage.id]
+      }));
+
+    if (quickTickets.length === 0) {
+      setModal({
+        isOpen: true,
+        type: 'alert',
+        title: 'Đã hoàn thành',
+        message: 'Tất cả công đoạn đã được hoàn thành trước đó.'
+      });
+      return;
+    }
+
+    const updatedTickets = [...stageTickets, ...quickTickets];
+    setDetailRows(updatedRows);
+    setStageTickets(updatedTickets);
+    setStatus(ACTIVE_STATUS);
+  };
+
+  const handleToggleDetailStage = (id, stageId) => {
+    setDetailRows(detailRows.map((row) => {
+      if (row.id !== id) return row;
+
+      const currentStages = createStageProgress(row.quantity, row.stages);
+      const existing = currentStages.find((stage) => stage.id === stageId);
+
+      if (existing) {
+        const stageIndex = currentStages.findIndex((stage) => stage.id === stageId);
+        const hasDownstreamProgress = currentStages
+          .slice(Math.max(0, stageIndex))
+          .some((stage) => (Number(stage.completed) || 0) > 0);
+
+        if (currentStages.length <= 1 || hasDownstreamProgress) return row;
+        return normalizeDetailRow({
+          ...row,
+          stages: currentStages.filter((stage) => stage.id !== stageId)
+        });
+      }
+
+      const stageMeta = MOLDING_STAGES.find((stage) => stage.id === stageId);
+      if (!stageMeta) return row;
+
+      return normalizeDetailRow({
+        ...row,
+        stages: [
+          ...currentStages,
+          {
+            ...stageMeta,
+            required: Number(row.quantity) || 0,
+            completed: 0,
+            records: []
+          }
+        ].sort((a, b) => a.order - b.order)
+      });
     }));
+  };
+
+  const getInputUsageError = () => {
+    const invalidInput = selectedInputs.find((item) => {
+      const originalQty = Number(item.quantity) || 0;
+      const usedQty = item.quantity_used === '' ? NaN : Number(item.quantity_used);
+      const originalVol = Number(item.volume) || 0;
+      const usedVol = item.volume_used === '' ? NaN : Number(item.volume_used);
+
+      if (!Number.isFinite(usedVol) || usedVol < 0 || usedVol > originalVol) return true;
+      if (originalQty > 0 && (!Number.isFinite(usedQty) || usedQty < 0 || usedQty > originalQty)) return true;
+      return false;
+    });
+
+    return invalidInput
+      ? 'Nguyên liệu đầu vào đang có dòng dùng vượt quá số lượng hoặc số khối tồn.'
+      : null;
   };
 
   // Save handlers
   const saveLotToDb = (newStatus) => {
-    const finalLotId = lotId && lotId !== 'new' ? lotId : `DH-${Date.now().toString().slice(-6)}`;
+    const finalLotId = lotId && lotId !== 'new' ? lotId : newLotId;
+    const finalLotName = shouldUseAutoLotName(lotName)
+      ? buildAutoLotName(selectedTargetProducts)
+      : lotName;
     const lot = {
       id: finalLotId,
-      name: lotName || 'Phiếu SX Định hình',
+      name: finalLotName,
       date: slipDate,
       status: newStatus,
       description,
       slip_type: 'DINH_HINH',
       targetProducts: selectedTargetProducts,
       inputs: selectedInputs,
-      outputs,
       customRequests,
-      details: detailRows
+      stageTickets,
+      details: detailRows.map(normalizeDetailRow)
     };
     db.saveLot(lot);
+    setLotName(finalLotName);
     setStatus(newStatus);
     return finalLotId;
   };
 
   const handleSaveDraft = () => {
     if (isCompleted) return;
-    saveLotToDb('Đang sản xuất');
+    saveLotToDb(ACTIVE_STATUS);
     setModal({
       isOpen: true,
       type: 'alert',
@@ -447,32 +741,64 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     });
   };
 
-  const handlePartialComplete = () => {
-    // Just save draft - partial completion is now done inline in the table
-    saveLotToDb('Đang sản xuất');
+  const handleBackToList = () => {
+    if (isCompleted) {
+      onNavigate('lot-list');
+      return;
+    }
+
     setModal({
       isOpen: true,
-      type: 'alert',
-      title: 'Đã lưu',
-      message: 'Đã lưu tiến độ hoàn thành.'
+      type: 'confirm',
+      title: 'Rời khỏi phiếu?',
+      message: 'Bạn có muốn lưu nháp phiếu sản xuất định hình trước khi quay lại danh sách không?',
+      cancelText: 'Không lưu',
+      onCancel: () => onNavigate('lot-list'),
+      onConfirm: () => {
+        saveLotToDb(ACTIVE_STATUS);
+        onNavigate('lot-list');
+      }
+    });
+  };
+
+  const handleCancelLot = () => {
+    setModal({
+      isOpen: true,
+      type: 'confirm',
+      title: 'Xoá phiếu?',
+      message: 'Bạn có chắc muốn huỷ và xoá phiếu sản xuất định hình này không? Hành động này không thể hoàn tác.',
+      onConfirm: () => {
+        const finalLotId = lotId && lotId !== 'new' ? lotId : newLotId;
+        db.deleteLot(finalLotId);
+        onNavigate('lot-list');
+      }
     });
   };
 
   const handleConfirmProduction = () => {
     if (isCompleted) return;
 
-    // Calculate total completed vs needed
+    const inputUsageError = getInputUsageError();
+    if (inputUsageError) {
+      setModal({
+        isOpen: true,
+        type: 'alert',
+        title: 'Không thể hoàn tất',
+        message: inputUsageError
+      });
+      return;
+    }
+
     const totalNeeded = detailRows.reduce((sum, r) => sum + (Number(r.quantity) || 0), 0);
-    const totalCompleted = detailRows.reduce((sum, r) => sum + (Number(r.quantity_completed) || 0), 0);
-    const remaining = totalNeeded - totalCompleted;
+    const totalCompleted = detailRows.reduce((sum, r) => sum + getFinalCompleted(r), 0);
+    const remaining = Math.max(0, totalNeeded - totalCompleted);
 
     if (remaining > 0) {
       setModal({
         isOpen: true,
-        type: 'confirm',
-        title: 'Cảnh báo',
-        message: `Còn ${remaining} cái chưa hoàn thành. Bạn có muốn hoàn tất phiếu không?`,
-        onConfirm: () => finalizeProduction()
+        type: 'alert',
+        title: 'Không thể hoàn tất',
+        message: `Còn ${remaining} cái chưa hoàn thành đủ các công đoạn đã cấu hình. Cần hoàn thành tất cả công đoạn trước khi hoàn tất phiếu.`
       });
       return;
     }
@@ -497,18 +823,29 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       return;
     }
 
+    const incompleteRows = validDetailRows.filter(row => getFinalCompleted(row) < (Number(row.quantity) || 0));
+    if (incompleteRows.length > 0) {
+      setModal({
+        isOpen: true,
+        type: 'alert',
+        title: 'Không thể hoàn tất',
+        message: `Còn ${incompleteRows.length} dòng chi tiết chưa hoàn thành đủ các công đoạn.`
+      });
+      return;
+    }
+
     setModal({
       isOpen: true,
       type: 'confirm',
       title: 'Xác nhận hoàn tất',
-      message: 'Xác nhận hoàn thành phiếu định hình? Thành phẩm sẽ được nhập kho.',
+      message: 'Xác nhận hoàn thành phiếu định hình? Tất cả chi tiết đã hoàn thành đủ các công đoạn sẽ được nhập kho.',
       onConfirm: () => {
-        const finalLotId = saveLotToDb('Hoàn thành');
+        const finalLotId = saveLotToDb(COMPLETED_STATUS);
         const newInventoryItems = [];
 
-        // Tạo inventory từ detailRows thay vì outputs
+        // Create inventory from completed detail rows.
         detailRows.forEach(row => {
-          const qty = Number(row.quantity) || 0;
+          const qty = Math.min(getFinalCompleted(row), Number(row.quantity) || 0);
           if (qty <= 0) return;
 
           const t = Number(row.thickness) || 0;
@@ -517,7 +854,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
           const vol = (t > 0 && w > 0 && l > 0) ? ((t * w * l * qty) / 1000000000).toFixed(4) : 0;
 
           newInventoryItems.push({
-            name: row.semiFinishedName || row.productName || 'Phôi định hình',
+            name: row.semiFinishedName || row.productName || 'Thành phẩm định hình',
             thickness: t,
             width: w,
             length: l,
@@ -547,7 +884,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
             const originalVol = Number(item.volume) || 0;
             const usedVol = Number(item.volume_used) || 0;
             let remainingQty = 0;
-            let remainingVol = 0;
+            let remainingVol;
             if (originalQty > 0) {
               remainingQty = originalQty - usedQty;
               const l = parseFloat(item.length) || 0;
@@ -587,7 +924,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       {/* Header */}
       <nav className="flex justify-between items-center h-[48px] px-3 md:px-5 border-b border-whisper bg-notion-white sticky top-0 z-40">
         <button
-          onClick={() => onNavigate('lot-list')}
+          onClick={handleBackToList}
           className="flex items-center gap-1.5 text-[14px] font-medium text-warm-gray-500 hover:text-notion-black transition"
         >
           <ArrowLeft size={15} /> Quay lại
@@ -627,13 +964,13 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Ghi chú</label>
-              <input
-                type="text"
+              <textarea
                 value={description}
                 disabled={isCompleted}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Ghi chú..."
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 disabled:bg-gray-50"
+                rows={description?.includes('\n') ? 4 : 2}
+                className="w-full resize-y px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 disabled:bg-gray-50 whitespace-pre-line"
               />
             </div>
           </div>
@@ -676,42 +1013,47 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
         <MoldingDetailTable
           detailRows={detailRows}
           disabled={isCompleted}
+          selectedStageId={selectedStageId}
+          stageTickets={stageTickets}
           onAddRow={handleAddDetailRow}
           onRemoveRow={handleRemoveDetailRow}
           onRowChange={handleRowChange}
-          onCompletePartial={handleCompletePartial}
+          onStageChange={setSelectedStageId}
+          onSaveStageProgress={handleSaveStageProgress}
+          onCompleteAllStages={handleCompleteAllStages}
+          onToggleStage={handleToggleDetailStage}
         />
       </div>
 
       {/* Bottom action bar */}
       {!isCompleted && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 md:p-4 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
-          <div className="max-w-[600px] mx-auto">
+          <div className="max-w-[760px] mx-auto">
             {/* Progress indicator - show quantity progress */}
             {detailRows.length > 0 && (
               <div className="mb-2 text-center text-xs text-gray-500">
                 <span className="font-medium text-green-600">
-                  {detailRows.reduce((sum, r) => sum + (Number(r.quantity_completed) || 0), 0)}
+                  {detailRows.reduce((sum, r) => sum + getFinalCompleted(r), 0)}
                 </span>
                 /{detailRows.reduce((sum, r) => sum + (Number(r.quantity) || 0), 0)} cái hoàn thành
               </div>
             )}
             <div className="flex gap-2 md:gap-3">
               <button
-                onClick={() => onNavigate('lot-list')}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 transition"
+                onClick={handleCancelLot}
+                className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition"
               >
                 Huỷ
               </button>
               <button
                 onClick={handleSaveDraft}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 transition"
+                className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition"
               >
                 <Save className="w-4 h-4" /> Lưu nháp
               </button>
               <button
                 onClick={handleConfirmProduction}
-                className="flex-[2] flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition"
+                className="flex-[2] md:flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 active:scale-[0.98] transition"
               >
                 <Check className="w-4 h-4" /> Hoàn tất
               </button>
@@ -725,6 +1067,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
         <OrderSelectionModal
           orders={orders}
           selectedTargetProducts={selectedTargetProducts}
+          disabledProductIds={[...completedMoldingProductIds]}
           onClose={() => setOrderModalOpen(false)}
           onToggleProductSelection={handleToggleProductSelection}
           onToggleOrderSelection={handleToggleOrderSelection}
@@ -756,9 +1099,6 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
             <div className="px-5 py-4 border-t border-gray-100 flex justify-end gap-2 bg-gray-50">
               {modal.cancelText && (
                 <button onClick={() => { if (modal.onCancel) modal.onCancel(); else closeModal(); }} className="px-4 py-2 text-sm font-medium text-orange-600 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100">{modal.cancelText}</button>
-              )}
-              {modal.type === 'confirm' && (
-                <button onClick={closeModal} className="px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50">Huỷ</button>
               )}
               <button
                 onClick={() => { if (modal.onConfirm) modal.onConfirm(); else closeModal(); }}

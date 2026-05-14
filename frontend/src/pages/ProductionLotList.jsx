@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Search, ArrowRight, Plus, Trash2, X, Layers, Square } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Search, ArrowRight, Plus, Trash2, X, Layers, Square, ChevronLeft, ChevronRight } from 'lucide-react';
 import { db } from '../services/db';
 import { removeVietnameseTones } from '../utils/stringUtils';
 
@@ -7,6 +7,7 @@ export default function ProductionLotList({ onNavigate }) {
   const [search, setSearch] = useState('');
   const [lots, setLots] = useState([]);
   const [slipFilter, setSlipFilter] = useState('ALL'); // 'ALL' | 'PHOI_GO' | 'DINH_HINH'
+  const [page, setPage] = useState(1);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [modal, setModal] = useState({ isOpen: false, type: '', title: '', message: '', onConfirm: null });
 
@@ -25,7 +26,7 @@ export default function ProductionLotList({ onNavigate }) {
       isOpen: true,
       type: 'confirm',
       title: 'Xác nhận xoá',
-      message: 'Bạn có chắc muốn xoá lệnh sản xuất này không? Hành động này không thể hoàn tác.',
+      message: 'Bạn có chắc muốn xoá phiếu sản xuất này không? Hành động này không thể hoàn tác.',
       onConfirm: () => {
         db.deleteLot(id);
         setLots(db.getLots());
@@ -50,6 +51,12 @@ export default function ProductionLotList({ onNavigate }) {
     const matchesFilter = slipFilter === 'ALL' || lot.slip_type === slipFilter;
     return matchesSearch && matchesFilter;
   });
+
+  const pageSize = 8;
+  const totalPages = Math.max(1, Math.ceil(filteredLots.length / pageSize));
+  const safePage = Math.min(page, totalPages);
+  const pagedLots = filteredLots.slice((safePage - 1) * pageSize, safePage * pageSize);
+  const resetPage = () => setPage(1);
 
   const renderStatusBadge = (lotStatus) => {
     if (lotStatus === 'Hoàn thành') {
@@ -83,11 +90,11 @@ export default function ProductionLotList({ onNavigate }) {
 
   return (
     <div className="w-full min-h-screen bg-warm-white text-notion-black font-sans">
-      <div className="max-w-[960px] mx-auto px-3 md:px-5 py-6 md:py-8">
+      <div className="max-w-[1180px] mx-auto px-3 md:px-6 py-6 md:py-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-6">
           <div>
             <h1 className="text-[28px] sm:text-[32px] font-bold tracking-[-1px] leading-tight">
-              Lệnh Sản Xuất
+              Phiếu Sản Xuất
             </h1>
             <p className="text-[14px] text-warm-gray-500 mt-1">
               Quản lý quy trình sản xuất phôi gỗ và định hình.
@@ -135,18 +142,21 @@ export default function ProductionLotList({ onNavigate }) {
         </div>
 
         {/* Filter tabs */}
-        <div className="flex gap-2 mb-5">
+        <div className="flex flex-col lg:flex-row gap-3 mb-5">
           <div className="relative flex-1">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-warm-gray-300" />
             <input
               type="text"
-              placeholder="Tìm kiếm theo mã hoặc tên lệnh..."
+              placeholder="Tìm kiếm theo mã hoặc tên phiếu..."
               className="w-full bg-notion-white border border-whisper rounded-[6px] pl-8 pr-3 py-[7px] text-[13px] focus:outline-none focus:ring-1 focus:ring-notion-blue/30 focus:border-notion-blue transition"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                resetPage();
+              }}
             />
           </div>
-          <div className="flex bg-notion-white border border-whisper rounded-[6px] overflow-hidden shrink-0">
+          <div className="flex bg-notion-white border border-whisper rounded-[6px] overflow-hidden shrink-0 self-start lg:self-stretch">
             {[
               { key: 'ALL', label: 'Tất cả' },
               { key: 'PHOI_GO', label: 'Phôi gỗ' },
@@ -154,7 +164,10 @@ export default function ProductionLotList({ onNavigate }) {
             ].map(tab => (
               <button
                 key={tab.key}
-                onClick={() => setSlipFilter(tab.key)}
+                onClick={() => {
+                  setSlipFilter(tab.key);
+                  resetPage();
+                }}
                 className={`px-3 py-[7px] text-[12px] font-medium transition ${
                   slipFilter === tab.key
                     ? 'bg-notion-blue text-white'
@@ -169,36 +182,38 @@ export default function ProductionLotList({ onNavigate }) {
 
         <div className="bg-notion-white border border-whisper rounded-[8px] shadow-card overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[700px] text-[13px]">
+            <table className="w-full min-w-[860px] text-[13px] table-fixed">
               <thead className="text-[11px] uppercase text-warm-gray-400 tracking-[0.5px] bg-warm-white border-b border-whisper">
                 <tr>
-                  <th className="px-4 py-2.5 text-left font-semibold w-[15%]">Mã</th>
-                  <th className="px-4 py-2.5 text-left font-semibold w-[12%]">Loại phiếu</th>
-                  <th className="px-4 py-2.5 text-left font-semibold w-[29%]">Tên lệnh</th>
-                  <th className="px-4 py-2.5 text-left font-semibold w-[18%]">Trạng thái</th>
-                  <th className="px-4 py-2.5 text-left font-semibold w-[16%]">Ngày</th>
-                  <th className="px-4 py-2.5 w-8"></th>
+                  <th className="px-5 py-3 text-left font-semibold w-[16%]">Mã</th>
+                  <th className="px-5 py-3 text-left font-semibold w-[14%]">Loại phiếu</th>
+                  <th className="px-5 py-3 text-left font-semibold w-[36%]">Tên phiếu</th>
+                  <th className="px-5 py-3 text-left font-semibold w-[16%]">Trạng thái</th>
+                  <th className="px-5 py-3 text-left font-semibold w-[10%]">Ngày</th>
+                  <th className="px-5 py-3 w-[8%]"></th>
                 </tr>
               </thead>
               <tbody>
                 {filteredLots.length === 0 ? (
                   <tr>
                     <td colSpan="6" className="px-4 py-8 text-center text-warm-gray-300 text-[13px]">
-                      Không tìm thấy lệnh sản xuất nào.
+                      Không tìm thấy phiếu sản xuất nào.
                     </td>
                   </tr>
-                ) : filteredLots.map((lot) => (
+                ) : pagedLots.map((lot) => (
                   <tr
                     key={lot.id}
                     className="border-b border-whisper last:border-0 hover:bg-warm-white/60 transition cursor-pointer"
                     onClick={() => onNavigate(lot.slip_type === 'DINH_HINH' ? 'molding-production-slip' : 'lot-detail', { id: lot.id })}
                   >
-                    <td className="px-4 py-3 font-semibold">{lot.id}</td>
-                    <td className="px-4 py-3">{renderSlipTypeBadge(lot.slip_type)}</td>
-                    <td className="px-4 py-3">{lot.name}</td>
-                    <td className="px-4 py-3">{renderStatusBadge(lot.status)}</td>
-                    <td className="px-4 py-3 text-warm-gray-500 text-[12px]">{lot.date}</td>
-                    <td className="px-4 py-3 text-right">
+                    <td className="px-5 py-3 font-semibold break-words leading-snug">{lot.id}</td>
+                    <td className="px-5 py-3">{renderSlipTypeBadge(lot.slip_type)}</td>
+                    <td className="px-5 py-3">
+                      <div className="line-clamp-2 leading-snug">{lot.name}</div>
+                    </td>
+                    <td className="px-5 py-3">{renderStatusBadge(lot.status)}</td>
+                    <td className="px-5 py-3 text-warm-gray-500 text-[12px] whitespace-nowrap">{lot.date}</td>
+                    <td className="px-5 py-3 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button onClick={(e) => handleDelete(e, lot.id)} className="text-warm-gray-300 hover:text-red-500 transition p-1" title="Xoá lệnh">
                           <Trash2 size={14} />
@@ -210,6 +225,29 @@ export default function ProductionLotList({ onNavigate }) {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-3 border-t border-whisper bg-white">
+            <div className="text-[12px] text-warm-gray-500">
+              Hiển thị {pagedLots.length} / {filteredLots.length} phiếu - Trang {safePage} / {totalPages}
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setPage((current) => Math.max(1, current - 1))}
+                disabled={safePage <= 1}
+                className="h-8 px-3 rounded-[6px] border border-whisper text-[12px] font-semibold text-warm-gray-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-warm-white flex items-center gap-1"
+              >
+                <ChevronLeft size={14} /> Trước
+              </button>
+              <button
+                type="button"
+                onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
+                disabled={safePage >= totalPages}
+                className="h-8 px-3 rounded-[6px] border border-whisper text-[12px] font-semibold text-warm-gray-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-warm-white flex items-center gap-1"
+              >
+                Sau <ChevronRight size={14} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

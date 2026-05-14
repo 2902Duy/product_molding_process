@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Package, Plus, ChevronDown, ChevronRight, Trash2 } from 'lucide-react';
 import { renderDimensions, renderQuantity } from '../../utils/formatters';
+import { getInventoryTypeLabel, isRawInventory, normalizeInventoryType } from '../../utils/inventoryTypes';
 
 export default function InputTable({
   selectedInputs,
@@ -24,7 +25,7 @@ export default function InputTable({
     if (!acc[batchId]) {
       acc[batchId] = {
         batchId,
-        type: item.type,
+        type: normalizeInventoryType(item),
         name: item.batchId ? `Lô ${item.batchId}` : item.name,
         items: []
       };
@@ -92,8 +93,8 @@ export default function InputTable({
                           </div>
                         </td>
                         <td className="px-4 py-2 font-semibold text-notion-black border-r border-whisper col-span-2" colSpan={2}>
-                          <span className={`mr-2 inline-block text-[9px] font-bold px-1.5 py-[2px] rounded ${group.type === 'RAW' ? 'bg-blue-50 text-blue-600' : 'bg-orange-50 text-orange-600'}`}>
-                            {group.type === 'RAW' ? 'LÔ NL' : 'LÔ DƯ'}
+                          <span className={`mr-2 inline-block text-[9px] font-bold px-1.5 py-[2px] rounded ${isRawInventory(group.type) ? 'bg-blue-50 text-blue-600' : 'bg-orange-50 text-orange-600'}`}>
+                            {getInventoryTypeLabel(group.type)}
                           </span>
                           {group.name}
                         </td>

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Package, X, Search, Check, ChevronDown, ChevronRight } from 'lucide-react';
 import { renderDimensions, renderQuantity } from '../../utils/formatters';
+import { getInventoryTypeLabel, isRawInventory } from '../../utils/inventoryTypes';
 
 export default function InventoryModal({
   groupedInventory,
@@ -86,8 +87,8 @@ export default function InventoryModal({
 
                       <div className="flex-1 min-w-0 flex flex-col lg:flex-row lg:items-center gap-1 lg:gap-2">
                         <div className="flex items-center gap-2">
-                          <span className={`shrink-0 text-[9px] font-bold px-1.5 py-[2px] rounded ${group.type === 'RAW' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`}>
-                            {group.type === 'RAW' ? 'LÔ NL' : 'LÔ DƯ'}
+                          <span className={`shrink-0 text-[9px] font-bold px-1.5 py-[2px] rounded ${isRawInventory(group.type) ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`}>
+                            {getInventoryTypeLabel(group.type)}
                           </span>
                           <span className="font-bold text-gray-800 text-[14px] truncate">{group.batchId}</span>
                         </div>

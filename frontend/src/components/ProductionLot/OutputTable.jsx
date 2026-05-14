@@ -1,4 +1,3 @@
-import React from 'react';
 import { FileText, ChevronDown, Plus, Trash2 } from 'lucide-react';
 
 export default function OutputTable({

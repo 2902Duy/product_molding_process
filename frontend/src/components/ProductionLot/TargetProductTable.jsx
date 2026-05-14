@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import { ClipboardList, Plus, Trash2, ChevronDown, ChevronRight, PackageSearch } from 'lucide-react';
 
+const getMaterialType = (part) => (
+  part.materialType ||
+  part.woodType ||
+  part.material ||
+  part.wood_type ||
+  part.nguyenLieu ||
+  part.loaiNguyenLieu ||
+  '-'
+);
+
 export default function TargetProductTable({
   selectedTargetProducts,
   disabled = false,
@@ -135,10 +145,11 @@ export default function TargetProductTable({
                                 <table className="w-full text-[12px] table-fixed">
                                   <thead className="border-b border-gray-100 text-gray-400">
                                     <tr>
-                                      <th className="pb-1 text-left font-medium w-[40%]">Tên phôi</th>
-                                      <th className="pb-1 text-center font-medium w-[30%]">Dày x Rộng x Dài</th>
-                                      <th className="pb-1 text-right font-medium w-[15%]">Định mức</th>
-                                      <th className="pb-1 text-right font-medium text-blue-600 w-[15%]">Tổng cần</th>
+                                      <th className="pb-1 text-left font-medium w-[32%]">Tên chi tiết</th>
+                                      <th className="pb-1 text-left font-medium w-[18%]">Loại nguyên liệu</th>
+                                      <th className="pb-1 text-center font-medium w-[25%]">Dày x Rộng x Dài</th>
+                                      <th className="pb-1 text-right font-medium w-[12%]">Định mức</th>
+                                      <th className="pb-1 text-right font-medium text-blue-600 w-[13%]">Tổng cần</th>
                                     </tr>
                                   </thead>
                                   <tbody className="divide-y divide-gray-100">
@@ -148,6 +159,7 @@ export default function TargetProductTable({
                                       return (
                                         <tr key={part.id} className="hover:bg-gray-50/50 transition">
                                           <td className="py-2 text-gray-700 font-medium">{part.name}</td>
+                                          <td className="py-2 text-gray-500">{getMaterialType(part)}</td>
                                           <td className="py-2 text-center text-gray-500">
                                             {part.thickness} x {part.width} x {part.length}
                                           </td>

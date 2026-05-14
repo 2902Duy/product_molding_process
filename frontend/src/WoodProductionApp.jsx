@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ProductionLotList from './pages/ProductionLotList';
 import ProductionLotDetail from './pages/ProductionLotDetail';
 import MoldingSlipDetail from './pages/MoldingSlipDetail';
 import MoldingProductionSlip from './pages/MoldingProductionSlip';
 import InventoryList from './pages/InventoryList';
+import ChatWidget from './components/Chat/ChatWidget';
 import { useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Package, Factory, Menu } from 'lucide-react';
+import { ChevronDown, ChevronRight, LayoutDashboard, Package, Factory } from 'lucide-react';
+
+const INVENTORY_SUB_TABS = [
+  { id: 'WOOD_BLANKS', label: 'Kho phôi gỗ' },
+  { id: 'MOLDING_OUTPUTS', label: 'Kho thành phẩm' },
+];
 
 export default function WoodProductionApp() {
   const [view, setView] = useState('lot-list'); // 'lot-list' | 'lot-detail' | 'molding-slip' | 'molding-production-slip' | 'inventory'
   const [lotParams, setLotParams] = useState({});
+  const [inventoryMenuOpen, setInventoryMenuOpen] = useState(true);
   const navigate = useNavigate();
 
   const handleNavigate = (targetView, params = {}) => {
@@ -19,6 +26,16 @@ export default function WoodProductionApp() {
     }
     setView(targetView);
     setLotParams(params);
+  };
+
+  const handleInventoryClick = () => {
+    if (view !== 'inventory') {
+      setInventoryMenuOpen(true);
+      handleNavigate('inventory', { warehouseTab: lotParams.warehouseTab || 'WOOD_BLANKS' });
+      return;
+    }
+
+    setInventoryMenuOpen((open) => !open);
   };
 
   return (
@@ -37,11 +54,32 @@ export default function WoodProductionApp() {
             <LayoutDashboard size={18} /> Lệnh Sản Xuất
           </button>
           <button
-            onClick={() => handleNavigate('inventory')}
+            onClick={handleInventoryClick}
             className={`w-full flex items-center gap-2.5 px-3 py-2 text-[14px] font-medium rounded-lg transition-colors ${view === 'inventory' ? 'bg-blue-50 text-notion-blue' : 'text-warm-gray-600 hover:bg-black/5 hover:text-notion-black'}`}
           >
             <Package size={18} /> Quản Lý Kho
+            {inventoryMenuOpen ? <ChevronDown size={15} className="ml-auto" /> : <ChevronRight size={15} className="ml-auto" />}
           </button>
+          {view === 'inventory' && inventoryMenuOpen && (
+            <div className="ml-7 mt-1 space-y-1">
+              {INVENTORY_SUB_TABS.map((tab) => {
+                const isActive = (lotParams.warehouseTab || 'WOOD_BLANKS') === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => handleNavigate('inventory', { warehouseTab: tab.id })}
+                    className={`w-full text-left px-3 py-1.5 rounded-md text-[12px] font-semibold transition-colors ${
+                      isActive
+                        ? 'bg-white text-notion-blue shadow-sm'
+                        : 'text-warm-gray-500 hover:bg-black/5 hover:text-notion-black'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </nav>
       </aside>
 
@@ -58,18 +96,22 @@ export default function WoodProductionApp() {
           />
         )}
         {view === 'inventory' && (
-          <InventoryList onNavigate={handleNavigate} />
+          <InventoryList
+            onNavigate={handleNavigate}
+            initialTab={lotParams.warehouseTab}
+            onWarehouseTabChange={(warehouseTab) => setLotParams((prev) => ({ ...prev, warehouseTab }))}
+          />
         )}
         {view === 'molding-slip' && (
           <MoldingSlipDetail
             onNavigate={handleNavigate}
-            lotId={lotParams.lotId}
+            lotId={lotParams.lotId || lotParams.id}
           />
         )}
         {view === 'molding-production-slip' && (
           <MoldingProductionSlip
             onNavigate={handleNavigate}
-            lotId={lotParams.lotId}
+            lotId={lotParams.lotId || lotParams.id}
           />
         )}
       </main>
@@ -93,6 +135,11 @@ export default function WoodProductionApp() {
           </button>
         </nav>
       )}
+
+      <ChatWidget
+        currentView={view}
+        currentLotId={lotParams.lotId || lotParams.id}
+      />
     </div>
   );
 }

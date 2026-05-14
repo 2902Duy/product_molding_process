@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Package, X, Search, Check, ChevronDown, ChevronRight } from 'lucide-react';
 import { renderDimensions, renderQuantity } from '../../utils/formatters';
 
@@ -24,7 +24,7 @@ export default function MoldingInventoryModal({
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-[800px] max-h-full flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-orange-50">
-          <h3 className="font-semibold text-gray-800 flex items-center gap-2"><Package size={18} className="text-orange-500" /> Chọn phôi (chỉ thành phẩm & phôi dư)</h3>
+          <h3 className="font-semibold text-gray-800 flex items-center gap-2"><Package size={18} className="text-orange-500" /> Chọn phôi có kích thước</h3>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition"><X size={20} /></button>
         </div>
 
@@ -77,7 +77,7 @@ export default function MoldingInventoryModal({
                       <div className="flex-1 min-w-0 flex flex-col lg:flex-row lg:items-center gap-1 lg:gap-2">
                         <div className="flex items-center gap-2">
                           <span className={`shrink-0 text-[9px] font-bold px-1.5 py-[2px] rounded ${group.type === 'SEMIFINISHED' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`}>
-                            {group.type === 'SEMIFINISHED' ? 'THÀNH PHẨM' : 'PHÔI DƯ'}
+                            {group.type === 'SEMIFINISHED' ? 'PHÔI' : 'PHÔI DƯ'}
                           </span>
                           <span className="font-bold text-gray-800 text-[14px] truncate">{group.batchId}</span>
                         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Plus, Trash2 } from 'lucide-react';
 
 export default function WarehouseEntryModal({ isOpen, onClose, onSave, defaultStatus = 'Hàng tồn kho', initialEntries = null }) {
@@ -99,7 +99,7 @@ export default function WarehouseEntryModal({ isOpen, onClose, onSave, defaultSt
                 </tr>
               </thead>
               <tbody>
-                {entries.map((entry, index) => (
+                {entries.map((entry) => (
                   <tr key={entry.id} className="border-b border-whisper last:border-b-0 group">
                     <td className="px-3 py-2">
                       <input type="number" required placeholder="0" className="w-full bg-transparent border border-whisper rounded-[4px] px-2 py-1.5 text-[14px] focus:outline-none focus:border-notion-blue" value={entry.length} onChange={e => handleChange(entry.id, 'length', e.target.value)} />

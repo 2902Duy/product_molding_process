@@ -1,5 +1,4 @@
-import React from 'react';
-import { Plus, Trash2, Send, AlertCircle } from 'lucide-react';
+import { Trash2, Send, AlertCircle } from 'lucide-react';
 
 export default function CustomRequestTable({
   customRequests = [],
@@ -35,8 +34,8 @@ export default function CustomRequestTable({
         ) : (
           <div className="space-y-2">
             {customRequests.map(req => (
-              <div key={req.id} className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg border border-orange-100">
-                <div className="flex-1 grid grid-cols-5 gap-2 text-sm">
+              <div key={req.id} className="flex items-start gap-3 p-3 bg-orange-50 rounded-lg border border-orange-100">
+                <div className="flex-1 grid grid-cols-6 gap-2 text-sm">
                   <div>
                     <span className="text-xs text-gray-500">Loại gỗ</span>
                     {disabled ? (
@@ -102,6 +101,20 @@ export default function CustomRequestTable({
                         type="number"
                         value={req.quantity || ''}
                         onChange={(e) => onChangeRequest(req.id, 'quantity', e.target.value)}
+                        placeholder="..."
+                        className="w-full px-2 py-1 text-sm border border-gray-200 rounded focus:outline-none focus:border-orange-400"
+                      />
+                    )}
+                  </div>
+                  <div>
+                    <span className="text-xs text-gray-500">Lý do</span>
+                    {disabled ? (
+                      <div className="font-medium">{req.reason || '-'}</div>
+                    ) : (
+                      <input
+                        type="text"
+                        value={req.reason || ''}
+                        onChange={(e) => onChangeRequest(req.id, 'reason', e.target.value)}
                         placeholder="..."
                         className="w-full px-2 py-1 text-sm border border-gray-200 rounded focus:outline-none focus:border-orange-400"
                       />

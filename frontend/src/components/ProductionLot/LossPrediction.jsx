@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { AlertTriangle, TrendingDown, Info, Loader2, RefreshCw } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { AlertTriangle, TrendingDown, Info, Loader2 } from 'lucide-react';
 import {
   predictTotalLoss as predictTotalLossApi,
   predictTotalLossFallback
@@ -51,7 +51,7 @@ export default function LossPrediction({ inputs = [] }) {
           const fallbackResult = predictTotalLossFallback(inputs);
           setPrediction(fallbackResult);
           setUsingApi(false);
-        } catch (fallbackErr) {
+        } catch {
           setError('Không thể dự đoán hao hụt');
         }
       } finally {
@@ -130,7 +130,7 @@ export default function LossPrediction({ inputs = [] }) {
               : 'bg-gray-100 text-gray-600'
           }`}
         >
-          {usingApi ? '🤖 AI Model' : '📊 Công thức'}
+          {usingApi ? 'AI Model' : 'Công thức'}
         </div>
       </div>
 
@@ -239,7 +239,7 @@ export default function LossPrediction({ inputs = [] }) {
             <Info className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
             <span>
               {usingApi
-                ? 'Dự đoán từ mô hình Random Forest đã huấn luyện trên dữ liệu thực tế của xưởng.'
+                ? 'Dự đoán từ mô hình được huấn luyện trên dữ liệu của xưởng.'
                 : 'API không khả dụng. Sử dụng công thức dự phòng. Hao hụt thực tế có thể dao động.'}
             </span>
           </div>

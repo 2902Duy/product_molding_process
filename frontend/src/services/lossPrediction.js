@@ -72,10 +72,9 @@ export function hasLossRange(woodType) {
  *
  * @param {string} woodType - Tên loại gỗ
  * @param {number} totalInputVolume - Tổng khối vào (m³)
- * @param {object} options - Tùy chọn bổ sung
  * @returns {object} - { lossPercent, minLoss, maxLoss, estimatedOutput, confidence }
  */
-export function predictLoss(woodType, totalInputVolume, options = {}) {
+export function predictLoss(woodType, totalInputVolume) {
   const normalizedType = normalizeWoodType(woodType);
   const range = getLossRange(normalizedType);
 
@@ -91,14 +90,9 @@ export function predictLoss(woodType, totalInputVolume, options = {}) {
   }
 
   // Tính confidence dựa trên khối lượng
-  let confidence = 'medium';
-  if (totalInputVolume >= 1) {
-    confidence = 'high';
-  } else if (totalInputVolume >= 0.5) {
-    confidence = 'medium';
-  } else {
-    confidence = 'low';
-  }
+  const confidence = totalInputVolume >= 1
+    ? 'high'
+    : totalInputVolume >= 0.5 ? 'medium' : 'low';
 
   // Random Forest logic approximation:
   // Với khối lượng nhỏ: hao hụt gần max (khó tối ưu cắt)
