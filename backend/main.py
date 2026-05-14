@@ -33,7 +33,24 @@ def get_cors_origins() -> list[str]:
     origins = os.getenv("CORS_ORIGINS", "").strip()
     if not origins:
         return ["*"]
-    return [origin.strip() for origin in origins.split(",") if origin.strip()]
+    return [
+        origin.strip().rstrip("/")
+        for origin in origins.split(",")
+        if origin.strip()
+    ]
+
+def get_cors_origin_regex(origins: list[str]) -> str | None:
+    configured_regex = os.getenv("CORS_ORIGIN_REGEX", "").strip()
+    if configured_regex:
+        return configured_regex
+    if "*" in origins:
+        return ".*"
+    if any(origin.endswith(".vercel.app") for origin in origins):
+        return r"https://.*\.vercel\.app"
+    return None
+
+cors_origins = get_cors_origins()
+cors_origin_regex = get_cors_origin_regex(cors_origins)
 
 # =============================================================================
 # KHỞI TẠO APP
@@ -48,7 +65,8 @@ app = FastAPI(
 # CORS để frontend có thể gọi API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=get_cors_origins(),
+    allow_origins=[] if "*" in cors_origins else cors_origins,
+    allow_origin_regex=cors_origin_regex,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
