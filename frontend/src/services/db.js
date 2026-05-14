@@ -856,7 +856,7 @@ const defaultLots = [
   },
 ];
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/+$/, '');
 const MCP_ORDERS_KEY = 'wp_mcp_orders_v1';
 const MCP_INVENTORY_KEY = 'wp_mcp_inventory_v1';
 const MCP_REMOVED_INVENTORY_KEY = 'wp_mcp_inventory_removed_v1';
