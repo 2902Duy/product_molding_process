@@ -29,6 +29,12 @@ from dotenv import load_dotenv
 
 load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
+def get_cors_origins() -> list[str]:
+    origins = os.getenv("CORS_ORIGINS", "").strip()
+    if not origins:
+        return ["*"]
+    return [origin.strip() for origin in origins.split(",") if origin.strip()]
+
 # =============================================================================
 # KHỞI TẠO APP
 # =============================================================================
@@ -42,7 +48,7 @@ app = FastAPI(
 # CORS để frontend có thể gọi API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Trong production nên giới hạn domain cụ thể
+    allow_origins=get_cors_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
