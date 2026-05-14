@@ -54,6 +54,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.middleware("http")
+async def normalize_leading_slashes(request, call_next):
+    """Accept paths like //mcp/run-template from clients with trailing API URLs."""
+    path = request.scope.get("path", "")
+    if path.startswith("//"):
+        request.scope["path"] = "/" + path.lstrip("/")
+    return await call_next(request)
+
 # =============================================================================
 # ĐỊNH NGHĨA MÔ HÌNH VÀ CONFIG
 # =============================================================================
