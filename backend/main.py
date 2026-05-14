@@ -306,21 +306,27 @@ def run_mcp_template(name: str, args: dict[str, Any]) -> dict[str, Any]:
             envelope = _parse_mcp_sse(raw)
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="replace")
+        print(f"[MCP_ERROR] template={name} http_status={exc.code} detail={detail[:1000]}")
         raise HTTPException(status_code=502, detail=f"MCP HTTP {exc.code}: {detail}")
     except urllib.error.URLError as exc:
+        print(f"[MCP_ERROR] template={name} connection_error={exc.reason}")
         raise HTTPException(status_code=502, detail=f"Cannot connect to MCP: {exc.reason}")
     except TimeoutError:
+        print(f"[MCP_ERROR] template={name} timeout")
         raise HTTPException(status_code=504, detail="MCP response timed out.")
     except json.JSONDecodeError:
+        print(f"[MCP_ERROR] template={name} invalid_json")
         raise HTTPException(status_code=502, detail="MCP returned invalid JSON.")
 
     if envelope.get("error"):
+        print(f"[MCP_ERROR] template={name} rpc_error={str(envelope['error'])[:1000]}")
         raise HTTPException(status_code=502, detail=envelope["error"])
 
     result = envelope.get("result") or {}
     if result.get("isError"):
         content = result.get("content") or []
         message = content[0].get("text") if content else "MCP tool error"
+        print(f"[MCP_ERROR] template={name} tool_error={str(message)[:1000]}")
         raise HTTPException(status_code=502, detail=message)
 
     content = result.get("content") or []
