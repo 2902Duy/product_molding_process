@@ -91,6 +91,11 @@ LOSS_RANGES = {
     'HỒ ĐÀO': (40, 50),
 }
 
+
+USERS = {
+    'duytk': 'duy123123',
+}
+
 # Giá trị mặc định
 DEFAULT_LOSS_RANGE = (35, 40)
 
@@ -181,6 +186,17 @@ class McpRunTemplateRequest(BaseModel):
     """Request run MCP template."""
     name: str = Field(..., min_length=1)
     args: dict[str, Any] = Field(default_factory=dict)
+
+class LoginRequest(BaseModel):
+    """Request đăng nhập"""
+    username: str = Field(..., min_length=1, description="Tên đăng nhập")
+    password: str = Field(..., min_length=1, description="Mật khẩu")
+
+class LoginResponse(BaseModel):
+    """Response đăng nhập"""
+    success: bool
+    message: str
+    user: Optional[dict] = None
 
 # =============================================================================
 # HELPER FUNCTIONS
@@ -683,6 +699,39 @@ async def get_wood_types():
         "wood_types": list(LOSS_RANGES.keys()),
         "loss_ranges": {k: {"min": v[0], "max": v[1]} for k, v in LOSS_RANGES.items()}
     }
+
+@app.post("/auth/login", response_model=LoginResponse)
+async def login(request: LoginRequest):
+    """
+    Đăng nhập người dùng
+    
+    - **username**: Tên đăng nhập
+    - **password**: Mật khẩu
+    """
+    stored_password = USERS.get(request.username)
+    
+    if stored_password is None:
+        return LoginResponse(
+            success=False,
+            message="Tài khoản không tồn tại"
+        )
+    
+    if stored_password != request.password:
+        return LoginResponse(
+            success=False,
+            message="Mật khẩu không đúng"
+        )
+    
+    return LoginResponse(
+        success=True,
+        message="Đăng nhập thành công",
+        user={"username": request.username}
+    )
+
+@app.post("/auth/logout")
+async def logout():
+    """Đăng xuất người dùng"""
+    return {"success": True, "message": "Đăng xuất thành công"}
 
 
 # =============================================================================
