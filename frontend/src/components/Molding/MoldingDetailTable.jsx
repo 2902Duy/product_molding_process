@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Check, ChevronDown, ChevronRight, ClipboardCheck, Package, Save, Settings, Trash2 } from 'lucide-react';
+import { Check, ChevronDown, ChevronRight, ClipboardCheck, Package, Save, Settings, Trash2, X } from 'lucide-react';
 import { MOLDING_STAGES } from '../../constants/moldingStages';
 
 const clampPercent = (value) => Math.max(0, Math.min(100, value));
@@ -50,6 +50,15 @@ const getRowStageProgress = (row) => {
   return totalRequired > 0 ? clampPercent(Math.round((totalCompleted / totalRequired) * 100)) : 0;
 };
 
+const getLockedStageIds = (row) => {
+  const stages = getRowStages(row);
+  return stages
+    .filter((stage, index) => stages
+      .slice(index)
+      .some((item) => getStageCompleted(item) > 0))
+    .map((stage) => stage.id);
+};
+
 export default function MoldingDetailTable({
   detailRows = [],
   disabled = false,
@@ -61,11 +70,13 @@ export default function MoldingDetailTable({
   onStageChange,
   onSaveStageProgress,
   onCompleteAllStages,
-  onToggleStage
+  onToggleStage,
+  onApplyStages
 }) {
   const [expandedProducts, setExpandedProducts] = useState({});
   const [entryQuantities, setEntryQuantities] = useState({});
-  const [configuringRowId, setConfiguringRowId] = useState(null);
+  const [configModalOpen, setConfigModalOpen] = useState(false);
+  const [configStageIds, setConfigStageIds] = useState([]);
 
   useEffect(() => {
     setEntryQuantities({});
@@ -137,6 +148,61 @@ export default function MoldingDetailTable({
     setExpandedProducts(prev => ({ ...prev, [productId]: !prev[productId] }));
   };
 
+  const openConfigModal = () => {
+    if (detailRows.length === 0) return;
+
+    setConfigStageIds(detailRows.reduce((acc, row) => {
+      acc[row.id] = getRowStages(row).map((stage) => stage.id);
+      return acc;
+    }, {}));
+    setConfigModalOpen(true);
+  };
+
+  const handleConfigStageToggle = (rowId, stageId) => {
+    setConfigStageIds((prev) => {
+      const rowStageIds = prev[rowId] || [];
+      return {
+        ...prev,
+        [rowId]: rowStageIds.includes(stageId)
+          ? rowStageIds.filter((id) => id !== stageId)
+          : [...rowStageIds, stageId]
+      };
+    });
+  };
+
+  const handleConfigStageColumnToggle = (stageId) => {
+    setConfigStageIds((prev) => {
+      const selectableRows = detailRows.filter((row) => !getLockedStageIds(row).includes(stageId));
+      const allSelected = selectableRows.length > 0 && selectableRows.every((row) => (prev[row.id] || []).includes(stageId));
+
+      return detailRows.reduce((acc, row) => {
+        const rowStageIds = prev[row.id] || [];
+        const locked = getLockedStageIds(row).includes(stageId);
+
+        if (locked) {
+          acc[row.id] = rowStageIds.includes(stageId) ? rowStageIds : [...rowStageIds, stageId];
+          return acc;
+        }
+
+        acc[row.id] = allSelected
+          ? rowStageIds.filter((id) => id !== stageId)
+          : Array.from(new Set([...rowStageIds, stageId]));
+        return acc;
+      }, {});
+    });
+  };
+
+  const handleApplyConfig = () => {
+    const invalidRow = detailRows.find((row) => (configStageIds[row.id] || []).length === 0);
+    if (invalidRow) {
+      alert('Mỗi chi tiết phải có ít nhất một công đoạn.');
+      return;
+    }
+
+    onApplyStages?.(configStageIds);
+    setConfigModalOpen(false);
+  };
+
   return (
     <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
       <div className="px-4 py-3 bg-slate-50 border-b border-slate-200">
@@ -147,6 +213,14 @@ export default function MoldingDetailTable({
           </h3>
 
           <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={openConfigModal}
+              disabled={disabled || detailRows.length === 0}
+              className="inline-flex h-9 items-center gap-1.5 rounded border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+            >
+              <Settings className="h-4 w-4" />
+              Cài công đoạn
+            </button>
             <select
               value={selectedStage.id}
               onChange={(event) => onStageChange(event.target.value)}
@@ -269,10 +343,9 @@ export default function MoldingDetailTable({
                         <div className="col-span-1 text-center">Định mức</div>
                         <div className="col-span-1 text-center">Cần</div>
                         <div className="col-span-1 text-center">Đã xong</div>
-                        <div className="col-span-1 text-center">Công đoạn trước</div>
                         <div className="col-span-1 text-center">Đã làm CĐ này</div>
                         <div className="col-span-1 text-center">Lần này</div>
-                        <div className="col-span-1 text-center"></div>
+                        <div className="col-span-2 text-center"></div>
                       </div>
 
                       <div className="max-h-[560px] overflow-y-auto">
@@ -364,9 +437,6 @@ export default function MoldingDetailTable({
                               {capacity ? (
                                 <>
                                   <div className="col-span-1 text-center text-xs tabular-nums text-gray-600">
-                                    {capacity.previousCompleted}
-                                  </div>
-                                  <div className="col-span-1 text-center text-xs tabular-nums text-gray-600">
                                     {capacity.completed}/{capacity.required}
                                   </div>
                                   <div className="col-span-1">
@@ -383,16 +453,16 @@ export default function MoldingDetailTable({
                                   </div>
                                 </>
                               ) : (
-                                <div className="col-span-3 text-center text-xs text-gray-400">
+                                <div className="col-span-2 text-center text-xs text-gray-400">
                                   Không áp dụng công đoạn này
                                 </div>
                               )}
 
-                              <div className="col-span-1 flex justify-center gap-1">
+                              <div className="col-span-2 flex justify-center gap-1">
                                 {!disabled && (
                                   <button
                                     type="button"
-                                    onClick={() => setConfiguringRowId(configuringRowId === row.id ? null : row.id)}
+                                    onClick={openConfigModal}
                                     className="p-1.5 text-gray-400 hover:text-sky-600 transition"
                                     title="Cấu hình công đoạn áp dụng"
                                   >
@@ -411,8 +481,8 @@ export default function MoldingDetailTable({
                               </div>
                             </div>
 
-                            <div className={configuringRowId === row.id ? 'px-4 py-2' : 'hidden'}>
-                              {configuringRowId === row.id && (
+                            <div className="hidden">
+                              {false && (
                                 <div className="mb-2 rounded border border-slate-200 bg-slate-50 p-2">
                                   <div className="mb-1 text-[11px] font-semibold text-slate-700">
                                     Chọn công đoạn bắt buộc cho chi tiết này
@@ -492,6 +562,127 @@ export default function MoldingDetailTable({
           </div>
         )}
       </div>
+
+      {configModalOpen && (
+        <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/40 p-4">
+          <div className="flex max-h-[88vh] w-full max-w-5xl flex-col rounded-lg bg-white shadow-2xl">
+            <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
+              <div>
+                <h3 className="text-sm font-bold text-slate-800">Bảng điều khiển công đoạn</h3>
+                <p className="mt-0.5 text-xs text-slate-500">
+                  Chỉnh công đoạn áp dụng cho từng chi tiết trong phiếu.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setConfigModalOpen(false)}
+                className="rounded p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="min-h-0 overflow-auto px-4 py-4">
+              <div className="min-w-[820px] overflow-hidden rounded border border-slate-200">
+                <div className="grid grid-cols-[minmax(260px,1.6fr)_repeat(4,minmax(130px,1fr))_80px] bg-slate-100 text-[11px] font-semibold text-slate-600">
+                  <div className="px-3 py-2">Chi tiết</div>
+                  {MOLDING_STAGES.map((stage) => {
+                    const selectableRows = detailRows.filter((row) => !getLockedStageIds(row).includes(stage.id));
+                    const allSelected = selectableRows.length > 0 && selectableRows.every((row) => (configStageIds[row.id] || []).includes(stage.id));
+
+                    return (
+                      <label key={stage.id} className="flex items-center justify-center gap-2 px-2 py-2 text-center">
+                        <input
+                          type="checkbox"
+                          checked={allSelected}
+                          disabled={selectableRows.length === 0}
+                          onChange={() => handleConfigStageColumnToggle(stage.id)}
+                          className="h-3.5 w-3.5 accent-emerald-500 disabled:cursor-not-allowed"
+                        />
+                        <span>{stage.name}</span>
+                      </label>
+                    );
+                  })}
+                  <div className="px-2 py-2 text-center">Tiến độ</div>
+                </div>
+
+                {detailRows.map((row) => {
+                  const rowStageIds = configStageIds[row.id] || [];
+                  const stages = getRowStages(row);
+                  const lockedIds = getLockedStageIds(row);
+                  const rowProgress = getRowStageProgress(row);
+
+                  return (
+                    <div
+                      key={row.id}
+                      className="grid grid-cols-[minmax(260px,1.6fr)_repeat(4,minmax(130px,1fr))_80px] items-center border-t border-slate-100 bg-white text-xs"
+                    >
+                      <div className="px-3 py-2">
+                        <div className="font-semibold text-slate-800">{row.semiFinishedName || 'Chi tiết'}</div>
+                        <div className="mt-0.5 text-[11px] text-slate-500">
+                          {row.thickness || '-'} x {row.width || '-'} x {row.length || '-'} · Cần {row.quantity || 0}
+                        </div>
+                      </div>
+
+                      {MOLDING_STAGES.map((stageMeta) => {
+                        const selected = rowStageIds.includes(stageMeta.id);
+                        const existing = stages.find((stage) => stage.id === stageMeta.id);
+                        const locked = lockedIds.includes(stageMeta.id);
+                        const completed = getStageCompleted(existing);
+                        const required = existing ? getStageRequired(row, existing) : Number(row.quantity) || 0;
+
+                        return (
+                          <label
+                            key={stageMeta.id}
+                            className={`mx-2 my-1.5 flex min-h-12 items-center gap-2 rounded border px-2 py-1.5 ${
+                              selected ? 'border-emerald-200 bg-emerald-50 text-slate-800' : 'border-slate-200 bg-white text-slate-500'
+                            } ${locked ? 'opacity-80' : ''}`}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={selected}
+                              disabled={locked}
+                              onChange={() => handleConfigStageToggle(row.id, stageMeta.id)}
+                              className="h-4 w-4 accent-emerald-500 disabled:cursor-not-allowed"
+                            />
+                            <div className="min-w-0 flex-1">
+                              <div className="truncate font-medium">{selected ? 'Áp dụng' : 'Bỏ qua'}</div>
+                              <div className="text-[10px] text-slate-500">{completed}/{required}</div>
+                            </div>
+                          </label>
+                        );
+                      })}
+
+                      <div className="px-2 py-2 text-center font-semibold text-slate-600">{rowProgress}%</div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <p className="mt-3 text-xs text-slate-500">
+                Công đoạn đã có tiến độ sẽ được giữ lại để không mất dữ liệu đã ghi nhận.
+              </p>
+            </div>
+
+            <div className="flex justify-end gap-2 border-t border-slate-200 px-4 py-3">
+              <button
+                type="button"
+                onClick={() => setConfigModalOpen(false)}
+                className="h-9 rounded border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              >
+                Hủy
+              </button>
+              <button
+                type="button"
+                onClick={handleApplyConfig}
+                className="h-9 rounded bg-emerald-600 px-3 text-sm font-semibold text-white hover:bg-emerald-700"
+              >
+                Áp dụng
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

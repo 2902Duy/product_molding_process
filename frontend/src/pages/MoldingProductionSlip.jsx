@@ -688,6 +688,41 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     }));
   };
 
+  const handleApplyDetailStages = (stageIdsByRowId) => {
+    setDetailRows(detailRows.map((row) => {
+      if (!stageIdsByRowId[row.id]) return row;
+
+      const currentStages = createStageProgress(row.quantity, row.stages);
+      const selectedIds = new Set(stageIdsByRowId[row.id]);
+      const lockedIds = new Set();
+
+      currentStages.forEach((stage, index) => {
+        const hasProgressAtOrAfter = currentStages
+          .slice(index)
+          .some((item) => (Number(item.completed) || 0) > 0);
+        if (hasProgressAtOrAfter) lockedIds.add(stage.id);
+      });
+
+      const nextStageIds = new Set([...selectedIds, ...lockedIds]);
+      const nextStages = MOLDING_STAGES
+        .filter((stage) => nextStageIds.has(stage.id))
+        .map((stageMeta) => {
+          const existing = currentStages.find((stage) => stage.id === stageMeta.id);
+          return {
+            ...stageMeta,
+            required: Number(row.quantity) || 0,
+            completed: Math.min(Number(row.quantity) || 0, Number(existing?.completed) || 0),
+            records: existing?.records || []
+          };
+        });
+
+      return normalizeDetailRow({
+        ...row,
+        stages: nextStages
+      });
+    }));
+  };
+
   const getInputUsageError = () => {
     const invalidInput = selectedInputs.find((item) => {
       const originalQty = Number(item.quantity) || 0;
@@ -1022,6 +1057,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
           onSaveStageProgress={handleSaveStageProgress}
           onCompleteAllStages={handleCompleteAllStages}
           onToggleStage={handleToggleDetailStage}
+          onApplyStages={handleApplyDetailStages}
         />
       </div>
 

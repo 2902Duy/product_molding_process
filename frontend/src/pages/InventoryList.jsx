@@ -172,11 +172,10 @@ export default function InventoryList({ initialTab = 'WOOD_BLANKS', onWarehouseT
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-6">
           <div>
             <h1 className="text-[28px] sm:text-[32px] font-bold tracking-[-1px] leading-tight flex items-center gap-3">
-              <Archive className="text-notion-blue" size={28} />
               Quản lý kho
             </h1>
             <p className="text-[14px] text-warm-gray-500 mt-1">
-              Tách riêng kho phôi gỗ và kho thành phẩm sau định hình để dễ theo dõi tồn.
+              Quản lý tồn kho nguyên liệu, phôi và thành phẩm của xưởng.
             </p>
           </div>
         </div>
@@ -215,7 +214,7 @@ export default function InventoryList({ initialTab = 'WOOD_BLANKS', onWarehouseT
           <div>
             <div className="text-[15px] font-bold">{activeTabInfo?.label}</div>
             <div className="text-[12px] text-warm-gray-500 mt-0.5">
-              Hiển thị {pagedInventory.length} / {filteredInventory.length} mục phù hợp
+              Hiển thị {pagedInventory.length} / {filteredInventory.length} kết quả
             </div>
           </div>
 

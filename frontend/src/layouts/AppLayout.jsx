@@ -1,10 +1,17 @@
+/**
+ * AppLayout — khung giao diện chính của ứng dụng.
+ * Bao gồm: sidebar navigation, mobile bottom nav, và ChatWidget.
+ * (Di chuyển từ src/WoodProductionApp.jsx → src/layouts/AppLayout.jsx)
+ *
+ * Được mount bởi App.jsx sau khi người dùng đã đăng nhập.
+ */
 import { useState } from 'react';
-import ProductionLotList from './pages/ProductionLotList';
-import ProductionLotDetail from './pages/ProductionLotDetail';
-import MoldingSlipDetail from './pages/MoldingSlipDetail';
-import MoldingProductionSlip from './pages/MoldingProductionSlip';
-import InventoryList from './pages/InventoryList';
-import ChatWidget from './components/Chat/ChatWidget';
+import ProductionLotList from '../pages/ProductionLotList';
+import ProductionLotDetail from '../pages/ProductionLotDetail';
+import MoldingSlipDetail from '../pages/MoldingSlipDetail';
+import MoldingProductionSlip from '../pages/MoldingProductionSlip';
+import InventoryList from '../pages/InventoryList';
+import ChatWidget from '../components/Chat/ChatWidget';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown, ChevronRight, LayoutDashboard, Package, Factory } from 'lucide-react';
 
@@ -13,7 +20,7 @@ const INVENTORY_SUB_TABS = [
   { id: 'MOLDING_OUTPUTS', label: 'Kho thành phẩm' },
 ];
 
-export default function WoodProductionApp() {
+export default function AppLayout() {
   const [view, setView] = useState('lot-list'); // 'lot-list' | 'lot-detail' | 'molding-slip' | 'molding-production-slip' | 'inventory'
   const [lotParams, setLotParams] = useState({});
   const [inventoryMenuOpen, setInventoryMenuOpen] = useState(true);

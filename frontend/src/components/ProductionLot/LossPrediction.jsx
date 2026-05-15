@@ -3,7 +3,7 @@ import { AlertTriangle, TrendingDown, Info, Loader2 } from 'lucide-react';
 import {
   predictTotalLoss as predictTotalLossApi,
   predictTotalLossFallback
-} from '../../services/lossPredictionApi';
+} from '../../services/predictionApi';
 
 /**
  * Component hiển thị dự đoán hao hụt cho lô sản xuất

@@ -1,17 +1,17 @@
-/**
- * Dịch vụ dự đoán hao hụt gỗ
- * Dựa trên mô hình Random Forest đã train từ notebook Kaggle
+﻿/**
+ * Dự đoán hao hụt gỗ offline (fallback khi backend không khả dụng).
+ * (Đổi tên từ lossPrediction.js → predictionFallback.js cho rõ ràng hơn)
  *
- * Mô hình gốc sử dụng:
- * - Features: Nguyen_Lieu (loại gỗ), Tong_Khoi_Vao (tổng khối vào), Std_Min, Std_Max
- * - Output: Hao_Hut_Target (tỷ lệ hao hụt %)
+ * Dùng khi không kết nối được backend (/predict API).
+ * Khi backend online, dùng predictionApi.js thay thế.
  *
- * Định mức hao hụt theo từng loại gỗ (từ model config):
- * - THÔNG: 35-40%
- * - DẺ GAI: 30-40%
- * - HỒ ĐÀO: 40-50%
+ * Mô hình xấp xỉ Random Forest:
+ * - Với khối lượng nhỏ: hao hụt gần max (khó tối ưu cắt)
+ * - Với khối lượng lớn: hao hụt gần min (dễ tối ưu cắt)
+ *
+ * Định mức hao hụt theo loại gỗ (từ model config):
+ * - THÔNG: 35-40%, DẺ GAI: 30-40%, HỒ ĐÀO: 40-50%
  */
-
 // Định mức hao hụt theo từng loại gỗ (lấy từ model config)
 const LOSS_RANGES = {
   'THÔNG': { min: 35, max: 40 },

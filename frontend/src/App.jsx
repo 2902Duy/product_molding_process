@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import WoodProductionApp from './WoodProductionApp';
+import AppLayout from './layouts/AppLayout';
 import { useState, useEffect } from 'react';
 import LoginPage from './pages/LoginPage';
 import { LogOut } from 'lucide-react';
@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="relative">
       <BrowserRouter>
-        <WoodProductionApp onLogout={handleLogout} />
+        <AppLayout onLogout={handleLogout} />
       </BrowserRouter>
 
       {/* Logout Button */}

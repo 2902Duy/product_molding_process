@@ -1,6 +1,8 @@
-/**
- * API client cho dự đoán hao hụt gỗ
- * Gọi đến backend API
+﻿/**
+ * API client gọi backend để dự đoán hao hụt gỗ.
+ * (Đổi tên từ lossPredictionApi.js → predictionApi.js cho rõ ràng hơn)
+ *
+ * Dùng khi backend đang chạy. Nếu backend offline, dùng predictionFallback.js
  */
 
 // URL của backend API - Có thể thay đổi tùy môi trường
