@@ -1,13 +1,11 @@
-import { useState } from 'react';
-import { Bot, MessageCircle, Send, X } from 'lucide-react';
+/**
+ * ChatWidget — AI assistant panel slide từ phải.
+ * Không còn là floating bubble, mà là panel fixed-right
+ * được toggle từ nút trong sidebar.
+ */
+import { useEffect, useRef } from 'react';
+import { Bot, Send, X, Sparkles } from 'lucide-react';
 import { askAssistant } from '../../services/chatApi';
-
-const initialMessages = [
-  {
-    role: 'assistant',
-    content: 'Bạn có thể hỏi về tồn kho, phiếu sản xuất, công đoạn định hình hoặc lý do phiếu chưa hoàn tất.'
-  }
-];
 
 const renderInlineMarkdown = (text) => {
   const parts = String(text).split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
@@ -17,7 +15,7 @@ const renderInlineMarkdown = (text) => {
     }
     if (part.startsWith('`') && part.endsWith('`')) {
       return (
-        <code key={index} className="rounded bg-black/5 px-1 py-0.5 text-[0.92em]">
+        <code key={index} style={{ background: 'var(--color-border-light)', padding: '1px 5px', borderRadius: 4, fontSize: '0.91em' }}>
           {part.slice(1, -1)}
         </code>
       );
@@ -28,42 +26,39 @@ const renderInlineMarkdown = (text) => {
 
 const MarkdownMessage = ({ content }) => {
   const lines = String(content || '').trim().split('\n');
-
   return (
-    <div className="space-y-1">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
       {lines.map((line, index) => {
         const bullet = line.match(/^\s*[-*]\s+(.+)/);
         const numbered = line.match(/^\s*(\d+)[.)]\s+(.+)/);
-
         if (bullet) {
           return (
-            <div key={index} className="flex gap-2">
-              <span className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-current opacity-70" />
+            <div key={index} style={{ display: 'flex', gap: 8 }}>
+              <span style={{ marginTop: '0.5em', width: 4, height: 4, borderRadius: '50%', background: 'currentColor', opacity: 0.6, flexShrink: 0 }} />
               <span>{renderInlineMarkdown(bullet[1])}</span>
             </div>
           );
         }
-
         if (numbered) {
           return (
-            <div key={index} className="flex gap-2">
-              <span className="shrink-0 font-semibold">{numbered[1]}.</span>
+            <div key={index} style={{ display: 'flex', gap: 8 }}>
+              <span style={{ flexShrink: 0, fontWeight: 600 }}>{numbered[1]}.</span>
               <span>{renderInlineMarkdown(numbered[2])}</span>
             </div>
           );
         }
-
         return <div key={index}>{renderInlineMarkdown(line)}</div>;
       })}
     </div>
   );
 };
 
-export default function ChatWidget({ currentView, currentLotId }) {
-  const [open, setOpen] = useState(false);
-  const [input, setInput] = useState('');
-  const [messages, setMessages] = useState(initialMessages);
-  const [loading, setLoading] = useState(false);
+export default function ChatWidget({ open, onClose, currentView, currentLotId, messages, setMessages, loading, setLoading, input, setInput }) {
+  const bottomRef = useRef(null);
+
+  useEffect(() => {
+    if (open) bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, open]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -79,101 +74,150 @@ export default function ChatWidget({ currentView, currentLotId }) {
       const result = await askAssistant(text, { currentView, currentLotId });
       setMessages([
         ...nextMessages,
-        {
-          role: 'assistant',
-          content: result.answer || 'Gemini chưa trả về nội dung trả lời.'
-        }
+        { role: 'assistant', content: result.answer || 'Gemini chưa trả về nội dung trả lời.' }
       ]);
     } catch (error) {
       setMessages([
         ...nextMessages,
-        {
-          role: 'assistant',
-          content: `Không gọi được chat backend. ${error.message}`
-        }
+        { role: 'assistant', content: `Không gọi được chat backend. ${error.message}` }
       ]);
     } finally {
       setLoading(false);
     }
   };
 
+  if (!open) return null;
+
   return (
-    <div className="fixed bottom-5 right-5 z-50">
-      {open && (
-        <div className="mb-3 flex h-[520px] w-[360px] max-w-[calc(100vw-32px)] flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl">
-          <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50 px-4 py-3">
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-100 text-orange-600">
-                <Bot className="h-4 w-4" />
-              </div>
-              <div>
-                <div className="text-sm font-semibold text-gray-900">Trợ lý sản xuất</div>
-                <div className="text-[11px] text-gray-500">Gemini 3.1 Flash Lite</div>
+    <>
+      {/* Overlay mỏng trên mobile */}
+      <div
+        className="md:hidden fixed inset-0 z-40"
+        style={{ background: 'rgba(0,0,0,0.2)' }}
+        onClick={onClose}
+      />
+
+      {/* Panel */}
+      <div
+        className="fixed right-0 top-0 bottom-0 z-50 flex flex-col"
+        style={{
+          width: 360,
+          maxWidth: '100vw',
+          background: 'white',
+          borderLeft: '1px solid var(--color-border)',
+          boxShadow: '-4px 0 24px rgba(0,0,0,0.08)',
+        }}
+      >
+        {/* Header */}
+        <div
+          className="flex items-center justify-between px-4 py-3 shrink-0"
+          style={{ borderBottom: '1px solid var(--color-border-light)' }}
+        >
+          <div className="flex items-center gap-2.5">
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+              style={{ background: 'var(--color-primary-soft)' }}
+            >
+              <Sparkles size={15} style={{ color: 'var(--color-primary)' }} />
+            </div>
+            <div>
+              <div className="text-[13px] font-semibold" style={{ color: 'var(--color-text-primary)' }}>Trợ lý sản xuất</div>
+              <div className="text-[11px]" style={{ color: 'var(--color-text-muted)' }}>Gemini Flash</div>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg p-1.5 transition-colors"
+            style={{ color: 'var(--color-text-muted)' }}
+            onMouseEnter={e => e.currentTarget.style.background = 'var(--color-app-bg)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+          >
+            <X size={16} />
+          </button>
+        </div>
+
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto px-4 py-4" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {messages.map((message, index) => (
+            <div
+              key={`${message.role}-${index}`}
+              style={{ display: 'flex', justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start' }}
+            >
+              {message.role === 'assistant' && (
+                <div
+                  className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mr-2 mt-0.5"
+                  style={{ background: 'var(--color-primary-soft)' }}
+                >
+                  <Bot size={12} style={{ color: 'var(--color-primary)' }} />
+                </div>
+              )}
+              <div
+                className="text-[13px] leading-relaxed"
+                style={{
+                  maxWidth: '82%',
+                  padding: '8px 12px',
+                  borderRadius: message.role === 'user' ? '12px 12px 2px 12px' : '12px 12px 12px 2px',
+                  background: message.role === 'user' ? 'var(--color-primary)' : 'var(--color-app-bg)',
+                  color: message.role === 'user' ? 'white' : 'var(--color-text-primary)',
+                  border: message.role === 'assistant' ? '1px solid var(--color-border-light)' : 'none',
+                }}
+              >
+                {message.role === 'assistant'
+                  ? <MarkdownMessage content={message.content} />
+                  : message.content
+                }
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-700"
-              aria-label="Đóng chat"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </div>
+          ))}
 
-          <div className="flex-1 space-y-3 overflow-y-auto px-4 py-3">
-            {messages.map((message, index) => (
+          {loading && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div
-                key={`${message.role}-${index}`}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className="w-6 h-6 rounded-full flex items-center justify-center shrink-0"
+                style={{ background: 'var(--color-primary-soft)' }}
               >
-                <div
-                  className={`max-w-[82%] whitespace-pre-wrap rounded-lg px-3 py-2 text-sm leading-relaxed ${
-                    message.role === 'user'
-                      ? 'bg-orange-600 text-white'
-                      : 'border border-gray-100 bg-gray-50 text-gray-800'
-                  }`}
-                >
-                  {message.role === 'assistant' ? (
-                    <MarkdownMessage content={message.content} />
-                  ) : (
-                    message.content
-                  )}
-                </div>
+                <Bot size={12} style={{ color: 'var(--color-primary)' }} />
               </div>
-            ))}
-            {loading && (
-              <div className="text-xs text-gray-400">Đang hỏi Gemini...</div>
-            )}
-          </div>
+              <div
+                className="text-[12px]"
+                style={{ color: 'var(--color-text-muted)', fontStyle: 'italic' }}
+              >
+                Đang hỏi Gemini...
+              </div>
+            </div>
+          )}
 
-          <form onSubmit={handleSubmit} className="flex gap-2 border-t border-gray-100 p-3">
-            <input
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              placeholder="Hỏi về phiếu, kho, công đoạn..."
-              className="min-w-0 flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-orange-400"
-            />
-            <button
-              type="submit"
-              disabled={loading || !input.trim()}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-orange-600 text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-40"
-              aria-label="Gửi"
-            >
-              <Send className="h-4 w-4" />
-            </button>
-          </form>
+          <div ref={bottomRef} />
         </div>
-      )}
 
-      <button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-600 text-white shadow-lg hover:bg-orange-700"
-        aria-label="Mở chat"
-      >
-        {open ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
-      </button>
-    </div>
+        {/* Input */}
+        <form
+          onSubmit={handleSubmit}
+          className="flex gap-2 px-3 py-3 shrink-0"
+          style={{ borderTop: '1px solid var(--color-border-light)' }}
+        >
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Hỏi về phiếu, kho, công đoạn..."
+            className="flex-1 min-w-0 rounded-lg px-3 py-2 text-[13px] outline-none transition-all"
+            style={{ border: '1px solid var(--color-border)', color: 'var(--color-text-primary)' }}
+            onFocus={e => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.boxShadow = '0 0 0 3px var(--color-primary-soft)'; }}
+            onBlur={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.boxShadow = 'none'; }}
+          />
+          <button
+            type="submit"
+            disabled={loading || !input.trim()}
+            className="flex items-center justify-center rounded-lg w-9 h-9 shrink-0 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            style={{ background: 'var(--color-primary)' }}
+            onMouseEnter={e => !e.currentTarget.disabled && (e.currentTarget.style.background = 'var(--color-primary-hover)')}
+            onMouseLeave={e => e.currentTarget.style.background = 'var(--color-primary)'}
+          >
+            <Send size={14} color="white" />
+          </button>
+        </form>
+      </div>
+    </>
   );
 }

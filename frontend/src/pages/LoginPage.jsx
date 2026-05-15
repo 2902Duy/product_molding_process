@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LogIn, Lock, User, AlertCircle, Loader2 } from 'lucide-react';
+import { LogIn, Lock, User, AlertCircle, Loader2, Factory } from 'lucide-react';
 
 const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/+$/, '');
 
@@ -17,9 +17,7 @@ export default function LoginPage({ onLoginSuccess }) {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
 
@@ -40,83 +38,138 @@ export default function LoginPage({ onLoginSuccess }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-blue-50 p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-              <LogIn className="w-8 h-8 text-notion-blue" />
-            </div>
-            <h1 className="text-2xl font-bold text-slate-800">Đăng Nhập</h1>
-            <p className="text-slate-500 mt-2">Quản Lý Sản Xuất Gỗ</p>
-          </div>
+    <div
+      className="min-h-screen flex items-center justify-center p-4"
+      style={{ background: 'linear-gradient(135deg, var(--color-app-bg) 0%, var(--color-primary-soft) 100%)' }}
+    >
+      <div className="w-full max-w-[420px]">
 
+        {/* Brand header above card */}
+        <div className="text-center mb-8">
+          <div
+            className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-4"
+            style={{ background: 'var(--color-primary)', boxShadow: '0 8px 24px rgba(59,130,246,0.3)' }}
+          >
+            <Factory size={26} color="white" />
+          </div>
+          <h1 className="text-[22px] font-bold tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
+            Quản Lý Sản Xuất Gỗ
+          </h1>
+          <p className="text-[13px] mt-1" style={{ color: 'var(--color-text-secondary)' }}>
+            Đăng nhập để tiếp tục
+          </p>
+        </div>
+
+        {/* Card */}
+        <div
+          className="rounded-2xl p-7"
+          style={{
+            background: 'white',
+            border: '1px solid var(--color-border)',
+            boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
+          }}
+        >
           <form onSubmit={handleSubmit} className="space-y-5">
+
+            {/* Username */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
+              <label
+                className="block text-[13px] font-semibold mb-1.5"
+                style={{ color: 'var(--color-text-primary)' }}
+              >
                 Tên đăng nhập
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <User
+                  className="absolute left-3 top-1/2 -translate-y-1/2"
+                  size={16}
+                  style={{ color: 'var(--color-text-muted)' }}
+                />
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                  className="w-full pl-9 pr-4 py-2.5 rounded-lg text-[14px] transition-all outline-none"
+                  style={{ border: '1px solid var(--color-border)', color: 'var(--color-text-primary)' }}
                   placeholder="Nhập tên đăng nhập"
                   required
                   disabled={loading}
+                  onFocus={e => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.boxShadow = '0 0 0 3px var(--color-primary-soft)'; }}
+                  onBlur={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.boxShadow = 'none'; }}
                 />
               </div>
             </div>
 
+            {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
+              <label
+                className="block text-[13px] font-semibold mb-1.5"
+                style={{ color: 'var(--color-text-primary)' }}
+              >
                 Mật khẩu
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Lock
+                  className="absolute left-3 top-1/2 -translate-y-1/2"
+                  size={16}
+                  style={{ color: 'var(--color-text-muted)' }}
+                />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                  className="w-full pl-9 pr-4 py-2.5 rounded-lg text-[14px] transition-all outline-none"
+                  style={{ border: '1px solid var(--color-border)', color: 'var(--color-text-primary)' }}
                   placeholder="Nhập mật khẩu"
                   required
                   disabled={loading}
+                  onFocus={e => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.boxShadow = '0 0 0 3px var(--color-primary-soft)'; }}
+                  onBlur={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.boxShadow = 'none'; }}
                 />
               </div>
             </div>
 
+            {/* Error */}
             {error && (
-              <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
-                <AlertCircle className="w-4 h-4 shrink-0" />
+              <div
+                className="flex items-center gap-2.5 p-3 rounded-lg text-[13px]"
+                style={{ background: 'var(--color-danger-soft)', border: '1px solid var(--color-danger-border)', color: 'var(--color-danger)' }}
+              >
+                <AlertCircle size={15} className="shrink-0" />
                 {error}
               </div>
             )}
 
+            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 bg-notion-blue text-white font-semibold rounded-xl hover:bg-blue-600 focus:ring-4 focus:ring-blue-200 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-2.5 px-4 font-semibold rounded-lg text-[14px] text-white flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+              style={{ background: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(59,130,246,0.25)' }}
+              onMouseEnter={e => !e.currentTarget.disabled && (e.currentTarget.style.background = 'var(--color-primary-hover)')}
+              onMouseLeave={e => e.currentTarget.style.background = 'var(--color-primary)'}
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 size={16} className="animate-spin" />
                   Đang đăng nhập...
                 </>
               ) : (
                 <>
-                  <LogIn className="w-5 h-5" />
+                  <LogIn size={16} />
                   Đăng Nhập
                 </>
               )}
             </button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-slate-200">
-            <p className="text-center text-xs text-slate-400">
-              Phiên bản 1.0.0 - Wood Production Management
+          {/* Footer */}
+          <div
+            className="mt-6 pt-5 text-center"
+            style={{ borderTop: '1px solid var(--color-border-light)' }}
+          >
+            <p className="text-[11px]" style={{ color: 'var(--color-text-muted)' }}>
+              Phiên bản 1.0.0 — Wood Production Management
             </p>
           </div>
         </div>

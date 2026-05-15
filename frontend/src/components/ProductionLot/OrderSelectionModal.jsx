@@ -12,6 +12,7 @@ export default function OrderSelectionModal({
 }) {
   const [search, setSearch] = useState('');
   const [expandedOrders, setExpandedOrders] = useState({});
+  const [showCompleted, setShowCompleted] = useState(false);
 
   const handleToggleOrderOpen = (orderId) => {
     setExpandedOrders(prev => ({ ...prev, [orderId]: prev[orderId] === false ? true : false }));
@@ -23,10 +24,13 @@ export default function OrderSelectionModal({
   const filteredOrders = orders.map(order => {
     const term = removeVietnameseTones(search);
     const orderMatches = removeVietnameseTones(order.name).includes(term) || removeVietnameseTones(order.id).includes(term);
+    const visibleProducts = showCompleted
+      ? order.products
+      : order.products.filter(p => !disabledProductIdSet.has(p.id));
     
-    if (orderMatches) return order;
+    if (orderMatches) return visibleProducts.length > 0 ? { ...order, products: visibleProducts } : null;
 
-    const matchingProducts = order.products.filter(p => removeVietnameseTones(p.name).includes(term));
+    const matchingProducts = visibleProducts.filter(p => removeVietnameseTones(p.name).includes(term));
     if (matchingProducts.length > 0) {
       return { ...order, products: matchingProducts };
     }
@@ -56,6 +60,15 @@ export default function OrderSelectionModal({
               onChange={e => setSearch(e.target.value)}
             />
           </div>
+          <label className="flex items-center gap-2 whitespace-nowrap rounded-lg border border-whisper bg-warm-white px-3 py-2 text-[12px] font-medium text-gray-600">
+            <input
+              type="checkbox"
+              checked={showCompleted}
+              onChange={(event) => setShowCompleted(event.target.checked)}
+              className="h-4 w-4 accent-notion-blue"
+            />
+            Hiện đã định hình
+          </label>
         </div>
 
         {/* List */}

@@ -23,9 +23,6 @@ const getStageCapacity = (row, stageId) => {
   if (!stage) return null;
 
   const required = getStageRequired(row, stage);
-  const previousCompleted = stageIndex === 0
-    ? Number(row.quantity) || 0
-    : getStageCompleted(stages[stageIndex - 1]);
   const completed = getStageCompleted(stage);
   const available = required;
 
@@ -33,7 +30,6 @@ const getStageCapacity = (row, stageId) => {
     stage,
     required,
     completed,
-    previousCompleted,
     remaining: Math.max(0, available - completed)
   };
 };
@@ -64,25 +60,27 @@ export default function MoldingDetailTable({
   disabled = false,
   selectedStageId,
   stageTickets = [],
-  onAddRow,
   onRemoveRow,
-  onRowChange,
+  onStageCompletedChange,
   onStageChange,
   onSaveStageProgress,
   onCompleteAllStages,
-  onToggleStage,
   onApplyStages
 }) {
   const [expandedProducts, setExpandedProducts] = useState({});
   const [entryQuantities, setEntryQuantities] = useState({});
   const [configModalOpen, setConfigModalOpen] = useState(false);
   const [configStageIds, setConfigStageIds] = useState([]);
+  const [configRows, setConfigRows] = useState([]);
+  const [configProductName, setConfigProductName] = useState('');
 
   useEffect(() => {
     setEntryQuantities({});
   }, [selectedStageId, detailRows]);
 
-  const groupedByProduct = detailRows.reduce((acc, row) => {
+  const visibleDetailRows = detailRows.filter((row) => getStageCapacity(row, selectedStageId));
+
+  const groupedByProduct = visibleDetailRows.reduce((acc, row) => {
     const key = row.productId || 'no-product';
     if (!acc[key]) {
       acc[key] = {
@@ -144,14 +142,25 @@ export default function MoldingDetailTable({
     setEntryQuantities({});
   };
 
+  const handleEntryKeyDown = (event) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+
+    if (saveEntries.length === 0) return;
+    onSaveStageProgress(selectedStage.id, saveEntries);
+    setEntryQuantities({});
+  };
+
   const handleToggleProductExpand = (productId) => {
     setExpandedProducts(prev => ({ ...prev, [productId]: !prev[productId] }));
   };
 
-  const openConfigModal = () => {
-    if (detailRows.length === 0) return;
+  const openConfigModal = (rows = visibleDetailRows, productName = '') => {
+    if (rows.length === 0) return;
 
-    setConfigStageIds(detailRows.reduce((acc, row) => {
+    setConfigRows(rows);
+    setConfigProductName(productName);
+    setConfigStageIds(rows.reduce((acc, row) => {
       acc[row.id] = getRowStages(row).map((stage) => stage.id);
       return acc;
     }, {}));
@@ -172,10 +181,10 @@ export default function MoldingDetailTable({
 
   const handleConfigStageColumnToggle = (stageId) => {
     setConfigStageIds((prev) => {
-      const selectableRows = detailRows.filter((row) => !getLockedStageIds(row).includes(stageId));
+      const selectableRows = configRows.filter((row) => !getLockedStageIds(row).includes(stageId));
       const allSelected = selectableRows.length > 0 && selectableRows.every((row) => (prev[row.id] || []).includes(stageId));
 
-      return detailRows.reduce((acc, row) => {
+      return configRows.reduce((acc, row) => {
         const rowStageIds = prev[row.id] || [];
         const locked = getLockedStageIds(row).includes(stageId);
 
@@ -193,7 +202,7 @@ export default function MoldingDetailTable({
   };
 
   const handleApplyConfig = () => {
-    const invalidRow = detailRows.find((row) => (configStageIds[row.id] || []).length === 0);
+    const invalidRow = configRows.find((row) => (configStageIds[row.id] || []).length === 0);
     if (invalidRow) {
       alert('Mỗi chi tiết phải có ít nhất một công đoạn.');
       return;
@@ -213,14 +222,6 @@ export default function MoldingDetailTable({
           </h3>
 
           <div className="flex flex-wrap items-center gap-2">
-            <button
-              onClick={openConfigModal}
-              disabled={disabled || detailRows.length === 0}
-              className="inline-flex h-9 items-center gap-1.5 rounded border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
-            >
-              <Settings className="h-4 w-4" />
-              Cài công đoạn
-            </button>
             <select
               value={selectedStage.id}
               onChange={(event) => onStageChange(event.target.value)}
@@ -246,13 +247,6 @@ export default function MoldingDetailTable({
             >
               <Check className="h-4 w-4" />
               Hoàn thành nhanh
-            </button>
-            <button
-              onClick={onAddRow}
-              disabled={disabled}
-              className="inline-flex h-9 items-center gap-1.5 rounded border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
-            >
-              Thêm chi tiết
             </button>
           </div>
         </div>
@@ -294,7 +288,11 @@ export default function MoldingDetailTable({
       <div className="p-4">
         {detailRows.length === 0 ? (
           <div className="text-center text-gray-400 text-sm py-8">
-            Chưa có chi tiết nào. Chọn sản phẩm từ đơn hàng hoặc bấm "Thêm chi tiết" để tạo.
+            Chưa có chi tiết nào. Chọn sản phẩm từ đơn hàng để tạo danh sách chi tiết.
+          </div>
+        ) : visibleDetailRows.length === 0 ? (
+          <div className="text-center text-gray-400 text-sm py-8">
+            Không có chi tiết nào áp dụng công đoạn này.
           </div>
         ) : (
           <div className="space-y-4">
@@ -337,24 +335,56 @@ export default function MoldingDetailTable({
 
                   {isExpanded && (
                     <div className="border-t border-slate-200">
-                      <div className="grid grid-cols-12 gap-2 px-4 py-2 bg-slate-100 text-xs font-medium text-slate-600 sticky top-0 z-10">
-                        <div className="col-span-3">Tên chi tiết</div>
+                      <div className="flex flex-wrap items-center gap-1.5 border-b border-slate-200 bg-white px-4 py-2">
+                        <span className="mr-1 text-[11px] font-semibold text-slate-500">Lọc nhanh:</span>
+                        {MOLDING_STAGES.map((stage) => {
+                          const active = stage.id === selectedStage.id;
+                          const count = group.items.filter((row) => getStageCapacity(row, stage.id)).length;
+
+                          if (count === 0) return null;
+
+                          return (
+                            <button
+                              key={stage.id}
+                              type="button"
+                              onClick={() => onStageChange(stage.id)}
+                              className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-semibold ${
+                                active
+                                  ? 'border-sky-200 bg-sky-50 text-sky-700'
+                                  : 'border-slate-200 bg-slate-50 text-slate-500 hover:bg-slate-100'
+                              }`}
+                            >
+                              <span>{stage.name}</span>
+                              <span className="text-slate-400">({count})</span>
+                            </button>
+                          );
+                        })}
+                        <button
+                          type="button"
+                          onClick={() => openConfigModal(group.items, group.productName)}
+                          disabled={disabled}
+                          className="ml-auto inline-flex items-center gap-1 rounded border border-slate-200 bg-white px-2 py-1 text-[11px] font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50"
+                        >
+                          <Settings className="h-3.5 w-3.5" />
+                          Cài công đoạn
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-12 gap-3 px-4 py-2 bg-slate-100 text-xs font-medium text-slate-600 sticky top-0 z-10">
+                        <div className="col-span-4">Tên chi tiết</div>
                         <div className="col-span-2 text-center">Dày x Rộng x Dài</div>
                         <div className="col-span-1 text-center">Định mức</div>
                         <div className="col-span-1 text-center">Cần</div>
                         <div className="col-span-1 text-center">Đã xong</div>
                         <div className="col-span-1 text-center">Đã làm CĐ này</div>
                         <div className="col-span-1 text-center">Lần này</div>
-                        <div className="col-span-2 text-center"></div>
+                        <div className="col-span-1 text-center"></div>
                       </div>
 
                       <div className="max-h-[560px] overflow-y-auto">
                       {group.items.map((row) => {
                         const capacity = getStageCapacity(row, selectedStage.id);
-                        const stages = getRowStages(row);
                         const qtyNeeded = Number(row.quantity) || 0;
                         const finalCompleted = getFinalCompleted(row);
-                        const rowProgress = getRowStageProgress(row);
                         const baseQty = row.base_quantity || 1;
                         const unitQty = qtyNeeded > 0 ? Math.round(qtyNeeded / baseQty) : 0;
                         const isDone = qtyNeeded > 0 && finalCompleted >= qtyNeeded;
@@ -362,82 +392,43 @@ export default function MoldingDetailTable({
 
                         return (
                           <div key={row.id} className={isDone ? 'bg-emerald-50' : 'bg-white'}>
-                            <div className="grid grid-cols-12 gap-2 px-4 py-1.5 items-center border-b border-slate-100 hover:bg-slate-50/70">
-                              <div className="col-span-3">
+                            <div className="grid grid-cols-12 gap-3 px-4 py-2 items-center border-b border-slate-100 hover:bg-slate-50/70">
+                              <div className="col-span-4">
                                 <div className={`px-2 py-1.5 text-xs border rounded truncate ${
                                   row.semiFinishedName ? 'border-emerald-200 bg-emerald-50 text-emerald-800 font-medium' : 'border-slate-200 bg-white text-gray-500'
                                 }`}>
                                   {row.semiFinishedName || 'Chi tiết'}
                                 </div>
-                                <div className="mt-1 flex flex-wrap gap-1">
-                                  {stages.map((stage, stageIndex) => {
-                                    const completed = getStageCompleted(stage);
-                                    const required = getStageRequired(row, stage);
-                                    const complete = required > 0 && completed >= required;
-                                    const active = stage.id === selectedStage.id;
-
-                                    return (
-                                      <button
-                                        type="button"
-                                        key={stage.id}
-                                        onClick={() => onStageChange(stage.id)}
-                                        className={`inline-flex items-center gap-0.5 rounded-full border px-1.5 py-0.5 text-[9px] ${
-                                          complete
-                                            ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
-                                            : active
-                                              ? 'border-sky-200 bg-sky-50 text-sky-700'
-                                              : 'border-slate-200 bg-slate-50 text-slate-500'
-                                        }`}
-                                        title="Bam de ghi nhan cong doan nay"
-                                      >
-                                        {complete && <Check className="h-2.5 w-2.5" />}
-                                        <span className="font-semibold">B{stageIndex + 1}</span>
-                                        <span>{completed}/{required}</span>
-                                      </button>
-                                    );
-                                  })}
-                                </div>
                               </div>
 
-                              <div className="col-span-2 flex justify-center gap-1">
-                                <div className="w-8 px-1 py-1.5 text-xs border border-gray-200 rounded text-center bg-gray-50 text-gray-600">
-                                  {row.thickness || '-'}
-                                </div>
-                                <span className="text-xs text-gray-400 self-center">x</span>
-                                <div className="w-8 px-1 py-1.5 text-xs border border-gray-200 rounded text-center bg-gray-50 text-gray-600">
-                                  {row.width || '-'}
-                                </div>
-                                <span className="text-xs text-gray-400 self-center">x</span>
-                                <div className="w-10 px-1 py-1.5 text-xs border border-gray-200 rounded text-center bg-gray-50 text-gray-600">
-                                  {row.length || '-'}
-                                </div>
+                              <div className="col-span-2 text-center text-xs tabular-nums text-slate-700">
+                                {row.thickness || '-'} <span className="text-slate-400">x</span> {row.width || '-'} <span className="text-slate-400">x</span> {row.length || '-'}
                               </div>
 
                               <div className="col-span-1 text-center text-xs text-gray-600">{unitQty}</div>
 
-                              <div className="col-span-1">
-                                <input
-                                  type="number"
-                                  value={row.quantity}
-                                  onChange={(e) => onRowChange(row.id, 'quantity', e.target.value)}
-                                  disabled={disabled || isDone}
-                                  className="w-full px-1 py-1.5 text-xs border border-slate-200 rounded text-center focus:outline-none focus:border-emerald-400 disabled:bg-gray-100"
-                                  min="0"
-                                />
+                              <div className="col-span-1 text-center text-xs font-semibold tabular-nums text-slate-700">
+                                {row.quantity || 0}
                               </div>
 
                               <div className="col-span-1 text-center">
-                                <div className={`px-1 py-1.5 text-xs border rounded font-semibold ${
-                                  isDone ? 'bg-emerald-100 border-emerald-300 text-emerald-700' : 'bg-slate-100 border-slate-200 text-slate-600'
-                                }`}>
+                                <div className={`text-xs font-semibold tabular-nums ${isDone ? 'text-emerald-700' : 'text-slate-600'}`}>
                                   {finalCompleted}
                                 </div>
                               </div>
 
                               {capacity ? (
                                 <>
-                                  <div className="col-span-1 text-center text-xs tabular-nums text-gray-600">
-                                    {capacity.completed}/{capacity.required}
+                                  <div className="col-span-1">
+                                    <input
+                                      type="number"
+                                      min="0"
+                                      max={capacity.required}
+                                      value={capacity.completed}
+                                      onChange={(e) => onStageCompletedChange?.(row.id, selectedStage.id, e.target.value)}
+                                      disabled={disabled}
+                                      className="w-full px-1 py-1.5 text-xs border border-slate-200 rounded text-center font-semibold text-slate-700 focus:outline-none focus:border-emerald-400 disabled:bg-gray-100 disabled:text-gray-400"
+                                    />
                                   </div>
                                   <div className="col-span-1">
                                     <input
@@ -446,6 +437,7 @@ export default function MoldingDetailTable({
                                       max={capacity.remaining}
                                       value={entryValue}
                                       onChange={(e) => handleEntryChange(row.id, e.target.value, capacity.remaining)}
+                                      onKeyDown={handleEntryKeyDown}
                                       disabled={disabled || capacity.remaining <= 0}
                                       placeholder={capacity.remaining > 0 ? String(capacity.remaining) : '0'}
                                       className="w-full px-1 py-1.5 text-xs border border-sky-200 rounded text-center font-semibold text-sky-700 focus:outline-none focus:border-sky-500 disabled:bg-gray-100 disabled:text-gray-400"
@@ -458,11 +450,11 @@ export default function MoldingDetailTable({
                                 </div>
                               )}
 
-                              <div className="col-span-2 flex justify-center gap-1">
+                              <div className="col-span-1 flex justify-center gap-1">
                                 {!disabled && (
                                   <button
                                     type="button"
-                                    onClick={openConfigModal}
+                                    onClick={() => openConfigModal(group.items, group.productName)}
                                     className="p-1.5 text-gray-400 hover:text-sky-600 transition"
                                     title="Cấu hình công đoạn áp dụng"
                                   >
@@ -481,75 +473,6 @@ export default function MoldingDetailTable({
                               </div>
                             </div>
 
-                            <div className="hidden">
-                              {false && (
-                                <div className="mb-2 rounded border border-slate-200 bg-slate-50 p-2">
-                                  <div className="mb-1 text-[11px] font-semibold text-slate-700">
-                                    Chọn công đoạn bắt buộc cho chi tiết này
-                                  </div>
-                                  <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-                                    {MOLDING_STAGES.map((stageMeta) => {
-                                      const selectedStageForRow = stages.find((stage) => stage.id === stageMeta.id);
-                                      const selectedIndex = stages.findIndex((stage) => stage.id === stageMeta.id);
-                                      const selected = Boolean(selectedStageForRow);
-                                      const locked = selected && stages
-                                        .slice(Math.max(0, selectedIndex))
-                                        .some((stage) => getStageCompleted(stage) > 0);
-
-                                      return (
-                                        <label
-                                          key={stageMeta.id}
-                                          className={`flex items-center gap-2 rounded border px-2 py-1.5 text-[11px] ${
-                                            selected ? 'border-emerald-200 bg-white text-gray-800' : 'border-slate-200 bg-white/70 text-gray-500'
-                                          } ${locked ? 'opacity-70' : ''}`}
-                                        >
-                                          <input
-                                            type="checkbox"
-                                            checked={selected}
-                                            disabled={locked}
-                                            onChange={() => onToggleStage(row.id, stageMeta.id)}
-                                            className="h-3.5 w-3.5 accent-emerald-500"
-                                          />
-                                          <span className="flex-1 truncate">{stageMeta.name}</span>
-                                          {locked && <span className="text-[10px] text-gray-400">đã chạy</span>}
-                                        </label>
-                                      );
-                                    })}
-                                  </div>
-                                </div>
-                              )}
-                              <div className="flex items-center gap-2">
-                                <div className="flex flex-wrap gap-1.5 flex-1">
-                                  {stages.map((stage, stageIndex) => {
-                                    const completed = getStageCompleted(stage);
-                                    const required = getStageRequired(row, stage);
-                                    const complete = required > 0 && completed >= required;
-                                    const active = stage.id === selectedStage.id;
-
-                                    return (
-                                      <button
-                                        type="button"
-                                        key={stage.id}
-                                        onClick={() => onStageChange(stage.id)}
-                                        className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] ${
-                                          complete
-                                            ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
-                                            : active
-                                              ? 'border-sky-200 bg-sky-50 text-sky-700'
-                                              : 'border-gray-200 bg-gray-50 text-gray-500'
-                                        }`}
-                                        title="Bấm để ghi nhận công đoạn này"
-                                      >
-                                        {complete && <Check className="h-3 w-3" />}
-                                        <span className="font-semibold">B{stageIndex + 1}</span>
-                                        {stage.name}: {completed}/{required}
-                                      </button>
-                                    );
-                                  })}
-                                </div>
-                                <span className="text-[9px] text-gray-400 w-8 text-right">{rowProgress}%</span>
-                              </div>
-                            </div>
                           </div>
                         );
                       })}
@@ -570,7 +493,7 @@ export default function MoldingDetailTable({
               <div>
                 <h3 className="text-sm font-bold text-slate-800">Bảng điều khiển công đoạn</h3>
                 <p className="mt-0.5 text-xs text-slate-500">
-                  Chỉnh công đoạn áp dụng cho từng chi tiết trong phiếu.
+                  {configProductName ? `Sản phẩm: ${configProductName}` : 'Chỉnh công đoạn áp dụng cho từng chi tiết.'}
                 </p>
               </div>
               <button
@@ -587,7 +510,7 @@ export default function MoldingDetailTable({
                 <div className="grid grid-cols-[minmax(260px,1.6fr)_repeat(4,minmax(130px,1fr))_80px] bg-slate-100 text-[11px] font-semibold text-slate-600">
                   <div className="px-3 py-2">Chi tiết</div>
                   {MOLDING_STAGES.map((stage) => {
-                    const selectableRows = detailRows.filter((row) => !getLockedStageIds(row).includes(stage.id));
+                    const selectableRows = configRows.filter((row) => !getLockedStageIds(row).includes(stage.id));
                     const allSelected = selectableRows.length > 0 && selectableRows.every((row) => (configStageIds[row.id] || []).includes(stage.id));
 
                     return (
@@ -606,7 +529,7 @@ export default function MoldingDetailTable({
                   <div className="px-2 py-2 text-center">Tiến độ</div>
                 </div>
 
-                {detailRows.map((row) => {
+                {configRows.map((row) => {
                   const rowStageIds = configStageIds[row.id] || [];
                   const stages = getRowStages(row);
                   const lockedIds = getLockedStageIds(row);

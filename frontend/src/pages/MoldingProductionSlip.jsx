@@ -152,6 +152,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   const [detailRows, setDetailRows] = useState([]);
   const [selectedStageId, setSelectedStageId] = useState(MOLDING_STAGES[0].id);
   const [stageTickets, setStageTickets] = useState([]);
+  const [lastStageSave, setLastStageSave] = useState(null);
 
   const [modal, setModal] = useState({ isOpen: false, type: '', title: '', message: '', onConfirm: null });
   const closeModal = () => setModal((prev) => ({ ...prev, isOpen: false }));
@@ -191,6 +192,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     setCustomRequests(lot.customRequests || []);
     setStageTickets(lot.stageTickets || []);
     setDetailRows(lot.details && lot.details.length > 0 ? lot.details.map(normalizeDetailRow) : []);
+    setLastStageSave(null);
   }, [lotId, newLotId]);
 
   const hasValidDimensions = (item) =>
@@ -514,6 +516,36 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     ));
   };
 
+  const handleStageCompletedChange = (rowId, stageId, value) => {
+    setDetailRows(detailRows.map((row) => {
+      if (row.id !== rowId) return row;
+
+      const updated = {
+        ...row,
+        stages: createStageProgress(row.quantity, row.stages).map((stage) => {
+          if (stage.id !== stageId) return stage;
+
+          const required = Number(stage.required) || Number(row.quantity) || 0;
+          const completed = value === ''
+            ? 0
+            : Math.max(0, Math.min(Number(value) || 0, required));
+
+          return {
+            ...stage,
+            completed
+          };
+        })
+      };
+
+      return {
+        ...updated,
+        quantity_completed: getFinalCompleted(updated)
+      };
+    }));
+    setLastStageSave(null);
+    setStatus(ACTIVE_STATUS);
+  };
+
   const applyStageProgress = (rows, stageId, entries, ticketId) => {
     return rows.map((row) => {
       const entry = entries.find((item) => item.rowId === row.id);
@@ -557,6 +589,8 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   const handleSaveStageProgress = (stageId, entries) => {
     if (!entries || entries.length === 0) return;
 
+    const previousRows = detailRows;
+    const previousTickets = stageTickets;
     const ticketId = `TICKET-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     const ticket = {
       id: ticketId,
@@ -570,8 +604,18 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     const updatedTickets = [...stageTickets, ticket];
     setDetailRows(updatedRows);
     setStageTickets(updatedTickets);
+    setLastStageSave({ detailRows: previousRows, stageTickets: previousTickets });
     setStatus(ACTIVE_STATUS);
 
+  };
+
+  const handleUndoStageProgress = () => {
+    if (!lastStageSave) return;
+
+    setDetailRows(lastStageSave.detailRows);
+    setStageTickets(lastStageSave.stageTickets);
+    setLastStageSave(null);
+    setStatus(ACTIVE_STATUS);
   };
 
   const handleCompleteAllStages = () => {
@@ -1050,13 +1094,11 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
           disabled={isCompleted}
           selectedStageId={selectedStageId}
           stageTickets={stageTickets}
-          onAddRow={handleAddDetailRow}
           onRemoveRow={handleRemoveDetailRow}
-          onRowChange={handleRowChange}
+          onStageCompletedChange={handleStageCompletedChange}
           onStageChange={setSelectedStageId}
           onSaveStageProgress={handleSaveStageProgress}
           onCompleteAllStages={handleCompleteAllStages}
-          onToggleStage={handleToggleDetailStage}
           onApplyStages={handleApplyDetailStages}
         />
       </div>

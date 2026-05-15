@@ -6,7 +6,7 @@ import { removeVietnameseTones } from '../utils/stringUtils';
 export default function ProductionLotList({ onNavigate }) {
   const [search, setSearch] = useState('');
   const [lots, setLots] = useState([]);
-  const [slipFilter, setSlipFilter] = useState('ALL'); // 'ALL' | 'PHOI_GO' | 'DINH_HINH'
+  const [slipFilter, setSlipFilter] = useState('ALL');
   const [page, setPage] = useState(1);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [modal, setModal] = useState({ isOpen: false, type: '', title: '', message: '', onConfirm: null });
@@ -61,13 +61,15 @@ export default function ProductionLotList({ onNavigate }) {
   const renderStatusBadge = (lotStatus) => {
     if (lotStatus === 'Hoàn thành') {
       return (
-        <span className="inline-block px-2 py-[2px] bg-green-50 text-success-green rounded-full text-[10px] font-bold uppercase tracking-wider">
+        <span className="badge-pill badge-success">
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-success)', display: 'inline-block', flexShrink: 0 }} />
           Hoàn thành
         </span>
       );
     }
     return (
-      <span className="inline-block px-2 py-[2px] bg-badge-bg text-badge-text rounded-full text-[10px] font-bold uppercase tracking-wider">
+      <span className="badge-pill badge-primary">
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-primary)', display: 'inline-block', flexShrink: 0 }} />
         Đang sản xuất
       </span>
     );
@@ -76,64 +78,92 @@ export default function ProductionLotList({ onNavigate }) {
   const renderSlipTypeBadge = (slipType) => {
     if (slipType === 'DINH_HINH') {
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-[2px] bg-orange-100 text-orange-700 rounded text-[10px] font-bold uppercase tracking-wider">
-          <Square size={8} /> Định hình
+        <span className="badge-pill badge-warning">
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-warning)', display: 'inline-block', flexShrink: 0 }} />
+          Định hình
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center gap-1 px-2 py-[2px] bg-blue-100 text-blue-700 rounded text-[10px] font-bold uppercase tracking-wider">
-        <Layers size={8} /> Phôi gỗ
+      <span className="badge-pill badge-primary">
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-primary)', display: 'inline-block', flexShrink: 0 }} />
+        Phôi gỗ
       </span>
     );
   };
 
   return (
-    <div className="w-full min-h-screen bg-warm-white text-notion-black font-sans">
-      <div className="max-w-[1180px] mx-auto px-3 md:px-6 py-6 md:py-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-6">
+    <div className="w-full min-h-screen font-sans" style={{ background: 'var(--color-app-bg)', color: 'var(--color-text-primary)' }}>
+      <div className="max-w-[1180px] mx-auto px-4 md:px-6 py-6 md:py-8">
+
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-7">
           <div>
-            <h1 className="text-[28px] sm:text-[32px] font-bold tracking-[-1px] leading-tight">
+            <h1 className="text-[26px] sm:text-[30px] font-bold tracking-tight leading-tight">
               Phiếu Sản Xuất
             </h1>
-            <p className="text-[14px] text-warm-gray-500 mt-1">
+            <p className="text-[13px] mt-1" style={{ color: 'var(--color-text-secondary)' }}>
               Quản lý quy trình sản xuất phôi gỗ và định hình.
             </p>
           </div>
+
+          {/* Create button */}
           <div className="relative shrink-0">
             <button
               onClick={() => setShowCreateModal(!showCreateModal)}
-              className="flex items-center gap-1 bg-notion-blue hover:bg-notion-blue-hover text-white text-[13px] font-medium px-3 py-[7px] rounded-[4px] transition active:scale-[0.97]"
+              className="flex items-center gap-1.5 text-white text-[13px] font-semibold px-4 py-2 rounded-lg transition-all active:scale-[0.97] shadow-sm hover:shadow"
+              style={{ background: 'var(--color-primary)' }}
+              onMouseEnter={e => e.currentTarget.style.background = 'var(--color-primary-hover)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'var(--color-primary)'}
             >
-              <Plus size={14} /> Tạo Lệnh Mới
+              <Plus size={15} /> Tạo Lệnh Mới
             </button>
+
             {showCreateModal && (
-              <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
+              <div
+                className="absolute right-0 top-full mt-2 w-60 rounded-xl py-2 z-50"
+                style={{ background: 'white', border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-deep)' }}
+              >
+                <div
+                  className="px-4 py-2 text-[11px] font-semibold uppercase tracking-wider"
+                  style={{ color: 'var(--color-text-muted)', borderBottom: '1px solid var(--color-border-light)' }}
+                >
                   Chọn loại phiếu
                 </div>
                 <button
                   onClick={() => handleCreateSlip('PHOI_GO')}
-                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left hover:bg-blue-50 transition"
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left transition-colors"
+                  style={{ color: 'var(--color-text-primary)' }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'var(--color-primary-soft)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
-                    <Layers size={16} className="text-blue-600" />
+                  <div
+                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                    style={{ background: 'var(--color-primary-soft)' }}
+                  >
+                    <Layers size={16} style={{ color: 'var(--color-primary)' }} />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-800">Phiếu sản xuất phôi gỗ</div>
-                    <div className="text-xs text-gray-500">Xẻ sấy, tạo phôi thô</div>
+                    <div className="font-semibold text-[13px]">Phiếu sản xuất phôi gỗ</div>
+                    <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>Xẻ sấy, tạo phôi thô</div>
                   </div>
                 </button>
                 <button
                   onClick={() => handleCreateSlip('DINH_HINH')}
-                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left hover:bg-orange-50 transition"
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left transition-colors"
+                  style={{ color: 'var(--color-text-primary)' }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'var(--color-warning-soft)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center">
-                    <Square size={16} className="text-orange-600" />
+                  <div
+                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                    style={{ background: 'var(--color-warning-soft)' }}
+                  >
+                    <Square size={16} style={{ color: 'var(--color-warning)' }} />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-800">Phiếu sản xuất định hình</div>
-                    <div className="text-xs text-gray-500">Chỉ dùng phôi thành phẩm/dư</div>
+                    <div className="font-semibold text-[13px]">Phiếu sản xuất định hình</div>
+                    <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>Chỉ dùng phôi thành phẩm/dư</div>
                   </div>
                 </button>
               </div>
@@ -141,38 +171,50 @@ export default function ProductionLotList({ onNavigate }) {
           </div>
         </div>
 
-        {/* Filter tabs */}
+        {/* Filter row */}
         <div className="flex flex-col lg:flex-row gap-3 mb-5">
+          {/* Search */}
           <div className="relative flex-1">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-warm-gray-300" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--color-text-muted)' }} />
             <input
               type="text"
               placeholder="Tìm kiếm theo mã hoặc tên phiếu..."
-              className="w-full bg-notion-white border border-whisper rounded-[6px] pl-8 pr-3 py-[7px] text-[13px] focus:outline-none focus:ring-1 focus:ring-notion-blue/30 focus:border-notion-blue transition"
+              className="w-full rounded-lg pl-9 pr-3 py-2 text-[13px] transition-all"
+              style={{
+                background: 'white',
+                border: '1px solid var(--color-border)',
+                color: 'var(--color-text-primary)',
+                outline: 'none',
+              }}
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
                 resetPage();
               }}
+              onFocus={e => { e.currentTarget.style.borderColor = 'var(--color-primary)'; e.currentTarget.style.boxShadow = '0 0 0 3px var(--color-primary-soft)'; }}
+              onBlur={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.boxShadow = 'none'; }}
             />
           </div>
-          <div className="flex bg-notion-white border border-whisper rounded-[6px] overflow-hidden shrink-0 self-start lg:self-stretch">
+
+          {/* Slip type filter */}
+          <div
+            className="flex rounded-lg overflow-hidden shrink-0 self-start lg:self-stretch"
+            style={{ border: '1px solid var(--color-border)', background: 'white' }}
+          >
             {[
               { key: 'ALL', label: 'Tất cả' },
               { key: 'PHOI_GO', label: 'Phôi gỗ' },
               { key: 'DINH_HINH', label: 'Định hình' }
-            ].map(tab => (
+            ].map((tab, idx, arr) => (
               <button
                 key={tab.key}
-                onClick={() => {
-                  setSlipFilter(tab.key);
-                  resetPage();
+                onClick={() => { setSlipFilter(tab.key); resetPage(); }}
+                className="px-4 py-2 text-[12.5px] font-medium transition-all"
+                style={{
+                  background: slipFilter === tab.key ? 'var(--color-primary)' : 'transparent',
+                  color: slipFilter === tab.key ? 'white' : 'var(--color-text-secondary)',
+                  borderRight: idx < arr.length - 1 ? '1px solid var(--color-border)' : 'none',
                 }}
-                className={`px-3 py-[7px] text-[12px] font-medium transition ${
-                  slipFilter === tab.key
-                    ? 'bg-notion-blue text-white'
-                    : 'text-warm-gray-500 hover:bg-warm-white'
-                }`}
               >
                 {tab.label}
               </button>
@@ -180,45 +222,64 @@ export default function ProductionLotList({ onNavigate }) {
           </div>
         </div>
 
-        <div className="bg-notion-white border border-whisper rounded-[8px] shadow-card overflow-hidden">
+        {/* Table card */}
+        <div
+          className="overflow-hidden"
+          style={{
+            background: 'var(--color-card-bg)',
+            border: '1px solid var(--color-border)',
+            borderRadius: '10px',
+            boxShadow: 'var(--shadow-card)',
+          }}
+        >
           <div className="overflow-x-auto">
             <table className="w-full min-w-[860px] text-[13px] table-fixed">
-              <thead className="text-[11px] uppercase text-warm-gray-400 tracking-[0.5px] bg-warm-white border-b border-whisper">
+              <thead style={{ background: 'var(--color-border-light)', borderBottom: '1px solid var(--color-border)' }}>
                 <tr>
-                  <th className="px-5 py-3 text-left font-semibold w-[16%]">Mã</th>
-                  <th className="px-5 py-3 text-left font-semibold w-[14%]">Loại phiếu</th>
-                  <th className="px-5 py-3 text-left font-semibold w-[36%]">Tên phiếu</th>
-                  <th className="px-5 py-3 text-left font-semibold w-[16%]">Trạng thái</th>
-                  <th className="px-5 py-3 text-left font-semibold w-[10%]">Ngày</th>
-                  <th className="px-5 py-3 w-[8%]"></th>
+                  <th className="px-5 py-3.5 text-left font-semibold w-[16%] text-[11px] uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>Mã</th>
+                  <th className="px-5 py-3.5 text-left font-semibold w-[14%] text-[11px] uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>Loại phiếu</th>
+                  <th className="px-5 py-3.5 text-left font-semibold w-[36%] text-[11px] uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>Tên phiếu</th>
+                  <th className="px-5 py-3.5 text-left font-semibold w-[16%] text-[11px] uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>Trạng thái</th>
+                  <th className="px-5 py-3.5 text-left font-semibold w-[10%] text-[11px] uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>Ngày</th>
+                  <th className="px-5 py-3.5 w-[8%]"></th>
                 </tr>
               </thead>
               <tbody>
                 {filteredLots.length === 0 ? (
                   <tr>
-                    <td colSpan="6" className="px-4 py-8 text-center text-warm-gray-300 text-[13px]">
+                    <td colSpan="6" className="px-4 py-10 text-center text-[13px]" style={{ color: 'var(--color-text-muted)' }}>
                       Không tìm thấy phiếu sản xuất nào.
                     </td>
                   </tr>
                 ) : pagedLots.map((lot) => (
                   <tr
                     key={lot.id}
-                    className="border-b border-whisper last:border-0 hover:bg-warm-white/60 transition cursor-pointer"
+                    className="cursor-pointer transition-colors"
+                    style={{ borderBottom: '1px solid var(--color-border-light)' }}
                     onClick={() => onNavigate(lot.slip_type === 'DINH_HINH' ? 'molding-production-slip' : 'lot-detail', { id: lot.id })}
+                    onMouseEnter={e => e.currentTarget.style.background = 'var(--color-app-bg)'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                   >
-                    <td className="px-5 py-3 font-semibold break-words leading-snug">{lot.id}</td>
-                    <td className="px-5 py-3">{renderSlipTypeBadge(lot.slip_type)}</td>
-                    <td className="px-5 py-3">
+                    <td className="px-5 py-3.5 font-semibold break-words leading-snug text-[13px]">{lot.id}</td>
+                    <td className="px-5 py-3.5">{renderSlipTypeBadge(lot.slip_type)}</td>
+                    <td className="px-5 py-3.5">
                       <div className="line-clamp-2 leading-snug">{lot.name}</div>
                     </td>
-                    <td className="px-5 py-3">{renderStatusBadge(lot.status)}</td>
-                    <td className="px-5 py-3 text-warm-gray-500 text-[12px] whitespace-nowrap">{lot.date}</td>
-                    <td className="px-5 py-3 text-right">
+                    <td className="px-5 py-3.5">{renderStatusBadge(lot.status)}</td>
+                    <td className="px-5 py-3.5 text-[12px] whitespace-nowrap" style={{ color: 'var(--color-text-secondary)' }}>{lot.date}</td>
+                    <td className="px-5 py-3.5 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <button onClick={(e) => handleDelete(e, lot.id)} className="text-warm-gray-300 hover:text-red-500 transition p-1" title="Xoá lệnh">
+                        <button
+                          onClick={(e) => handleDelete(e, lot.id)}
+                          className="p-1.5 rounded-md transition-colors"
+                          title="Xoá lệnh"
+                          style={{ color: 'var(--color-text-muted)' }}
+                          onMouseEnter={e => { e.currentTarget.style.color = 'var(--color-danger)'; e.currentTarget.style.background = 'var(--color-danger-soft)'; }}
+                          onMouseLeave={e => { e.currentTarget.style.color = 'var(--color-text-muted)'; e.currentTarget.style.background = 'transparent'; }}
+                        >
                           <Trash2 size={14} />
                         </button>
-                        <ArrowRight size={14} className="text-warm-gray-300" />
+                        <ArrowRight size={14} style={{ color: 'var(--color-text-muted)' }} />
                       </div>
                     </td>
                   </tr>
@@ -226,24 +287,35 @@ export default function ProductionLotList({ onNavigate }) {
               </tbody>
             </table>
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-3 border-t border-whisper bg-white">
-            <div className="text-[12px] text-warm-gray-500">
-              Hiển thị {pagedLots.length} / {filteredLots.length} phiếu - Trang {safePage} / {totalPages}
+
+          {/* Pagination */}
+          <div
+            className="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-3"
+            style={{ borderTop: '1px solid var(--color-border-light)', background: 'var(--color-card-bg)' }}
+          >
+            <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>
+              Hiển thị <strong>{pagedLots.length}</strong> / <strong>{filteredLots.length}</strong> phiếu — Trang {safePage} / {totalPages}
             </div>
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => setPage((current) => Math.max(1, current - 1))}
+                onClick={() => setPage((c) => Math.max(1, c - 1))}
                 disabled={safePage <= 1}
-                className="h-8 px-3 rounded-[6px] border border-whisper text-[12px] font-semibold text-warm-gray-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-warm-white flex items-center gap-1"
+                className="h-8 px-3 rounded-lg text-[12px] font-semibold flex items-center gap-1 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{ border: '1px solid var(--color-border)', color: 'var(--color-text-secondary)' }}
+                onMouseEnter={e => !e.currentTarget.disabled && (e.currentTarget.style.background = 'var(--color-app-bg)')}
+                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
               >
                 <ChevronLeft size={14} /> Trước
               </button>
               <button
                 type="button"
-                onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
+                onClick={() => setPage((c) => Math.min(totalPages, c + 1))}
                 disabled={safePage >= totalPages}
-                className="h-8 px-3 rounded-[6px] border border-whisper text-[12px] font-semibold text-warm-gray-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-warm-white flex items-center gap-1"
+                className="h-8 px-3 rounded-lg text-[12px] font-semibold flex items-center gap-1 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{ border: '1px solid var(--color-border)', color: 'var(--color-text-secondary)' }}
+                onMouseEnter={e => !e.currentTarget.disabled && (e.currentTarget.style.background = 'var(--color-app-bg)')}
+                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
               >
                 Sau <ChevronRight size={14} />
               </button>
@@ -252,31 +324,52 @@ export default function ProductionLotList({ onNavigate }) {
         </div>
       </div>
 
+      {/* Confirm Modal */}
       {modal.isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-[400px] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-            <div className="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-              <h3 className="font-semibold text-gray-800">{modal.title}</h3>
-              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition"><X size={18} /></button>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4" style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)' }}>
+          <div
+            className="w-full max-w-[400px] overflow-hidden rounded-2xl"
+            style={{ background: 'white', boxShadow: 'var(--shadow-deep)', border: '1px solid var(--color-border)' }}
+          >
+            <div
+              className="px-5 py-4 flex justify-between items-center"
+              style={{ borderBottom: '1px solid var(--color-border-light)' }}
+            >
+              <h3 className="font-semibold text-[15px]" style={{ color: 'var(--color-text-primary)' }}>{modal.title}</h3>
+              <button
+                onClick={closeModal}
+                className="rounded-lg p-1 transition-colors"
+                style={{ color: 'var(--color-text-muted)' }}
+                onMouseEnter={e => e.currentTarget.style.background = 'var(--color-app-bg)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+              >
+                <X size={18} />
+              </button>
             </div>
-            <div className="px-5 py-6 text-gray-600 text-[14px] leading-relaxed">
+            <div className="px-5 py-5 text-[14px] leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
               {modal.message}
             </div>
-            <div className="px-5 py-4 border-t border-gray-100 flex justify-end gap-2 bg-gray-50/50">
+            <div
+              className="px-5 py-4 flex justify-end gap-2"
+              style={{ borderTop: '1px solid var(--color-border-light)' }}
+            >
               {modal.type === 'confirm' && (
                 <button
                   onClick={closeModal}
-                  className="px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 active:scale-[0.98] transition"
+                  className="px-4 py-2 text-[13px] font-semibold rounded-lg transition-colors"
+                  style={{ border: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', background: 'white' }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'var(--color-app-bg)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'white'}
                 >
                   Huỷ bỏ
                 </button>
               )}
               <button
-                onClick={() => {
-                  if (modal.onConfirm) modal.onConfirm();
-                  else closeModal();
-                }}
-                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 active:scale-[0.98] transition"
+                onClick={() => { if (modal.onConfirm) modal.onConfirm(); else closeModal(); }}
+                className="px-4 py-2 text-[13px] font-semibold text-white rounded-lg transition-all active:scale-[0.97]"
+                style={{ background: 'var(--color-danger)' }}
+                onMouseEnter={e => e.currentTarget.style.background = '#DC2626'}
+                onMouseLeave={e => e.currentTarget.style.background = 'var(--color-danger)'}
               >
                 Xác nhận
               </button>
