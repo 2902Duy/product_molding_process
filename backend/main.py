@@ -302,6 +302,15 @@ def _build_mcp_request(endpoint: str, token: str, payload: dict[str, Any]) -> ur
         method="POST",
     )
 
+def _mcp_endpoint_candidates(endpoint: str) -> list[str]:
+    endpoint = endpoint.strip()
+    candidates = [endpoint]
+    if endpoint.endswith("/"):
+        candidates.append(endpoint.rstrip("/"))
+    else:
+        candidates.append(f"{endpoint}/")
+    return list(dict.fromkeys(candidate for candidate in candidates if candidate))
+
 def run_mcp_template(name: str, args: dict[str, Any]) -> dict[str, Any]:
     """Proxy db-mcp template call so the frontend does not hold the token."""
     token = os.getenv("MCP_TOKEN", "").strip()
@@ -320,21 +329,35 @@ def run_mcp_template(name: str, args: dict[str, Any]) -> dict[str, Any]:
     }
 
     try:
-        for redirect_count in range(2):
-            request = _build_mcp_request(endpoint, token, payload)
-            try:
-                with urllib.request.urlopen(request, timeout=60) as response:
-                    raw = response.read().decode("utf-8")
-                    envelope = _parse_mcp_sse(raw)
+        envelope = None
+        visited_endpoints = set()
+        for candidate in _mcp_endpoint_candidates(endpoint):
+            current_endpoint = candidate
+            for _ in range(3):
+                if current_endpoint in visited_endpoints:
+                    break
+                visited_endpoints.add(current_endpoint)
+                request = _build_mcp_request(current_endpoint, token, payload)
+                try:
+                    with urllib.request.urlopen(request, timeout=60) as response:
+                        raw = response.read().decode("utf-8")
+                        envelope = _parse_mcp_sse(raw)
+                    break
+                except urllib.error.HTTPError as exc:
+                    if exc.code in (301, 302, 303, 307, 308):
+                        location = exc.headers.get("Location")
+                        if location:
+                            redirected_endpoint = urllib.parse.urljoin(current_endpoint, location)
+                            print(f"[MCP_REDIRECT] template={name} status={exc.code} location={redirected_endpoint}")
+                            if redirected_endpoint not in visited_endpoints:
+                                current_endpoint = redirected_endpoint
+                                continue
+                            break
+                    raise
+            if envelope is not None:
                 break
-            except urllib.error.HTTPError as exc:
-                if exc.code in (301, 302, 303, 307, 308) and redirect_count == 0:
-                    location = exc.headers.get("Location")
-                    if location:
-                        endpoint = urllib.parse.urljoin(endpoint, location)
-                        print(f"[MCP_REDIRECT] template={name} status={exc.code} location={endpoint}")
-                        continue
-                raise
+        if envelope is None:
+            raise HTTPException(status_code=502, detail="MCP redirect loop.")
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="replace")
         print(f"[MCP_ERROR] template={name} http_status={exc.code} detail={detail[:1000]}")
