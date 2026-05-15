@@ -311,6 +311,51 @@ def _mcp_endpoint_candidates(endpoint: str) -> list[str]:
         candidates.append(f"{endpoint}/")
     return list(dict.fromkeys(candidate for candidate in candidates if candidate))
 
+def inspect_mcp_endpoints() -> list[dict[str, Any]]:
+    """Return non-sensitive MCP connectivity diagnostics."""
+    token = os.getenv("MCP_TOKEN", "").strip()
+    endpoint = os.getenv("MCP_URL", "https://tool.vfmgroup.vn/db-mcp/mcp/").strip()
+    payload = {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "tools/list",
+        "params": {},
+    }
+    results = []
+
+    for candidate in _mcp_endpoint_candidates(endpoint):
+        request = _build_mcp_request(candidate, token or "missing", payload)
+        try:
+            with urllib.request.urlopen(request, timeout=15) as response:
+                raw = response.read().decode("utf-8", errors="replace")
+                results.append({
+                    "url": candidate,
+                    "status": response.status,
+                    "content_type": response.headers.get("Content-Type"),
+                    "body_preview": raw[:200],
+                })
+        except urllib.error.HTTPError as exc:
+            detail = exc.read().decode("utf-8", errors="replace")
+            results.append({
+                "url": candidate,
+                "status": exc.code,
+                "location": exc.headers.get("Location"),
+                "content_type": exc.headers.get("Content-Type"),
+                "body_preview": detail[:200],
+            })
+        except urllib.error.URLError as exc:
+            results.append({
+                "url": candidate,
+                "error": str(exc.reason),
+            })
+        except TimeoutError:
+            results.append({
+                "url": candidate,
+                "error": "timeout",
+            })
+
+    return results
+
 def run_mcp_template(name: str, args: dict[str, Any]) -> dict[str, Any]:
     """Proxy db-mcp template call so the frontend does not hold the token."""
     token = os.getenv("MCP_TOKEN", "").strip()
@@ -662,6 +707,15 @@ async def chat(request: ChatRequest):
 async def mcp_run_template(request: McpRunTemplateRequest):
     """Run MCP template through backend proxy."""
     return run_mcp_template(request.name, request.args)
+
+@app.get("/mcp/debug")
+async def mcp_debug():
+    """Inspect MCP connectivity without exposing MCP_TOKEN."""
+    return {
+        "mcp_url_configured": bool(os.getenv("MCP_URL", "").strip()),
+        "mcp_token_configured": bool(os.getenv("MCP_TOKEN", "").strip()),
+        "checks": inspect_mcp_endpoints(),
+    }
 
 @app.post("/predict", response_model=PredictionResult)
 async def predict(input_data: PredictionInput):
