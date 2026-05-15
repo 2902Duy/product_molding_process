@@ -10,6 +10,7 @@ import json
 import shlex
 import subprocess
 import urllib.error
+import urllib.parse
 import urllib.request
 
 # Fix Unicode output on Windows
@@ -289,23 +290,8 @@ def _parse_mcp_sse(raw: str) -> dict[str, Any]:
             return json.loads(line[5:].strip())
     return json.loads(raw)
 
-def run_mcp_template(name: str, args: dict[str, Any]) -> dict[str, Any]:
-    """Proxy db-mcp template call so the frontend does not hold the token."""
-    token = os.getenv("MCP_TOKEN", "").strip()
-    if not token:
-        raise HTTPException(status_code=500, detail="Missing MCP_TOKEN in backend environment")
-
-    endpoint = os.getenv("MCP_URL", "https://tool.vfmgroup.vn/db-mcp/mcp").strip()
-    payload = {
-        "jsonrpc": "2.0",
-        "id": 1,
-        "method": "tools/call",
-        "params": {
-            "name": "run_template",
-            "arguments": {"name": name, "args": args or {}},
-        },
-    }
-    request = urllib.request.Request(
+def _build_mcp_request(endpoint: str, token: str, payload: dict[str, Any]) -> urllib.request.Request:
+    return urllib.request.Request(
         endpoint,
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
         headers={
@@ -316,10 +302,39 @@ def run_mcp_template(name: str, args: dict[str, Any]) -> dict[str, Any]:
         method="POST",
     )
 
+def run_mcp_template(name: str, args: dict[str, Any]) -> dict[str, Any]:
+    """Proxy db-mcp template call so the frontend does not hold the token."""
+    token = os.getenv("MCP_TOKEN", "").strip()
+    if not token:
+        raise HTTPException(status_code=500, detail="Missing MCP_TOKEN in backend environment")
+
+    endpoint = os.getenv("MCP_URL", "https://tool.vfmgroup.vn/db-mcp/mcp/").strip()
+    payload = {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "tools/call",
+        "params": {
+            "name": "run_template",
+            "arguments": {"name": name, "args": args or {}},
+        },
+    }
+
     try:
-        with urllib.request.urlopen(request, timeout=60) as response:
-            raw = response.read().decode("utf-8")
-            envelope = _parse_mcp_sse(raw)
+        for redirect_count in range(2):
+            request = _build_mcp_request(endpoint, token, payload)
+            try:
+                with urllib.request.urlopen(request, timeout=60) as response:
+                    raw = response.read().decode("utf-8")
+                    envelope = _parse_mcp_sse(raw)
+                break
+            except urllib.error.HTTPError as exc:
+                if exc.code in (301, 302, 303, 307, 308) and redirect_count == 0:
+                    location = exc.headers.get("Location")
+                    if location:
+                        endpoint = urllib.parse.urljoin(endpoint, location)
+                        print(f"[MCP_REDIRECT] template={name} status={exc.code} location={endpoint}")
+                        continue
+                raise
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="replace")
         print(f"[MCP_ERROR] template={name} http_status={exc.code} detail={detail[:1000]}")

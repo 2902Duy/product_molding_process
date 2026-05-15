@@ -15,6 +15,6 @@ services:
       - key: GEMINI_MODEL
         value: gemini-3.1-flash-lite
       - key: MCP_URL
-        value: https://tool.vfmgroup.vn/db-mcp/mcp
+        value: https://tool.vfmgroup.vn/db-mcp/mcp/
       - key: MCP_TOKEN
         sync: false
