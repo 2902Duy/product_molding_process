@@ -221,7 +221,7 @@ export default function MoldingSlipDetail({ onNavigate, lotId }) {
   const completedCount = detailRows.filter(r => r.completed).length;
 
   return (
-    <div className="w-full min-h-screen bg-warm-white text-notion-black font-sans pb-24">
+    <div className="w-full min-h-screen bg-warm-white text-notion-black font-sans pb-8">
       {/* Header */}
       <nav className="flex justify-between items-center h-[48px] px-3 md:px-5 border-b border-whisper bg-notion-white sticky top-0 z-40">
         <button
@@ -610,7 +610,7 @@ export default function MoldingSlipDetail({ onNavigate, lotId }) {
       </div>
 
       {/* Bottom action bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 md:p-4 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+      <div className="bg-white border-t border-gray-200 p-3 md:p-4">
         <div className="max-w-[600px] mx-auto flex gap-2 md:gap-3">
           {currentStep === 'products' && (
             <>

@@ -618,13 +618,18 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     setStatus(ACTIVE_STATUS);
   };
 
-  const handleCompleteAllStages = () => {
+  const handleCompleteRowsStages = (targetRowIds, emptyMessage) => {
+    const targetIds = new Set(targetRowIds || []);
+    if (targetIds.size === 0) return;
+
     const date = new Date().toISOString().split('T')[0];
     const time = new Date().toLocaleTimeString('vi-VN');
     const batchId = Date.now();
     const ticketItemsByStage = {};
 
     const updatedRows = detailRows.map((row) => {
+      if (!targetIds.has(row.id)) return row;
+
       const rowRecords = [];
       const updatedStages = createStageProgress(row.quantity, row.stages).map((stage) => {
         const required = Number(stage.required) || Number(row.quantity) || 0;
@@ -683,7 +688,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
         isOpen: true,
         type: 'alert',
         title: 'Đã hoàn thành',
-        message: 'Tất cả công đoạn đã được hoàn thành trước đó.'
+        message: emptyMessage || 'Tất cả công đoạn đã được hoàn thành trước đó.'
       });
       return;
     }
@@ -692,6 +697,16 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     setDetailRows(updatedRows);
     setStageTickets(updatedTickets);
     setStatus(ACTIVE_STATUS);
+  };
+
+  const handleCompleteProductStages = (productId) => {
+    const targetProductId = productId || 'no-product';
+    const productRows = detailRows.filter((row) => (row.productId || 'no-product') === targetProductId);
+    handleCompleteRowsStages(productRows.map((row) => row.id));
+  };
+
+  const handleCompleteDetailStages = (rowId) => {
+    handleCompleteRowsStages([rowId]);
   };
 
   const handleToggleDetailStage = (id, stageId) => {
@@ -999,7 +1014,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   };
 
   return (
-    <div className="w-full min-h-screen bg-warm-white text-notion-black font-sans pb-24">
+    <div className="w-full min-h-screen bg-warm-white text-notion-black font-sans pb-8">
       {/* Header */}
       <nav className="flex justify-between items-center h-[48px] px-3 md:px-5 border-b border-whisper bg-notion-white sticky top-0 z-40">
         <button
@@ -1098,14 +1113,15 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
           onStageCompletedChange={handleStageCompletedChange}
           onStageChange={setSelectedStageId}
           onSaveStageProgress={handleSaveStageProgress}
-          onCompleteAllStages={handleCompleteAllStages}
+          onCompleteProductStages={handleCompleteProductStages}
+          onCompleteDetailStages={handleCompleteDetailStages}
           onApplyStages={handleApplyDetailStages}
         />
       </div>
 
       {/* Bottom action bar */}
       {!isCompleted && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 md:p-4 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+        <div className="bg-white border-t border-gray-200 p-3 md:p-4">
           <div className="max-w-[760px] mx-auto">
             {/* Progress indicator - show quantity progress */}
             {detailRows.length > 0 && (

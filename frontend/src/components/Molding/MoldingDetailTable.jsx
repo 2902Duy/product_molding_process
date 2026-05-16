@@ -64,7 +64,8 @@ export default function MoldingDetailTable({
   onStageCompletedChange,
   onStageChange,
   onSaveStageProgress,
-  onCompleteAllStages,
+  onCompleteProductStages,
+  onCompleteDetailStages,
   onApplyStages
 }) {
   const [expandedProducts, setExpandedProducts] = useState({});
@@ -240,14 +241,6 @@ export default function MoldingDetailTable({
               <Save className="h-4 w-4" />
               Hoàn thành công đoạn
             </button>
-            <button
-              onClick={onCompleteAllStages}
-              disabled={disabled || totalStageUnits === 0 || completedStageUnits >= totalStageUnits}
-              className="inline-flex h-9 items-center gap-1.5 rounded bg-slate-700 px-3 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              <Check className="h-4 w-4" />
-              Hoàn thành nhanh
-            </button>
           </div>
         </div>
 
@@ -331,6 +324,20 @@ export default function MoldingDetailTable({
                         style={{ width: `${productProgress}%` }}
                       />
                     </div>
+                    {!disabled && !isAllCompleted && (
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          onCompleteProductStages?.(group.productId);
+                        }}
+                        className="inline-flex h-8 items-center gap-1.5 rounded border border-emerald-200 bg-white px-2.5 text-[11px] font-semibold text-emerald-700 hover:bg-emerald-50"
+                        title="Hoàn thành nhanh sản phẩm này"
+                      >
+                        <Check className="h-3.5 w-3.5" />
+                        Hoàn tất SP
+                      </button>
+                    )}
                   </div>
 
                   {isExpanded && (
@@ -451,6 +458,16 @@ export default function MoldingDetailTable({
                               )}
 
                               <div className="col-span-1 flex justify-center gap-1">
+                                {!disabled && !isDone && (
+                                  <button
+                                    type="button"
+                                    onClick={() => onCompleteDetailStages?.(row.id)}
+                                    className="p-1.5 text-gray-400 hover:text-emerald-600 transition"
+                                    title="Hoàn thành nhanh chi tiết này"
+                                  >
+                                    <Check className="w-3.5 h-3.5" />
+                                  </button>
+                                )}
                                 {!disabled && (
                                   <button
                                     type="button"

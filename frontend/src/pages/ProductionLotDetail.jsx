@@ -539,7 +539,7 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
   }, {}));
 
   return (
-    <div className="w-full min-h-screen bg-warm-white text-notion-black font-sans pb-24">
+    <div className="w-full min-h-screen bg-warm-white text-notion-black font-sans pb-8">
       <nav className="flex justify-between items-center h-[48px] px-3 md:px-5 border-b border-whisper bg-notion-white sticky top-0 z-40">
         <button
           onClick={handleBackToList}
@@ -615,7 +615,7 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
       </div>
 
       {!isCompleted && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 md:p-4 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+        <div className="bg-white border-t border-gray-200 p-3 md:p-4">
           <div className="max-w-[760px] mx-auto flex gap-2 md:gap-3">
             <button
               onClick={handleCancelLot}
