@@ -198,6 +198,34 @@
     font-weight: 600;
   }
 
+  .nav-item.collapsed {
+    justify-content: center;
+    gap: 0;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 0;
+  }
+
+  .nav-item.collapsed > span,
+  .nav-item.collapsed > svg:not(:first-child) {
+    display: none;
+  }
+
+  .nav-item.collapsed > svg:first-child {
+    width: 18px;
+    height: 18px;
+  }
+
+  .sidebar-collapsed .sidebar-user-details,
+  .sidebar-collapsed .sidebar-logout {
+    display: none;
+  }
+
+  .sidebar-collapsed .px-4 {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
   /* Sub nav item */
   .sub-nav-item {
     width: 100%;
@@ -242,5 +270,26 @@
 
   .card:hover {
     box-shadow: var(--shadow-card-hover);
+  }
+
+  @media (max-width: 767px) {
+    body {
+      overflow-x: hidden;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      max-width: 100%;
+    }
+
+    table {
+      max-width: none;
+    }
+
+    .card {
+      border-radius: 8px;
+    }
   }
 }

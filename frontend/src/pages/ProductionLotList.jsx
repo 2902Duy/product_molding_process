@@ -20,6 +20,19 @@ export default function ProductionLotList({ onNavigate }) {
     return () => window.removeEventListener('focus', syncLots);
   }, []);
 
+  useEffect(() => {
+    if (!showCreateModal) return undefined;
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setShowCreateModal(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [showCreateModal]);
+
   const handleDelete = (e, id) => {
     e.stopPropagation();
     setModal({
@@ -128,20 +141,27 @@ export default function ProductionLotList({ onNavigate }) {
           </div>
 
           {/* Create button */}
-          <div className="relative shrink-0">
+          <div className="relative w-full sm:w-auto shrink-0">
             <button
               onClick={() => setShowCreateModal(!showCreateModal)}
-              className="flex items-center gap-1.5 text-white text-[13px] font-semibold px-4 py-2 rounded-lg transition-all active:scale-[0.97] shadow-sm hover:shadow"
+              className="flex w-full sm:w-auto items-center justify-center gap-1.5 text-white text-[13px] font-semibold px-4 py-2 rounded-lg transition-all active:scale-[0.97] shadow-sm hover:shadow"
               style={{ background: 'var(--color-primary)' }}
               onMouseEnter={e => e.currentTarget.style.background = 'var(--color-primary-hover)'}
               onMouseLeave={e => e.currentTarget.style.background = 'var(--color-primary)'}
             >
-              <Plus size={15} /> Tạo Lệnh Mới
+              <Plus size={15} /> Tạo Phiếu Mới
             </button>
 
             {showCreateModal && (
+              <>
+              <button
+                type="button"
+                aria-label="Đóng menu tạo phiếu"
+                className="fixed inset-0 z-40 cursor-default bg-transparent"
+                onClick={() => setShowCreateModal(false)}
+              />
               <div
-                className="absolute right-0 top-full mt-2 w-60 rounded-xl py-2 z-50"
+                className="fixed left-4 right-4 top-[92px] max-h-[calc(100vh-170px)] overflow-y-auto rounded-xl py-2 z-50 sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-2 sm:w-72 sm:max-h-[80vh]"
                 style={{ background: 'white', border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-deep)' }}
               >
                 <div
@@ -163,7 +183,7 @@ export default function ProductionLotList({ onNavigate }) {
                   >
                     <Layers size={16} style={{ color: 'var(--color-primary)' }} />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="font-semibold text-[13px]">Phiếu sản xuất phôi gỗ</div>
                     <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>Xẻ sấy, tạo phôi thô</div>
                   </div>
@@ -181,7 +201,7 @@ export default function ProductionLotList({ onNavigate }) {
                   >
                     <Square size={16} style={{ color: 'var(--color-warning)' }} />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="font-semibold text-[13px]">Phiếu sản xuất định hình</div>
                     <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>Chỉ dùng phôi thành phẩm/dư</div>
                   </div>
@@ -199,7 +219,7 @@ export default function ProductionLotList({ onNavigate }) {
                   >
                     <Wrench size={16} style={{ color: 'var(--color-success)' }} />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="font-semibold text-[13px]">Phiếu lắp ráp</div>
                     <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>Lắp ráp</div>
                   </div>
@@ -217,7 +237,7 @@ export default function ProductionLotList({ onNavigate }) {
                   >
                     <Package size={16} style={{ color: 'var(--color-success)' }} />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="font-semibold text-[13px]">Phiếu sơn</div>
                     <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>Chọn màu, loại sơn, công đoạn sơn</div>
                   </div>
@@ -235,12 +255,13 @@ export default function ProductionLotList({ onNavigate }) {
                   >
                     <Paintbrush size={16} style={{ color: 'var(--color-success)' }} />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="font-semibold text-[13px]">Phiếu đóng gói</div>
                     <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>Kích thước hộp, số lượng/kiện</div>
                   </div>
                 </button>
               </div>
+              </>
             )}
           </div>
         </div>

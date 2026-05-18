@@ -22,7 +22,7 @@ const WAREHOUSE_TABS = [
   },
   {
     id: 'MOLDING_OUTPUTS',
-    label: 'Kho sau sản xuất',
+    label: 'Kho sản xuất',
     description: 'Chi tiết sau định hình, bán thành phẩm và thành phẩm hoàn chỉnh.',
   },
 ];
@@ -155,12 +155,12 @@ const getStockStatus = (item, lots = [], lotMap = new Map()) => {
 const getStatusBadge = (item, lots, lotMap) => {
   const status = getStockStatus(item, lots, lotMap);
   if (status === 'allocated') {
-    return <span className="badge-pill badge-warning">ĐANG DÙNG</span>;
+    return <span className="badge-pill badge-warning">Đang dùng</span>;
   }
   if (status === 'consumed') {
-    return <span className="badge-pill badge-neutral">ĐÃ DÙNG</span>;
+    return <span className="badge-pill badge-neutral">Đã dùng</span>;
   }
-  return <span className="badge-pill badge-success">KHẢ DỤNG</span>;
+  return <span className="badge-pill badge-success">Khả dụng</span>;
 };
 
 const formatNumber = (value, digits = 0) => {

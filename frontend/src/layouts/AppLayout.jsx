@@ -17,6 +17,7 @@ import {
   ChevronDown, ChevronRight,
   LayoutDashboard, Package, Factory,
   Warehouse, Sparkles, LogOut, X,
+  PanelLeftClose, PanelLeftOpen,
 } from 'lucide-react';
 
 const INVENTORY_SUB_TABS = [
@@ -35,6 +36,7 @@ export default function AppLayout({ onLogout }) {
   const [view, setView] = useState('lot-list');
   const [lotParams, setLotParams] = useState({});
   const [inventoryMenuOpen, setInventoryMenuOpen] = useState(true);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState(INITIAL_MESSAGES);
   const [chatLoading, setChatLoading] = useState(false);
@@ -71,13 +73,14 @@ export default function AppLayout({ onLogout }) {
 
       {/* ── Sidebar ── */}
       <aside
-        className="hidden md:flex flex-col shrink-0"
+        className={`hidden md:flex flex-col shrink-0${sidebarCollapsed ? ' sidebar-collapsed' : ''}`}
         style={{
-          width: 'var(--sidebar-w)',
+          width: sidebarCollapsed ? '72px' : 'var(--sidebar-w)',
           background: 'var(--color-sidebar-bg)',
           borderRight: '1px solid var(--color-border)',
           boxShadow: 'var(--shadow-sidebar)',
           zIndex: 10,
+          transition: 'width 0.18s ease',
         }}
       >
         {/* Brand */}
@@ -91,27 +94,43 @@ export default function AppLayout({ onLogout }) {
           >
             <Factory size={17} style={{ color: 'var(--color-primary)' }} />
           </div>
-          <div>
+          {!sidebarCollapsed && (
+          <div className="min-w-0 flex-1">
             <div className="font-bold text-[14px] leading-tight" style={{ color: 'var(--color-text-primary)' }}>
               Quản Lý Sản Xuất
             </div>
           </div>
+          )}
+          <button
+            type="button"
+            onClick={() => setSidebarCollapsed((value) => !value)}
+            title={sidebarCollapsed ? 'Mở rộng menu' : 'Thu gọn menu'}
+            className="ml-auto rounded-lg p-1.5 transition-colors"
+            style={{ color: 'var(--color-text-muted)' }}
+            onMouseEnter={e => { e.currentTarget.style.color = 'var(--color-primary)'; e.currentTarget.style.background = 'var(--color-app-bg)'; }}
+            onMouseLeave={e => { e.currentTarget.style.color = 'var(--color-text-muted)'; e.currentTarget.style.background = 'transparent'; }}
+          >
+            {sidebarCollapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
+          </button>
         </div>
 
         {/* Navigation */}
         <nav className="flex-1 px-3 py-4 overflow-y-auto" style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
 
+          {!sidebarCollapsed && (
           <div
             className="px-3 mb-2 text-[10.5px] font-semibold uppercase tracking-widest"
             style={{ color: 'var(--color-text-muted)' }}
           >
             Điều hướng
           </div>
+          )}
 
           {/* Lệnh Sản Xuất */}
           <button
             onClick={() => handleNavigate('lot-list')}
-            className={`nav-item${isProductionActive ? ' active' : ''}`}
+            title="Lệnh Sản Xuất"
+            className={`nav-item${isProductionActive ? ' active' : ''}${sidebarCollapsed ? ' collapsed' : ''}`}
           >
             <LayoutDashboard size={16} />
             Lệnh Sản Xuất
@@ -120,7 +139,8 @@ export default function AppLayout({ onLogout }) {
           {/* Quản Lý Kho */}
           <button
             onClick={handleInventoryClick}
-            className={`nav-item${isInventoryActive ? ' active' : ''}`}
+            title="Quản Lý Kho"
+            className={`nav-item${isInventoryActive ? ' active' : ''}${sidebarCollapsed ? ' collapsed' : ''}`}
           >
             <Package size={16} />
             <span className="flex-1 text-left">Quản Lý Kho</span>
@@ -131,7 +151,7 @@ export default function AppLayout({ onLogout }) {
           </button>
 
           {/* Kho sub-items */}
-          {isInventoryActive && inventoryMenuOpen && (
+          {isInventoryActive && inventoryMenuOpen && !sidebarCollapsed && (
             <div style={{ marginLeft: 28, display: 'flex', flexDirection: 'column', gap: 2, paddingTop: 2 }}>
               {INVENTORY_SUB_TABS.map((tab) => {
                 const isActive = (lotParams.warehouseTab || 'WOOD_BLANKS') === tab.id;
@@ -161,7 +181,8 @@ export default function AppLayout({ onLogout }) {
           {/* AI Chat toggle */}
           <button
             onClick={() => setChatOpen((v) => !v)}
-            className={`nav-item${chatOpen ? ' active' : ''}`}
+            title="Trợ lý AI"
+            className={`nav-item${chatOpen ? ' active' : ''}${sidebarCollapsed ? ' collapsed' : ''}`}
           >
             <Sparkles size={16} />
             <span className="flex-1 text-left">Trợ lý AI</span>
@@ -190,7 +211,7 @@ export default function AppLayout({ onLogout }) {
               {avatarLetter}
             </div>
             {/* Name */}
-            <div className="flex-1 min-w-0">
+            <div className="sidebar-user-details flex-1 min-w-0">
               <div className="text-[13px] font-semibold truncate" style={{ color: 'var(--color-text-primary)' }}>
                 {username}
               </div>
@@ -200,7 +221,7 @@ export default function AppLayout({ onLogout }) {
             <button
               onClick={() => setShowLogoutConfirm(true)}
               title="Đăng xuất"
-              className="p-1.5 rounded-lg transition-colors shrink-0"
+              className="sidebar-logout p-1.5 rounded-lg transition-colors shrink-0"
               style={{ color: 'var(--color-text-muted)' }}
               onMouseEnter={e => { e.currentTarget.style.color = 'var(--color-danger)'; e.currentTarget.style.background = 'var(--color-danger-soft)'; }}
               onMouseLeave={e => { e.currentTarget.style.color = 'var(--color-text-muted)'; e.currentTarget.style.background = 'transparent'; }}
@@ -213,7 +234,7 @@ export default function AppLayout({ onLogout }) {
 
       {/* ── Main Content ── */}
       <main
-        className="flex-1 overflow-y-auto relative md:pb-0 pb-[68px]"
+        className="flex-1 min-w-0 overflow-y-auto relative md:pb-0 pb-[68px]"
         style={{ background: 'var(--color-app-bg)' }}
       >
         {view === 'lot-list' && <ProductionLotList onNavigate={handleNavigate} />}
@@ -253,7 +274,7 @@ export default function AppLayout({ onLogout }) {
       </main>
 
       {/* ── Mobile Bottom Nav ── */}
-      {(view === 'lot-list' || view === 'inventory') && (
+      {(
         <nav
           className="md:hidden fixed bottom-0 left-0 right-0 flex justify-around px-2 py-1 z-40"
           style={{
