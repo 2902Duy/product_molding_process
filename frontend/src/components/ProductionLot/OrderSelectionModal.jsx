@@ -123,6 +123,7 @@ export default function OrderSelectionModal({
                         {order.products.map(product => {
                           const isSelected = !!selectedTargetProducts.find(sp => sp.id === product.id);
                           const isDisabled = disabledProductIdSet.has(product.id);
+                          const displayCode = product.productCode || product.code || product.id;
                           return (
                             <div
                               key={product.id}
@@ -143,7 +144,7 @@ export default function OrderSelectionModal({
                               <div className="flex-1 min-w-0 flex flex-col lg:flex-row lg:items-center gap-1 lg:gap-2">
                                 <div className="flex items-center gap-1.5">
                                   <span className="text-gray-300 hidden lg:inline">└─</span>
-                                  <span className="font-semibold text-[13px] text-gray-800 truncate">{product.id} - {product.name}</span>
+                                  <span className="font-semibold text-[13px] text-gray-800 truncate">{displayCode} - {product.name}</span>
                                   {isDisabled && (
                                     <span className="rounded bg-green-50 px-1.5 py-0.5 text-[10px] font-semibold text-green-700">
                                       Đã định hình

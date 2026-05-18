@@ -169,7 +169,7 @@ export default function LoginPage({ onLoginSuccess }) {
             style={{ borderTop: '1px solid var(--color-border-light)' }}
           >
             <p className="text-[11px]" style={{ color: 'var(--color-text-muted)' }}>
-              Phiên bản 1.0.0 — Wood Production Management
+              Phiên bản 1.0.5 — 
             </p>
           </div>
         </div>

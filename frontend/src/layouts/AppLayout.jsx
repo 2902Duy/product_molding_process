@@ -9,6 +9,7 @@ import ProductionLotList from '../pages/ProductionLotList';
 import ProductionLotDetail from '../pages/ProductionLotDetail';
 import MoldingSlipDetail from '../pages/MoldingSlipDetail';
 import MoldingProductionSlip from '../pages/MoldingProductionSlip';
+import FinishingProductionSlip from '../pages/FinishingProductionSlip';
 import InventoryList from '../pages/InventoryList';
 import ChatWidget from '../components/Chat/ChatWidget';
 import { useNavigate } from 'react-router-dom';
@@ -62,7 +63,7 @@ export default function AppLayout({ onLogout }) {
     setInventoryMenuOpen((open) => !open);
   };
 
-  const isProductionActive = view === 'lot-list' || view === 'lot-detail';
+  const isProductionActive = view === 'lot-list' || view === 'lot-detail' || view === 'molding-production-slip' || view === 'finishing-production-slip';
   const isInventoryActive = view === 'inventory';
 
   return (
@@ -93,9 +94,6 @@ export default function AppLayout({ onLogout }) {
           <div>
             <div className="font-bold text-[14px] leading-tight" style={{ color: 'var(--color-text-primary)' }}>
               Quản Lý Sản Xuất
-            </div>
-            <div className="text-[11px]" style={{ color: 'var(--color-text-muted)' }}>
-              Wood Production
             </div>
           </div>
         </div>
@@ -243,6 +241,13 @@ export default function AppLayout({ onLogout }) {
           <MoldingProductionSlip
             onNavigate={handleNavigate}
             lotId={lotParams.lotId || lotParams.id}
+          />
+        )}
+        {view === 'finishing-production-slip' && (
+          <FinishingProductionSlip
+            onNavigate={handleNavigate}
+            lotId={lotParams.lotId || lotParams.id}
+            slipType={lotParams.slipType}
           />
         )}
       </main>

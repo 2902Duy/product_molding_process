@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Check, ChevronDown, ChevronRight, ClipboardCheck, Package, Save, Settings, Trash2, X } from 'lucide-react';
+import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { SortableContext, arrayMove, rectSortingStrategy, useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { Check, ChevronDown, ChevronRight, ClipboardCheck, GripVertical, Package, Plus, Save, Settings, Trash2, X } from 'lucide-react';
 import { MOLDING_STAGES } from '../../constants/moldingStages';
 
 const clampPercent = (value) => Math.max(0, Math.min(100, value));
@@ -55,9 +58,51 @@ const getLockedStageIds = (row) => {
     .map((stage) => stage.id);
 };
 
+function SortableStagePill({ stage, locked, onRemove }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: stage.id, disabled: locked });
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
+      className={`inline-flex h-9 items-center gap-1.5 rounded border px-2 text-xs font-semibold ${
+        isDragging ? 'z-10 border-emerald-300 bg-emerald-50 shadow-lg' : 'border-emerald-200 bg-white text-slate-800'
+      }`}
+    >
+      <button
+        type="button"
+        className={`text-slate-400 ${locked ? 'cursor-not-allowed opacity-40' : 'cursor-grab active:cursor-grabbing'}`}
+        title={locked ? 'Công đoạn đã có tiến độ' : 'Kéo để đổi thứ tự'}
+        {...attributes}
+        {...listeners}
+      >
+        <GripVertical className="h-3.5 w-3.5" />
+      </button>
+      <span>{stage.name}</span>
+      <button
+        type="button"
+        onClick={onRemove}
+        disabled={locked}
+        className="rounded p-0.5 text-slate-400 hover:bg-red-50 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-40"
+        title={locked ? 'Không thể bỏ công đoạn đã có tiến độ' : 'Bỏ công đoạn'}
+      >
+        <X className="h-3 w-3" />
+      </button>
+    </div>
+  );
+}
+
 export default function MoldingDetailTable({
   detailRows = [],
   disabled = false,
+  stageOptions = MOLDING_STAGES,
   selectedStageId,
   stageTickets = [],
   onRemoveRow,
@@ -66,14 +111,20 @@ export default function MoldingDetailTable({
   onSaveStageProgress,
   onCompleteProductStages,
   onCompleteDetailStages,
-  onApplyStages
+  onApplyStages,
+  selectedHandoffRowIds = [],
+  onToggleHandoffRow,
+  getHandoffRemaining,
+  onCreateHandoffSlip
 }) {
+  const processStages = stageOptions.length > 0 ? stageOptions : MOLDING_STAGES;
   const [expandedProducts, setExpandedProducts] = useState({});
   const [entryQuantities, setEntryQuantities] = useState({});
   const [configModalOpen, setConfigModalOpen] = useState(false);
   const [configStageIds, setConfigStageIds] = useState([]);
   const [configRows, setConfigRows] = useState([]);
   const [configProductName, setConfigProductName] = useState('');
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }));
 
   useEffect(() => {
     setEntryQuantities({});
@@ -86,6 +137,7 @@ export default function MoldingDetailTable({
     if (!acc[key]) {
       acc[key] = {
         productName: row.productName || 'Sản phẩm tự do',
+        productCode: row.productCode || row.productId || '',
         productId: row.productId,
         items: []
       };
@@ -95,7 +147,8 @@ export default function MoldingDetailTable({
   }, {});
 
   const productGroups = Object.values(groupedByProduct);
-  const selectedStage = MOLDING_STAGES.find((stage) => stage.id === selectedStageId) || MOLDING_STAGES[0];
+  const selectedStage = processStages.find((stage) => stage.id === selectedStageId) || processStages[0];
+  const selectedHandoffSet = new Set(selectedHandoffRowIds);
 
   const saveEntries = useMemo(() => {
     return Object.entries(entryQuantities)
@@ -180,6 +233,47 @@ export default function MoldingDetailTable({
     });
   };
 
+  const handleAddConfigStage = (rowId, stageId) => {
+    setConfigStageIds((prev) => {
+      const rowStageIds = prev[rowId] || [];
+      if (rowStageIds.includes(stageId)) return prev;
+      return {
+        ...prev,
+        [rowId]: [...rowStageIds, stageId]
+      };
+    });
+  };
+
+  const handleRemoveConfigStage = (rowId, stageId) => {
+    const row = configRows.find((item) => item.id === rowId);
+    if (row && getLockedStageIds(row).includes(stageId)) return;
+
+    setConfigStageIds((prev) => ({
+      ...prev,
+      [rowId]: (prev[rowId] || []).filter((id) => id !== stageId)
+    }));
+  };
+
+  const handleConfigStageDragEnd = (row, event) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const lockedIds = getLockedStageIds(row);
+    if (lockedIds.includes(active.id) || lockedIds.includes(over.id)) return;
+
+    setConfigStageIds((prev) => {
+      const rowStageIds = prev[row.id] || [];
+      const oldIndex = rowStageIds.indexOf(active.id);
+      const newIndex = rowStageIds.indexOf(over.id);
+      if (oldIndex < 0 || newIndex < 0) return prev;
+
+      return {
+        ...prev,
+        [row.id]: arrayMove(rowStageIds, oldIndex, newIndex)
+      };
+    });
+  };
+
   const handleConfigStageColumnToggle = (stageId) => {
     setConfigStageIds((prev) => {
       const selectableRows = configRows.filter((row) => !getLockedStageIds(row).includes(stageId));
@@ -229,7 +323,7 @@ export default function MoldingDetailTable({
               disabled={disabled}
               className="h-9 rounded border border-slate-200 bg-white px-3 text-sm font-medium text-gray-800 focus:outline-none focus:border-emerald-400 disabled:bg-gray-100"
             >
-              {MOLDING_STAGES.map((stage) => (
+              {processStages.map((stage) => (
                 <option key={stage.id} value={stage.id}>{stage.name}</option>
               ))}
             </select>
@@ -262,7 +356,7 @@ export default function MoldingDetailTable({
         {stageTickets.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
             {stageTickets.slice(-4).reverse().map((ticket) => {
-              const stage = MOLDING_STAGES.find((item) => item.id === ticket.stageId);
+              const stage = processStages.find((item) => item.id === ticket.stageId);
               const total = ticket.items.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
 
               return (
@@ -312,7 +406,11 @@ export default function MoldingDetailTable({
                         <span className="text-xs font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100">
                           SẢN PHẨM
                         </span>
-                        <span className="font-semibold text-gray-800 truncate">{group.productName}</span>
+                        <span className="font-semibold text-gray-800 truncate">
+                          {group.productCode && group.productName !== group.productCode
+                            ? `${group.productCode} - ${group.productName}`
+                            : group.productName}
+                        </span>
                       </div>
                     </div>
                     <div className="text-xs text-gray-500">
@@ -344,7 +442,7 @@ export default function MoldingDetailTable({
                     <div className="border-t border-slate-200">
                       <div className="flex flex-wrap items-center gap-1.5 border-b border-slate-200 bg-white px-4 py-2">
                         <span className="mr-1 text-[11px] font-semibold text-slate-500">Lọc nhanh:</span>
-                        {MOLDING_STAGES.map((stage) => {
+                        {processStages.map((stage) => {
                           const active = stage.id === selectedStage.id;
                           const count = group.items.filter((row) => getStageCapacity(row, stage.id)).length;
 
@@ -396,15 +494,31 @@ export default function MoldingDetailTable({
                         const unitQty = qtyNeeded > 0 ? Math.round(qtyNeeded / baseQty) : 0;
                         const isDone = qtyNeeded > 0 && finalCompleted >= qtyNeeded;
                         const entryValue = entryQuantities[row.id] ?? '';
+                        const handoffRemaining = getHandoffRemaining ? getHandoffRemaining(row) : 0;
+                        const hasHandoff = (row.handoffRecords || []).some((record) => (Number(record.quantity) || 0) > 0);
+                        const canSelectHandoff = Boolean(onToggleHandoffRow) && handoffRemaining > 0;
+                        const rowLocked = disabled || hasHandoff;
 
                         return (
                           <div key={row.id} className={isDone ? 'bg-emerald-50' : 'bg-white'}>
                             <div className="grid grid-cols-12 gap-3 px-4 py-2 items-center border-b border-slate-100 hover:bg-slate-50/70">
                               <div className="col-span-4">
-                                <div className={`px-2 py-1.5 text-xs border rounded truncate ${
-                                  row.semiFinishedName ? 'border-emerald-200 bg-emerald-50 text-emerald-800 font-medium' : 'border-slate-200 bg-white text-gray-500'
-                                }`}>
-                                  {row.semiFinishedName || 'Chi tiết'}
+                                <div className="flex items-center gap-2">
+                                  {onToggleHandoffRow && (
+                                    <input
+                                      type="checkbox"
+                                      checked={selectedHandoffSet.has(row.id)}
+                                      disabled={!canSelectHandoff}
+                                      onChange={() => onToggleHandoffRow(row.id)}
+                                      className="h-4 w-4 shrink-0 accent-emerald-600 disabled:cursor-not-allowed disabled:opacity-40"
+                                      title={canSelectHandoff ? `Còn ${handoffRemaining} cái có thể tạo phiếu giao` : 'Đã tạo phiếu giao đủ số lượng'}
+                                    />
+                                  )}
+                                  <div className={`min-w-0 flex-1 px-2 py-1.5 text-xs border rounded truncate ${
+                                    row.semiFinishedName ? 'border-emerald-200 bg-emerald-50 text-emerald-800 font-medium' : 'border-slate-200 bg-white text-gray-500'
+                                  }`}>
+                                    {row.semiFinishedName || 'Chi tiết'}
+                                  </div>
                                 </div>
                               </div>
 
@@ -433,8 +547,9 @@ export default function MoldingDetailTable({
                                       max={capacity.required}
                                       value={capacity.completed}
                                       onChange={(e) => onStageCompletedChange?.(row.id, selectedStage.id, e.target.value)}
-                                      disabled={disabled}
+                                      disabled={rowLocked}
                                       className="w-full px-1 py-1.5 text-xs border border-slate-200 rounded text-center font-semibold text-slate-700 focus:outline-none focus:border-emerald-400 disabled:bg-gray-100 disabled:text-gray-400"
+                                      title={hasHandoff ? 'Dòng này đã tạo phiếu giao nên không thể sửa tiến độ.' : undefined}
                                     />
                                   </div>
                                   <div className="col-span-1">
@@ -445,9 +560,10 @@ export default function MoldingDetailTable({
                                       value={entryValue}
                                       onChange={(e) => handleEntryChange(row.id, e.target.value, capacity.remaining)}
                                       onKeyDown={handleEntryKeyDown}
-                                      disabled={disabled || capacity.remaining <= 0}
+                                      disabled={rowLocked || capacity.remaining <= 0}
                                       placeholder={capacity.remaining > 0 ? String(capacity.remaining) : '0'}
                                       className="w-full px-1 py-1.5 text-xs border border-sky-200 rounded text-center font-semibold text-sky-700 focus:outline-none focus:border-sky-500 disabled:bg-gray-100 disabled:text-gray-400"
+                                      title={hasHandoff ? 'Dòng này đã tạo phiếu giao nên không thể sửa tiến độ.' : undefined}
                                     />
                                   </div>
                                 </>
@@ -458,7 +574,7 @@ export default function MoldingDetailTable({
                               )}
 
                               <div className="col-span-1 flex justify-center gap-1">
-                                {!disabled && !isDone && (
+                                {!rowLocked && !isDone && (
                                   <button
                                     type="button"
                                     onClick={() => onCompleteDetailStages?.(row.id)}
@@ -468,17 +584,7 @@ export default function MoldingDetailTable({
                                     <Check className="w-3.5 h-3.5" />
                                   </button>
                                 )}
-                                {!disabled && (
-                                  <button
-                                    type="button"
-                                    onClick={() => openConfigModal(group.items, group.productName)}
-                                    className="p-1.5 text-gray-400 hover:text-sky-600 transition"
-                                    title="Cấu hình công đoạn áp dụng"
-                                  >
-                                    <Settings className="w-3.5 h-3.5" />
-                                  </button>
-                                )}
-                                {!disabled && !isDone && (
+                                {!rowLocked && !isDone && (
                                   <button
                                     onClick={() => onRemoveRow(row.id)}
                                     className="p-1.5 text-gray-400 hover:text-red-500 transition"
@@ -499,6 +605,19 @@ export default function MoldingDetailTable({
                 </div>
               );
             })}
+            {onCreateHandoffSlip && (
+              <div className="flex justify-end border-t border-slate-200 pt-4">
+                <button
+                  type="button"
+                  onClick={onCreateHandoffSlip}
+                  disabled={disabled || selectedHandoffRowIds.length === 0}
+                  className="inline-flex h-10 items-center gap-2 rounded bg-emerald-600 px-4 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  <Check className="h-4 w-4" />
+                  Tạo phiếu giao
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -523,10 +642,107 @@ export default function MoldingDetailTable({
             </div>
 
             <div className="min-h-0 overflow-auto px-4 py-4">
-              <div className="min-w-[820px] overflow-hidden rounded border border-slate-200">
+              <div className="mb-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
+                <div className="mb-2 text-[11px] font-semibold uppercase text-slate-500">Bật/tắt công đoạn cho toàn bộ chi tiết</div>
+                <div className="flex flex-wrap gap-2">
+                  {processStages.map((stage) => {
+                    const selectableRows = configRows.filter((row) => !getLockedStageIds(row).includes(stage.id));
+                    const allSelected = selectableRows.length > 0 && selectableRows.every((row) => (configStageIds[row.id] || []).includes(stage.id));
+
+                    return (
+                      <label
+                        key={stage.id}
+                        className={`inline-flex h-8 items-center gap-1.5 rounded border px-2 text-[11px] font-semibold ${
+                          allSelected
+                            ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                            : 'border-slate-200 bg-white text-slate-600'
+                        } ${selectableRows.length === 0 ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-slate-100'}`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={allSelected}
+                          disabled={selectableRows.length === 0}
+                          onChange={() => handleConfigStageColumnToggle(stage.id)}
+                          className="h-3.5 w-3.5 accent-emerald-500 disabled:cursor-not-allowed"
+                        />
+                        <span>{stage.name}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                {configRows.map((row) => {
+                  const rowStageIds = configStageIds[row.id] || [];
+                  const selectedStages = rowStageIds
+                    .map((stageId) => processStages.find((stage) => stage.id === stageId) || getRowStages(row).find((stage) => stage.id === stageId))
+                    .filter(Boolean);
+                  const availableStages = processStages.filter((stage) => !rowStageIds.includes(stage.id));
+                  const lockedIds = getLockedStageIds(row);
+                  const rowProgress = getRowStageProgress(row);
+
+                  return (
+                    <div key={row.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                      <div className="mb-3 flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                        <div>
+                          <div className="text-sm font-semibold text-slate-800">{row.semiFinishedName || 'Chi tiết'}</div>
+                          <div className="mt-0.5 text-[11px] text-slate-500">
+                            {row.thickness || '-'} x {row.width || '-'} x {row.length || '-'} · Cần {row.quantity || 0}
+                          </div>
+                        </div>
+                        <div className="min-w-28 rounded bg-slate-50 px-2 py-1 text-center text-xs font-semibold text-slate-600">
+                          Tiến độ {rowProgress}%
+                        </div>
+                      </div>
+
+                      <div className="rounded border border-emerald-100 bg-emerald-50/40 p-2">
+                        <div className="mb-2 text-[11px] font-semibold uppercase text-emerald-700">Quy trình sản phẩm</div>
+                        {selectedStages.length > 0 ? (
+                          <DndContext sensors={sensors} onDragEnd={(event) => handleConfigStageDragEnd(row, event)}>
+                            <SortableContext items={rowStageIds} strategy={rectSortingStrategy}>
+                              <div className="flex min-h-10 flex-wrap gap-2">
+                                {selectedStages.map((stage) => (
+                                  <SortableStagePill
+                                    key={stage.id}
+                                    stage={stage}
+                                    locked={lockedIds.includes(stage.id)}
+                                    onRemove={() => handleRemoveConfigStage(row.id, stage.id)}
+                                  />
+                                ))}
+                              </div>
+                            </SortableContext>
+                          </DndContext>
+                        ) : (
+                          <div className="rounded border border-dashed border-slate-300 bg-white px-3 py-2 text-xs text-slate-400">
+                            Chưa chọn công đoạn.
+                          </div>
+                        )}
+                      </div>
+
+                      {availableStages.length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                          {availableStages.map((stage) => (
+                            <button
+                              key={stage.id}
+                              type="button"
+                              onClick={() => handleAddConfigStage(row.id, stage.id)}
+                              className="inline-flex h-8 items-center gap-1 rounded border border-slate-200 bg-white px-2 text-[11px] font-medium text-slate-600 hover:bg-slate-50"
+                            >
+                              <Plus className="h-3 w-3" />
+                              {stage.name}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="hidden min-w-[820px] overflow-hidden rounded border border-slate-200">
                 <div className="grid grid-cols-[minmax(260px,1.6fr)_repeat(4,minmax(130px,1fr))_80px] bg-slate-100 text-[11px] font-semibold text-slate-600">
                   <div className="px-3 py-2">Chi tiết</div>
-                  {MOLDING_STAGES.map((stage) => {
+                  {processStages.map((stage) => {
                     const selectableRows = configRows.filter((row) => !getLockedStageIds(row).includes(stage.id));
                     const allSelected = selectableRows.length > 0 && selectableRows.every((row) => (configStageIds[row.id] || []).includes(stage.id));
 
@@ -564,7 +780,7 @@ export default function MoldingDetailTable({
                         </div>
                       </div>
 
-                      {MOLDING_STAGES.map((stageMeta) => {
+                      {processStages.map((stageMeta) => {
                         const selected = rowStageIds.includes(stageMeta.id);
                         const existing = stages.find((stage) => stage.id === stageMeta.id);
                         const locked = lockedIds.includes(stageMeta.id);

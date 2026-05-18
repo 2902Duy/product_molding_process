@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Search, ArrowRight, Plus, Trash2, X, Layers, Square, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, ArrowRight, Plus, Trash2, X, Layers, Square, ChevronLeft, ChevronRight, Paintbrush, Wrench, Package } from 'lucide-react';
 import { db } from '../services/db';
 import { removeVietnameseTones } from '../utils/stringUtils';
 
@@ -39,12 +39,16 @@ export default function ProductionLotList({ onNavigate }) {
     setShowCreateModal(false);
     if (slipType === 'PHOI_GO') {
       onNavigate('lot-detail');
-    } else {
+    } else if (slipType === 'DINH_HINH') {
       onNavigate('molding-production-slip', { lotId: 'new' });
+    } else {
+      onNavigate('finishing-production-slip', { lotId: 'new', slipType });
     }
   };
 
   const filteredLots = lots.filter((lot) => {
+    const isHandoffLot = lot.is_handoff || (lot.source_lot_id && lot.handoff_lot_id === lot.id);
+    if (isHandoffLot) return false;
     const term = removeVietnameseTones(search);
     const matchesSearch = removeVietnameseTones(lot.name || '').includes(term) ||
       removeVietnameseTones(lot.id || '').includes(term);
@@ -59,7 +63,8 @@ export default function ProductionLotList({ onNavigate }) {
   const resetPage = () => setPage(1);
 
   const renderStatusBadge = (lotStatus) => {
-    if (lotStatus === 'Hoàn thành') {
+    const normalizedStatus = String(lotStatus || '').trim();
+    if (normalizedStatus === 'Hoàn thành') {
       return (
         <span className="badge-pill badge-success">
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-success)', display: 'inline-block', flexShrink: 0 }} />
@@ -81,6 +86,21 @@ export default function ProductionLotList({ onNavigate }) {
         <span className="badge-pill badge-warning">
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-warning)', display: 'inline-block', flexShrink: 0 }} />
           Định hình
+        </span>
+      );
+    }
+    if (slipType === 'ASSEMBLY' || slipType === 'PAINTING' || slipType === 'PACKING' || slipType === 'HOAN_THIEN') {
+      const label = slipType === 'PAINTING'
+        ? 'Sơn'
+        : slipType === 'PACKING'
+          ? 'Đóng gói'
+          : slipType === 'ASSEMBLY'
+            ? 'Lắp ráp'
+            : 'Hoàn thiện';
+      return (
+        <span className="badge-pill badge-success">
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-success)', display: 'inline-block', flexShrink: 0 }} />
+          {label}
         </span>
       );
     }
@@ -166,6 +186,60 @@ export default function ProductionLotList({ onNavigate }) {
                     <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>Chỉ dùng phôi thành phẩm/dư</div>
                   </div>
                 </button>
+                <button
+                  onClick={() => handleCreateSlip('ASSEMBLY')}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left transition-colors"
+                  style={{ color: 'var(--color-text-primary)' }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'var(--color-success-soft)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                >
+                  <div
+                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                    style={{ background: 'var(--color-success-soft)' }}
+                  >
+                    <Wrench size={16} style={{ color: 'var(--color-success)' }} />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-[13px]">Phiếu lắp ráp</div>
+                    <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>Lắp ráp</div>
+                  </div>
+                </button>
+                <button
+                  onClick={() => handleCreateSlip('PAINTING')}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left transition-colors"
+                  style={{ color: 'var(--color-text-primary)' }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'var(--color-success-soft)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                >
+                  <div
+                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                    style={{ background: 'var(--color-success-soft)' }}
+                  >
+                    <Package size={16} style={{ color: 'var(--color-success)' }} />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-[13px]">Phiếu sơn</div>
+                    <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>Chọn màu, loại sơn, công đoạn sơn</div>
+                  </div>
+                </button>
+                <button
+                  onClick={() => handleCreateSlip('PACKING')}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left transition-colors"
+                  style={{ color: 'var(--color-text-primary)' }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'var(--color-success-soft)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                >
+                  <div
+                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                    style={{ background: 'var(--color-success-soft)' }}
+                  >
+                    <Paintbrush size={16} style={{ color: 'var(--color-success)' }} />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-[13px]">Phiếu đóng gói</div>
+                    <div className="text-[12px]" style={{ color: 'var(--color-text-secondary)' }}>Kích thước hộp, số lượng/kiện</div>
+                  </div>
+                </button>
               </div>
             )}
           </div>
@@ -204,7 +278,10 @@ export default function ProductionLotList({ onNavigate }) {
             {[
               { key: 'ALL', label: 'Tất cả' },
               { key: 'PHOI_GO', label: 'Phôi gỗ' },
-              { key: 'DINH_HINH', label: 'Định hình' }
+              { key: 'DINH_HINH', label: 'Định hình' },
+              { key: 'ASSEMBLY', label: 'Lắp ráp' },
+              { key: 'PAINTING', label: 'Sơn' },
+              { key: 'PACKING', label: 'Đóng gói' }
             ].map((tab, idx, arr) => (
               <button
                 key={tab.key}
@@ -256,7 +333,7 @@ export default function ProductionLotList({ onNavigate }) {
                     key={lot.id}
                     className="cursor-pointer transition-colors"
                     style={{ borderBottom: '1px solid var(--color-border-light)' }}
-                    onClick={() => onNavigate(lot.slip_type === 'DINH_HINH' ? 'molding-production-slip' : 'lot-detail', { id: lot.id })}
+                    onClick={() => onNavigate(lot.slip_type === 'DINH_HINH' ? 'molding-production-slip' : ['ASSEMBLY', 'PAINTING', 'PACKING', 'HOAN_THIEN'].includes(lot.slip_type) ? 'finishing-production-slip' : 'lot-detail', { id: lot.id, slipType: lot.slip_type })}
                     onMouseEnter={e => e.currentTarget.style.background = 'var(--color-app-bg)'}
                     onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                   >

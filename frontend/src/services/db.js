@@ -33,7 +33,14 @@ const isSampleOrder = (order) => DEFAULT_ORDER_IDS.has(order?.id);
 const isSampleInventoryItem = (item) => DEFAULT_INVENTORY_IDS.has(item?.id);
 const isSampleLot = (lot) => DEFAULT_LOT_IDS.has(lot?.id);
 
-const getLotPrefix = (slipType) => slipType === 'DINH_HINH' ? 'DDH' : 'PG';
+const getLotPrefix = (slipType) => {
+  if (slipType === 'DINH_HINH') return 'DDH';
+  if (slipType === 'ASSEMBLY') return 'LR';
+  if (slipType === 'PAINTING') return 'SON';
+  if (slipType === 'PACKING') return 'DG';
+  if (slipType === 'HOAN_THIEN') return 'HT';
+  return 'PG';
+};
 
 const createReadableLotId = (slipType, lots = []) => {
   const prefix = getLotPrefix(slipType);
@@ -173,15 +180,81 @@ const mapMcpBomItems = (rows = []) => rows
     source: 'mcp',
   }));
 
-const mapMcpDetailProduct = (row, items = []) => ({
-  id: row.masp || `MCP-PROD-${row.id}`,
+const mapMcpDetailProduct = (row, items = [], orderId = '') => {
+  const productCode = row.masp || `MCP-PROD-${row.id}`;
+  const length = firstPositiveNumericValue(row, [
+    'dai',
+    'dai_sp',
+    'dai_tp',
+    'chieudai',
+    'chieu_dai',
+    'length',
+    'product_length'
+  ]);
+  const width = firstPositiveNumericValue(row, [
+    'rong',
+    'rong_sp',
+    'rong_tp',
+    'chieurong',
+    'chieu_rong',
+    'width',
+    'product_width'
+  ]);
+  const thickness = firstPositiveNumericValue(row, [
+    'cao',
+    'cao_sp',
+    'cao_tp',
+    'chieu_cao',
+    'chieucao',
+    'day',
+    'day_sp',
+    'day_tp',
+    'height',
+    'thickness',
+    'product_height'
+  ]);
+  const volume = firstPositiveNumericValue(row, [
+    'm3',
+    'm3_sp',
+    'm3_tp',
+    'sokhoi',
+    'the_tich',
+    'thetich',
+    'volume',
+    'product_volume'
+  ]);
+
+  return {
+  id: row.id ? `MCP-PROD-LINE-${row.id}` : `MCP-PROD-${orderId || 'ORDER'}-${productCode}`,
+  productCode,
   name: row.tenchitiet || row.mota || row.masp || 'San pham',
   quantity: Number(row.soluong) || 0,
+  length,
+  width,
+  thickness,
+  height: thickness,
+  volume,
   items,
   source: 'mcp',
   orderLineId: row.id,
   deliveryDate: row.ngaycangiao || null,
   color: row.mausac || null,
+  };
+};
+
+const normalizeOrderProductIds = (order) => ({
+  ...order,
+  products: (order.products || []).map((product) => {
+    if (product.source !== 'mcp') return product;
+    const productCode = product.productCode || product.code || product.id;
+    return {
+      ...product,
+      id: product.orderLineId
+        ? `MCP-PROD-LINE-${product.orderLineId}`
+        : `MCP-PROD-${order.id || 'ORDER'}-${productCode}`,
+      productCode,
+    };
+  }),
 });
 
 async function syncMcpOrders({ maxOrders = 30, detailOrderLimit = 10, bomProductLimit = 4 } = {}) {
@@ -209,7 +282,7 @@ async function syncMcpOrders({ maxOrders = 30, detailOrderLimit = 10, bomProduct
             console.warn('MCP BOM fallback', product.masp, error);
           }
         }
-        products.push(mapMcpDetailProduct(product, items));
+        products.push(mapMcpDetailProduct(product, items, order.maddh));
       }
     }
 
@@ -301,7 +374,7 @@ initDb();
 export const db = {
   getOrders: () => {
     const mcpOrders = readJson(MCP_ORDERS_KEY, null);
-    if (mcpOrders && mcpOrders.length > 0) return mcpOrders;
+    if (mcpOrders && mcpOrders.length > 0) return mcpOrders.map(normalizeOrderProductIds);
 
     return readJson('wp_orders_v2', []).filter((order) => !isSampleOrder(order));
   },

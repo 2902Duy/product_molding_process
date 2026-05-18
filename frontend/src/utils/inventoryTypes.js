@@ -1,7 +1,8 @@
 export const INVENTORY_TYPES = {
   RAW: 'RAW',
   SURPLUS: 'SURPLUS',
-  SEMIFINISHED: 'SEMIFINISHED'
+  SEMIFINISHED: 'SEMIFINISHED',
+  FINISHED: 'FINISHED'
 };
 
 export const normalizeInventoryType = (itemOrType) => {
@@ -39,6 +40,15 @@ export const normalizeInventoryType = (itemOrType) => {
     return INVENTORY_TYPES.SEMIFINISHED;
   }
 
+  if (
+    value === INVENTORY_TYPES.FINISHED ||
+    value.includes('FINISHED') ||
+    value.includes('THANH PHAM') ||
+    value.includes('THÀNH PHẨM')
+  ) {
+    return INVENTORY_TYPES.FINISHED;
+  }
+
   return value || INVENTORY_TYPES.RAW;
 };
 
@@ -47,6 +57,7 @@ export const getInventoryTypeLabel = (itemOrType) => {
   if (type === INVENTORY_TYPES.RAW) return 'LÔ NL';
   if (type === INVENTORY_TYPES.SURPLUS) return 'LÔ DƯ';
   if (type === INVENTORY_TYPES.SEMIFINISHED) return 'PHÔI';
+  if (type === INVENTORY_TYPES.FINISHED) return 'THÀNH PHẨM';
   return type;
 };
 
