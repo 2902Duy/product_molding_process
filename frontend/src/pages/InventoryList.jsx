@@ -37,9 +37,9 @@ const CATEGORY_FILTERS = {
   ],
   MOLDING_OUTPUTS: [
     { id: 'ALL', label: 'Tất cả' },
-    { id: 'DETAIL', label: 'Chi tiết sau định hình' },
-    { id: 'SEMI_PRODUCT', label: 'Bán thành phẩm' },
-    { id: 'FINISHED_PRODUCT', label: 'Thành phẩm hoàn chỉnh' },
+    { id: 'DETAIL', label: 'Chi tiết định hình' },
+    { id: 'SEMI_PRODUCT', label: 'Đang sản xuất' },
+    { id: 'FINISHED_PRODUCT', label: 'Sản phẩm hoàn chỉnh' },
   ],
 };
 

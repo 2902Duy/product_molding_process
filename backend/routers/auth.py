@@ -3,7 +3,7 @@ Router xác thực người dùng: /auth/login, /auth/logout
 """
 from fastapi import APIRouter
 from config import USERS
-from models.schemas import LoginRequest, LoginResponse
+from models.schemas import LoginRequest, LoginResponse, RegisterRequest
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -28,6 +28,23 @@ async def login(request: LoginRequest):
         success=True,
         message="Đăng nhập thành công",
         user={"username": request.username},
+    )
+
+
+@router.post("/register", response_model=LoginResponse)
+async def register(request: RegisterRequest):
+    """Đăng ký tài khoản demo."""
+    username = request.username.strip()
+
+    if username in USERS:
+        return LoginResponse(success=False, message="Tên đăng nhập đã tồn tại")
+
+    USERS[username] = request.password
+
+    return LoginResponse(
+        success=True,
+        message="Đăng ký thành công",
+        user={"username": username},
     )
 
 

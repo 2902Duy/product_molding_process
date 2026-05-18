@@ -49,6 +49,7 @@ const buildAutoLotName = (products = []) => {
 };
 
 export default function ProductionLotDetail({ onNavigate, lotId }) {
+  const [newLotId] = useState(createLotId);
   const [lotName, setLotName] = useState(lotId ? `Lệnh SX ${lotId}` : '');
   const [status, setStatus] = useState(ACTIVE_STATUS);
   const [description, setDescription] = useState('');
@@ -339,7 +340,7 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
   };
 
   const saveLotToDb = (newStatus) => {
-    const finalLotId = lotId || createLotId();
+    const finalLotId = lotId || newLotId;
     const finalLotName = shouldUseAutoLotName(lotName)
       ? buildAutoLotName(selectedTargetProducts)
       : lotName;
@@ -400,7 +401,7 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
       title: 'Xoá phiếu?',
       message: 'Bạn có chắc muốn huỷ và xoá phiếu sản xuất phôi này không? Hành động này không thể hoàn tác.',
       onConfirm: () => {
-        if (lotId) db.deleteLot(lotId);
+        db.deleteLot(lotId || newLotId);
         onNavigate('lot-list');
       }
     });

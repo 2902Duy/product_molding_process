@@ -97,3 +97,9 @@ class LoginResponse(BaseModel):
     success: bool
     message: str
     user: Optional[dict] = None
+
+
+class RegisterRequest(BaseModel):
+    """Request dang ky tai khoan."""
+    username: str = Field(..., min_length=3, description="Ten dang nhap")
+    password: str = Field(..., min_length=6, description="Mat khau")

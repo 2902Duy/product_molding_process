@@ -47,6 +47,7 @@ DEFAULT_LOSS_RANGE: tuple[int, int] = (35, 40)
 
 # Danh sách người dùng (demo — nên dùng DB thật trong production)
 USERS: dict[str, str] = {
+    'admin': '123456',
     'duytk': 'duy123123',
 }
 
