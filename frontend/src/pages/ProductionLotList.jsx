@@ -14,7 +14,10 @@ export default function ProductionLotList({ onNavigate }) {
   const closeModal = () => setModal((prev) => ({ ...prev, isOpen: false }));
 
   useEffect(() => {
-    const syncLots = () => setLots(db.getLots());
+    const syncLots = async () => {
+      const data = await db.getLotsAsync();
+      setLots(data);
+    };
     syncLots();
     window.addEventListener('focus', syncLots);
     return () => window.removeEventListener('focus', syncLots);
@@ -40,9 +43,10 @@ export default function ProductionLotList({ onNavigate }) {
       type: 'confirm',
       title: 'Xác nhận xoá',
       message: 'Bạn có chắc muốn xoá phiếu sản xuất này không? Hành động này không thể hoàn tác.',
-      onConfirm: () => {
-        db.deleteLot(id);
-        setLots(db.getLots());
+      onConfirm: async () => {
+        await db.deleteLot(id);
+        const data = await db.getLotsAsync();
+        setLots(data);
         closeModal();
       }
     });

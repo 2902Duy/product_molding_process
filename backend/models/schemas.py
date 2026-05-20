@@ -103,3 +103,202 @@ class RegisterRequest(BaseModel):
     """Request dang ky tai khoan."""
     username: str = Field(..., min_length=3, description="Ten dang nhap")
     password: str = Field(..., min_length=6, description="Mat khau")
+
+
+# =============================================================================
+# PRODUCTION LOTS
+# =============================================================================
+
+class LotCreate(BaseModel):
+    id: Optional[str] = None
+    name: Optional[str] = None
+    status: str = "Đang sản xuất"
+    created_date: Optional[str] = None
+    slip_type: str = "PHOI_GO"
+    description: Optional[str] = None
+    created_by: Optional[str] = None
+    data: Optional[dict] = None
+
+
+class LotUpdate(BaseModel):
+    name: Optional[str] = None
+    status: Optional[str] = None
+    description: Optional[str] = None
+    data: Optional[dict] = None
+
+
+class LotResponse(BaseModel):
+    id: str
+    name: Optional[str] = None
+    status: str
+    created_date: Optional[str] = None
+    slip_type: str
+    description: Optional[str] = None
+    created_by: Optional[str] = None
+    updated_at: Optional[str] = None
+    data: Optional[dict] = None
+
+    class Config:
+        from_attributes = True
+
+
+# =============================================================================
+# INVENTORY
+# =============================================================================
+
+class InventoryCreate(BaseModel):
+    id: Optional[str] = None
+    name: str
+    type: str = "RAW"
+    length: Optional[int] = None
+    width: Optional[int] = None
+    thickness: Optional[int] = None
+    quantity: int = 0
+    volume: Optional[float] = None
+    status: str = "AVAILABLE"
+    source_lot_id: Optional[str] = None
+    wood_type: Optional[str] = None
+
+
+class InventoryUpdate(BaseModel):
+    name: Optional[str] = None
+    type: Optional[str] = None
+    length: Optional[int] = None
+    width: Optional[int] = None
+    thickness: Optional[int] = None
+    quantity: Optional[int] = None
+    volume: Optional[float] = None
+    status: Optional[str] = None
+    source_lot_id: Optional[str] = None
+    wood_type: Optional[str] = None
+
+
+class InventoryResponse(BaseModel):
+    id: str
+    name: str
+    type: str
+    length: Optional[int] = None
+    width: Optional[int] = None
+    thickness: Optional[int] = None
+    quantity: int
+    volume: Optional[float] = None
+    status: Optional[str] = None
+    source_lot_id: Optional[str] = None
+    wood_type: Optional[str] = None
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+class StatusUpdate(BaseModel):
+    status: str
+
+
+class QuantityUpdate(BaseModel):
+    quantity: int
+
+
+class BulkStatusUpdate(BaseModel):
+    ids: List[str]
+    status: str
+
+
+# =============================================================================
+# LOT INPUTS / OUTPUTS
+# =============================================================================
+
+class LotInputCreate(BaseModel):
+    inventory_id: str
+    quantity_used: int
+    volume_used: Optional[float] = None
+
+
+class LotInputResponse(BaseModel):
+    lot_id: str
+    inventory_id: str
+    quantity_used: int
+    volume_used: Optional[float] = None
+    created_at: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+class LotOutputCreate(BaseModel):
+    name: str
+    length: Optional[int] = None
+    width: Optional[int] = None
+    thickness: Optional[int] = None
+    quantity: Optional[int] = None
+    volume: float
+    status: Optional[str] = None
+
+
+class LotOutputResponse(BaseModel):
+    id: int
+    lot_id: str
+    name: str
+    length: Optional[int] = None
+    width: Optional[int] = None
+    thickness: Optional[int] = None
+    quantity: Optional[int] = None
+    volume: float
+    status: Optional[str] = None
+    created_at: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+class ConsumeMaterialItem(BaseModel):
+    inventory_id: str
+    quantity_used: int
+    volume_used: Optional[float] = None
+
+
+class ReleaseMaterialItem(BaseModel):
+    inventory_id: str
+    quantity_used: int
+
+
+# =============================================================================
+# ORDERS
+# =============================================================================
+
+class OrderCreate(BaseModel):
+    id: Optional[str] = None
+    name: str
+    status: Optional[str] = None
+    customer_name: Optional[str] = None
+    notes: Optional[str] = None
+
+
+class OrderResponse(BaseModel):
+    id: str
+    name: str
+    status: Optional[str] = None
+    created_date: Optional[str] = None
+    customer_name: Optional[str] = None
+    notes: Optional[str] = None
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+# =============================================================================
+# MCP SYNC
+# =============================================================================
+
+class McpSyncRequest(BaseModel):
+    orders: Optional[List[dict]] = None
+    inventory: Optional[List[dict]] = None
+
+
+class McpSyncResponse(BaseModel):
+    orders_upserted: int = 0
+    inventory_upserted: int = 0
+    errors: List[str] = Field(default_factory=list)

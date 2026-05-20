@@ -278,53 +278,70 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
   }, [currentSlipType, processStages, selectedStageId]);
 
   useEffect(() => {
-    setAvailableInventory(db.getInventory());
-    setOrders(db.getOrders() || []);
-    db.syncFromMcp({ orders: { maxOrders: 30, detailOrderLimit: 10, bomProductLimit: 4 } })
-      .then(() => {
-        setAvailableInventory(db.getInventory());
-        setOrders(db.getOrders() || []);
-      })
-      .catch(() => {
-        setAvailableInventory(db.getInventory());
-        setOrders(db.getOrders() || []);
-      });
+    const loadData = async () => {
+      const [inv, ord] = await Promise.all([
+        db.getInventoryAsync(),
+        db.getOrdersAsync(),
+      ]);
+      setAvailableInventory(inv);
+      setOrders(ord || []);
 
-    if (!lotId || lotId === 'new') {
-      setLotName(slipConfig.defaultName);
-      setLinkedHandoffMeta(null);
-      return;
-    }
+      db.syncFromMcp({ orders: { maxOrders: 30, detailOrderLimit: 10, bomProductLimit: 4 } })
+        .then(async () => {
+          const [inv2, ord2] = await Promise.all([
+            db.getInventoryAsync(),
+            db.getOrdersAsync(),
+          ]);
+          setAvailableInventory(inv2);
+          setOrders(ord2 || []);
+        })
+        .catch(async () => {
+          const [inv2, ord2] = await Promise.all([
+            db.getInventoryAsync(),
+            db.getOrdersAsync(),
+          ]);
+          setAvailableInventory(inv2);
+          setOrders(ord2 || []);
+        });
 
-    const lot = db.getLot(lotId);
-    if (!lot) return;
-    const loadedSlipType = FINISHING_SLIP_CONFIGS[lot.slip_type] ? lot.slip_type : requestedSlipType;
-    setCurrentSlipType(loadedSlipType);
-    const loadedStages = FINISHING_SLIP_CONFIGS[loadedSlipType]?.stages || processStages;
+      if (!lotId || lotId === 'new') {
+        setLotName(slipConfig.defaultName);
+        setLinkedHandoffMeta(null);
+        return;
+      }
 
-    setLotName(lot.name || '');
-    setStatus(lot.status || ACTIVE_STATUS);
-    setDescription(lot.description || '');
-    setLinkedHandoffMeta(lot.source_lot_id ? {
-      id: lot.handoff_lot_id || (lot.pending_handoff_lot_ids || []).join(', ') || lot.id,
-      sourceLotId: lot.source_lot_id,
-      sourceSlipType: lot.source_slip_type || '',
-    } : null);
-    setSlipDate(lot.date || new Date().toISOString().split('T')[0]);
-    const loadedDetails = lot.details && lot.details.length > 0 ? lot.details.map((row) => normalizeDetailRow(row, loadedStages)) : [];
-    const loadedProducts = (lot.input_handoff_lot_ids || []).length > 0 || lot.source_lot_id
-      ? normalizeHandoffTargetProducts(lot.targetProducts || [], loadedDetails)
-      : lot.targetProducts || [];
-    setSelectedTargetProducts(loadedProducts);
-    setSelectedInputs((lot.inputs || []).map((item) => ({
-      ...item,
-      quantity_used: item.quantity_used ?? item.quantity,
-      volume_used: item.volume_used ?? item.volume
-    })));
-    setCustomRequests(lot.customRequests || []);
-    setStageTickets(lot.stageTickets || []);
-    setDetailRows(loadedDetails);
-    setLastStageSave(null);
+      const lotRaw = await db.getLotAsync(lotId);
+      if (!lotRaw) return;
+      const lot = lotRaw.data || lotRaw;
+      const loadedSlipType = FINISHING_SLIP_CONFIGS[lot.slip_type || lotRaw.slip_type] ? (lot.slip_type || lotRaw.slip_type) : requestedSlipType;
+      setCurrentSlipType(loadedSlipType);
+      const loadedStages = FINISHING_SLIP_CONFIGS[loadedSlipType]?.stages || processStages;
+
+      setLotName(lot.name || lotRaw.name || '');
+      setStatus(lot.status || lotRaw.status || ACTIVE_STATUS);
+      setDescription(lot.description || lotRaw.description || '');
+      setLinkedHandoffMeta(lot.source_lot_id ? {
+        id: lot.handoff_lot_id || (lot.pending_handoff_lot_ids || []).join(', ') || lotRaw.id,
+        sourceLotId: lot.source_lot_id,
+        sourceSlipType: lot.source_slip_type || '',
+      } : null);
+      setSlipDate(lot.date || new Date().toISOString().split('T')[0]);
+      const loadedDetails = lot.details && lot.details.length > 0 ? lot.details.map((row) => normalizeDetailRow(row, loadedStages)) : [];
+      const loadedProducts = (lot.input_handoff_lot_ids || []).length > 0 || lot.source_lot_id
+        ? normalizeHandoffTargetProducts(lot.targetProducts || [], loadedDetails)
+        : lot.targetProducts || [];
+      setSelectedTargetProducts(loadedProducts);
+      setSelectedInputs((lot.inputs || []).map((item) => ({
+        ...item,
+        quantity_used: item.quantity_used ?? item.quantity,
+        volume_used: item.volume_used ?? item.volume
+      })));
+      setCustomRequests(lot.customRequests || []);
+      setStageTickets(lot.stageTickets || []);
+      setDetailRows(loadedDetails);
+      setLastStageSave(null);
+    };
+    loadData();
   }, [lotId, newLotId]);
 
   const hasValidDimensions = (item) =>
@@ -399,7 +416,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
     ));
   };
 
-  const handleImportHandoffLots = () => {
+  const handleImportHandoffLots = async () => {
     const selectedLots = availableHandoffLots.filter((lot) => selectedInputHandoffLotIds.includes(lot.id));
     if (selectedLots.length === 0) return;
     const receivingLotId = lotId && lotId !== 'new' ? lotId : newLotId;
@@ -407,7 +424,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
     const productMap = new Map(selectedTargetProducts.map((product) => [product.id, product]));
     const detailMap = new Map(detailRows.map((row) => [getReceivedDetailKey(row), row]));
 
-    selectedLots.forEach((lot) => {
+    for (const lot of selectedLots) {
       (lot.targetProducts || []).forEach((product) => {
         const existing = productMap.get(product.id);
         productMap.set(product.id, {
@@ -427,12 +444,12 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
         }
       });
 
-      db.saveLot({
+      await db.saveLot({
         ...lot,
         received_by_lot_ids: [...new Set([...(lot.received_by_lot_ids || []), receivingLotId])],
         received_at: new Date().toISOString()
       });
-    });
+    }
 
     const nextDetailRows = [...detailMap.values()].map((row) => normalizeDetailRow(row, processStages));
     const nextTargetProducts = normalizeHandoffTargetProducts([...productMap.values()], nextDetailRows);
@@ -443,8 +460,10 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       sourceLotId: [...new Set(selectedLots.map((lot) => lot.source_lot_id).filter(Boolean))].join(', '),
       sourceSlipType: selectedLots[0]?.source_slip_type || '',
     });
-    db.saveLot({
-      ...(db.getLot(receivingLotId) || {}),
+    const existingReceivingLot = await db.getLotAsync(receivingLotId);
+    const existingData = existingReceivingLot?.data || existingReceivingLot || {};
+    await db.saveLot({
+      ...existingData,
       id: receivingLotId,
       name: lotName || slipConfig.defaultName,
       date: slipDate,
@@ -455,7 +474,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       source_slip_type: selectedLots[0]?.source_slip_type || linkedHandoffMeta?.sourceSlipType || null,
       input_handoff_lot_ids: [
         ...new Set([
-          ...((db.getLot(receivingLotId) || {}).input_handoff_lot_ids || []),
+          ...(existingData.input_handoff_lot_ids || []),
           ...selectedLots.map((lot) => lot.id)
         ])
       ],
@@ -731,7 +750,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       type: 'confirm',
       title: 'Gửi yêu cầu',
       message: `Gửi yêu cầu sản xuất ${validRequests.length} quy cách phôi đến bộ phận sản xuất phôi?`,
-      onConfirm: () => {
+      onConfirm: async () => {
         const sourceLotId = lotId && lotId !== 'new' ? lotId : newLotId;
         const supplementalLotId = db.createLotId('PHOI_GO');
         const requestOutputs = validRequests.map((req) => ({
@@ -753,7 +772,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
           })
           .join('\n');
 
-        db.saveLot({
+        await db.saveLot({
           id: supplementalLotId,
           name: `Phiếu bổ sung phôi - ${sourceLotId}`,
           date: new Date().toISOString().split('T')[0],
@@ -1128,7 +1147,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
     });
   };
 
-  const createProductHandoffSlip = (toSlipType, options = {}) => {
+  const createProductHandoffSlip = async (toSlipType, options = {}) => {
     const nextConfig = FINISHING_SLIP_CONFIGS[toSlipType];
     if (!nextConfig) return;
 
@@ -1144,15 +1163,16 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       return;
     }
 
-    const sourceLotId = saveLotToDb(options.completeSource ? COMPLETED_STATUS : ACTIVE_STATUS);
-    const existingProductionLot = db.getLots().find((lot) => (
+    const sourceLotId = await saveLotToDb(options.completeSource ? COMPLETED_STATUS : ACTIVE_STATUS);
+    const allLots = await db.getLotsAsync();
+    const existingProductionLot = allLots.find((lot) => (
       !lot.is_handoff &&
       lot.slip_type === toSlipType &&
       lot.source_lot_id === sourceLotId &&
       lot.source_slip_type === currentSlipType
     ));
     const nextProductionLotId = existingProductionLot?.id || db.createLotId(toSlipType);
-    const existingHandoffCount = db.getLots().filter((lot) => (
+    const existingHandoffCount = allLots.filter((lot) => (
       (lot.is_handoff || (lot.source_lot_id && lot.handoff_lot_id === lot.id)) &&
       lot.target_lot_id === nextProductionLotId
     )).length;
@@ -1192,7 +1212,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
         }, nextConfig.stages);
       });
 
-    db.saveLot({
+    await db.saveLot({
       id: nextLotId,
       name: `Phiếu giao - ${sourceLotId} -> ${nextProductionLotId}`,
       date,
@@ -1216,7 +1236,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       ...product,
       input_handoff_lot_ids: []
     }));
-    db.saveLot({
+    await db.saveLot({
       ...(existingProductionLot || {}),
       id: nextProductionLotId,
       name: existingProductionLot?.name || `${nextConfig.autoNamePrefix} - ${sourceLotId}`,
@@ -1260,8 +1280,10 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
 
     setSelectedTargetProducts(updatedProducts);
     setSelectedProductHandoffIds([]);
-    db.saveLot({
-      ...(db.getLot(sourceLotId) || {}),
+    const srcLot = await db.getLotAsync(sourceLotId);
+    const srcData = srcLot?.data || srcLot || {};
+    await db.saveLot({
+      ...srcData,
       id: sourceLotId,
       targetProducts: updatedProducts,
       details: detailRows.map((row) => normalizeDetailRow(row, processStages))
@@ -1295,12 +1317,13 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
   };
 
   // Save handlers
-  const saveLotToDb = (newStatus) => {
+  const saveLotToDb = async (newStatus) => {
     const finalLotId = lotId && lotId !== 'new' ? lotId : newLotId;
     const finalLotName = shouldUseAutoLotName(lotName, slipConfig)
       ? buildAutoLotName(selectedTargetProducts, slipConfig)
       : lotName;
-    const existingLot = db.getLot(finalLotId) || {};
+    const existingLotRaw = await db.getLotAsync(finalLotId);
+    const existingLot = existingLotRaw?.data || existingLotRaw || {};
     const linkedHandoffLotIds = selectedTargetProducts.flatMap((product) => product.input_handoff_lot_ids || []);
     const targetProductsToSave = selectedTargetProducts.map((product) => ({
       ...product,
@@ -1326,15 +1349,15 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       stageTickets,
       details: detailRows.map((row) => normalizeDetailRow(row, processStages))
     };
-    db.saveLot(lot);
+    await db.saveLot(lot);
     setLotName(finalLotName);
     setStatus(newStatus);
     return finalLotId;
   };
 
-  const handleSaveDraft = () => {
+  const handleSaveDraft = async () => {
     if (isCompleted) return;
-    saveLotToDb(ACTIVE_STATUS);
+    await saveLotToDb(ACTIVE_STATUS);
     setModal({
       isOpen: true,
       type: 'alert',
@@ -1356,8 +1379,8 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       message: 'Bạn có muốn lưu nháp phiếu hoàn thiện trước khi quay lại danh sách không?',
       cancelText: 'Không lưu',
       onCancel: () => onNavigate('lot-list'),
-      onConfirm: () => {
-        saveLotToDb(ACTIVE_STATUS);
+      onConfirm: async () => {
+        await saveLotToDb(ACTIVE_STATUS);
         onNavigate('lot-list');
       }
     });
@@ -1369,9 +1392,9 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       type: 'confirm',
       title: 'Xoá phiếu?',
       message: 'Bạn có chắc muốn huỷ và xoá phiếu hoàn thiện này không? Hành động này không thể hoàn tác.',
-      onConfirm: () => {
+      onConfirm: async () => {
         const finalLotId = lotId && lotId !== 'new' ? lotId : newLotId;
-        db.deleteLot(finalLotId);
+        await db.deleteLot(finalLotId);
         onNavigate('lot-list');
       }
     });
@@ -1456,8 +1479,8 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       type: 'confirm',
       title: 'Xác nhận hoàn tất',
       message: 'Xác nhận hoàn thành phiếu hoàn thiện? Tất cả sản phẩm đã hoàn thành đủ các công đoạn sẽ được nhập kho thành phẩm.',
-      onConfirm: () => {
-        const finalLotId = saveLotToDb(COMPLETED_STATUS);
+      onConfirm: async () => {
+        const finalLotId = await saveLotToDb(COMPLETED_STATUS);
         const newInventoryItems = [];
 
         // Create inventory from completed products.
@@ -1489,7 +1512,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
         // Update input inventory
         if (selectedInputs.length > 0) {
           const idsToRemove = selectedInputs.map(item => item.id);
-          db.removeInventory(idsToRemove);
+          await db.removeInventory(idsToRemove);
 
           const partials = selectedInputs.filter(item => {
             const originalQty = Number(item.quantity) || 0;
@@ -1525,7 +1548,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
         }
 
         if (newInventoryItems.length > 0) {
-          db.addInventory(newInventoryItems);
+          await db.addInventory(newInventoryItems);
         }
 
         setModal({

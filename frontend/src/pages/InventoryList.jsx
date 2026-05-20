@@ -189,9 +189,13 @@ export default function InventoryList({ initialTab = 'WOOD_BLANKS', onWarehouseT
   }, [activeTab, initialTab]);
 
   useEffect(() => {
-    const refreshLocalData = () => {
-      setInventory(db.getInventory());
-      setLots(db.getLots());
+    const refreshLocalData = async () => {
+      const [inv, lotData] = await Promise.all([
+        db.getInventoryAsync(),
+        db.getLotsAsync(),
+      ]);
+      setInventory(inv);
+      setLots(lotData);
     };
     refreshLocalData();
     db.syncFromMcp({ orders: { maxOrders: 20, detailOrderLimit: 5, bomProductLimit: 3 } })

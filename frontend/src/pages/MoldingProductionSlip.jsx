@@ -203,41 +203,58 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   const isCompleted = status === COMPLETED_STATUS || status === 'Ho\u00c3\u00a0n th\u00c3\u00a0nh';
 
   useEffect(() => {
-    setAvailableInventory(db.getInventory());
-    setOrders(db.getOrders() || []);
-    db.syncFromMcp({ orders: { maxOrders: 30, detailOrderLimit: 10, bomProductLimit: 4 } })
-      .then(() => {
-        setAvailableInventory(db.getInventory());
-        setOrders(db.getOrders() || []);
-      })
-      .catch(() => {
-        setAvailableInventory(db.getInventory());
-        setOrders(db.getOrders() || []);
-      });
+    const loadData = async () => {
+      const [inv, ord] = await Promise.all([
+        db.getInventoryAsync(),
+        db.getOrdersAsync(),
+      ]);
+      setAvailableInventory(inv);
+      setOrders(ord || []);
 
-    if (!lotId || lotId === 'new') {
-      setLotName(DEFAULT_LOT_NAME);
-      return;
-    }
+      db.syncFromMcp({ orders: { maxOrders: 30, detailOrderLimit: 10, bomProductLimit: 4 } })
+        .then(async () => {
+          const [inv2, ord2] = await Promise.all([
+            db.getInventoryAsync(),
+            db.getOrdersAsync(),
+          ]);
+          setAvailableInventory(inv2);
+          setOrders(ord2 || []);
+        })
+        .catch(async () => {
+          const [inv2, ord2] = await Promise.all([
+            db.getInventoryAsync(),
+            db.getOrdersAsync(),
+          ]);
+          setAvailableInventory(inv2);
+          setOrders(ord2 || []);
+        });
 
-    const lot = db.getLot(lotId);
-    if (!lot) return;
+      if (!lotId || lotId === 'new') {
+        setLotName(DEFAULT_LOT_NAME);
+        return;
+      }
 
-    setLotName(lot.name || '');
-    setStatus(lot.status || ACTIVE_STATUS);
-    setDescription(lot.description || '');
-    setSlipDate(lot.date || new Date().toISOString().split('T')[0]);
-    setSelectedTargetProducts(lot.targetProducts || []);
-    setSelectedInputs((lot.inputs || []).map((item) => ({
-      ...item,
-      quantity_used: item.quantity_used ?? item.quantity,
-      volume_used: item.volume_used ?? item.volume
-    })));
-    setCustomRequests(lot.customRequests || []);
-    setStageTickets(lot.stageTickets || []);
-    setDetailRows(lot.details && lot.details.length > 0 ? lot.details.map(normalizeDetailRow) : []);
-    setLastStageSave(null);
-    setSelectedHandoffRowIds([]);
+      const lot = await db.getLotAsync(lotId);
+      if (!lot) return;
+
+      const lotData = lot.data || lot;
+      setLotName(lotData.name || lot.name || '');
+      setStatus(lotData.status || lot.status || ACTIVE_STATUS);
+      setDescription(lotData.description || lot.description || '');
+      setSlipDate(lotData.date || new Date().toISOString().split('T')[0]);
+      setSelectedTargetProducts(lotData.targetProducts || []);
+      setSelectedInputs((lotData.inputs || []).map((item) => ({
+        ...item,
+        quantity_used: item.quantity_used ?? item.quantity,
+        volume_used: item.volume_used ?? item.volume
+      })));
+      setCustomRequests(lotData.customRequests || []);
+      setStageTickets(lotData.stageTickets || []);
+      setDetailRows(lotData.details && lotData.details.length > 0 ? lotData.details.map(normalizeDetailRow) : []);
+      setLastStageSave(null);
+      setSelectedHandoffRowIds([]);
+    };
+    loadData();
   }, [lotId, newLotId]);
 
   const hasValidDimensions = (item) =>
@@ -498,7 +515,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       type: 'confirm',
       title: 'Gửi yêu cầu',
       message: `Gửi yêu cầu sản xuất ${validRequests.length} quy cách phôi đến bộ phận sản xuất phôi?`,
-      onConfirm: () => {
+      onConfirm: async () => {
         const sourceLotId = lotId && lotId !== 'new' ? lotId : newLotId;
         const supplementalLotId = db.createLotId('PHOI_GO');
         const requestOutputs = validRequests.map((req) => ({
@@ -520,7 +537,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
           })
           .join('\n');
 
-        db.saveLot({
+        await db.saveLot({
           id: supplementalLotId,
           name: `Phiếu bổ sung phôi - ${sourceLotId}`,
           date: new Date().toISOString().split('T')[0],
@@ -797,7 +814,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     return acc;
   }, {});
 
-  const createHandoffSlip = (rowIds, sourceLotId, toSlipType = handoffTargetSlipType, { silent = false } = {}) => {
+  const createHandoffSlip = async (rowIds, sourceLotId, toSlipType = handoffTargetSlipType, { silent = false } = {}) => {
     const targetConfig = FINISHING_SLIP_CONFIGS[toSlipType] || FINISHING_SLIP_CONFIGS.ASSEMBLY;
     if (!rowIds || rowIds.length === 0) return null;
 
@@ -870,7 +887,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       }))
     }));
 
-    db.saveLot({
+    await db.saveLot({
       id: handoffLotId,
       name: `Phiếu giao - ${sourceLotId} -> ${productionLotId}`,
       date,
@@ -894,7 +911,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       ...product,
       input_handoff_lot_ids: []
     }));
-    db.saveLot({
+    await db.saveLot({
       ...(existingProductionLot || {}),
       id: productionLotId,
       name: existingProductionLot?.name || `${targetConfig.autoNamePrefix} - ${sourceLotId}`,
@@ -953,10 +970,12 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     setSelectedHandoffRowIds([]);
 
     const currentLotId = sourceLotId || (lotId && lotId !== 'new' ? lotId : newLotId);
-    const currentLot = db.getLot(currentLotId);
+    const currentLot = await db.getLotAsync(currentLotId);
     if (currentLot) {
-      db.saveLot({
-        ...currentLot,
+      const currentData = currentLot.data || currentLot;
+      await db.saveLot({
+        ...currentData,
+        id: currentLotId,
         details: updatedRows.map(normalizeDetailRow)
       });
     }
@@ -1085,7 +1104,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   };
 
   // Save handlers
-  const saveLotToDb = (newStatus) => {
+  const saveLotToDb = async (newStatus) => {
     const finalLotId = lotId && lotId !== 'new' ? lotId : newLotId;
     const finalLotName = shouldUseAutoLotName(lotName)
       ? buildAutoLotName(selectedTargetProducts)
@@ -1103,15 +1122,15 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       stageTickets,
       details: detailRows.map(normalizeDetailRow)
     };
-    db.saveLot(lot);
+    await db.saveLot(lot);
     setLotName(finalLotName);
     setStatus(newStatus);
     return finalLotId;
   };
 
-  const handleSaveDraft = () => {
+  const handleSaveDraft = async () => {
     if (isCompleted) return;
-    saveLotToDb(ACTIVE_STATUS);
+    await saveLotToDb(ACTIVE_STATUS);
     setModal({
       isOpen: true,
       type: 'alert',
@@ -1133,8 +1152,8 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       message: 'Bạn có muốn lưu nháp phiếu sản xuất định hình trước khi quay lại danh sách không?',
       cancelText: 'Không lưu',
       onCancel: () => onNavigate('lot-list'),
-      onConfirm: () => {
-        saveLotToDb(ACTIVE_STATUS);
+      onConfirm: async () => {
+        await saveLotToDb(ACTIVE_STATUS);
         onNavigate('lot-list');
       }
     });
@@ -1146,9 +1165,9 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       type: 'confirm',
       title: 'Xoá phiếu?',
       message: 'Bạn có chắc muốn huỷ và xoá phiếu sản xuất định hình này không? Hành động này không thể hoàn tác.',
-      onConfirm: () => {
+      onConfirm: async () => {
         const finalLotId = lotId && lotId !== 'new' ? lotId : newLotId;
-        db.deleteLot(finalLotId);
+        await db.deleteLot(finalLotId);
         onNavigate('lot-list');
       }
     });
@@ -1229,8 +1248,8 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       type: 'confirm',
       title: 'Xác nhận hoàn tất',
       message: 'Xác nhận hoàn thành phiếu định hình? Tất cả chi tiết đã hoàn thành đủ các công đoạn sẽ được nhập kho.',
-      onConfirm: () => {
-        const finalLotId = saveLotToDb(COMPLETED_STATUS);
+      onConfirm: async () => {
+        const finalLotId = await saveLotToDb(COMPLETED_STATUS);
         createHandoffSlip(detailRows.map((row) => row.id), finalLotId, toSlipType, { silent: true });
         const newInventoryItems = [];
 
@@ -1264,7 +1283,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
         // Update input inventory
         if (selectedInputs.length > 0) {
           const idsToRemove = selectedInputs.map(item => item.id);
-          db.removeInventory(idsToRemove);
+          await db.removeInventory(idsToRemove);
 
           const partials = selectedInputs.filter(item => {
             const originalQty = Number(item.quantity) || 0;
@@ -1300,7 +1319,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
         }
 
         if (newInventoryItems.length > 0) {
-          db.addInventory(newInventoryItems);
+          await db.addInventory(newInventoryItems);
         }
 
         setModal({

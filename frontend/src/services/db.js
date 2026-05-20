@@ -1,19 +1,18 @@
 /**
- * Database service — quản lý dữ liệu ứng dụng qua localStorage và MCP.
+ * Database service — quản lý dữ liệu ứng dụng qua Supabase API và MCP sync.
  *
- * Dữ liệu mẫu (seed) được import từ data/seedData.js để giữ file này gọn.
- * Các hàm CRUD, MCP sync, và helper nằm trong file này.
+ * MCP sync functions được giữ lại để lấy dữ liệu từ MCP server,
+ * sau đó gọi backend sync endpoint để upsert vào Supabase.
+ * CRUD operations chuyển sang gọi API services (lotsApi, inventoryApi, ordersApi).
  */
-import { defaultOrders, defaultInventory, defaultLots } from '../data/seedData';
+import { lotsApi } from './lotsApi';
+import { inventoryApi } from './inventoryApi';
+import { ordersApi } from './ordersApi';
 
 const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/+$/, '');
 const MCP_ORDERS_KEY = 'wp_mcp_orders_v1';
 const MCP_INVENTORY_KEY = 'wp_mcp_inventory_v1';
-const MCP_REMOVED_INVENTORY_KEY = 'wp_mcp_inventory_removed_v1';
-const MCP_SYNC_TTL_MS = 2 * 60 * 1000;
-const DEFAULT_ORDER_IDS = new Set(defaultOrders.map((order) => order.id));
-const DEFAULT_INVENTORY_IDS = new Set(defaultInventory.map((item) => item.id));
-const DEFAULT_LOT_IDS = new Set(defaultLots.map((lot) => lot.id));
+const MCP_SYNC_TTL_MS = 5 * 60 * 1000;
 let mcpSyncInFlight = null;
 
 const readJson = (key, fallback) => {
@@ -28,10 +27,6 @@ const readJson = (key, fallback) => {
 const writeJson = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
-
-const isSampleOrder = (order) => DEFAULT_ORDER_IDS.has(order?.id);
-const isSampleInventoryItem = (item) => DEFAULT_INVENTORY_IDS.has(item?.id);
-const isSampleLot = (lot) => DEFAULT_LOT_IDS.has(lot?.id);
 
 const getLotPrefix = (slipType) => {
   if (slipType === 'DINH_HINH') return 'DDH';
@@ -72,21 +67,6 @@ async function runMcpTemplate(name, args = {}) {
   return response.json();
 }
 
-const firstNumericValue = (row, keys, fallback = 0) => {
-  for (const key of keys) {
-    const value = row?.[key];
-    if (value === null || value === undefined || value === '') continue;
-
-    const normalized = typeof value === 'string'
-      ? value.replace(',', '.')
-      : value;
-    const numeric = Number(normalized);
-    if (Number.isFinite(numeric)) return numeric;
-  }
-
-  return fallback;
-};
-
 const firstPositiveNumericValue = (row, keys, fallback = 0) => {
   for (const key of keys) {
     const value = row?.[key];
@@ -111,25 +91,12 @@ const mapMcpInventory = (rows = []) => rows.map((row) => ({
   width: Number(row.rong_sc) || 0,
   thickness: Number(row.day_sc) || 0,
   quantity: firstPositiveNumericValue(row, [
-    'soluong_conlai',
-    'soluongton',
-    'soluong_ton',
-    'sl_conlai',
-    'sl_ton',
-    'sl',
-    'soluong',
-    'qty',
-    'quantity'
+    'soluong_conlai', 'soluongton', 'soluong_ton', 'sl_conlai',
+    'sl_ton', 'sl', 'soluong', 'qty', 'quantity'
   ]),
   volume: firstPositiveNumericValue(row, [
-    'sokhoi_conlai',
-    'sokhoiton',
-    'sokhoi_ton',
-    'm3_conlai',
-    'm3_ton',
-    'sokhoi',
-    'm3',
-    'volume'
+    'sokhoi_conlai', 'sokhoiton', 'sokhoi_ton', 'm3_conlai',
+    'm3_ton', 'sokhoi', 'm3', 'volume'
   ]),
   type: 'RAW',
   source_lot_id: row.madonhang || null,
@@ -137,34 +104,9 @@ const mapMcpInventory = (rows = []) => rows.map((row) => ({
   fsc_name: row.fsc_name || null,
   origin: row.nguongoc || null,
   orderName: row.donhang || null,
-  rawQuantity: firstPositiveNumericValue(row, ['soluong_conlai', 'soluongton', 'soluong_ton', 'sl_conlai', 'sl_ton', 'sl', 'soluong', 'qty', 'quantity'], null),
-  rawVolume: firstPositiveNumericValue(row, ['sokhoi_conlai', 'sokhoiton', 'sokhoi_ton', 'm3_conlai', 'm3_ton', 'sokhoi', 'm3', 'volume'], null),
+  status: 'AVAILABLE',
+  wood_type: row.nguyenlieu || null,
 }));
-
-const normalizeInventoryItem = (item) => ({
-  ...item,
-  quantity: Number(item.quantity) || firstPositiveNumericValue(item, [
-    'rawQuantity',
-    'soluong_conlai',
-    'soluongton',
-    'soluong_ton',
-    'sl_conlai',
-    'sl_ton',
-    'sl',
-    'soluong',
-    'qty'
-  ]),
-  volume: Number(item.volume) || firstPositiveNumericValue(item, [
-    'rawVolume',
-    'sokhoi_conlai',
-    'sokhoiton',
-    'sokhoi_ton',
-    'm3_conlai',
-    'm3_ton',
-    'sokhoi',
-    'm3'
-  ]),
-});
 
 const mapMcpBomItems = (rows = []) => rows
   .filter((row) => row && row.chitiet && String(row.nguyenlieu || '0') !== '0')
@@ -183,62 +125,34 @@ const mapMcpBomItems = (rows = []) => rows
 const mapMcpDetailProduct = (row, items = [], orderId = '') => {
   const productCode = row.masp || `MCP-PROD-${row.id}`;
   const length = firstPositiveNumericValue(row, [
-    'dai',
-    'dai_sp',
-    'dai_tp',
-    'chieudai',
-    'chieu_dai',
-    'length',
-    'product_length'
+    'dai', 'dai_sp', 'dai_tp', 'chieudai', 'chieu_dai', 'length', 'product_length'
   ]);
   const width = firstPositiveNumericValue(row, [
-    'rong',
-    'rong_sp',
-    'rong_tp',
-    'chieurong',
-    'chieu_rong',
-    'width',
-    'product_width'
+    'rong', 'rong_sp', 'rong_tp', 'chieurong', 'chieu_rong', 'width', 'product_width'
   ]);
   const thickness = firstPositiveNumericValue(row, [
-    'cao',
-    'cao_sp',
-    'cao_tp',
-    'chieu_cao',
-    'chieucao',
-    'day',
-    'day_sp',
-    'day_tp',
-    'height',
-    'thickness',
-    'product_height'
+    'cao', 'cao_sp', 'cao_tp', 'chieu_cao', 'chieucao', 'day', 'day_sp', 'day_tp',
+    'height', 'thickness', 'product_height'
   ]);
   const volume = firstPositiveNumericValue(row, [
-    'm3',
-    'm3_sp',
-    'm3_tp',
-    'sokhoi',
-    'the_tich',
-    'thetich',
-    'volume',
-    'product_volume'
+    'm3', 'm3_sp', 'm3_tp', 'sokhoi', 'the_tich', 'thetich', 'volume', 'product_volume'
   ]);
 
   return {
-  id: row.id ? `MCP-PROD-LINE-${row.id}` : `MCP-PROD-${orderId || 'ORDER'}-${productCode}`,
-  productCode,
-  name: row.tenchitiet || row.mota || row.masp || 'San pham',
-  quantity: Number(row.soluong) || 0,
-  length,
-  width,
-  thickness,
-  height: thickness,
-  volume,
-  items,
-  source: 'mcp',
-  orderLineId: row.id,
-  deliveryDate: row.ngaycangiao || null,
-  color: row.mausac || null,
+    id: row.id ? `MCP-PROD-LINE-${row.id}` : `MCP-PROD-${orderId || 'ORDER'}-${productCode}`,
+    productCode,
+    name: row.tenchitiet || row.mota || row.masp || 'San pham',
+    quantity: Number(row.soluong) || 0,
+    length,
+    width,
+    thickness,
+    height: thickness,
+    volume,
+    items,
+    source: 'mcp',
+    orderLineId: row.id,
+    deliveryDate: row.ngaycangiao || null,
+    color: row.mausac || null,
   };
 };
 
@@ -308,6 +222,27 @@ async function syncMcpInventory() {
   return inventory;
 }
 
+async function pushMcpDataToSupabase(orders, inventory) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/v1/mcp/sync`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        orders: orders || [],
+        inventory: inventory || [],
+      }),
+    });
+    if (response.ok) {
+      return await response.json();
+    }
+    console.warn('MCP sync to Supabase failed:', response.status);
+    return null;
+  } catch (error) {
+    console.warn('MCP sync to Supabase error:', error);
+    return null;
+  }
+}
+
 async function syncFromMcp(options = {}) {
   const force = Boolean(options.force);
   const lastSync = readJson('wp_mcp_sync_meta', null);
@@ -328,29 +263,31 @@ async function syncFromMcp(options = {}) {
   }
 
   mcpSyncInFlight = (async () => {
-  const result = { orders: null, inventory: null, errors: [] };
+    const result = { orders: null, inventory: null, errors: [] };
 
-  try {
-    result.orders = await syncMcpOrders(options.orders);
-  } catch (error) {
-    console.warn('MCP orders sync fallback', error);
-    result.errors.push(error.message);
-  }
+    try {
+      result.orders = await syncMcpOrders(options.orders);
+    } catch (error) {
+      console.warn('MCP orders sync fallback', error);
+      result.errors.push(error.message);
+    }
 
-  try {
-    result.inventory = await syncMcpInventory();
-  } catch (error) {
-    console.warn('MCP inventory sync fallback', error);
-    result.errors.push(error.message);
-  }
+    try {
+      result.inventory = await syncMcpInventory();
+    } catch (error) {
+      console.warn('MCP inventory sync fallback', error);
+      result.errors.push(error.message);
+    }
 
-  writeJson('wp_mcp_sync_meta', {
-    syncedAt: new Date().toISOString(),
-    errors: result.errors,
-  });
+    await pushMcpDataToSupabase(result.orders, result.inventory);
 
-  window.dispatchEvent(new CustomEvent('wp:mcp-sync-complete', { detail: result }));
-  return result;
+    writeJson('wp_mcp_sync_meta', {
+      syncedAt: new Date().toISOString(),
+      errors: result.errors,
+    });
+
+    window.dispatchEvent(new CustomEvent('wp:mcp-sync-complete', { detail: result }));
+    return result;
   })();
 
   try {
@@ -361,98 +298,168 @@ async function syncFromMcp(options = {}) {
 }
 
 export function initDb() {
-  if (!localStorage.getItem('wp_inventory_v3')) {
-    localStorage.setItem('wp_inventory_v3', JSON.stringify([]));
-  }
-  if (!localStorage.getItem('wp_lots_v3')) {
-    localStorage.setItem('wp_lots_v3', JSON.stringify([]));
-  }
+  // No-op: localStorage init is no longer needed since data lives in Supabase.
 }
 
 initDb();
+
+// =============================================================================
+// db object — wrapper functions calling API services + keeping MCP cache
+// =============================================================================
+
+let _cachedLots = [];
 
 export const db = {
   getOrders: () => {
     const mcpOrders = readJson(MCP_ORDERS_KEY, null);
     if (mcpOrders && mcpOrders.length > 0) return mcpOrders.map(normalizeOrderProductIds);
-
-    return readJson('wp_orders_v2', []).filter((order) => !isSampleOrder(order));
+    return [];
   },
+
+  getOrdersAsync: async () => {
+    try {
+      const apiOrders = await ordersApi.getOrders();
+      if (apiOrders && apiOrders.length > 0) return apiOrders;
+    } catch {
+      // fallback to MCP cache
+    }
+    return db.getOrders();
+  },
+
   getInventory: () => {
     const mcpInventory = readJson(MCP_INVENTORY_KEY, null);
-    if (mcpInventory && mcpInventory.length > 0) {
-      const removedIds = new Set(readJson(MCP_REMOVED_INVENTORY_KEY, []));
-      const localInventory = readJson('wp_inventory_v3', [])
-        .filter((item) => item.source !== 'mcp' && !isSampleInventoryItem(item));
-      return [
-        ...mcpInventory.filter((item) => !removedIds.has(item.id)).map(normalizeInventoryItem),
-        ...localInventory.map(normalizeInventoryItem),
-      ];
-    }
-
-    return readJson('wp_inventory_v3', [])
-      .filter((item) => !isSampleInventoryItem(item))
-      .map(normalizeInventoryItem);
-  },
-  addInventory: (items) => {
-    const inv = db.getInventory();
-    const localItems = inv.filter((item) => item.source !== 'mcp' && !isSampleInventoryItem(item));
-    const newItems = items.map(i => ({
-      ...i,
-      id: i.id || `INV-${Date.now().toString().slice(-5)}-${Math.floor(Math.random() * 100)}`,
-      source: i.source || 'local',
-    }));
-    localStorage.setItem('wp_inventory_v3', JSON.stringify([...localItems, ...newItems]));
-  },
-  removeInventory: (ids) => {
-    const inv = db.getInventory();
-    const removedMcpIds = readJson(MCP_REMOVED_INVENTORY_KEY, []);
-    const nextRemovedMcpIds = [...new Set([
-      ...removedMcpIds,
-      ...inv.filter((item) => ids.includes(item.id) && item.source === 'mcp').map((item) => item.id),
-    ])];
-    writeJson(MCP_REMOVED_INVENTORY_KEY, nextRemovedMcpIds);
-    localStorage.setItem('wp_inventory_v3', JSON.stringify(
-      inv.filter(i => i.source !== 'mcp' && !ids.includes(i.id))
-    ));
-  },
-  getLots: () => readJson('wp_lots_v3', []).filter((lot) => !isSampleLot(lot)),
-  getLot: (id) => db.getLots().find(l => l.id === id),
-  createLotId: (slipType = 'PHOI_GO') => createReadableLotId(slipType, db.getLots()),
-  saveLot: (lot) => {
-    const lots = db.getLots();
-    const index = lots.findIndex(l => l.id === lot.id);
-    if (index >= 0) {
-      lots[index] = lot;
-    } else {
-      lots.unshift(lot);
-    }
-    localStorage.setItem('wp_lots_v3', JSON.stringify(lots));
-  },
-  deleteLot: (id) => {
-    const lots = db.getLots();
-    localStorage.setItem('wp_lots_v3', JSON.stringify(lots.filter(l => l.id !== id)));
+    if (mcpInventory && mcpInventory.length > 0) return mcpInventory;
+    return [];
   },
 
-  // Helper for development: Reset all local storage data
+  getInventoryAsync: async () => {
+    try {
+      const apiInventory = await inventoryApi.getInventory();
+      if (apiInventory && apiInventory.length > 0) return apiInventory;
+    } catch {
+      // fallback to MCP cache
+    }
+    return db.getInventory();
+  },
+
+  getAvailableInventoryAsync: async () => {
+    try {
+      return await inventoryApi.getAvailableInventory();
+    } catch {
+      return db.getInventory().filter((item) => item.status === 'AVAILABLE' || !item.status);
+    }
+  },
+
+  addInventory: async (items) => {
+    const results = [];
+    for (const item of items) {
+      try {
+        const created = await inventoryApi.createInventoryItem({
+          ...item,
+          id: item.id || undefined,
+          source: item.source || 'local',
+        });
+        results.push(created);
+      } catch (error) {
+        console.warn('Failed to add inventory item:', error);
+      }
+    }
+    return results;
+  },
+
+  removeInventory: async (ids) => {
+    try {
+      await inventoryApi.deleteInventoryItems(ids);
+    } catch (error) {
+      console.warn('Failed to remove inventory items:', error);
+    }
+  },
+
+  getLots: () => _cachedLots,
+
+  getLotsAsync: async () => {
+    try {
+      const apiLots = await lotsApi.getLots();
+      _cachedLots = apiLots || [];
+      return _cachedLots;
+    } catch {
+      return _cachedLots;
+    }
+  },
+
+  getLot: (id) => _cachedLots.find((l) => l.id === id) || null,
+
+  getLotAsync: async (id) => {
+    try {
+      return await lotsApi.getLot(id);
+    } catch {
+      return db.getLot(id);
+    }
+  },
+
+  createLotId: (slipType = 'PHOI_GO') => createReadableLotId(slipType, _cachedLots),
+
+  saveLot: async (lot) => {
+    try {
+      const existing = _cachedLots.find((l) => l.id === lot.id);
+      if (existing) {
+        const updated = await lotsApi.updateLot(lot.id, {
+          name: lot.name,
+          status: lot.status,
+          description: lot.description,
+          data: lot.data || lot,
+        });
+        const idx = _cachedLots.findIndex((l) => l.id === lot.id);
+        if (idx >= 0) _cachedLots[idx] = { ..._cachedLots[idx], ...updated };
+        return updated;
+      }
+      const created = await lotsApi.createLot({
+        id: lot.id,
+        name: lot.name,
+        status: lot.status || 'Đang sản xuất',
+        slip_type: lot.slip_type || 'PHOI_GO',
+        description: lot.description,
+        data: lot.data || lot,
+      });
+      _cachedLots.unshift(created);
+      return created;
+    } catch (error) {
+      console.warn('Failed to save lot via API, caching locally:', error);
+      const idx = _cachedLots.findIndex((l) => l.id === lot.id);
+      if (idx >= 0) {
+        _cachedLots[idx] = lot;
+      } else {
+        _cachedLots.unshift(lot);
+      }
+      return lot;
+    }
+  },
+
+  deleteLot: async (id) => {
+    try {
+      await lotsApi.deleteLot(id);
+    } catch (error) {
+      console.warn('Failed to delete lot via API:', error);
+    }
+    _cachedLots = _cachedLots.filter((l) => l.id !== id);
+  },
+
   resetAllData: () => {
-    localStorage.removeItem('wp_orders');
-    localStorage.removeItem('wp_orders_v2');
-    localStorage.removeItem('wp_inventory_v3');
-    localStorage.removeItem('wp_lots_v3');
-    localStorage.removeItem('wp_production_lots_v3');
-    console.log("Đã xóa dữ liệu cũ. Reload lại trang để nhận dữ liệu mới từ code.");
+    localStorage.removeItem('wp_mcp_orders_v1');
+    localStorage.removeItem('wp_mcp_inventory_v1');
+    localStorage.removeItem('wp_mcp_sync_meta');
+    _cachedLots = [];
+    console.log('Đã xóa dữ liệu cache. Reload lại trang để nhận dữ liệu mới.');
     window.location.reload();
   },
 
-  // Save custom size requests for production
   saveCustomRequests: (requests) => {
     const existing = JSON.parse(localStorage.getItem('wp_custom_requests') || '[]');
-    const newRequests = requests.map(req => ({
+    const newRequests = requests.map((req) => ({
       ...req,
       id: req.id || `REQ-${Date.now()}`,
       created_at: new Date().toISOString(),
-      status: 'pending'
+      status: 'pending',
     }));
     localStorage.setItem('wp_custom_requests', JSON.stringify([...existing, ...newRequests]));
     return newRequests;
@@ -466,7 +473,6 @@ export const db = {
   getMcpSyncMeta: () => readJson('wp_mcp_sync_meta', null),
 };
 
-// Expose to window for easy debugging
 if (typeof window !== 'undefined') {
   window.resetDb = db.resetAllData;
 }
