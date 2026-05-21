@@ -4,7 +4,7 @@
  * Main: page content
  * Chat: panel fixed-right (state lifted here)
  */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProductionLotList from '../pages/ProductionLotList';
 import ProductionLotDetail from '../pages/ProductionLotDetail';
 import MoldingSlipDetail from '../pages/MoldingSlipDetail';
@@ -12,12 +12,14 @@ import MoldingProductionSlip from '../pages/MoldingProductionSlip';
 import FinishingProductionSlip from '../pages/FinishingProductionSlip';
 import InventoryList from '../pages/InventoryList';
 import ChatWidget from '../components/Chat/ChatWidget';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, useParams, useSearchParams, Routes, Route } from 'react-router-dom';
+import { db } from '../services/db';
 import {
   ChevronDown, ChevronRight,
   LayoutDashboard, Package, Factory,
   Warehouse, Sparkles, LogOut, X,
   PanelLeftClose, PanelLeftOpen,
+  RefreshCw,
 } from 'lucide-react';
 
 const INVENTORY_SUB_TABS = [
@@ -44,20 +46,94 @@ export default function AppLayout({ onLogout }) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const navigate = useNavigate();
 
-  const username = localStorage.getItem('username') || 'Người dùng';
+  const [syncing, setSyncing] = useState(false);
+  const [syncResult, setSyncResult] = useState(null);
+
+  const handleSyncMcp = async () => {
+    setSyncing(true);
+    setSyncResult(null);
+    try {
+      const result = await db.syncFromMcp({ force: true });
+      if (result && result.errors && result.errors.length > 0) {
+        setSyncResult({ success: false, message: `Đồng bộ lỗi: ${result.errors.join(', ')}` });
+      } else {
+        setSyncResult({ success: true, message: 'Đồng bộ MCP hoàn tất!' });
+      }
+      setTimeout(() => setSyncResult(null), 3000);
+    } catch (e) {
+      console.error(e);
+      setSyncResult({ success: false, message: `Đồng bộ MCP thất bại: ${e.message}` });
+      setTimeout(() => setSyncResult(null), 5000);
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  const username = sessionStorage.getItem('username') || 'Người dùng';
   const avatarLetter = username.charAt(0).toUpperCase();
 
-  const handleNavigate = (targetView, params = {}) => {
-    if (targetView === 'dashboard') {
-      navigate('/dashboard');
-      return;
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname;
+    if (path === '/' || path === '/lots' || path === '/lots/') {
+      setView('lot-list');
+      setLotParams({});
+    } else if (path === '/lots/new') {
+      setView('lot-detail');
+      setLotParams({ mode: 'new' });
+    } else if (path.startsWith('/lots/detail/')) {
+      const id = path.split('/').pop();
+      setView('lot-detail');
+      setLotParams({ id });
+    } else if (path.startsWith('/inventory')) {
+      const searchParams = new URLSearchParams(location.search);
+      const tab = searchParams.get('tab') || 'WOOD_BLANKS';
+      setView('inventory');
+      setLotParams({ warehouseTab: tab });
+    } else if (path.startsWith('/molding-slip/')) {
+      const id = path.split('/').pop();
+      setView('molding-slip');
+      setLotParams({ lotId: id, id });
+    } else if (path.startsWith('/molding-production-slip/')) {
+      const id = path.split('/').pop();
+      setView('molding-production-slip');
+      setLotParams({ lotId: id, id });
+    } else if (path.startsWith('/finishing-production-slip/')) {
+      const parts = path.split('/');
+      const id = parts[parts.length - 1];
+      const slipType = parts[parts.length - 2];
+      setView('finishing-production-slip');
+      setLotParams({ lotId: id, id, slipType });
     }
-    setView(targetView);
-    setLotParams(params);
+  }, [location]);
+
+  const handleNavigate = (targetView, params = {}) => {
+    if (targetView === 'lot-list') {
+      navigate('/lots');
+    } else if (targetView === 'lot-detail') {
+      if (params.id) {
+        navigate(`/lots/detail/${params.id}`);
+      } else {
+        navigate('/lots/new');
+      }
+    } else if (targetView === 'inventory') {
+      const tab = params.warehouseTab || 'WOOD_BLANKS';
+      navigate(`/inventory?tab=${tab}`);
+    } else if (targetView === 'molding-slip') {
+      navigate(`/molding-slip/${params.lotId || params.id}`);
+    } else if (targetView === 'molding-production-slip') {
+      navigate(`/molding-production-slip/${params.lotId || params.id}`);
+    } else if (targetView === 'finishing-production-slip') {
+      const type = params.slipType || 'HOAN_THIEN';
+      navigate(`/finishing-production-slip/${type}/${params.lotId || params.id}`);
+    } else if (targetView === 'dashboard') {
+      navigate('/lots');
+    }
   };
 
   const handleInventoryClick = () => {
-    if (view !== 'inventory') {
+    if (location.pathname !== '/inventory') {
       setInventoryMenuOpen(true);
       handleNavigate('inventory', { warehouseTab: lotParams.warehouseTab || 'WOOD_BLANKS' });
       return;
@@ -195,6 +271,48 @@ export default function AppLayout({ onLogout }) {
               </span>
             )}
           </button>
+
+          {/* Sync MCP button */}
+          <button
+            onClick={handleSyncMcp}
+            disabled={syncing}
+            title="Đồng bộ từ MCP"
+            className={`nav-item${sidebarCollapsed ? ' collapsed' : ''}`}
+            style={{
+              cursor: syncing ? 'not-allowed' : 'pointer',
+              opacity: syncing ? 0.7 : 1,
+            }}
+          >
+            <RefreshCw size={16} className={syncing ? 'animate-spin' : ''} />
+            <span className="flex-1 text-left">Đồng bộ từ MCP</span>
+            {syncing && (
+              <span
+                className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full animate-pulse"
+                style={{ background: 'var(--color-warning)', color: 'var(--color-text-primary)' }}
+              >
+                ...
+              </span>
+            )}
+          </button>
+
+          {/* Sync Result Alert Toast in Sidebar */}
+          {syncResult && !sidebarCollapsed && (
+            <div
+              style={{
+                margin: '8px 12px 0 12px',
+                padding: '8px 12px',
+                fontSize: '11px',
+                borderRadius: '8px',
+                border: `1px solid ${syncResult.success ? '#bbf7d0' : '#fecaca'}`,
+                background: syncResult.success ? '#f0fdf4' : '#fef2f2',
+                color: syncResult.success ? '#15803d' : '#b91c1c',
+                fontWeight: 500,
+                textAlign: 'center',
+              }}
+            >
+              {syncResult.message}
+            </div>
+          )}
         </nav>
 
         {/* ── Sidebar Footer: User + Logout ── */}
@@ -237,40 +355,16 @@ export default function AppLayout({ onLogout }) {
         className="flex-1 min-w-0 overflow-y-auto relative md:pb-0 pb-[68px]"
         style={{ background: 'var(--color-app-bg)' }}
       >
-        {view === 'lot-list' && <ProductionLotList onNavigate={handleNavigate} />}
-        {view === 'lot-detail' && (
-          <ProductionLotDetail
-            onNavigate={handleNavigate}
-            mode={lotParams.mode}
-            lotId={lotParams.id}
-          />
-        )}
-        {view === 'inventory' && (
-          <InventoryList
-            onNavigate={handleNavigate}
-            initialTab={lotParams.warehouseTab}
-            onWarehouseTabChange={(warehouseTab) => setLotParams((prev) => ({ ...prev, warehouseTab }))}
-          />
-        )}
-        {view === 'molding-slip' && (
-          <MoldingSlipDetail
-            onNavigate={handleNavigate}
-            lotId={lotParams.lotId || lotParams.id}
-          />
-        )}
-        {view === 'molding-production-slip' && (
-          <MoldingProductionSlip
-            onNavigate={handleNavigate}
-            lotId={lotParams.lotId || lotParams.id}
-          />
-        )}
-        {view === 'finishing-production-slip' && (
-          <FinishingProductionSlip
-            onNavigate={handleNavigate}
-            lotId={lotParams.lotId || lotParams.id}
-            slipType={lotParams.slipType}
-          />
-        )}
+        <Routes>
+          <Route path="/" element={<ProductionLotList onNavigate={handleNavigate} />} />
+          <Route path="/lots" element={<ProductionLotList onNavigate={handleNavigate} />} />
+          <Route path="/lots/new" element={<ProductionLotDetail onNavigate={handleNavigate} mode="new" />} />
+          <Route path="/lots/detail/:id" element={<LotDetailWrapper onNavigate={handleNavigate} />} />
+          <Route path="/inventory" element={<InventoryWrapper onNavigate={handleNavigate} setLotParams={setLotParams} />} />
+          <Route path="/molding-slip/:id" element={<MoldingSlipWrapper onNavigate={handleNavigate} />} />
+          <Route path="/molding-production-slip/:id" element={<MoldingProductionWrapper onNavigate={handleNavigate} />} />
+          <Route path="/finishing-production-slip/:slipType/:id" element={<FinishingProductionWrapper onNavigate={handleNavigate} />} />
+        </Routes>
       </main>
 
       {/* ── Mobile Bottom Nav ── */}
@@ -387,4 +481,36 @@ export default function AppLayout({ onLogout }) {
       )}
     </div>
   );
+}
+
+function LotDetailWrapper({ onNavigate }) {
+  const { id } = useParams();
+  return <ProductionLotDetail onNavigate={onNavigate} lotId={id} />;
+}
+
+function InventoryWrapper({ onNavigate, setLotParams }) {
+  const [searchParams] = useSearchParams();
+  const warehouseTab = searchParams.get('tab') || 'WOOD_BLANKS';
+  return (
+    <InventoryList
+      onNavigate={onNavigate}
+      initialTab={warehouseTab}
+      onWarehouseTabChange={(tab) => setLotParams((prev) => ({ ...prev, warehouseTab: tab }))}
+    />
+  );
+}
+
+function MoldingSlipWrapper({ onNavigate }) {
+  const { id } = useParams();
+  return <MoldingSlipDetail onNavigate={onNavigate} lotId={id} />;
+}
+
+function MoldingProductionWrapper({ onNavigate }) {
+  const { id } = useParams();
+  return <MoldingProductionSlip onNavigate={onNavigate} lotId={id} />;
+}
+
+function FinishingProductionWrapper({ onNavigate }) {
+  const { slipType, id } = useParams();
+  return <FinishingProductionSlip onNavigate={onNavigate} lotId={id} slipType={slipType} />;
 }

@@ -1,6 +1,6 @@
 -- ============================================================================
--- Supabase PostgreSQL Schema for Product Molding Process
--- Matches backend/models/orm.py ORM models
+-- Supabase PostgreSQL Schema for Product Molding Process (Corrected)
+-- Matches backend/models/orm.py ORM models exactly
 -- ============================================================================
 
 -- Enums
@@ -10,7 +10,7 @@ EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
 
 DO $$ BEGIN
-  CREATE TYPE lot_status AS ENUM ('Đang sản xuất', 'Hoàn thành', 'Đã huỷ');
+  CREATE TYPE lot_status AS ENUM ('DRAFT', 'Đang sản xuất', 'Hoàn thành');
 EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
 
@@ -28,50 +28,55 @@ END $$;
 CREATE TABLE IF NOT EXISTS production_lots (
   id VARCHAR(50) PRIMARY KEY,
   name VARCHAR(255),
-  status VARCHAR(50) NOT NULL DEFAULT 'Đang sản xuất',
+  status VARCHAR(50) NOT NULL DEFAULT 'DRAFT',
   created_date DATE NOT NULL DEFAULT CURRENT_DATE,
-  description TEXT,
   slip_type VARCHAR(20) NOT NULL DEFAULT 'PHOI_GO',
+  description TEXT,
+  created_by VARCHAR(100),
+  updated_at TIMESTAMPTZ,
   data JSONB DEFAULT '{}'::jsonb
 );
 
 -- Inventory
 CREATE TABLE IF NOT EXISTS inventory (
-  id VARCHAR(100) PRIMARY KEY,
+  id VARCHAR(50) PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   type VARCHAR(20) NOT NULL DEFAULT 'RAW',
-  status VARCHAR(20) NOT NULL DEFAULT 'AVAILABLE',
-  length NUMERIC(10,2) DEFAULT 0,
-  width NUMERIC(10,2) DEFAULT 0,
-  thickness NUMERIC(10,2) DEFAULT 0,
-  quantity NUMERIC(12,4) NOT NULL DEFAULT 0,
-  volume NUMERIC(12,6) DEFAULT 0,
-  source_lot_id VARCHAR(50),
-  source VARCHAR(50),
-  wood_type VARCHAR(255),
-  data JSONB DEFAULT '{}'::jsonb
+  length INTEGER,
+  width INTEGER,
+  thickness INTEGER,
+  quantity INTEGER NOT NULL DEFAULT 0,
+  volume NUMERIC(10, 4),
+  status VARCHAR(100) DEFAULT 'AVAILABLE',
+  source_lot_id VARCHAR(50) REFERENCES production_lots(id) ON DELETE SET NULL,
+  wood_type VARCHAR(50),
+  data JSONB DEFAULT '{}'::jsonb,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ
 );
 
--- Lot Inputs (composite PK)
+-- Lot Inputs
 CREATE TABLE IF NOT EXISTS lot_inputs (
-  lot_id VARCHAR(50) NOT NULL,
-  inventory_id VARCHAR(100) NOT NULL,
-  quantity_used NUMERIC(12,4) NOT NULL DEFAULT 0,
-  volume_used NUMERIC(12,6) DEFAULT 0,
+  lot_id VARCHAR(50) NOT NULL REFERENCES production_lots(id) ON DELETE CASCADE,
+  inventory_id VARCHAR(50) NOT NULL REFERENCES inventory(id) ON DELETE CASCADE,
+  quantity_used INTEGER NOT NULL,
+  volume_used NUMERIC(10, 4),
+  created_at TIMESTAMPTZ DEFAULT now(),
   PRIMARY KEY (lot_id, inventory_id)
 );
 
 -- Lot Outputs
 CREATE TABLE IF NOT EXISTS lot_outputs (
   id SERIAL PRIMARY KEY,
-  lot_id VARCHAR(50) NOT NULL,
+  lot_id VARCHAR(50) NOT NULL REFERENCES production_lots(id) ON DELETE CASCADE,
   name VARCHAR(255) NOT NULL,
-  length NUMERIC(10,2) DEFAULT 0,
-  width NUMERIC(10,2) DEFAULT 0,
-  thickness NUMERIC(10,2) DEFAULT 0,
-  quantity NUMERIC(12,4) DEFAULT 0,
-  volume NUMERIC(12,6) NOT NULL DEFAULT 0,
-  status VARCHAR(100)
+  length INTEGER,
+  width INTEGER,
+  thickness INTEGER,
+  quantity INTEGER,
+  volume NUMERIC(10, 4) NOT NULL,
+  status VARCHAR(100),
+  created_at TIMESTAMPTZ DEFAULT now()
 );
 
 -- Orders
@@ -80,47 +85,43 @@ CREATE TABLE IF NOT EXISTS orders (
   name VARCHAR(255) NOT NULL,
   status VARCHAR(50),
   created_date DATE DEFAULT CURRENT_DATE,
-  data JSONB DEFAULT '{}'::jsonb
+  customer_name VARCHAR(255),
+  notes TEXT,
+  data JSONB DEFAULT '{}'::jsonb,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ
 );
 
 -- Lot Targets
 CREATE TABLE IF NOT EXISTS lot_targets (
-  lot_id VARCHAR(50) NOT NULL,
-  order_id VARCHAR(50),
-  quantity_produce INT NOT NULL DEFAULT 0,
+  lot_id VARCHAR(50) NOT NULL REFERENCES production_lots(id) ON DELETE CASCADE,
+  order_id VARCHAR(50) REFERENCES orders(id) ON DELETE SET NULL,
+  quantity_produce INTEGER NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now(),
   PRIMARY KEY (lot_id)
 );
 
--- Foreign Keys
-ALTER TABLE inventory
-  ADD CONSTRAINT fk_inventory_source_lot
-  FOREIGN KEY (source_lot_id) REFERENCES production_lots(id)
-  ON DELETE SET NULL DEFERRABLE INITIALLY IMMEDIATE;
+-- Users
+CREATE TABLE IF NOT EXISTS users (
+  username VARCHAR(100) PRIMARY KEY,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
 
-ALTER TABLE lot_inputs
-  ADD CONSTRAINT fk_lot_inputs_lot
-  FOREIGN KEY (lot_id) REFERENCES production_lots(id)
-  ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
-
-ALTER TABLE lot_inputs
-  ADD CONSTRAINT fk_lot_inputs_inventory
-  FOREIGN KEY (inventory_id) REFERENCES inventory(id)
-  ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
-
-ALTER TABLE lot_outputs
-  ADD CONSTRAINT fk_lot_outputs_lot
-  FOREIGN KEY (lot_id) REFERENCES production_lots(id)
-  ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
-
-ALTER TABLE lot_targets
-  ADD CONSTRAINT fk_lot_targets_lot
-  FOREIGN KEY (lot_id) REFERENCES production_lots(id)
-  ON DELETE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
-
-ALTER TABLE lot_targets
-  ADD CONSTRAINT fk_lot_targets_order
-  FOREIGN KEY (order_id) REFERENCES orders(id)
-  ON DELETE SET NULL DEFERRABLE INITIALLY IMMEDIATE;
+-- Custom Requests (phôi bổ sung)
+CREATE TABLE IF NOT EXISTS custom_requests (
+  id VARCHAR(100) PRIMARY KEY,
+  wood_type VARCHAR(120) NOT NULL,
+  thickness NUMERIC(12, 3) NOT NULL,
+  width NUMERIC(12, 3) NOT NULL,
+  length NUMERIC(12, 3) NOT NULL,
+  quantity INTEGER NOT NULL,
+  reason TEXT,
+  status VARCHAR(50) NOT NULL DEFAULT 'pending',
+  source_molding_lot_id VARCHAR(50) REFERENCES production_lots(id) ON DELETE SET NULL,
+  supplemental_lot_id VARCHAR(50) REFERENCES production_lots(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
 
 -- Indexes
 CREATE INDEX IF NOT EXISTS idx_production_lots_slip_type ON production_lots(slip_type);
@@ -130,3 +131,6 @@ CREATE INDEX IF NOT EXISTS idx_inventory_status ON inventory(status);
 CREATE INDEX IF NOT EXISTS idx_inventory_source_lot ON inventory(source_lot_id);
 CREATE INDEX IF NOT EXISTS idx_lot_inputs_lot_id ON lot_inputs(lot_id);
 CREATE INDEX IF NOT EXISTS idx_lot_outputs_lot_id ON lot_outputs(lot_id);
+CREATE INDEX IF NOT EXISTS idx_custom_requests_molding_lot ON custom_requests(source_molding_lot_id);
+CREATE INDEX IF NOT EXISTS idx_custom_requests_supplemental_lot ON custom_requests(supplemental_lot_id);
+

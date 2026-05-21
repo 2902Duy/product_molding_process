@@ -9,7 +9,10 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
+from dotenv import load_dotenv
 from fastapi import HTTPException
+
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 
 # =============================================================================

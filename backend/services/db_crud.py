@@ -2,9 +2,14 @@
 CRUD operations for Supabase PostgreSQL via SQLAlchemy async.
 """
 from datetime import date, datetime
+"""
+CRUD operations for Supabase PostgreSQL via SQLAlchemy async.
+"""
+from datetime import date, datetime
 from typing import Optional
 
 from sqlalchemy import select, delete, func
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from models.orm import (
@@ -14,6 +19,8 @@ from models.orm import (
     LotTarget,
     Order,
     ProductionLot,
+    User,
+    CustomRequest,
 )
 
 
@@ -314,6 +321,140 @@ async def upsert_inventory(db: AsyncSession, inv_data: dict) -> Inventory:
     return await create_inventory_item(db, **inv_data)
 
 
+def _chunks(items: list[dict], size: int = 500):
+    for index in range(0, len(items), size):
+        yield items[index:index + size]
+
+
+def _trim(value, max_length: int):
+    if value is None:
+        return None
+    return str(value)[:max_length]
+
+
+def _number(value, fallback: float = 0) -> float:
+    try:
+        if value is None or value == "":
+            return fallback
+        return float(value)
+    except (TypeError, ValueError):
+        return fallback
+
+
+async def bulk_upsert_orders(db: AsyncSession, orders: list[dict]) -> int:
+    rows = [
+        {
+            "id": _trim(order.get("id"), 50),
+            "name": _trim(order.get("name") or order.get("id") or "", 255),
+            "status": _trim(order.get("status"), 50),
+            "customer_name": _trim(order.get("customer_name"), 255),
+            "notes": order.get("notes"),
+            "data": order.get("data") or {},
+        }
+        for order in orders
+        if order.get("id")
+    ]
+    if not rows:
+        return 0
+
+    for chunk in _chunks(rows):
+        stmt = pg_insert(Order).values(chunk)
+        update_values = {
+            "name": stmt.excluded.name,
+            "status": stmt.excluded.status,
+            "customer_name": stmt.excluded.customer_name,
+            "notes": stmt.excluded.notes,
+            "data": stmt.excluded.data,
+            "updated_at": datetime.utcnow(),
+        }
+        await db.execute(stmt.on_conflict_do_update(
+            index_elements=[Order.id],
+            set_=update_values,
+        ))
+    await db.commit()
+    return len(rows)
+
+
+async def bulk_upsert_inventory(db: AsyncSession, inventory: list[dict]) -> int:
+    incoming_ids = [_trim(item.get("id"), 50) for item in inventory if item.get("id")]
+    existing_by_id = {}
+    if incoming_ids:
+        result = await db.execute(select(Inventory).where(Inventory.id.in_(incoming_ids)))
+        existing_by_id = {item.id: item for item in result.scalars().all()}
+
+    rows = [
+        _normalize_inventory_upsert_row(item, existing_by_id)
+        for item in inventory
+        if item.get("id")
+    ]
+    if not rows:
+        return 0
+
+    for chunk in _chunks(rows):
+        stmt = pg_insert(Inventory).values(chunk)
+        update_values = {
+            "name": stmt.excluded.name,
+            "type": stmt.excluded.type,
+            "length": stmt.excluded.length,
+            "width": stmt.excluded.width,
+            "thickness": stmt.excluded.thickness,
+            "quantity": stmt.excluded.quantity,
+            "volume": stmt.excluded.volume,
+            "status": stmt.excluded.status,
+            "source_lot_id": stmt.excluded.source_lot_id,
+            "wood_type": stmt.excluded.wood_type,
+            "data": stmt.excluded.data,
+            "updated_at": datetime.utcnow(),
+        }
+        await db.execute(stmt.on_conflict_do_update(
+            index_elements=[Inventory.id],
+            set_=update_values,
+        ))
+    await db.commit()
+    return len(rows)
+
+
+def _normalize_inventory_upsert_row(item: dict, existing_by_id: dict[str, Inventory]) -> dict:
+    item_id = _trim(item.get("id"), 50)
+    data = dict(item.get("data") or {})
+    existing_data = {}
+    existing = existing_by_id.get(item_id)
+    if existing and existing.data:
+        existing_data = dict(existing.data)
+
+    incoming_quantity = _number(item.get("quantity"), 0)
+    incoming_volume = _number(item.get("volume"), 0)
+    consumed_quantity = _number(existing_data.get("local_consumed_quantity"), 0)
+    consumed_volume = _number(existing_data.get("local_consumed_volume"), 0)
+
+    quantity = max(0, int(incoming_quantity - consumed_quantity))
+    volume = max(0, incoming_volume - consumed_volume) if item.get("volume") is not None else None
+    status = "USED" if quantity <= 0 and incoming_quantity > 0 else _trim(item.get("status") or "AVAILABLE", 100)
+
+    merged_data = {
+        **data,
+        "mcp_quantity": incoming_quantity,
+        "mcp_volume": incoming_volume,
+        "local_consumed_quantity": consumed_quantity,
+        "local_consumed_volume": consumed_volume,
+    }
+
+    return {
+        "id": item_id,
+        "name": _trim(item.get("name") or item.get("id") or "", 255),
+        "type": _trim(item.get("type") or "RAW", 20),
+        "length": item.get("length"),
+        "width": item.get("width"),
+        "thickness": item.get("thickness"),
+        "quantity": quantity,
+        "volume": volume,
+        "status": status,
+        "source_lot_id": _trim(item.get("source_lot_id"), 50),
+        "wood_type": _trim(item.get("wood_type"), 50),
+        "data": merged_data,
+    }
+
+
 # =============================================================================
 # LOT TARGETS
 # =============================================================================
@@ -341,3 +482,74 @@ async def set_lot_target(
     await db.commit()
     await db.refresh(target)
     return target
+
+
+# =============================================================================
+# USERS
+# =============================================================================
+
+async def get_user_by_username(db: AsyncSession, username: str) -> Optional[User]:
+    result = await db.execute(select(User).where(User.username == username))
+    return result.scalar_one_or_none()
+
+
+async def create_user(db: AsyncSession, user_data: dict) -> User:
+    user = User(
+        username=user_data["username"],
+        password=user_data["password"],
+    )
+    db.add(user)
+    await db.commit()
+    await db.refresh(user)
+    return user
+
+
+# =============================================================================
+# CUSTOM REQUESTS
+# =============================================================================
+
+async def get_custom_requests(db: AsyncSession) -> list[CustomRequest]:
+    result = await db.execute(
+        select(CustomRequest).order_by(CustomRequest.created_at.desc())
+    )
+    return list(result.scalars().all())
+
+
+async def bulk_upsert_custom_requests(db: AsyncSession, requests: list[dict]) -> list[CustomRequest]:
+    saved = []
+    for req in requests:
+        req_id = req.get("id") or f"REQ-{int(datetime.utcnow().timestamp() * 1000)}"
+        
+        # Check if already exists
+        existing = await db.execute(select(CustomRequest).where(CustomRequest.id == req_id))
+        item = existing.scalar_one_or_none()
+        
+        if item:
+            item.wood_type = req.get("wood_type") or req.get("woodType") or item.wood_type
+            item.thickness = req.get("thickness") if req.get("thickness") is not None else item.thickness
+            item.width = req.get("width") if req.get("width") is not None else item.width
+            item.length = req.get("length") if req.get("length") is not None else item.length
+            item.quantity = req.get("quantity") if req.get("quantity") is not None else item.quantity
+            item.reason = req.get("reason") if req.get("reason") is not None else item.reason
+            item.status = req.get("status") or item.status
+            item.source_molding_lot_id = req.get("source_molding_lot_id") or req.get("source_molding_lot_id") or item.source_molding_lot_id
+            item.supplemental_lot_id = req.get("supplemental_lot_id") or req.get("supplemental_lot_id") or item.supplemental_lot_id
+        else:
+            item = CustomRequest(
+                id=req_id,
+                wood_type=req.get("wood_type") or req.get("woodType"),
+                thickness=req.get("thickness"),
+                width=req.get("width"),
+                length=req.get("length"),
+                quantity=req.get("quantity"),
+                reason=req.get("reason"),
+                status=req.get("status", "pending"),
+                source_molding_lot_id=req.get("source_molding_lot_id"),
+                supplemental_lot_id=req.get("supplemental_lot_id")
+            )
+            db.add(item)
+        saved.append(item)
+    await db.commit()
+    for item in saved:
+        await db.refresh(item)
+    return saved

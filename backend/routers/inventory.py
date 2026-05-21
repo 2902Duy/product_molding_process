@@ -19,8 +19,11 @@ router = APIRouter(prefix="/api/v1/inventory", tags=["inventory"])
 
 
 def _to_response(item) -> dict:
+    data = item.data or {}
     return {
         "id": item.id,
+        "batchId": data.get("batchId") or data.get("malo_nguyenlieu") or item.id,
+        "source": data.get("source"),
         "name": item.name,
         "type": item.type,
         "length": item.length,
@@ -31,6 +34,11 @@ def _to_response(item) -> dict:
         "status": item.status,
         "source_lot_id": item.source_lot_id,
         "wood_type": item.wood_type,
+        "stock_category": data.get("stock_category"),
+        "stock_status": data.get("stock_status"),
+        "source_detail_id": data.get("source_detail_id"),
+        "product_id": data.get("product_id"),
+        "data": data,
         "created_at": item.created_at.isoformat() if item.created_at else None,
         "updated_at": item.updated_at.isoformat() if item.updated_at else None,
     }
@@ -80,6 +88,15 @@ async def create_inventory_item(
     if "id" not in data or not data["id"]:
         import time, random
         data["id"] = f"INV-{str(int(time.time()))[-5:]}-{random.randint(10, 99)}"
+    # Merge extra fields into data JSONB (not separate DB columns)
+    extra_keys = ["stock_category", "stock_status", "source_detail_id", "product_id"]
+    item_data = dict(data.pop("data", None) or {})
+    for key in extra_keys:
+        val = data.pop(key, None)
+        if val is not None:
+            item_data[key] = val
+    if item_data:
+        data["data"] = item_data
     item = await db_crud.create_inventory_item(db, **data)
     return _to_response(item)
 

@@ -83,6 +83,7 @@ class Inventory(Base):
     status = Column(String(100), default="AVAILABLE")
     source_lot_id = Column(String(50), ForeignKey("production_lots.id", ondelete="SET NULL"))
     wood_type = Column(String(50))
+    data = Column(JSONB)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, onupdate=func.now())
 
@@ -126,8 +127,11 @@ class Order(Base):
     created_date = Column(Date, default=date.today)
     customer_name = Column(String(255))
     notes = Column(Text)
+    data = Column(JSONB)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, onupdate=func.now())
+
+
 
 
 class LotTarget(Base):
@@ -140,3 +144,30 @@ class LotTarget(Base):
 
     lot = relationship("ProductionLot", back_populates="target")
     order = relationship("Order")
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    username = Column(String(100), primary_key=True)
+    password = Column(String(255), nullable=False)
+    created_at = Column(DateTime, default=func.now())
+
+
+class CustomRequest(Base):
+    __tablename__ = "custom_requests"
+
+    id = Column(String(100), primary_key=True)
+    wood_type = Column(String(120), nullable=False)
+    thickness = Column(Numeric(12, 3), nullable=False)
+    width = Column(Numeric(12, 3), nullable=False)
+    length = Column(Numeric(12, 3), nullable=False)
+    quantity = Column(Integer, nullable=False)
+    reason = Column(Text)
+    status = Column(String(50), nullable=False, default="pending")
+    source_molding_lot_id = Column(String(50), ForeignKey("production_lots.id", ondelete="SET NULL"), nullable=True)
+    supplemental_lot_id = Column(String(50), ForeignKey("production_lots.id", ondelete="SET NULL"), nullable=True)
+    created_at = Column(DateTime, default=func.now())
+
+    source_molding_lot = relationship("ProductionLot", foreign_keys=[source_molding_lot_id])
+    supplemental_lot = relationship("ProductionLot", foreign_keys=[supplemental_lot_id])

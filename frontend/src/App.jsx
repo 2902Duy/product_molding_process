@@ -8,7 +8,7 @@ const MCP_SYNC_INTERVAL_MS = 5 * 60 * 1000;
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return localStorage.getItem('isLoggedIn') === 'true';
+    return sessionStorage.getItem('isLoggedIn') === 'true';
   });
   const syncTimerRef = useRef(null);
 
@@ -17,29 +17,23 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('username');
+    sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('username');
     setIsLoggedIn(false);
   };
 
   useEffect(() => {
     if (!isLoggedIn) return;
 
-    const runSync = () => {
-      db.syncFromMcp({ force: true })
-        .then(() => console.log('[MCP Sync] Completed at', new Date().toISOString()))
-        .catch((err) => console.warn('[MCP Sync] Error:', err));
-    };
-
-    runSync();
-    syncTimerRef.current = setInterval(runSync, MCP_SYNC_INTERVAL_MS);
-
-    return () => {
-      if (syncTimerRef.current) {
-        clearInterval(syncTimerRef.current);
-        syncTimerRef.current = null;
-      }
-    };
+    // Load initial database cache from Supabase
+    Promise.all([
+      db.getLotsAsync(),
+      db.getOrdersAsync(),
+      db.getInventoryAsync(),
+      db.getCustomRequestsAsync(),
+    ])
+      .then(() => console.log('[Database Initial Cache] Loaded successfully from Supabase'))
+      .catch((err) => console.warn('[Database Initial Cache] Load error:', err));
   }, [isLoggedIn]);
 
   if (!isLoggedIn) {

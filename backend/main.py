@@ -41,10 +41,10 @@ from routers import auth, prediction, chat, mcp
 from routers import lots as lots_router
 from routers import inventory as inventory_router
 from routers import orders as orders_router
+from routers import custom_requests as custom_requests_router
 from routers.mcp import sync_router as mcp_sync_router
 from models.schemas import HealthResponse
 from database import init_db, close_db
-
 # =============================================================================
 # KHỞI TẠO APP
 # =============================================================================
@@ -100,6 +100,8 @@ app.include_router(mcp_sync_router)
 app.include_router(lots_router.router)
 app.include_router(inventory_router.router)
 app.include_router(orders_router.router)
+app.include_router(custom_requests_router.router)
+
 
 
 # =============================================================================

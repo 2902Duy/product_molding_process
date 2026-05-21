@@ -14,8 +14,8 @@ export default function LoginPage({ onLoginSuccess }) {
   const isRegisterMode = mode === 'register';
 
   const handleAuthSuccess = (user) => {
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('username', user?.username || username.trim());
+    sessionStorage.setItem('isLoggedIn', 'true');
+    sessionStorage.setItem('username', user?.username || username.trim());
     onLoginSuccess(user);
   };
 

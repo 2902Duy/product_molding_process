@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, Save, Check, X } from 'lucide-react';
+import { ArrowLeft, Save, Check, X, Loader2 } from 'lucide-react';
 import { db } from '../services/db';
 
 import InputTable from '../components/ProductionLot/InputTable';
@@ -199,8 +199,13 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   const [handoffConfirm, setHandoffConfirm] = useState({ isOpen: false, mode: 'handoff', rowIds: [] });
 
   const [modal, setModal] = useState({ isOpen: false, type: '', title: '', message: '', onConfirm: null });
-  const closeModal = () => setModal((prev) => ({ ...prev, isOpen: false }));
-  const isCompleted = status === COMPLETED_STATUS || status === 'Ho\u00c3\u00a0n th\u00c3\u00a0nh';
+  const [isConfirmingProduction, setIsConfirmingProduction] = useState(false);
+  const [isModalSubmitting, setIsModalSubmitting] = useState(false);
+  const closeModal = () => {
+    if (isModalSubmitting) return;
+    setModal((prev) => ({ ...prev, isOpen: false }));
+  };
+  const isCompleted = status === COMPLETED_STATUS || status === 'Hoàn thành';
 
   useEffect(() => {
     const loadData = async () => {
@@ -211,23 +216,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       setAvailableInventory(inv);
       setOrders(ord || []);
 
-      db.syncFromMcp({ orders: { maxOrders: 30, detailOrderLimit: 10, bomProductLimit: 4 } })
-        .then(async () => {
-          const [inv2, ord2] = await Promise.all([
-            db.getInventoryAsync(),
-            db.getOrdersAsync(),
-          ]);
-          setAvailableInventory(inv2);
-          setOrders(ord2 || []);
-        })
-        .catch(async () => {
-          const [inv2, ord2] = await Promise.all([
-            db.getInventoryAsync(),
-            db.getOrdersAsync(),
-          ]);
-          setAvailableInventory(inv2);
-          setOrders(ord2 || []);
-        });
+
 
       if (!lotId || lotId === 'new') {
         setLotName(DEFAULT_LOT_NAME);
@@ -237,10 +226,10 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       const lot = await db.getLotAsync(lotId);
       if (!lot) return;
 
-      const lotData = lot.data || lot;
-      setLotName(lotData.name || lot.name || '');
-      setStatus(lotData.status || lot.status || ACTIVE_STATUS);
-      setDescription(lotData.description || lot.description || '');
+      const lotData = lot;
+      setLotName(lotData.name || '');
+      setStatus(lotData.status || ACTIVE_STATUS);
+      setDescription(lotData.description || '');
       setSlipDate(lotData.date || new Date().toISOString().split('T')[0]);
       setSelectedTargetProducts(lotData.targetProducts || []);
       setSelectedInputs((lotData.inputs || []).map((item) => ({
@@ -261,6 +250,10 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     Number(item.thickness) > 0 && Number(item.width) > 0 && Number(item.length) > 0;
 
   const isMoldingInput = (item) => {
+    const status = String(item.status || '').trim().toUpperCase();
+    if (status === 'USED' || status === 'CONSUMED' || status === 'ĐANG DÙNG TRONG SẢN XUẤT' || status === 'LOẠI BỎ' || (item.quantity !== undefined && Number(item.quantity) <= 0)) {
+      return false;
+    }
     const sourceLotId = String(item.source_lot_id || '');
     const isMoldingOutput = sourceLotId.startsWith('DH-') || sourceLotId.startsWith('DDH-');
     return (
@@ -832,14 +825,15 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       return null;
     }
 
-    const existingProductionLot = db.getLots().find((lot) => (
+    const allLots = await db.getLotsAsync();
+    const existingProductionLot = allLots.find((lot) => (
       !lot.is_handoff &&
       lot.slip_type === toSlipType &&
       lot.source_lot_id === sourceLotId &&
       lot.source_slip_type === 'DINH_HINH'
     ));
     const productionLotId = existingProductionLot?.id || db.createLotId(toSlipType);
-    const existingHandoffCount = db.getLots().filter((lot) => (
+    const existingHandoffCount = allLots.filter((lot) => (
       (lot.is_handoff || (lot.source_lot_id && lot.handoff_lot_id === lot.id)) &&
       lot.target_lot_id === productionLotId
     )).length;
@@ -972,9 +966,8 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     const currentLotId = sourceLotId || (lotId && lotId !== 'new' ? lotId : newLotId);
     const currentLot = await db.getLotAsync(currentLotId);
     if (currentLot) {
-      const currentData = currentLot.data || currentLot;
       await db.saveLot({
-        ...currentData,
+        ...currentLot,
         id: currentLotId,
         details: updatedRows.map(normalizeDetailRow)
       });
@@ -1130,12 +1123,17 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
 
   const handleSaveDraft = async () => {
     if (isCompleted) return;
-    await saveLotToDb(ACTIVE_STATUS);
+    const savedId = await saveLotToDb(ACTIVE_STATUS);
     setModal({
       isOpen: true,
       type: 'alert',
       title: 'Thành công',
-      message: 'Đã lưu nháp phiếu sản xuất định hình.'
+      message: 'Đã lưu nháp phiếu sản xuất định hình.',
+      onConfirm: () => {
+        if (!lotId || lotId === 'new') {
+          onNavigate('molding-production-slip', { lotId: savedId });
+        }
+      }
     });
   };
 
@@ -1174,7 +1172,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   };
 
   const handleConfirmProduction = () => {
-    if (isCompleted) return;
+    if (isCompleted || isConfirmingProduction) return;
 
     const inputUsageError = getInputUsageError();
     if (inputUsageError) {
@@ -1211,12 +1209,13 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       return;
     }
 
+    setIsConfirmingProduction(true);
     finalizeProduction(DEFAULT_HANDOFF_TARGET);
-  };
+};
 
   const finalizeProduction = (toSlipType = DEFAULT_HANDOFF_TARGET) => {
     const targetConfig = FINISHING_SLIP_CONFIGS[toSlipType] || FINISHING_SLIP_CONFIGS[DEFAULT_HANDOFF_TARGET];
-    // Validate that detail rows have at least some data
+
     const validDetailRows = detailRows.filter(row => {
       const qty = Number(row.quantity) || 0;
       return qty > 0;
@@ -1248,87 +1247,111 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       type: 'confirm',
       title: 'Xác nhận hoàn tất',
       message: 'Xác nhận hoàn thành phiếu định hình? Tất cả chi tiết đã hoàn thành đủ các công đoạn sẽ được nhập kho.',
+      onCancel: () => setIsConfirmingProduction(false),
       onConfirm: async () => {
-        const finalLotId = await saveLotToDb(COMPLETED_STATUS);
-        createHandoffSlip(detailRows.map((row) => row.id), finalLotId, toSlipType, { silent: true });
-        const newInventoryItems = [];
+        try {
+          const finalLotId = await saveLotToDb(COMPLETED_STATUS);
+          await createHandoffSlip(detailRows.map((row) => row.id), finalLotId, toSlipType, { silent: true });
+          
+          // Check if inventory items have already been created for this lot
+          const existingInventory = availableInventory.filter((item) => item.source_lot_id === finalLotId);
+          
+          if (existingInventory.length > 0) {
+            setModal({
+              isOpen: true,
+              type: 'alert',
+              title: 'Đã hoàn tất trước đó',
+              message: 'Lô sản xuất này đã được xác nhận hoàn tất và nhập kho trước đó. Không tạo lại dữ liệu.',
+              onConfirm: () => {
+                setIsConfirmingProduction(false);
+                onNavigate('lot-list');
+              }
+            });
+            return;
+          }
 
-        // Create inventory from completed detail rows.
-        detailRows.forEach(row => {
-          const qty = Math.min(getFinalCompleted(row), Number(row.quantity) || 0);
-          if (qty <= 0) return;
+          const newInventoryItems = [];
 
-          const t = Number(row.thickness) || 0;
-          const w = Number(row.width) || 0;
-          const l = Number(row.length) || 0;
-          const vol = (t > 0 && w > 0 && l > 0) ? ((t * w * l * qty) / 1000000000).toFixed(4) : 0;
+          const firstInput = selectedInputs[0] || {};
+          const firstInputData = firstInput.data || {};
+          const inheritedBatchId = firstInput.batchId || firstInputData.batchId || null;
+          const inheritedMalo = firstInputData.malo_nguyenlieu || null;
+          const inheritedPid = firstInputData.p_id || null;
+          const inheritedOrderId = firstInputData.orderId || null;
+          const inheritedOrderName = firstInputData.orderName || null;
+          const inheritedOrigin = firstInputData.origin || null;
+          const inheritedFsc = firstInputData.fsc_name || null;
+          const inheritedWoodType = firstInput.wood_type || firstInputData.wood_type || null;
 
-          newInventoryItems.push({
-            name: row.semiFinishedName || row.productName || 'Thành phẩm định hình',
-            source_detail_id: row.id,
-            product_id: row.productId || null,
-            thickness: t,
-            width: w,
-            length: l,
-            quantity: qty,
-            volume: vol,
-            type: 'SEMIFINISHED',
-            stock_category: 'DETAIL',
-            stock_status: getHandoffCreatedQty(row, toSlipType) >= qty ? 'allocated' : 'available',
-            status: getHandoffCreatedQty(row, toSlipType) >= qty ? 'Đang dùng trong sản xuất' : 'Sẵn sàng',
-            source_lot_id: finalLotId
+          // Create inventory from completed detail rows.
+          detailRows.forEach(row => {
+            const qty = Math.min(getFinalCompleted(row), Number(row.quantity) || 0);
+            if (qty <= 0) return;
+
+            const t = Number(row.thickness) || 0;
+            const w = Number(row.width) || 0;
+            const l = Number(row.length) || 0;
+            const vol = (t > 0 && w > 0 && l > 0) ? ((t * w * l * qty) / 1000000000).toFixed(4) : 0;
+
+            newInventoryItems.push({
+              name: row.semiFinishedName || row.productName || 'Thành phẩm định hình',
+              source_detail_id: row.id,
+              product_id: row.productId || null,
+              thickness: t,
+              width: w,
+              length: l,
+              quantity: qty,
+              volume: vol,
+              type: 'SEMIFINISHED',
+              stock_category: 'DETAIL',
+              stock_status: getHandoffCreatedQty(row, toSlipType) >= qty ? 'allocated' : 'available',
+              status: getHandoffCreatedQty(row, toSlipType) >= qty ? 'Đang dùng trong sản xuất' : 'Sẵn sàng',
+              source_lot_id: finalLotId,
+              wood_type: inheritedWoodType || row.semiFinishedName || row.productName,
+              data: {
+                batchId: inheritedBatchId,
+                malo_nguyenlieu: inheritedMalo,
+                p_id: inheritedPid,
+                orderId: inheritedOrderId,
+                orderName: inheritedOrderName,
+                origin: inheritedOrigin,
+                fsc_name: inheritedFsc,
+                source: 'produced',
+              }
+            });
           });
-        });
 
-        // Update input inventory
-        if (selectedInputs.length > 0) {
-          const idsToRemove = selectedInputs.map(item => item.id);
-          await db.removeInventory(idsToRemove);
+          // Update input inventory and create output inventory in parallel
+          const parallelOps = [];
+          if (selectedInputs.length > 0) {
+            parallelOps.push(db.consumeInventoryForLot(finalLotId, selectedInputs));
+          }
+          if (newInventoryItems.length > 0) {
+            parallelOps.push(db.addInventory(newInventoryItems));
+          }
+          if (parallelOps.length > 0) {
+            await Promise.all(parallelOps);
+          }
 
-          const partials = selectedInputs.filter(item => {
-            const originalQty = Number(item.quantity) || 0;
-            const usedQty = Number(item.quantity_used) || 0;
-            const originalVol = Number(item.volume) || 0;
-            const usedVol = Number(item.volume_used) || 0;
-            if (originalQty > 0) return originalQty > usedQty;
-            return originalVol > usedVol;
-          }).map(item => {
-            const originalQty = Number(item.quantity) || 0;
-            const usedQty = Number(item.quantity_used) || 0;
-            const originalVol = Number(item.volume) || 0;
-            const usedVol = Number(item.volume_used) || 0;
-            let remainingQty = 0;
-            let remainingVol;
-            if (originalQty > 0) {
-              remainingQty = originalQty - usedQty;
-              const l = parseFloat(item.length) || 0;
-              const w = parseFloat(item.width) || 0;
-              const t = parseFloat(item.thickness) || 0;
-              remainingVol = ((l * w * t * remainingQty) / 1000000000).toFixed(4);
-            } else {
-              remainingVol = (originalVol - usedVol).toFixed(4);
-            }
-            return {
-              ...item,
-              id: `INV-REM-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-              quantity: remainingQty,
-              volume: remainingVol
-            };
+          setModal({
+            isOpen: true,
+            type: 'alert',
+            title: 'Thành công',
+            message: `Đã hoàn tất phiếu định hình và tạo phiếu giao sang ${targetConfig.label}.`,
+            onConfirm: () => onNavigate('lot-list')
           });
-          if (partials.length > 0) newInventoryItems.push(...partials);
+        } catch (error) {
+          console.error('Error finalizing production:', error);
+          setModal({
+            isOpen: true,
+            type: 'alert',
+            title: 'Lỗi',
+            message: `Có lỗi xảy ra: ${error.message || 'Vui lòng thử lại'}`,
+            onConfirm: () => setIsConfirmingProduction(false)
+          });
+        } finally {
+          setIsConfirmingProduction(false);
         }
-
-        if (newInventoryItems.length > 0) {
-          await db.addInventory(newInventoryItems);
-        }
-
-        setModal({
-          isOpen: true,
-          type: 'alert',
-          title: 'Thành công',
-          message: `Đã hoàn tất phiếu định hình và tạo phiếu giao sang ${targetConfig.label}.`,
-          onConfirm: () => onNavigate('lot-list')
-        });
       }
     });
   };
@@ -1584,15 +1607,15 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
               <button
                 type="button"
                 disabled={handoffRowsToConfirm.length === 0}
-                onClick={() => {
+                onClick={async () => {
                   const { mode, rowIds } = handoffConfirm;
                   setHandoffConfirm({ isOpen: false, mode: 'handoff', rowIds: [] });
                   if (mode === 'complete') {
                     finalizeProduction(handoffTargetSlipType);
                     return;
                   }
-                  const sourceLotId = saveLotToDb(ACTIVE_STATUS);
-                  createHandoffSlip(rowIds, sourceLotId, handoffTargetSlipType);
+                  const sourceLotId = await saveLotToDb(ACTIVE_STATUS);
+                  await createHandoffSlip(rowIds, sourceLotId, handoffTargetSlipType);
                 }}
                 className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
               >
@@ -1609,17 +1632,43 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-[400px] overflow-hidden">
             <div className="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
               <h3 className="font-semibold text-gray-800">{modal.title}</h3>
-              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600"><X size={18} /></button>
+              <button 
+                onClick={closeModal} 
+                disabled={isModalSubmitting} 
+                className="text-gray-400 hover:text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <X size={18} />
+              </button>
             </div>
             <div className="px-5 py-6 text-gray-600 text-sm leading-relaxed">{modal.message}</div>
             <div className="px-5 py-4 border-t border-gray-100 flex justify-end gap-2 bg-gray-50">
               {modal.cancelText && (
-                <button onClick={() => { if (modal.onCancel) modal.onCancel(); else closeModal(); }} className="px-4 py-2 text-sm font-medium text-orange-600 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100">{modal.cancelText}</button>
+                <button 
+                  onClick={() => { if (modal.onCancel) modal.onCancel(); else closeModal(); }} 
+                  disabled={isModalSubmitting} 
+                  className="px-4 py-2 text-sm font-medium text-orange-600 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {modal.cancelText}
+                </button>
               )}
               <button
-                onClick={() => { if (modal.onConfirm) modal.onConfirm(); else closeModal(); }}
-                className="px-4 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700"
+                onClick={async () => {
+                  if (modal.onConfirm) {
+                    setIsModalSubmitting(true);
+                    try {
+                      await modal.onConfirm();
+                    } finally {
+                      setIsModalSubmitting(false);
+                      closeModal();
+                    }
+                  } else {
+                    closeModal();
+                  }
+                }}
+                disabled={isModalSubmitting}
+                className="px-4 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-1.5"
               >
+                {isModalSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
                 {modal.confirmText || 'Xác nhận'}
               </button>
             </div>

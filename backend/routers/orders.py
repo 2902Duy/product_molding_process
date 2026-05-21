@@ -12,6 +12,8 @@ router = APIRouter(prefix="/api/v1/orders", tags=["orders"])
 
 
 def _order_to_dict(order) -> dict:
+    data = order.data or {}
+    products = data.get("products") or []
     return {
         "id": order.id,
         "name": order.name,
@@ -19,6 +21,8 @@ def _order_to_dict(order) -> dict:
         "created_date": order.created_date.isoformat() if order.created_date else None,
         "customer_name": order.customer_name,
         "notes": order.notes,
+        "products": products,
+        "data": data,
         "created_at": order.created_at.isoformat() if order.created_at else None,
         "updated_at": order.updated_at.isoformat() if order.updated_at else None,
     }
@@ -36,7 +40,7 @@ async def search_orders(q: str = Query(""), db: AsyncSession = Depends(get_db)):
     return [_order_to_dict(o) for o in orders]
 
 
-@router.get("/{order_id}")
+@router.get("/{order_id:path}")
 async def get_order(order_id: str, db: AsyncSession = Depends(get_db)):
     order = await db_crud.get_order(db, order_id)
     if not order:

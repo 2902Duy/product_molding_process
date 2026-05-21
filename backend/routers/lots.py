@@ -137,9 +137,25 @@ async def consume_materials_for_lot(
         if not inv:
             continue
         remaining = (inv.quantity or 0) - mat.quantity_used
-        new_status = "USED" if remaining <= 0 else "RESERVED"
+        remaining_volume = None
+        if inv.volume is not None and mat.volume_used is not None:
+            remaining_volume = max(0, float(inv.volume) - float(mat.volume_used))
+        
+        is_used = True
+        if inv.quantity is not None and inv.quantity > 0 and remaining > 0:
+            is_used = False
+        if inv.volume is not None and float(inv.volume) > 0 and remaining_volume is not None and remaining_volume > 0.0001:
+            is_used = False
+        new_status = "USED" if is_used else "AVAILABLE"
+        inv_data = dict(inv.data or {})
+        inv_data["local_consumed_quantity"] = float(inv_data.get("local_consumed_quantity") or 0) + float(mat.quantity_used or 0)
+        if mat.volume_used is not None:
+            inv_data["local_consumed_volume"] = float(inv_data.get("local_consumed_volume") or 0) + float(mat.volume_used or 0)
+        update_data = {"status": new_status, "quantity": max(0, remaining), "data": inv_data}
+        if remaining_volume is not None:
+            update_data["volume"] = remaining_volume
         await db_crud.update_inventory_item(
-            db, mat.inventory_id, status=new_status, quantity=max(0, remaining)
+            db, mat.inventory_id, **update_data
         )
         inp = await db_crud.add_lot_input(
             db, lot_id, mat.inventory_id, mat.quantity_used, mat.volume_used
@@ -165,8 +181,13 @@ async def release_materials_from_lot(
         if not inv:
             continue
         restored_qty = (inv.quantity or 0) + mat.quantity_used
+        inv_data = dict(inv.data or {})
+        inv_data["local_consumed_quantity"] = max(
+            0,
+            float(inv_data.get("local_consumed_quantity") or 0) - float(mat.quantity_used or 0),
+        )
         await db_crud.update_inventory_item(
-            db, mat.inventory_id, status="AVAILABLE", quantity=restored_qty
+            db, mat.inventory_id, status="AVAILABLE", quantity=restored_qty, data=inv_data
         )
         await db_crud.remove_lot_input(db, lot_id, mat.inventory_id)
         released.append({"inventory_id": mat.inventory_id, "quantity_restored": mat.quantity_used})

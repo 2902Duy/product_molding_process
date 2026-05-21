@@ -141,7 +141,20 @@ const getDownstreamHandoffQty = (item, lots, lotMap) => {
 };
 
 const getStockStatus = (item, lots = [], lotMap = new Map()) => {
-  if (getItemCategory(item, lotMap) === 'FINISHED_PRODUCT') return 'available';
+  const category = getItemCategory(item, lotMap);
+  if (category === 'FINISHED_PRODUCT') return 'available';
+
+  if (category === 'WASTE') {
+    return (item.quantity !== undefined && Number(item.quantity) <= 0) ? 'consumed' : 'available';
+  }
+
+  const dbStatus = String(item.status || '').trim().toUpperCase();
+  if (dbStatus === 'USED' || dbStatus === 'CONSUMED' || dbStatus === 'ĐANG DÙNG TRONG SẢN XUẤT' || dbStatus === 'LOẠI BỎ') {
+    return 'consumed';
+  }
+  if (item.quantity !== undefined && Number(item.quantity) <= 0) {
+    return 'consumed';
+  }
 
   const itemQty = Number(item.quantity) || 0;
   const downstreamQty = getDownstreamHandoffQty(item, lots, lotMap);
@@ -198,9 +211,7 @@ export default function InventoryList({ initialTab = 'WOOD_BLANKS', onWarehouseT
       setLots(lotData);
     };
     refreshLocalData();
-    db.syncFromMcp({ orders: { maxOrders: 20, detailOrderLimit: 5, bomProductLimit: 3 } })
-      .then(refreshLocalData)
-      .catch(refreshLocalData);
+
   }, []);
 
   const lotMap = useMemo(() => new Map(lots.map((lot) => [lot.id, lot])), [lots]);
