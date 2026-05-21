@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import AppLayout from './layouts/AppLayout';
 import { useState, useEffect, useRef } from 'react';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './features/auth/pages/LoginPage';
 import { db } from './services/db';
 
 const MCP_SYNC_INTERVAL_MS = 5 * 60 * 1000;

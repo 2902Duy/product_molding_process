@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ClipboardList, X, Search, Check, ChevronDown, ChevronRight } from 'lucide-react';
-import { removeVietnameseTones } from '../../utils/stringUtils';
+import { removeVietnameseTones } from '../../shared/utils/stringUtils';
 
 export default function OrderSelectionModal({
   orders,

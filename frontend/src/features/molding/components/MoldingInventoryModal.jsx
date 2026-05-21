@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Package, X, Search, Check, ChevronDown, ChevronRight } from 'lucide-react';
-import { renderDimensions, renderQuantity } from '../../utils/formatters';
+import { renderDimensions, renderQuantity } from '../../shared/utils/formatters';
 
 export default function MoldingInventoryModal({
   groupedInventory,

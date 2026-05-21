@@ -5,13 +5,13 @@
  * Chat: panel fixed-right (state lifted here)
  */
 import { useState, useEffect } from 'react';
-import ProductionLotList from '../pages/ProductionLotList';
-import ProductionLotDetail from '../pages/ProductionLotDetail';
-import MoldingSlipDetail from '../pages/MoldingSlipDetail';
-import MoldingProductionSlip from '../pages/MoldingProductionSlip';
-import FinishingProductionSlip from '../pages/FinishingProductionSlip';
-import InventoryList from '../pages/InventoryList';
-import ChatWidget from '../components/Chat/ChatWidget';
+import ProductionLotList from '../features/production-lot/pages/ProductionLotList';
+import ProductionLotDetail from '../features/production-lot/pages/ProductionLotDetail';
+import MoldingSlipDetail from '../features/molding/pages/MoldingSlipDetail';
+import MoldingProductionSlip from '../features/molding/pages/MoldingProductionSlip';
+import FinishingProductionSlip from '../features/finishing/pages/FinishingProductionSlip';
+import InventoryList from '../features/inventory/pages/InventoryList';
+import ChatWidget from '../features/chat/components/ChatWidget';
 import { useNavigate, useLocation, useParams, useSearchParams, Routes, Route } from 'react-router-dom';
 import { db } from '../services/db';
 import {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Package, X, Search, Check, ChevronDown, ChevronRight } from 'lucide-react';
-import { renderDimensions, renderQuantity } from '../../utils/formatters';
-import { getInventoryTypeLabel, isRawInventory } from '../../utils/inventoryTypes';
+import { renderDimensions, renderQuantity } from '../../shared/utils/formatters';
+import { getInventoryTypeLabel, isRawInventory } from '../../shared/utils/inventoryTypes';
 
 export default function InventoryModal({
   groupedInventory,

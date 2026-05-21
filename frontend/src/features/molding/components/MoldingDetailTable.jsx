@@ -3,7 +3,7 @@ import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { SortableContext, arrayMove, rectSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Check, ChevronDown, ChevronRight, ClipboardCheck, GripVertical, Package, Plus, Save, Settings, Trash2, X } from 'lucide-react';
-import { MOLDING_STAGES } from '../../constants/moldingStages';
+import { MOLDING_STAGES } from '../constants/moldingStages';
 
 const clampPercent = (value) => Math.max(0, Math.min(100, value));
 
@@ -90,7 +90,11 @@ function SortableStagePill({ stage, locked, onRemove }) {
         type="button"
         onClick={onRemove}
         disabled={locked}
-        className="rounded p-0.5 text-slate-400 hover:bg-red-50 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-40"
+        className={`rounded p-0.5 transition-colors ${
+          locked
+            ? "text-slate-200 cursor-not-allowed"
+            : "text-slate-400 hover:bg-red-50 hover:text-red-500 cursor-pointer"
+        }`}
         title={locked ? 'Không thể bỏ công đoạn đã có tiến độ' : 'Bỏ công đoạn'}
       >
         <X className="h-3 w-3" />
@@ -330,7 +334,11 @@ export default function MoldingDetailTable({
             <button
               onClick={handleSave}
               disabled={disabled || !canCompleteSelectedStage || saveEntries.length === 0}
-              className="inline-flex h-9 items-center gap-1.5 rounded bg-emerald-600 px-3 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
+              className={`inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold shadow-sm transition-all active:scale-[0.98] ${
+                disabled || !canCompleteSelectedStage || saveEntries.length === 0
+                  ? "bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed shadow-none scale-100"
+                  : "bg-emerald-600 text-white hover:bg-emerald-700 cursor-pointer"
+              }`}
             >
               <Save className="h-4 w-4" />
               Hoàn thành công đoạn
@@ -468,7 +476,11 @@ export default function MoldingDetailTable({
                           type="button"
                           onClick={() => openConfigModal(group.items, group.productName)}
                           disabled={disabled}
-                          className="ml-auto inline-flex items-center gap-1 rounded border border-slate-200 bg-white px-2 py-1 text-[11px] font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-50"
+                          className={`ml-auto inline-flex items-center gap-1 rounded border px-2 py-1 text-[11px] font-medium transition-all active:scale-[0.98] ${
+                            disabled
+                              ? "bg-slate-50 text-slate-400 border-slate-100 cursor-not-allowed"
+                              : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 cursor-pointer"
+                          }`}
                         >
                           <Settings className="h-3.5 w-3.5" />
                           Cài công đoạn
@@ -611,7 +623,11 @@ export default function MoldingDetailTable({
                   type="button"
                   onClick={onCreateHandoffSlip}
                   disabled={disabled || selectedHandoffRowIds.length === 0}
-                  className="inline-flex h-10 items-center gap-2 rounded bg-emerald-600 px-4 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
+                  className={`inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-semibold shadow-sm transition-all active:scale-[0.98] ${
+                    disabled || selectedHandoffRowIds.length === 0
+                      ? "bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed shadow-none scale-100"
+                      : "bg-emerald-600 text-white hover:bg-emerald-700 cursor-pointer"
+                  }`}
                 >
                   <Check className="h-4 w-4" />
                   Tạo phiếu giao

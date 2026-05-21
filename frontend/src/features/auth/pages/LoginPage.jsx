@@ -231,10 +231,14 @@ export default function LoginPage({ onLoginSuccess }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 px-4 font-semibold rounded-lg text-[14px] text-white flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
-              style={{ background: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(59,130,246,0.25)' }}
+              className={`w-full py-2.5 px-4 font-semibold rounded-lg text-[14px] flex items-center justify-center gap-2 transition-all ${
+                loading
+                  ? "bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed"
+                  : "text-white active:scale-[0.98] cursor-pointer"
+              }`}
+              style={loading ? {} : { background: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(59,130,246,0.25)' }}
               onMouseEnter={(e) => !e.currentTarget.disabled && (e.currentTarget.style.background = 'var(--color-primary-hover)')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--color-primary)')}
+              onMouseLeave={(e) => !e.currentTarget.disabled && (e.currentTarget.style.background = 'var(--color-primary)')}
             >
               {loading ? (
                 <>

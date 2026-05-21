@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Save, Check, Plus, Trash2, Settings, Package } from 'lucide-react';
-import { db } from '../services/db';
+import { db } from '../../../services/db';
 
 const STAGES = [
   { id: 'vao-dinh-hinh', name: 'Vào định hình', order: 1 },
@@ -623,7 +623,11 @@ export default function MoldingSlipDetail({ onNavigate, lotId }) {
               <button
                 onClick={() => setCurrentStep('semi')}
                 disabled={selectedProducts.length === 0}
-                className="flex-[2] md:flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 active:scale-[0.98] transition disabled:bg-gray-300 disabled:cursor-not-allowed"
+                className={`flex-[2] md:flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold transition-all active:scale-[0.98] ${
+                  selectedProducts.length === 0
+                    ? "bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed"
+                    : "bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer"
+                }`}
               >
                 Tiếp tục
               </button>

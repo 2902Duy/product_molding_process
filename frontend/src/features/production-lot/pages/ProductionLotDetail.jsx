@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { ArrowLeft, Save, Check, CheckCircle, X, Lock, Loader2 } from 'lucide-react';
-import { db } from '../services/db';
-import { removeVietnameseTones } from '../utils/stringUtils';
-import { normalizeInventoryType } from '../utils/inventoryTypes';
+import { db } from '../../../services/db';
+import { removeVietnameseTones } from '../../shared/utils/stringUtils';
+import { normalizeInventoryType } from '../../shared/utils/inventoryTypes';
 
-import InputTable from '../components/ProductionLot/InputTable';
-import TargetProductTable from '../components/ProductionLot/TargetProductTable';
-import OrderSelectionModal from '../components/ProductionLot/OrderSelectionModal';
-import OutputTable from '../components/ProductionLot/OutputTable';
-import InventoryModal from '../components/ProductionLot/InventoryModal';
-import LossPrediction from '../components/ProductionLot/LossPrediction';
+import InputTable from '../components/InputTable';
+import TargetProductTable from '../components/TargetProductTable';
+import OrderSelectionModal from '../components/OrderSelectionModal';
+import OutputTable from '../components/OutputTable';
+import InventoryModal from '../components/InventoryModal';
+import LossPrediction from '../components/LossPrediction';
 
 const ACTIVE_STATUS = 'Đang sản xuất';
 const COMPLETED_STATUS = 'Hoàn thành';
@@ -70,6 +70,13 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
   const closeModal = () => {
     if (isModalSubmitting) return;
     setModal((prev) => ({ ...prev, isOpen: false }));
+  };
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast({ show: false, message: '', type: 'success' });
+    }, 1500);
   };
   const isCompleted = status === COMPLETED_STATUS;
 
@@ -388,45 +395,32 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
     if (isCompleted) return;
     const savedId = await saveLotToDb(ACTIVE_STATUS);
     setShowOutputValidation(false);
-    setModal({
-      isOpen: true,
-      type: 'alert',
-      title: 'Thành công',
-      message: 'Đã lưu nháp lệnh sản xuất.',
-      onConfirm: () => {
-        if (!lotId || lotId === 'new') {
-          onNavigate('lot-detail', { id: savedId });
-        }
-      }
-    });
+    showToast('Đã lưu nháp lệnh sản xuất!');
+    if (!lotId || lotId === 'new') {
+      setTimeout(() => {
+        onNavigate('lot-detail', { id: savedId });
+      }, 500);
+    }
   };
 
-  const handleBackToList = () => {
+  const handleBackToList = async () => {
     if (isCompleted) {
       onNavigate('lot-list');
       return;
     }
-
-    setModal({
-      isOpen: true,
-      type: 'confirm',
-      title: 'Rời khỏi phiếu?',
-      message: 'Bạn có muốn lưu nháp phiếu sản xuất phôi trước khi quay lại danh sách không?',
-      cancelText: 'Không lưu',
-      onCancel: () => onNavigate('lot-list'),
-      onConfirm: async () => {
-        await saveLotToDb(ACTIVE_STATUS);
-        onNavigate('lot-list');
-      }
-    });
+    // Tự động lưu nháp êm ái khi thoát
+    await saveLotToDb(ACTIVE_STATUS);
+    onNavigate('lot-list');
   };
 
   const handleCancelLot = () => {
     setModal({
       isOpen: true,
       type: 'confirm',
-      title: 'Xoá phiếu?',
-      message: 'Bạn có chắc muốn huỷ và xoá phiếu sản xuất phôi này không? Hành động này không thể hoàn tác.',
+      title: 'Xoá phiếu nháp?',
+      message: 'Bạn có chắc chắn muốn xoá hoàn toàn phiếu nháp sản xuất phôi này? Hành động này sẽ xoá sạch dữ liệu phiếu khỏi hệ thống và không thể hoàn tác.',
+      confirmText: 'Xoá phiếu',
+      cancelText: 'Quay lại',
       onConfirm: async () => {
         await db.deleteLot(lotId || newLotId);
         onNavigate('lot-list');
@@ -674,9 +668,10 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
           <div className="max-w-[760px] mx-auto flex gap-2 md:gap-3">
             <button
               onClick={handleCancelLot}
-              className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition"
+              className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold text-red-600 bg-red-50 hover:bg-red-100 active:scale-[0.98] transition"
+              title="Xoá phiếu nháp này khỏi hệ thống"
             >
-              Huỷ
+              Xoá nháp
             </button>
             <button
               onClick={handleSaveDraft}
@@ -711,13 +706,17 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
               {modal.message}
             </div>
             <div className="px-5 py-4 border-t border-gray-100 flex justify-end gap-2 bg-gray-50/50">
-              {modal.cancelText && (
+              {(modal.type === 'confirm' || modal.cancelText) && (
                 <button
                   onClick={() => { if (modal.onCancel) modal.onCancel(); else closeModal(); }}
                   disabled={isModalSubmitting}
-                  className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 border border-blue-100 rounded-lg hover:bg-blue-100 active:scale-[0.98] transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className={`px-4 py-2 text-sm font-medium border rounded-lg transition-all active:scale-[0.98] ${
+                    isModalSubmitting
+                      ? "bg-slate-50 text-slate-400 border-slate-100 cursor-not-allowed"
+                      : "text-blue-600 bg-blue-50 border-blue-100 hover:bg-blue-100 cursor-pointer"
+                  }`}
                 >
-                  {modal.cancelText}
+                  {modal.cancelText || 'Quay lại'}
                 </button>
               )}
               <button
@@ -735,10 +734,14 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
                   }
                 }}
                 disabled={isModalSubmitting}
-                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 active:scale-[0.98] transition disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-1.5"
+                className={`px-4 py-2 text-sm font-medium rounded-lg flex items-center gap-1.5 transition-all active:scale-[0.98] ${
+                  isModalSubmitting
+                    ? "bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed"
+                    : "text-white bg-blue-600 hover:bg-blue-700 cursor-pointer"
+                }`}
               >
                 {isModalSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
-                Xác nhận
+                {modal.confirmText || 'Xác nhận'}
               </button>
             </div>
           </div>
@@ -767,6 +770,14 @@ export default function ProductionLotDetail({ onNavigate, lotId }) {
           onToggleInputSelection={handleToggleInputSelection}
           onToggleModalBatchSelection={handleToggleModalBatchSelection}
         />
+      )}
+      
+      {/* Toast Notification */}
+      {toast && toast.show && (
+        <div className="fixed bottom-6 right-6 z-[300] bg-gray-900/90 backdrop-blur-sm text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-in slide-in-from-bottom duration-300">
+          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+          <span className="text-xs font-semibold">{toast.message}</span>
+        </div>
       )}
     </div>
   );

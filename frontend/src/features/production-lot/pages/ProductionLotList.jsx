@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Search, ArrowRight, Plus, Trash2, X, Layers, Square, ChevronLeft, ChevronRight, Paintbrush, Wrench, Package } from 'lucide-react';
-import { db } from '../services/db';
-import { removeVietnameseTones } from '../utils/stringUtils';
+import { db } from '../../../services/db';
+import { removeVietnameseTones } from '../../shared/utils/stringUtils';
 
 export default function ProductionLotList({ onNavigate }) {
   const [search, setSearch] = useState('');
@@ -403,10 +403,13 @@ export default function ProductionLotList({ onNavigate }) {
                 type="button"
                 onClick={() => setPage((c) => Math.max(1, c - 1))}
                 disabled={safePage <= 1}
-                className="h-8 px-3 rounded-lg text-[12px] font-semibold flex items-center gap-1 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{ border: '1px solid var(--color-border)', color: 'var(--color-text-secondary)' }}
+                className={`h-8 px-3 rounded-lg text-[12px] font-semibold flex items-center gap-1 transition-all active:scale-[0.98] ${
+                  safePage <= 1
+                    ? "bg-slate-50 text-slate-400 border border-slate-200 cursor-not-allowed"
+                    : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 cursor-pointer"
+                }`}
                 onMouseEnter={e => !e.currentTarget.disabled && (e.currentTarget.style.background = 'var(--color-app-bg)')}
-                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                onMouseLeave={e => !e.currentTarget.disabled && (e.currentTarget.style.background = 'transparent')}
               >
                 <ChevronLeft size={14} /> Trước
               </button>
@@ -414,10 +417,13 @@ export default function ProductionLotList({ onNavigate }) {
                 type="button"
                 onClick={() => setPage((c) => Math.min(totalPages, c + 1))}
                 disabled={safePage >= totalPages}
-                className="h-8 px-3 rounded-lg text-[12px] font-semibold flex items-center gap-1 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{ border: '1px solid var(--color-border)', color: 'var(--color-text-secondary)' }}
+                className={`h-8 px-3 rounded-lg text-[12px] font-semibold flex items-center gap-1 transition-all active:scale-[0.98] ${
+                  safePage >= totalPages
+                    ? "bg-slate-50 text-slate-400 border border-slate-200 cursor-not-allowed"
+                    : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 cursor-pointer"
+                }`}
                 onMouseEnter={e => !e.currentTarget.disabled && (e.currentTarget.style.background = 'var(--color-app-bg)')}
-                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                onMouseLeave={e => !e.currentTarget.disabled && (e.currentTarget.style.background = 'transparent')}
               >
                 Sau <ChevronRight size={14} />
               </button>

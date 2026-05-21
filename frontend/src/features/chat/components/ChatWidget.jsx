@@ -5,7 +5,7 @@
  */
 import { useEffect, useRef } from 'react';
 import { Bot, Send, X, Sparkles } from 'lucide-react';
-import { askAssistant } from '../../services/chatApi';
+import { askAssistant } from '../../../services/chatApi';
 
 const renderInlineMarkdown = (text) => {
   const parts = String(text).split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
@@ -209,12 +209,16 @@ export default function ChatWidget({ open, onClose, currentView, currentLotId, m
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="flex items-center justify-center rounded-lg w-9 h-9 shrink-0 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{ background: 'var(--color-primary)' }}
+            className={`flex items-center justify-center rounded-lg w-9 h-9 shrink-0 transition-all active:scale-[0.98] ${
+              loading || !input.trim()
+                ? "bg-slate-100 border border-slate-200 cursor-not-allowed"
+                : "cursor-pointer"
+            }`}
+            style={loading || !input.trim() ? {} : { background: 'var(--color-primary)' }}
             onMouseEnter={e => !e.currentTarget.disabled && (e.currentTarget.style.background = 'var(--color-primary-hover)')}
-            onMouseLeave={e => e.currentTarget.style.background = 'var(--color-primary)'}
+            onMouseLeave={e => !e.currentTarget.disabled && (e.currentTarget.style.background = 'var(--color-primary)')}
           >
-            <Send size={14} color="white" />
+            <Send size={14} color={loading || !input.trim() ? '#94a3b8' : 'white'} />
           </button>
         </form>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Package, Plus, ChevronDown, ChevronRight, Trash2 } from 'lucide-react';
-import { renderDimensions, renderQuantity } from '../../utils/formatters';
-import { getInventoryTypeLabel, isRawInventory, normalizeInventoryType } from '../../utils/inventoryTypes';
+import { renderDimensions, renderQuantity } from '../../shared/utils/formatters';
+import { getInventoryTypeLabel, isRawInventory, normalizeInventoryType } from '../../shared/utils/inventoryTypes';
 
 export default function InputTable({
   selectedInputs,

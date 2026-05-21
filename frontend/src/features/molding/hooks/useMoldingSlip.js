@@ -1,133 +1,49 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, Save, Check, X, Loader2 } from 'lucide-react';
-import { db } from '../services/db';
-
-import InputTable from '../components/ProductionLot/InputTable';
-import TargetProductTable from '../components/ProductionLot/TargetProductTable';
-import MoldingDetailTable from '../components/Molding/MoldingDetailTable';
-import CustomRequestTable from '../components/Molding/CustomRequestTable';
-import OrderSelectionModal from '../components/ProductionLot/OrderSelectionModal';
-import MoldingInventoryModal from '../components/Molding/MoldingInventoryModal';
+import { db } from '../../../services/db';
 import { MOLDING_STAGES } from '../constants/moldingStages';
-import { FINISHING_SLIP_CONFIGS } from '../constants/finishingStages';
+import { FINISHING_SLIP_CONFIGS } from '../../finishing/constants/finishingStages';
+import {
+  createStageProgress as utilsCreateStageProgress,
+  getFinalCompleted as utilsGetFinalCompleted,
+  normalizeDetailRow as utilsNormalizeDetailRow,
+  createDetailRow as utilsCreateDetailRow,
+  createCustomRequestRow,
+  shouldUseAutoLotName as utilsShouldUseAutoLotName,
+  buildAutoLotName as utilsBuildAutoLotName,
+  calculateRequestVolume,
+  mergeTargetProducts
+} from '../../shared/utils/productionUtils';
 
 const ACTIVE_STATUS = 'Đang sản xuất';
 const COMPLETED_STATUS = 'Hoàn thành';
 const DEFAULT_LOT_NAME = 'Phiếu định hình đơn hàng mới';
 const LEGACY_DEFAULT_LOT_NAMES = ['Phiếu SX Định hình', 'Phiếu SX Định hình -'];
 
-const createStageProgress = (quantity = '', existingStages = [], legacyStageId = null, legacyCompleted = 0) => {
-  const required = Number(quantity) || 0;
-  const selectedStageIds = existingStages.length > 0
-    ? existingStages.map((stage) => stage.id)
-    : MOLDING_STAGES.map((stage) => stage.id);
+const createStageProgress = (quantity = '', existingStages = [], legacyStageId = null, legacyCompleted = 0) =>
+  utilsCreateStageProgress(quantity, existingStages, legacyStageId, legacyCompleted, MOLDING_STAGES);
 
-  return selectedStageIds
-    .map((stageId) => MOLDING_STAGES.find((stage) => stage.id === stageId) || existingStages.find((stage) => stage.id === stageId))
-    .filter(Boolean)
-    .map((stage) => {
-    const existing = existingStages.find((item) => item.id === stage.id);
-    const completed = existing
-      ? Number(existing.completed) || 0
-      : stage.id === legacyStageId ? Number(legacyCompleted) || 0 : 0;
+const getFinalCompleted = utilsGetFinalCompleted;
 
-    return {
-      ...stage,
-      required,
-      completed: Math.min(required, completed),
-      records: existing?.records || []
-    };
-  });
-};
+const normalizeDetailRow = (row) =>
+  utilsNormalizeDetailRow(row, MOLDING_STAGES);
 
-const getFinalCompleted = (row) => {
-  if (!Array.isArray(row.stages) || row.stages.length === 0) {
-    return Number(row.quantity_completed) || 0;
-  }
-
-  return row.stages.reduce(
-    (min, stage) => Math.min(min, Number(stage.completed) || 0),
-    Number(row.quantity) || 0
-  );
-};
-
-const normalizeDetailRow = (row) => {
-  const quantity = row.quantity ?? '';
-  const legacyCompleted = Number(row.quantity_completed) || 0;
-  const existingStages = Array.isArray(row.stages) ? row.stages : [];
-  const legacyIsFullyCompleted = !existingStages.length && legacyCompleted >= (Number(quantity) || 0) && Number(quantity) > 0;
-  const stages = legacyIsFullyCompleted
-    ? createStageProgress(quantity, MOLDING_STAGES.map((stage) => ({ ...stage, completed: Number(quantity) || 0 })))
-    : createStageProgress(quantity, existingStages, row.stage, legacyCompleted);
-
-  const normalized = {
-    ...row,
-    quantity,
-    stages
-  };
-
-  return {
-    ...normalized,
-    quantity_completed: getFinalCompleted(normalized)
-  };
-};
-
-const createDetailRow = (overrides = {}) => normalizeDetailRow({
-  id: `DETAIL-DH-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-  productId: '',
-  productName: '',
-  semiFinishedId: '',
-  semiFinishedName: '',
-  thickness: '',
-  width: '',
-  length: '',
-  base_quantity: 1,
-  quantity: '',
-  quantity_completed: 0,
-  completedRecords: [],
-  ...overrides
-});
-
-const createCustomRequestRow = () => ({
-  id: `REQ-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-  woodType: '',
-  thickness: '',
-  width: '',
-  length: '',
-  quantity: '',
-  reason: '',
-  note: ''
-});
+const createDetailRow = (overrides = {}) =>
+  utilsCreateDetailRow(overrides, MOLDING_STAGES, 'DETAIL-DH');
 
 const createLotId = () => db.createLotId('DINH_HINH');
 
-const getSelectedOrderCodes = (products = []) => {
-  const codes = products.map((product) => product.orderName || product.orderId).filter(Boolean);
-  return [...new Set(codes)];
-};
+const shouldUseAutoLotName = (name) =>
+  utilsShouldUseAutoLotName(name, {
+    defaultName: DEFAULT_LOT_NAME,
+    autoNamePrefix: 'Phiếu định hình',
+    legacyDefaultNames: LEGACY_DEFAULT_LOT_NAMES
+  });
 
-const shouldUseAutoLotName = (name) => {
-  const trimmed = String(name || '').trim();
-  if (!trimmed) return true;
-  if (trimmed.toLowerCase().startsWith('phiếu bổ sung')) return false;
-  return trimmed === DEFAULT_LOT_NAME || LEGACY_DEFAULT_LOT_NAMES.some((defaultName) => trimmed === defaultName || trimmed.startsWith(`${defaultName} `));
-};
-
-const buildAutoLotName = (products = []) => {
-  const orderCodes = getSelectedOrderCodes(products);
-  return orderCodes.length > 0
-    ? `Phiếu định hình - ${orderCodes.join(', ')}`
-    : DEFAULT_LOT_NAME;
-};
-
-const calculateRequestVolume = (request) => {
-  const thickness = Number(request.thickness) || 0;
-  const width = Number(request.width) || 0;
-  const length = Number(request.length) || 0;
-  const quantity = Number(request.quantity) || 0;
-  if (thickness <= 0 || width <= 0 || length <= 0 || quantity <= 0) return '';
-  return Number(((thickness * width * length * quantity) / 1000000000).toFixed(4));
-};
+const buildAutoLotName = (products = []) =>
+  utilsBuildAutoLotName(products, {
+    defaultName: DEFAULT_LOT_NAME,
+    autoNamePrefix: 'Phiếu định hình'
+  });
 
 const getHandoffCreatedQty = (row, toSlipType = 'ASSEMBLY') =>
   (row.handoffRecords || [])
@@ -140,35 +56,7 @@ const hasHandoffRecords = (row) =>
 const DEFAULT_HANDOFF_TARGET = 'ASSEMBLY';
 const HANDOFF_TARGET_OPTIONS = ['ASSEMBLY', 'PAINTING', 'PACKING'];
 
-const mergeTargetProducts = (existingProducts = [], incomingProducts = []) => {
-  const productMap = new Map(existingProducts.map((product) => [product.id, product]));
-
-  incomingProducts.forEach((product) => {
-    const existing = productMap.get(product.id);
-    if (!existing) {
-      productMap.set(product.id, product);
-      return;
-    }
-
-    const existingQty = Number(existing.quantity_produce ?? existing.quantity) || 0;
-    const incomingQty = Number(product.quantity_produce ?? product.quantity) || 0;
-    const mergedQty = Math.max(existingQty, incomingQty);
-    productMap.set(product.id, {
-      ...existing,
-      ...product,
-      quantity: mergedQty,
-      quantity_produce: mergedQty,
-      quantity_completed: Number(existing.quantity_completed) || 0,
-      input_handoff_lot_ids: [
-        ...new Set([...(existing.input_handoff_lot_ids || []), ...(product.input_handoff_lot_ids || [])])
-      ],
-    });
-  });
-
-  return [...productMap.values()];
-};
-
-export default function MoldingProductionSlip({ onNavigate, lotId }) {
+export default function useMoldingSlip({ lotId, onNavigate }) {
   const [newLotId] = useState(createLotId);
   const [lotName, setLotName] = useState('');
   const [slipDate, setSlipDate] = useState(new Date().toISOString().split('T')[0]);
@@ -180,7 +68,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   const [selectedTargetProducts, setSelectedTargetProducts] = useState([]);
   const [orderModalOpen, setOrderModalOpen] = useState(false);
 
-  // Inventory for molding - only SEMIFINISHED and SURPLUS (no RAW, no WASTE)
+  // Inventory for molding
   const [availableInventory, setAvailableInventory] = useState([]);
   const [inventoryModalOpen, setInventoryModalOpen] = useState(false);
   const [selectedInputs, setSelectedInputs] = useState([]);
@@ -198,35 +86,36 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   const [handoffTargetSlipType, setHandoffTargetSlipType] = useState(DEFAULT_HANDOFF_TARGET);
   const [handoffConfirm, setHandoffConfirm] = useState({ isOpen: false, mode: 'handoff', rowIds: [] });
 
-  const [modal, setModal] = useState({ isOpen: false, type: '', title: '', message: '', onConfirm: null });
+  const [modal, setModal] = useState({ isOpen: false, type: 'alert', title: '', message: '' });
   const [isConfirmingProduction, setIsConfirmingProduction] = useState(false);
-  const [isModalSubmitting, setIsModalSubmitting] = useState(false);
-  const closeModal = () => {
-    if (isModalSubmitting) return;
-    setModal((prev) => ({ ...prev, isOpen: false }));
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast({ show: false, message: '', type: 'success' });
+    }, 1500);
   };
-  const isCompleted = status === COMPLETED_STATUS || status === 'Hoàn thành';
 
+  const isCompleted = status === COMPLETED_STATUS;
+
+  const closeModal = () => setModal({ isOpen: false, type: 'alert', title: '', message: '' });
+
+  // Load orders & inventory
   useEffect(() => {
+    setOrders(db.getOrders());
+    setAvailableInventory(db.getInventory());
+  }, []);
+
+  // Load slip if editing
+  useEffect(() => {
+    if (!lotId || lotId === 'new') return;
+
     const loadData = async () => {
-      const [inv, ord] = await Promise.all([
-        db.getInventoryAsync(),
-        db.getOrdersAsync(),
-      ]);
-      setAvailableInventory(inv);
-      setOrders(ord || []);
-
-
-
-      if (!lotId || lotId === 'new') {
-        setLotName(DEFAULT_LOT_NAME);
+      const lotData = await db.getLotAsync(lotId);
+      if (!lotData) {
+        onNavigate('lot-list');
         return;
       }
-
-      const lot = await db.getLotAsync(lotId);
-      if (!lot) return;
-
-      const lotData = lot;
       setLotName(lotData.name || '');
       setStatus(lotData.status || ACTIVE_STATUS);
       setDescription(lotData.description || '');
@@ -250,8 +139,8 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     Number(item.thickness) > 0 && Number(item.width) > 0 && Number(item.length) > 0;
 
   const isMoldingInput = (item) => {
-    const status = String(item.status || '').trim().toUpperCase();
-    if (status === 'USED' || status === 'CONSUMED' || status === 'ĐANG DÙNG TRONG SẢN XUẤT' || status === 'LOẠI BỎ' || (item.quantity !== undefined && Number(item.quantity) <= 0)) {
+    const statusVal = String(item.status || '').trim().toUpperCase();
+    if (statusVal === 'USED' || statusVal === 'CONSUMED' || statusVal === 'ĐANG DÙNG TRONG SẢN XUẤT' || statusVal === 'LOẠI BỎ' || (item.quantity !== undefined && Number(item.quantity) <= 0)) {
       return false;
     }
     const sourceLotId = String(item.source_lot_id || '');
@@ -263,15 +152,14 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     );
   };
 
-  // Filter inventory for molding: only sized blanks, not outputs from molding slips.
   const moldingInventory = availableInventory.filter(isMoldingInput);
 
   const filteredInventory = moldingInventory.filter((item) => {
     const term = (invSearch || '').toLowerCase();
-    const matchesSearch =
+    return (
       (item.name || '').toLowerCase().includes(term) ||
-      (item.batchId || item.id || '').toLowerCase().includes(term);
-    return matchesSearch;
+      (item.batchId || item.id || '').toLowerCase().includes(term)
+    );
   });
 
   const groupedInventory = Object.values(filteredInventory.reduce((acc, item) => {
@@ -295,26 +183,22 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       .filter(Boolean)
   );
 
-  // Handlers for target products
   const handleToggleProductSelection = (product, order) => {
     if (completedMoldingProductIds.has(product.id)) return;
 
     const exists = selectedTargetProducts.find(item => item.id === product.id);
     if (exists) {
       setSelectedTargetProducts(selectedTargetProducts.filter(item => item.id !== product.id));
-      // Also remove all detail rows for this product
       setDetailRows(detailRows.filter(row => row.productId !== product.id));
       return;
     }
     const newProduct = { ...product, orderId: order.id, orderName: order.name, quantity_produce: product.quantity };
     setSelectedTargetProducts([...selectedTargetProducts, newProduct]);
 
-    // Auto-add all items (parts) of this product to detail rows
     const productQty = product.quantity_produce || product.quantity || 0;
     const items = product.items || [];
 
     if (items.length > 0) {
-      // Add each item/part as a detail row
       const newDetailRows = items.map(item => createDetailRow({
         productId: product.id,
         productCode: product.code || product.productCode || product.id,
@@ -330,13 +214,12 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       }));
       setDetailRows([...detailRows, ...newDetailRows]);
     } else {
-      // Fallback: add product as single detail row using product name as semiFinishedName
       const newDetailRow = createDetailRow({
         productId: product.id,
         productCode: product.code || product.productCode || product.id,
         productName: product.name,
         semiFinishedId: product.id,
-        semiFinishedName: product.name, // Use product name as detail name
+        semiFinishedName: product.name,
         thickness: product.thickness || '',
         width: product.width || '',
         length: product.length || '',
@@ -349,18 +232,15 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   };
 
   const handleToggleOrderSelection = (order) => {
-    // Toggle all products in this order
     const orderProducts = (order.products || []).filter(product => !completedMoldingProductIds.has(product.id));
     if (orderProducts.length === 0) return;
     const allSelected = orderProducts.every(p => selectedTargetProducts.find(sp => sp.id === p.id));
 
     if (allSelected) {
-      // Remove all products from this order
       const orderProductIds = orderProducts.map(p => p.id);
       setSelectedTargetProducts(selectedTargetProducts.filter(sp => !orderProductIds.includes(sp.id)));
       setDetailRows(detailRows.filter(row => !orderProductIds.includes(row.productId)));
     } else {
-      // Add all products from this order
       const newProducts = orderProducts
         .filter(p => !selectedTargetProducts.find(sp => sp.id === p.id))
         .map(p => ({ ...p, orderId: order.id, orderName: order.name, quantity_produce: p.quantity }));
@@ -391,7 +271,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
               productCode: p.code || p.productCode || p.id,
               productName: p.name,
               semiFinishedId: p.id,
-              semiFinishedName: p.name, // Use product name as detail name
+              semiFinishedName: p.name,
               thickness: p.thickness || '',
               width: p.width || '',
               length: p.length || '',
@@ -412,7 +292,6 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     setSelectedTargetProducts(selectedTargetProducts.map(product => (
       product.id === id ? { ...product, quantity_produce: qty } : product
     )));
-    // Also update detail rows using each part's base quantity.
     setDetailRows(detailRows.map(row =>
       row.productId === id ? normalizeDetailRow({
         ...row,
@@ -426,7 +305,6 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     setDetailRows(detailRows.filter(row => row.productId !== id));
   };
 
-  // Handlers for inventory inputs
   const handleToggleInputSelection = (item) => {
     const exists = selectedInputs.find(input => input.id === item.id);
     if (exists) {
@@ -475,7 +353,6 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     setSelectedInputs(selectedInputs.filter(item => (item.batchId || item.id) !== batchId));
   };
 
-  // Custom request handlers
   const handleAddCustomRequest = () => {
     setCustomRequests([...customRequests, createCustomRequestRow()]);
   };
@@ -560,7 +437,6 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     });
   };
 
-  // Detail row handlers
   const handleAddDetailRow = () => {
     setDetailRows([...detailRows, createDetailRow()]);
   };
@@ -667,7 +543,6 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     setStageTickets(updatedTickets);
     setLastStageSave({ detailRows: previousRows, stageTickets: previousTickets });
     setStatus(ACTIVE_STATUS);
-
   };
 
   const handleUndoStageProgress = () => {
@@ -964,7 +839,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     setSelectedHandoffRowIds([]);
 
     const currentLotId = sourceLotId || (lotId && lotId !== 'new' ? lotId : newLotId);
-    const currentLot = await db.getLotAsync(currentLotId);
+    const currentLot = await db.getLot(currentLotId);
     if (currentLot) {
       await db.saveLot({
         ...currentLot,
@@ -1096,7 +971,6 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
       : null;
   };
 
-  // Save handlers
   const saveLotToDb = async (newStatus) => {
     const finalLotId = lotId && lotId !== 'new' ? lotId : newLotId;
     const finalLotName = shouldUseAutoLotName(lotName)
@@ -1124,45 +998,32 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
   const handleSaveDraft = async () => {
     if (isCompleted) return;
     const savedId = await saveLotToDb(ACTIVE_STATUS);
-    setModal({
-      isOpen: true,
-      type: 'alert',
-      title: 'Thành công',
-      message: 'Đã lưu nháp phiếu sản xuất định hình.',
-      onConfirm: () => {
-        if (!lotId || lotId === 'new') {
-          onNavigate('molding-production-slip', { lotId: savedId });
-        }
-      }
-    });
+    showToast('Đã lưu nháp phiếu sản xuất!');
+    if (!lotId || lotId === 'new') {
+      setTimeout(() => {
+        onNavigate('molding-production-slip', { lotId: savedId });
+      }, 500);
+    }
   };
 
-  const handleBackToList = () => {
+  const handleBackToList = async () => {
     if (isCompleted) {
       onNavigate('lot-list');
       return;
     }
-
-    setModal({
-      isOpen: true,
-      type: 'confirm',
-      title: 'Rời khỏi phiếu?',
-      message: 'Bạn có muốn lưu nháp phiếu sản xuất định hình trước khi quay lại danh sách không?',
-      cancelText: 'Không lưu',
-      onCancel: () => onNavigate('lot-list'),
-      onConfirm: async () => {
-        await saveLotToDb(ACTIVE_STATUS);
-        onNavigate('lot-list');
-      }
-    });
+    // Tự động lưu nháp êm ái khi thoát
+    await saveLotToDb(ACTIVE_STATUS);
+    onNavigate('lot-list');
   };
 
   const handleCancelLot = () => {
     setModal({
       isOpen: true,
       type: 'confirm',
-      title: 'Xoá phiếu?',
-      message: 'Bạn có chắc muốn huỷ và xoá phiếu sản xuất định hình này không? Hành động này không thể hoàn tác.',
+      title: 'Xoá phiếu nháp?',
+      message: 'Bạn có chắc chắn muốn xoá hoàn toàn phiếu nháp định hình này? Hành động này sẽ xoá sạch dữ liệu phiếu khỏi hệ thống và không thể hoàn tác.',
+      confirmText: 'Xoá phiếu',
+      cancelText: 'Quay lại',
       onConfirm: async () => {
         const finalLotId = lotId && lotId !== 'new' ? lotId : newLotId;
         await db.deleteLot(finalLotId);
@@ -1211,7 +1072,7 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
 
     setIsConfirmingProduction(true);
     finalizeProduction(DEFAULT_HANDOFF_TARGET);
-};
+  };
 
   const finalizeProduction = (toSlipType = DEFAULT_HANDOFF_TARGET) => {
     const targetConfig = FINISHING_SLIP_CONFIGS[toSlipType] || FINISHING_SLIP_CONFIGS[DEFAULT_HANDOFF_TARGET];
@@ -1245,17 +1106,18 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     setModal({
       isOpen: true,
       type: 'confirm',
-      title: 'Xác nhận hoàn tất',
-      message: 'Xác nhận hoàn thành phiếu định hình? Tất cả chi tiết đã hoàn thành đủ các công đoạn sẽ được nhập kho.',
+      title: 'Xác nhận hoàn tất phiếu định hình',
+      message: 'Hệ thống sẽ chuyển phiếu định hình này sang trạng thái Hoàn thành và tự động nhập các chi tiết thành phẩm vào kho. Bạn có chắc chắn muốn hoàn tất không?',
+      confirmText: 'Hoàn tất & Nhập kho',
+      cancelText: 'Quay lại',
       onCancel: () => setIsConfirmingProduction(false),
       onConfirm: async () => {
         try {
           const finalLotId = await saveLotToDb(COMPLETED_STATUS);
           await createHandoffSlip(detailRows.map((row) => row.id), finalLotId, toSlipType, { silent: true });
-          
-          // Check if inventory items have already been created for this lot
+
           const existingInventory = availableInventory.filter((item) => item.source_lot_id === finalLotId);
-          
+
           if (existingInventory.length > 0) {
             setModal({
               isOpen: true,
@@ -1283,7 +1145,6 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
           const inheritedFsc = firstInputData.fsc_name || null;
           const inheritedWoodType = firstInput.wood_type || firstInputData.wood_type || null;
 
-          // Create inventory from completed detail rows.
           detailRows.forEach(row => {
             const qty = Math.min(getFinalCompleted(row), Number(row.quantity) || 0);
             if (qty <= 0) return;
@@ -1321,7 +1182,6 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
             });
           });
 
-          // Update input inventory and create output inventory in parallel
           const parallelOps = [];
           if (selectedInputs.length > 0) {
             parallelOps.push(db.consumeInventoryForLot(finalLotId, selectedInputs));
@@ -1356,325 +1216,77 @@ export default function MoldingProductionSlip({ onNavigate, lotId }) {
     });
   };
 
-  const handoffRowsToConfirm = handoffConfirm.isOpen
-    ? getRowsToHandoff(handoffConfirm.rowIds, handoffTargetSlipType)
-    : [];
-  const handoffGroupsToConfirm = groupRowsForHandoff(handoffRowsToConfirm);
-  const handoffTargetConfig = FINISHING_SLIP_CONFIGS[handoffTargetSlipType] || FINISHING_SLIP_CONFIGS[DEFAULT_HANDOFF_TARGET];
-
-  return (
-    <div className="w-full min-h-screen bg-warm-white text-notion-black font-sans pb-8">
-      {/* Header */}
-      <nav className="flex justify-between items-center h-[48px] px-3 md:px-5 border-b border-whisper bg-notion-white sticky top-0 z-40">
-        <button
-          onClick={handleBackToList}
-          className="flex items-center gap-1.5 text-[14px] font-medium text-warm-gray-500 hover:text-notion-black transition"
-        >
-          <ArrowLeft size={15} /> Quay lại
-        </button>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-medium px-2 py-1 rounded-full bg-orange-100 text-orange-700">Định hình</span>
-          {isCompleted && (
-            <span className="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-700">Đã hoàn thành</span>
-          )}
-        </div>
-      </nav>
-
-      <div className="max-w-[1060px] mx-auto px-3 md:px-5 py-6 md:py-8">
-        {/* Slip Info */}
-        <div className="bg-white border border-gray-200 rounded-xl p-4 mb-6">
-          <h3 className="font-semibold text-gray-800 text-sm mb-4">Thông tin phiếu</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Tên phiếu</label>
-              <input
-                type="text"
-                value={lotName}
-                disabled={isCompleted}
-                onChange={(e) => setLotName(e.target.value)}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 disabled:bg-gray-50"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Ngày lập</label>
-              <input
-                type="date"
-                value={slipDate}
-                disabled={isCompleted}
-                onChange={(e) => setSlipDate(e.target.value)}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 disabled:bg-gray-50"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Ghi chú</label>
-              <textarea
-                value={description}
-                disabled={isCompleted}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Ghi chú..."
-                rows={description?.includes('\n') ? 4 : 2}
-                className="w-full resize-y px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 disabled:bg-gray-50 whitespace-pre-line"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Target Products */}
-        <TargetProductTable
-          selectedTargetProducts={selectedTargetProducts}
-          disabled={isCompleted}
-          onChangeProductQuantity={handleChangeProductQuantity}
-          onRemoveProduct={handleRemoveProduct}
-          onOpenOrderModal={() => setOrderModalOpen(true)}
-        />
-
-        {/* Inputs - Only SEMIFINISHED and SURPLUS */}
-        <InputTable
-          selectedInputs={selectedInputs}
-          disabled={isCompleted}
-          onOpenInventoryModal={() => {
-            setInvSearch('');
-            setInventoryModalOpen(true);
-          }}
-          onChangeInputQuantity={handleChangeInputQuantity}
-          onChangeInputVolume={handleChangeInputVolume}
-          onRemoveInputBatch={handleRemoveInputBatch}
-          onRemoveInputItem={handleRemoveInputItem}
-        />
-
-        {/* Custom Requests */}
-        <CustomRequestTable
-          customRequests={customRequests}
-          disabled={isCompleted}
-          onAddRequest={handleAddCustomRequest}
-          onRemoveRequest={handleRemoveCustomRequest}
-          onChangeRequest={handleChangeCustomRequest}
-          onSendRequests={handleSendCustomRequests}
-        />
-
-        {/* Molding Detail - Stages */}
-        <MoldingDetailTable
-          detailRows={detailRows}
-          disabled={isCompleted}
-          selectedStageId={selectedStageId}
-          stageTickets={stageTickets}
-          onRemoveRow={handleRemoveDetailRow}
-          onStageCompletedChange={handleStageCompletedChange}
-          onStageChange={setSelectedStageId}
-          onSaveStageProgress={handleSaveStageProgress}
-          onCompleteProductStages={handleCompleteProductStages}
-          onCompleteDetailStages={handleCompleteDetailStages}
-          onApplyStages={handleApplyDetailStages}
-          selectedHandoffRowIds={selectedHandoffRowIds}
-          onToggleHandoffRow={handleToggleHandoffRow}
-          getHandoffRemaining={getHandoffRemaining}
-          onCreateHandoffSlip={handleCreateHandoffSlip}
-        />
-      </div>
-
-      {/* Bottom action bar */}
-      {!isCompleted && (
-        <div className="bg-white border-t border-gray-200 p-3 md:p-4">
-          <div className="max-w-[760px] mx-auto">
-            {/* Progress indicator - show quantity progress */}
-            {detailRows.length > 0 && (
-              <div className="mb-2 text-center text-xs text-gray-500">
-                <span className="font-medium text-green-600">
-                  {detailRows.reduce((sum, r) => sum + getFinalCompleted(r), 0)}
-                </span>
-                /{detailRows.reduce((sum, r) => sum + (Number(r.quantity) || 0), 0)} cái hoàn thành
-              </div>
-            )}
-            <div className="flex gap-2 md:gap-3">
-              <button
-                onClick={handleCancelLot}
-                className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition"
-              >
-                Huỷ
-              </button>
-              <button
-                onClick={handleSaveDraft}
-                className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition"
-              >
-                <Save className="w-4 h-4" /> Lưu nháp
-              </button>
-              <button
-                onClick={handleConfirmProduction}
-                className="flex-[2] md:flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 active:scale-[0.98] transition"
-              >
-                <Check className="w-4 h-4" /> Hoàn tất
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Order Selection Modal */}
-      {orderModalOpen && !isCompleted && (
-        <OrderSelectionModal
-          orders={orders}
-          selectedTargetProducts={selectedTargetProducts}
-          disabledProductIds={[...completedMoldingProductIds]}
-          onClose={() => setOrderModalOpen(false)}
-          onToggleProductSelection={handleToggleProductSelection}
-          onToggleOrderSelection={handleToggleOrderSelection}
-        />
-      )}
-
-      {/* Inventory Modal - Only SEMIFINISHED and SURPLUS */}
-      {inventoryModalOpen && !isCompleted && (
-        <MoldingInventoryModal
-          groupedInventory={groupedInventory}
-          selectedInputs={selectedInputs}
-          invSearch={invSearch}
-          setInvSearch={setInvSearch}
-          onClose={() => setInventoryModalOpen(false)}
-          onToggleInputSelection={handleToggleInputSelection}
-          onToggleModalBatchSelection={handleToggleModalBatchSelection}
-        />
-      )}
-
-      {handoffConfirm.isOpen && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-          <div className="flex max-h-[88vh] w-full max-w-[640px] flex-col overflow-hidden rounded-xl bg-white shadow-2xl">
-            <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50 px-5 py-4">
-              <h3 className="font-semibold text-gray-800">
-                {handoffConfirm.mode === 'complete' ? 'Xác nhận hoàn tất và tạo phiếu giao' : 'Xác nhận tạo phiếu giao'}
-              </h3>
-              <button
-                type="button"
-                onClick={() => setHandoffConfirm({ isOpen: false, mode: 'handoff', rowIds: [] })}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <X size={18} />
-              </button>
-            </div>
-            <div className="min-h-0 overflow-auto px-5 py-4 text-sm text-gray-600">
-              <label className="mb-2 block text-xs font-semibold text-slate-600">Công đoạn tiếp theo</label>
-              <div className="mb-4 flex flex-wrap gap-2">
-                {HANDOFF_TARGET_OPTIONS.map((type) => (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => setHandoffTargetSlipType(type)}
-                    className={`rounded-lg border px-3 py-2 text-sm font-semibold ${
-                      handoffTargetSlipType === type
-                        ? 'border-emerald-300 bg-emerald-50 text-emerald-700'
-                        : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
-                    }`}
-                  >
-                    {FINISHING_SLIP_CONFIGS[type].label}
-                  </button>
-                ))}
-              </div>
-
-              <p className="mb-3">
-                Các chi tiết dưới đây sẽ được tạo vào {handoffTargetConfig.autoNamePrefix.toLowerCase()} mới. Số lượng đã giao đến công đoạn này trước đó sẽ không được tạo lại.
-              </p>
-
-              {handoffRowsToConfirm.length === 0 ? (
-                <div className="rounded-lg border border-dashed border-slate-200 px-3 py-5 text-center text-sm text-slate-400">
-                  Không còn chi tiết nào chưa giao đến {handoffTargetConfig.label}.
-                </div>
-              ) : (
-                <div className="max-h-[320px] overflow-auto rounded-lg border border-gray-200">
-                  {Object.values(handoffGroupsToConfirm).map((group) => (
-                    <div key={`${group.productCode}-${group.productName}`} className="border-b border-gray-100 last:border-b-0">
-                      <div className="bg-gray-50 px-3 py-2 text-xs font-semibold text-gray-800">
-                        {group.productCode && group.productName !== group.productCode
-                          ? `${group.productCode} - ${group.productName}`
-                          : group.productName}
-                      </div>
-                      {group.items.map((row) => (
-                        <div key={row.id} className="grid grid-cols-[1fr_80px] gap-2 px-3 py-2 text-xs">
-                          <span className="truncate">{row.semiFinishedName || 'Chi tiết'}</span>
-                          <span className="text-right font-semibold">{row.handoffQuantity} cái</span>
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className="flex justify-end gap-2 border-t border-gray-100 bg-gray-50 px-5 py-4">
-              <button
-                type="button"
-                onClick={() => setHandoffConfirm({ isOpen: false, mode: 'handoff', rowIds: [] })}
-                className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-              >
-                Hủy
-              </button>
-              <button
-                type="button"
-                disabled={handoffRowsToConfirm.length === 0}
-                onClick={async () => {
-                  const { mode, rowIds } = handoffConfirm;
-                  setHandoffConfirm({ isOpen: false, mode: 'handoff', rowIds: [] });
-                  if (mode === 'complete') {
-                    finalizeProduction(handoffTargetSlipType);
-                    return;
-                  }
-                  const sourceLotId = await saveLotToDb(ACTIVE_STATUS);
-                  await createHandoffSlip(rowIds, sourceLotId, handoffTargetSlipType);
-                }}
-                className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                {handoffConfirm.mode === 'complete' ? 'Hoàn tất và tạo phiếu giao' : 'Tạo phiếu giao'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Alert/Confirm Modal */}
-      {modal.isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-[400px] overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-              <h3 className="font-semibold text-gray-800">{modal.title}</h3>
-              <button 
-                onClick={closeModal} 
-                disabled={isModalSubmitting} 
-                className="text-gray-400 hover:text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
-              >
-                <X size={18} />
-              </button>
-            </div>
-            <div className="px-5 py-6 text-gray-600 text-sm leading-relaxed">{modal.message}</div>
-            <div className="px-5 py-4 border-t border-gray-100 flex justify-end gap-2 bg-gray-50">
-              {modal.cancelText && (
-                <button 
-                  onClick={() => { if (modal.onCancel) modal.onCancel(); else closeModal(); }} 
-                  disabled={isModalSubmitting} 
-                  className="px-4 py-2 text-sm font-medium text-orange-600 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {modal.cancelText}
-                </button>
-              )}
-              <button
-                onClick={async () => {
-                  if (modal.onConfirm) {
-                    setIsModalSubmitting(true);
-                    try {
-                      await modal.onConfirm();
-                    } finally {
-                      setIsModalSubmitting(false);
-                      closeModal();
-                    }
-                  } else {
-                    closeModal();
-                  }
-                }}
-                disabled={isModalSubmitting}
-                className="px-4 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-1.5"
-              >
-                {isModalSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
-                {modal.confirmText || 'Xác nhận'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+  return {
+    newLotId,
+    lotName, setLotName,
+    slipDate, setSlipDate,
+    status, setStatus,
+    description, setDescription,
+    orders,
+    selectedTargetProducts, setSelectedTargetProducts,
+    orderModalOpen, setOrderModalOpen,
+    availableInventory,
+    inventoryModalOpen, setInventoryModalOpen,
+    selectedInputs, setSelectedInputs,
+    invSearch, setInvSearch,
+    customRequests, setCustomRequests,
+    detailRows, setDetailRows,
+    selectedStageId, setSelectedStageId,
+    stageTickets, setStageTickets,
+    lastStageSave, setLastStageSave,
+    selectedHandoffRowIds, setSelectedHandoffRowIds,
+    handoffTargetSlipType, setHandoffTargetSlipType,
+    handoffConfirm, setHandoffConfirm,
+    modal, setModal,
+    isConfirmingProduction, setIsConfirmingProduction,
+    isCompleted,
+    closeModal,
+    moldingInventory,
+    filteredInventory,
+    groupedInventory,
+    completedMoldingProductIds,
+    handleToggleProductSelection,
+    handleToggleOrderSelection,
+    handleChangeProductQuantity,
+    handleRemoveProduct,
+    handleToggleInputSelection,
+    handleToggleModalBatchSelection,
+    handleRemoveInputItem,
+    handleChangeInputQuantity,
+    handleChangeInputVolume,
+    handleRemoveInputBatch,
+    handleAddCustomRequest,
+    handleRemoveCustomRequest,
+    handleChangeCustomRequest,
+    handleSendCustomRequests,
+    handleAddDetailRow,
+    handleRemoveDetailRow,
+    handleRowChange,
+    handleStageCompletedChange,
+    handleSaveStageProgress,
+    handleUndoStageProgress,
+    handleCompleteRowsStages,
+    handleCompleteProductStages,
+    handleCompleteDetailStages,
+    getHandoffRemaining,
+    handleToggleHandoffRow,
+    getRowsToHandoff,
+    groupRowsForHandoff,
+    createHandoffSlip,
+    handleCreateHandoffSlip,
+    handleToggleDetailStage,
+    handleApplyDetailStages,
+    getInputUsageError,
+    toast,
+    saveLotToDb,
+    handleSaveDraft,
+    handleBackToList,
+    handleCancelLot,
+    handleConfirmProduction,
+    finalizeProduction,
+    getHandoffCreatedQty,
+    hasHandoffRecords,
+    DEFAULT_HANDOFF_TARGET,
+    HANDOFF_TARGET_OPTIONS
+  };
 }

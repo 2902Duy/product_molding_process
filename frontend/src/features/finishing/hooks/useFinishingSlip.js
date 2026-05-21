@@ -1,133 +1,41 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, Save, Check, ChevronDown, ChevronUp, X, Loader2 } from 'lucide-react';
-import { db } from '../services/db';
-
-import TargetProductTable from '../components/ProductionLot/TargetProductTable';
-import OrderSelectionModal from '../components/ProductionLot/OrderSelectionModal';
-import MoldingInventoryModal from '../components/Molding/MoldingInventoryModal';
+import { db } from '../../../services/db';
 import { FINISHING_SLIP_CONFIGS, FINISHING_STAGES } from '../constants/finishingStages';
+import {
+  createStageProgress as utilsCreateStageProgress,
+  getFinalCompleted as utilsGetFinalCompleted,
+  normalizeDetailRow as utilsNormalizeDetailRow,
+  createDetailRow as utilsCreateDetailRow,
+  createCustomRequestRow,
+  shouldUseAutoLotName as utilsShouldUseAutoLotName,
+  buildAutoLotName as utilsBuildAutoLotName,
+  calculateRequestVolume,
+  mergeTargetProducts as utilsMergeTargetProducts
+} from '../../shared/utils/productionUtils';
 
 const ACTIVE_STATUS = 'Đang sản xuất';
 const COMPLETED_STATUS = 'Hoàn thành';
 const DEFAULT_SLIP_TYPE = 'ASSEMBLY';
 
-// Safely convert a value to a string for rendering. Prevents React crash when
-// database contains corrupted object values (e.g., {} instead of a string).
 const safeStr = (v) => (v != null && typeof v === 'object' ? '' : (v ?? ''));
 const safeArray = (value) => (Array.isArray(value) ? value : []);
 
-const createStageProgress = (quantity = '', existingStages = [], legacyStageId = null, legacyCompleted = 0, stageOptions = FINISHING_STAGES) => {
-  const required = Number(quantity) || 0;
-  const normalizedExistingStages = safeArray(existingStages);
-  const selectedStageIds = normalizedExistingStages.length > 0
-    ? normalizedExistingStages.map((stage) => stage.id)
-    : stageOptions.map((stage) => stage.id);
+const createStageProgress = (quantity = '', existingStages = [], legacyStageId = null, legacyCompleted = 0, stageOptions = FINISHING_STAGES) =>
+  utilsCreateStageProgress(quantity, existingStages, legacyStageId, legacyCompleted, stageOptions);
 
-  return selectedStageIds
-    .map((stageId) => stageOptions.find((stage) => stage.id === stageId) || normalizedExistingStages.find((stage) => stage.id === stageId))
-    .filter(Boolean)
-    .map((stage) => {
-    const existing = normalizedExistingStages.find((item) => item.id === stage.id);
-    const completed = existing
-      ? Number(existing.completed) || 0
-      : stage.id === legacyStageId ? Number(legacyCompleted) || 0 : 0;
+const getFinalCompleted = utilsGetFinalCompleted;
 
-    return {
-      ...stage,
-      required,
-      completed: Math.min(required, completed),
-      records: existing?.records || []
-    };
-  });
-};
+const normalizeDetailRow = (row, stageOptions = FINISHING_STAGES) =>
+  utilsNormalizeDetailRow(row, stageOptions);
 
-const getFinalCompleted = (row) => {
-  const stages = safeArray(row.stages);
-  if (stages.length === 0) {
-    return Number(row.quantity_completed) || 0;
-  }
+const createDetailRow = (overrides = {}, stageOptions = FINISHING_STAGES) =>
+  utilsCreateDetailRow(overrides, stageOptions, 'DETAIL-HT');
 
-  return stages.reduce(
-    (min, stage) => Math.min(min, Number(stage.completed) || 0),
-    Number(row.quantity) || 0
-  );
-};
+const shouldUseAutoLotName = (name, config) =>
+  utilsShouldUseAutoLotName(name, config);
 
-const normalizeDetailRow = (row, stageOptions = FINISHING_STAGES) => {
-  const quantity = row.quantity ?? '';
-  const legacyCompleted = Number(row.quantity_completed) || 0;
-  const existingStages = safeArray(row.stages);
-  const legacyIsFullyCompleted = !existingStages.length && legacyCompleted >= (Number(quantity) || 0) && Number(quantity) > 0;
-  const stages = legacyIsFullyCompleted
-    ? createStageProgress(quantity, stageOptions.map((stage) => ({ ...stage, completed: Number(quantity) || 0 })), null, 0, stageOptions)
-    : createStageProgress(quantity, existingStages, row.stage, legacyCompleted, stageOptions);
-
-  const normalized = {
-    ...row,
-    quantity,
-    stages
-  };
-
-  return {
-    ...normalized,
-    quantity_completed: getFinalCompleted(normalized)
-  };
-};
-
-const createDetailRow = (overrides = {}, stageOptions = FINISHING_STAGES) => normalizeDetailRow({
-  id: `DETAIL-HT-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-  productId: '',
-  productName: '',
-  semiFinishedId: '',
-  semiFinishedName: '',
-  thickness: '',
-  width: '',
-  length: '',
-  base_quantity: 1,
-  quantity: '',
-  quantity_completed: 0,
-  completedRecords: [],
-  ...overrides
-}, stageOptions);
-
-const createCustomRequestRow = () => ({
-  id: `REQ-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-  woodType: '',
-  thickness: '',
-  width: '',
-  length: '',
-  quantity: '',
-  reason: '',
-  note: ''
-});
-
-const getSelectedOrderCodes = (products = []) => {
-  const codes = products.map((product) => product.orderName || product.orderId).filter(Boolean);
-  return [...new Set(codes)];
-};
-
-const shouldUseAutoLotName = (name, config) => {
-  const trimmed = String(name || '').trim();
-  if (!trimmed) return true;
-  if (trimmed.toLowerCase().startsWith('phiếu bổ sung')) return false;
-  return trimmed === config.defaultName || trimmed === 'Phiếu hoàn thiện đơn hàng mới' || trimmed.startsWith(`${config.autoNamePrefix} -`);
-};
-
-const buildAutoLotName = (products = [], config) => {
-  const orderCodes = getSelectedOrderCodes(products);
-  return orderCodes.length > 0
-    ? `${config.autoNamePrefix} - ${orderCodes.join(', ')}`
-    : config.defaultName;
-};
-
-const calculateRequestVolume = (request) => {
-  const thickness = Number(request.thickness) || 0;
-  const width = Number(request.width) || 0;
-  const length = Number(request.length) || 0;
-  const quantity = Number(request.quantity) || 0;
-  if (thickness <= 0 || width <= 0 || length <= 0 || quantity <= 0) return '';
-  return Number(((thickness * width * length * quantity) / 1000000000).toFixed(4));
-};
+const buildAutoLotName = (products = [], config) =>
+  utilsBuildAutoLotName(products, config);
 
 const firstPositiveNumber = (source, keys = []) => {
   for (const key of keys) {
@@ -206,34 +114,10 @@ const getProductHandoffQty = (product, toSlipType) =>
     .filter((record) => record.toSlipType === toSlipType)
     .reduce((sum, record) => sum + (Number(record.quantity) || 0), 0);
 
-const mergeTargetProducts = (existingProducts = [], incomingProducts = []) => {
-  const productMap = new Map(existingProducts.map((product) => [product.id, product]));
+const mergeTargetProducts = (existingProducts = [], incomingProducts = []) =>
+  utilsMergeTargetProducts(existingProducts, incomingProducts, true);
 
-  incomingProducts.forEach((product) => {
-    const existing = productMap.get(product.id);
-    if (!existing) {
-      productMap.set(product.id, product);
-      return;
-    }
-
-    const existingQty = Number(existing.quantity_produce ?? existing.quantity) || 0;
-    const incomingQty = Number(product.quantity_produce ?? product.quantity) || 0;
-    productMap.set(product.id, {
-      ...existing,
-      ...product,
-      quantity: existingQty + incomingQty,
-      quantity_produce: existingQty + incomingQty,
-      quantity_completed: Number(existing.quantity_completed) || 0,
-      input_handoff_lot_ids: [
-        ...new Set([...safeArray(existing.input_handoff_lot_ids), ...safeArray(product.input_handoff_lot_ids)])
-      ],
-    });
-  });
-
-  return [...productMap.values()];
-};
-
-export default function FinishingProductionSlip({ onNavigate, lotId, slipType = DEFAULT_SLIP_TYPE }) {
+export default function useFinishingSlip({ lotId, onNavigate, slipType = DEFAULT_SLIP_TYPE }) {
   const requestedSlipType = FINISHING_SLIP_CONFIGS[slipType] ? slipType : DEFAULT_SLIP_TYPE;
   const [currentSlipType, setCurrentSlipType] = useState(requestedSlipType);
   const slipConfig = FINISHING_SLIP_CONFIGS[currentSlipType] || FINISHING_SLIP_CONFIGS[DEFAULT_SLIP_TYPE];
@@ -250,7 +134,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
   const [selectedTargetProducts, setSelectedTargetProducts] = useState([]);
   const [orderModalOpen, setOrderModalOpen] = useState(false);
 
-  // Inventory for molding - only SEMIFINISHED and SURPLUS (no RAW, no WASTE)
+  // Inventory for molding
   const [availableInventory, setAvailableInventory] = useState([]);
   const [inventoryModalOpen, setInventoryModalOpen] = useState(false);
   const [selectedInputs, setSelectedInputs] = useState([]);
@@ -276,11 +160,18 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
 
   const [modal, setModal] = useState({ isOpen: false, type: '', title: '', message: '', onConfirm: null });
   const [isConfirmingProduction, setIsConfirmingProduction] = useState(false);
-  const [isModalSubmitting, setIsModalSubmitting] = useState(false);
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast({ show: false, message: '', type: 'success' });
+    }, 1500);
+  };
+
   const closeModal = () => {
-    if (isModalSubmitting) return;
     setModal((prev) => ({ ...prev, isOpen: false }));
   };
+
   const isCompleted = status === COMPLETED_STATUS || status === 'Hoàn thành';
 
   useEffect(() => {
@@ -376,7 +267,6 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
     );
   };
 
-  // Filter inventory for molding: only sized blanks, not outputs from molding slips.
   const moldingInventory = availableInventory.filter(isMoldingInput);
 
   const filteredInventory = moldingInventory.filter((item) => {
@@ -519,26 +409,22 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       .filter(Boolean)
   );
 
-  // Handlers for target products
   const handleToggleProductSelection = (product, order) => {
     if (completedMoldingProductIds.has(product.id)) return;
 
     const exists = selectedTargetProducts.find(item => item.id === product.id);
     if (exists) {
       setSelectedTargetProducts(selectedTargetProducts.filter(item => item.id !== product.id));
-      // Also remove all detail rows for this product
       setDetailRows(detailRows.filter(row => row.productId !== product.id));
       return;
     }
     const newProduct = { ...product, orderId: order.id, orderName: order.name, quantity_produce: product.quantity };
     setSelectedTargetProducts([...selectedTargetProducts, newProduct]);
 
-    // Auto-add all items (parts) of this product to detail rows
     const productQty = product.quantity_produce || product.quantity || 0;
     const items = safeArray(product.items);
 
     if (items.length > 0) {
-      // Add each item/part as a detail row
       const newDetailRows = items.map(item => createDetailRow({
         productId: product.id,
         productCode: product.code || product.productCode || product.id,
@@ -554,13 +440,12 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       }, processStages));
       setDetailRows([...detailRows, ...newDetailRows]);
     } else {
-      // Fallback: add product as single detail row using product name as semiFinishedName
       const newDetailRow = createDetailRow({
         productId: product.id,
         productCode: product.code || product.productCode || product.id,
         productName: product.name,
         semiFinishedId: product.id,
-        semiFinishedName: product.name, // Use product name as detail name
+        semiFinishedName: product.name,
         thickness: product.thickness || '',
         width: product.width || '',
         length: product.length || '',
@@ -573,18 +458,15 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
   };
 
   const handleToggleOrderSelection = (order) => {
-    // Toggle all products in this order
     const orderProducts = safeArray(order.products).filter(product => !completedMoldingProductIds.has(product.id));
     if (orderProducts.length === 0) return;
     const allSelected = orderProducts.every(p => selectedTargetProducts.find(sp => sp.id === p.id));
 
     if (allSelected) {
-      // Remove all products from this order
       const orderProductIds = orderProducts.map(p => p.id);
       setSelectedTargetProducts(selectedTargetProducts.filter(sp => !orderProductIds.includes(sp.id)));
       setDetailRows(detailRows.filter(row => !orderProductIds.includes(row.productId)));
     } else {
-      // Add all products from this order
       const newProducts = orderProducts
         .filter(p => !selectedTargetProducts.find(sp => sp.id === p.id))
         .map(p => ({ ...p, orderId: order.id, orderName: order.name, quantity_produce: p.quantity }));
@@ -615,7 +497,7 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
               productCode: p.code || p.productCode || p.id,
               productName: p.name,
               semiFinishedId: p.id,
-              semiFinishedName: p.name, // Use product name as detail name
+              semiFinishedName: p.name,
               thickness: p.thickness || '',
               width: p.width || '',
               length: p.length || '',
@@ -636,7 +518,6 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
     setSelectedTargetProducts(selectedTargetProducts.map(product => (
       product.id === id ? { ...product, quantity_produce: qty } : product
     )));
-    // Also update detail rows using each part's base quantity.
     setDetailRows(detailRows.map(row =>
       row.productId === id ? normalizeDetailRow({
         ...row,
@@ -687,7 +568,6 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
     }));
   };
 
-  // Handlers for inventory inputs
   const handleToggleInputSelection = (item) => {
     const exists = selectedInputs.find(input => input.id === item.id);
     if (exists) {
@@ -736,7 +616,6 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
     setSelectedInputs(selectedInputs.filter(item => (item.batchId || item.id) !== batchId));
   };
 
-  // Custom request handlers
   const handleAddCustomRequest = () => {
     setCustomRequests([...customRequests, createCustomRequestRow()]);
   };
@@ -821,7 +700,6 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
     });
   };
 
-  // Detail row handlers
   const handleAddDetailRow = () => {
     setDetailRows([...detailRows, createDetailRow({}, processStages)]);
   };
@@ -937,7 +815,6 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
     setStageTickets(updatedTickets);
     setLastStageSave({ detailRows: previousRows, stageTickets: previousTickets });
     setStatus(ACTIVE_STATUS);
-
   };
 
   const handleUndoStageProgress = () => {
@@ -1335,7 +1212,6 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       : null;
   };
 
-  // Save handlers
   const saveLotToDb = async (newStatus) => {
     const finalLotId = lotId && lotId !== 'new' ? lotId : newLotId;
     const finalLotName = shouldUseAutoLotName(lotName, slipConfig)
@@ -1377,45 +1253,32 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
   const handleSaveDraft = async () => {
     if (isCompleted) return;
     const savedId = await saveLotToDb(ACTIVE_STATUS);
-    setModal({
-      isOpen: true,
-      type: 'alert',
-      title: 'Thành công',
-      message: 'Đã lưu nháp phiếu hoàn thiện.',
-      onConfirm: () => {
-        if (!lotId || lotId === 'new') {
-          onNavigate('finishing-production-slip', { lotId: savedId, slipType: currentSlipType });
-        }
-      }
-    });
+    showToast('Đã lưu nháp phiếu hoàn thiện!');
+    if (!lotId || lotId === 'new') {
+      setTimeout(() => {
+        onNavigate('finishing-production-slip', { lotId: savedId, slipType: currentSlipType });
+      }, 500);
+    }
   };
 
-  const handleBackToList = () => {
+  const handleBackToList = async () => {
     if (isCompleted) {
       onNavigate('lot-list');
       return;
     }
-
-    setModal({
-      isOpen: true,
-      type: 'confirm',
-      title: 'Rời khỏi phiếu?',
-      message: 'Bạn có muốn lưu nháp phiếu hoàn thiện trước khi quay lại danh sách không?',
-      cancelText: 'Không lưu',
-      onCancel: () => onNavigate('lot-list'),
-      onConfirm: async () => {
-        await saveLotToDb(ACTIVE_STATUS);
-        onNavigate('lot-list');
-      }
-    });
+    // Tự động lưu nháp êm ái khi thoát
+    await saveLotToDb(ACTIVE_STATUS);
+    onNavigate('lot-list');
   };
 
   const handleCancelLot = () => {
     setModal({
       isOpen: true,
       type: 'confirm',
-      title: 'Xoá phiếu?',
-      message: 'Bạn có chắc muốn huỷ và xoá phiếu hoàn thiện này không? Hành động này không thể hoàn tác.',
+      title: 'Xoá phiếu nháp?',
+      message: 'Bạn có chắc chắn muốn xoá hoàn toàn phiếu nháp hoàn thiện này? Hành động này sẽ xoá sạch dữ liệu phiếu khỏi hệ thống và không thể hoàn tác.',
+      confirmText: 'Xoá phiếu',
+      cancelText: 'Quay lại',
       onConfirm: async () => {
         const finalLotId = lotId && lotId !== 'new' ? lotId : newLotId;
         await db.deleteLot(finalLotId);
@@ -1471,7 +1334,6 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
   };
 
   const finalizeProduction = () => {
-    // Validate that detail rows have at least some data
     const validProducts = selectedTargetProducts.filter(product => {
       const qty = getProductRequiredQty(product, detailRows);
       return qty > 0;
@@ -1508,10 +1370,9 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
       onConfirm: async () => {
         try {
           const finalLotId = await saveLotToDb(COMPLETED_STATUS);
-          
-          // Check if inventory items have already been created for this lot
+
           const existingInventory = availableInventory.filter((item) => item.source_lot_id === finalLotId);
-          
+
           if (existingInventory.length > 0) {
             setModal({
               isOpen: true,
@@ -1539,7 +1400,6 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
           const inheritedFsc = firstInputData.fsc_name || null;
           const inheritedWoodType = firstInput.wood_type || firstInputData.wood_type || null;
 
-          // Create inventory from completed products.
           selectedTargetProducts.forEach(product => {
             const qty = Math.min(getProductCompleteQty(product), getProductRequiredQty(product, detailRows));
             if (qty <= 0) return;
@@ -1576,7 +1436,6 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
             });
           });
 
-          // Update input inventory
           if (selectedInputs.length > 0) {
             await db.consumeInventoryForLot(finalLotId, selectedInputs);
           }
@@ -1610,480 +1469,92 @@ export default function FinishingProductionSlip({ onNavigate, lotId, slipType = 
     });
   };
 
-  const confirmedProductHandoffs = productHandoffConfirm.isOpen
-    ? getProductsToHandoff(productHandoffConfirm.toSlipType, productHandoffConfirm.productIds || selectedProductHandoffIds)
-    : [];
-  const confirmedProductHandoffConfig = FINISHING_SLIP_CONFIGS[productHandoffConfirm.toSlipType];
-
-  return (
-    <div className="w-full min-h-screen bg-warm-white text-notion-black font-sans pb-8">
-      {/* Header */}
-      <nav className="flex justify-between items-center h-[48px] px-3 md:px-5 border-b border-whisper bg-notion-white sticky top-0 z-40">
-        <button
-          onClick={handleBackToList}
-          className="flex items-center gap-1.5 text-[14px] font-medium text-warm-gray-500 hover:text-notion-black transition"
-        >
-          <ArrowLeft size={15} /> Quay lại
-        </button>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-medium px-2 py-1 rounded-full bg-emerald-100 text-emerald-700">{slipConfig.label}</span>
-          {isCompleted && (
-            <span className="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-700">Đã hoàn thành</span>
-          )}
-        </div>
-      </nav>
-
-      <div className="max-w-[1060px] mx-auto px-3 md:px-5 py-6 md:py-8">
-        {/* Slip Info */}
-        <div className="bg-white border border-gray-200 rounded-xl p-4 mb-6">
-          <h3 className="font-semibold text-gray-800 text-sm mb-4">Thông tin phiếu</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Tên phiếu</label>
-              <input
-                type="text"
-                value={lotName}
-                disabled={isCompleted}
-                onChange={(e) => setLotName(e.target.value)}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 disabled:bg-gray-50"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Ngày lập</label>
-              <input
-                type="date"
-                value={slipDate}
-                disabled={isCompleted}
-                onChange={(e) => setSlipDate(e.target.value)}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 disabled:bg-gray-50"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Ghi chú</label>
-              <textarea
-                value={description}
-                disabled={isCompleted}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Ghi chú..."
-                rows={description?.includes('\n') ? 4 : 2}
-                className="w-full resize-y px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 disabled:bg-gray-50 whitespace-pre-line"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Target Products */}
-        <TargetProductTable
-          selectedTargetProducts={selectedTargetProducts}
-          disabled={isCompleted}
-          onChangeProductQuantity={handleChangeProductQuantity}
-          onRemoveProduct={handleRemoveProduct}
-          onOpenOrderModal={() => setOrderModalOpen(true)}
-        />
-
-        {linkedHandoffMeta && (
-          <div className="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-            <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-              <h3 className="text-sm font-semibold text-emerald-800">Phiếu giao đã gắn</h3>
-              <span className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-emerald-700">
-                {linkedHandoffQty} cái
-              </span>
-            </div>
-            <div className="grid gap-2 text-xs text-emerald-800 md:grid-cols-[1fr_1fr]">
-              <div>
-                <span className="text-emerald-600">Phiếu giao: </span>
-                <span className="font-semibold">{linkedHandoffMeta.id}</span>
-              </div>
-              <div>
-                <span className="text-emerald-600">Từ phiếu: </span>
-                <span className="font-semibold">{linkedHandoffMeta.sourceLotId}</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className="bg-white border border-gray-200 rounded-xl p-4 mb-6">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <h3 className="font-semibold text-gray-800 text-sm">Phiếu giao khả dụng</h3>
-            <button
-              type="button"
-              onClick={handleImportHandoffLots}
-              disabled={selectedInputHandoffLotIds.length === 0}
-              className="h-8 rounded bg-emerald-600 px-3 text-xs font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Nhận phiếu giao
-            </button>
-          </div>
-          {handoffLotsForCurrentSlip.length === 0 ? (
-            <div className="rounded border border-dashed border-slate-200 px-3 py-4 text-center text-sm text-slate-400">
-              Chưa có phiếu giao phù hợp với loại phiếu và sản phẩm đã chọn.
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <div className="min-w-[860px] divide-y divide-slate-100 rounded border border-slate-200">
-                {handoffLotsForCurrentSlip.map((handoffLot) => {
-                  const products = safeArray(handoffLot.targetProducts)
-                    .filter((product) => selectedProductIds.size === 0 || selectedProductIds.has(product.id));
-                  const totalQty = products.reduce((sum, product) => sum + (Number(product.quantity_produce ?? product.quantity) || 0), 0);
-                  const isReceived = isHandoffLotReceivedByCurrent(handoffLot);
-                  const isExpanded = expandedHandoffLotId === handoffLot.id;
-                  const detailRowsForLot = safeArray(handoffLot.details)
-                    .filter((row) => selectedProductIds.size === 0 || selectedProductIds.has(row.productId));
-
-                  return (
-                    <div key={handoffLot.id}>
-                      <div className="grid grid-cols-[36px_1fr_140px_100px_120px_92px] items-center gap-3 px-3 py-2 text-sm hover:bg-slate-50">
-                        <input
-                          type="checkbox"
-                          checked={selectedInputHandoffLotIds.includes(handoffLot.id)}
-                          disabled={isReceived}
-                          onChange={() => handleToggleInputHandoffLot(handoffLot.id)}
-                          className="h-4 w-4 accent-emerald-600 disabled:cursor-not-allowed disabled:opacity-40"
-                        />
-                        <div>
-                          <div className="font-semibold text-slate-800">{handoffLot.id}</div>
-                          <div className="text-xs text-slate-500">
-                            {products.map((product) => {
-                              const qty = Number(product.quantity_produce ?? product.quantity) || 0;
-                              return `${product.name} (${qty} cái)`;
-                            }).join(', ')}
-                          </div>
-                        </div>
-                        <div className="text-xs text-slate-500">Từ: {safeStr(handoffLot.source_lot_id) || '-'}</div>
-                        <div>
-                          <span className={`rounded-full px-2 py-1 text-[11px] font-semibold ${isReceived ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
-                            {isReceived ? 'Đã nhận' : 'Chưa nhận'}
-                          </span>
-                        </div>
-                        <div className="text-right text-xs font-semibold text-slate-700">{totalQty} cái</div>
-                        <button
-                          type="button"
-                          onClick={() => setExpandedHandoffLotId(isExpanded ? null : handoffLot.id)}
-                          className="inline-flex h-8 items-center justify-center gap-1 rounded border border-slate-200 bg-white px-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"
-                        >
-                          {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                          Chi tiết
-                        </button>
-                      </div>
-                      {isExpanded && (
-                        <div className="border-t border-slate-100 bg-slate-50 px-3 py-3">
-                          <div className="mb-2 grid grid-cols-[1fr_1fr_90px] gap-3 text-[11px] font-semibold uppercase text-slate-500">
-                            <div>Sản phẩm</div>
-                            <div>Chi tiết</div>
-                            <div className="text-right">Số lượng</div>
-                          </div>
-                          {detailRowsForLot.length === 0 ? (
-                            <div className="rounded border border-dashed border-slate-200 bg-white px-3 py-2 text-center text-xs text-slate-400">
-                              Phiếu giao chưa có dòng chi tiết.
-                            </div>
-                          ) : (
-                            <div className="divide-y divide-slate-100 rounded border border-slate-200 bg-white">
-                              {detailRowsForLot.map((row) => (
-                                <div key={row.id} className="grid grid-cols-[1fr_1fr_90px] gap-3 px-3 py-2 text-xs text-slate-700">
-                                  <div className="min-w-0 truncate">{row.productName || row.productCode || row.productId || '-'}</div>
-                                  <div className="min-w-0 truncate">{row.semiFinishedName || row.name || '-'}</div>
-                                  <div className="text-right font-semibold">{Number(row.quantity) || 0}</div>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
-          <div className="flex flex-col gap-3 border-b border-slate-200 bg-slate-50 px-4 py-3 md:flex-row md:items-center md:justify-between">
-            <h3 className="text-sm font-semibold text-gray-800">Ghi nhận theo sản phẩm</h3>
-            {NEXT_FINISHING_SLIP[currentSlipType] && (
-              <button
-                type="button"
-                onClick={() => openProductHandoffConfirm(NEXT_FINISHING_SLIP[currentSlipType])}
-                disabled={isCompleted || selectedProductHandoffIds.length === 0}
-                className="inline-flex h-9 items-center justify-center rounded bg-emerald-600 px-3 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                Tạo phiếu giao
-              </button>
-            )}
-          </div>
-
-          {selectedTargetProducts.length === 0 ? (
-            <div className="py-8 text-center text-sm text-gray-400">Chưa chọn sản phẩm.</div>
-          ) : (
-            <div className="overflow-x-auto">
-              <div className="min-w-[980px]">
-                <div className="grid grid-cols-[42px_1.7fr_0.65fr_0.75fr_1fr_1.2fr] gap-3 bg-slate-100 px-4 py-2 text-xs font-medium text-slate-600">
-                  <div></div>
-                  <div>Sản phẩm</div>
-                  <div className="text-center">Cần</div>
-                  <div className="text-center">Còn giao</div>
-                  <div className="text-center">Đã xong lần này</div>
-                  <div>{currentSlipType === 'PAINTING' ? 'Kiểu sơn' : 'Ghi chú'}</div>
-                </div>
-                {selectedTargetProducts.map((product) => {
-                  const requiredQty = getProductRequiredQty(product, detailRows);
-                  const completedQty = getProductCompleteQty(product);
-                  const recordedCompletedQty = Number(product.quantity_completed) || 0;
-                  const completionEntryRemaining = Math.max(0, requiredQty - recordedCompletedQty);
-                  const handoffRemaining = getProductHandoffRemaining(product);
-                  const canHandoff = Boolean(NEXT_FINISHING_SLIP[currentSlipType]) && handoffRemaining > 0;
-
-                  return (
-                    <div key={product.id} className="grid grid-cols-[42px_1.7fr_0.65fr_0.75fr_1fr_1.2fr] items-center gap-3 border-b border-slate-100 px-4 py-2">
-                      <div className="flex justify-center">
-                        {NEXT_FINISHING_SLIP[currentSlipType] && (
-                          <input
-                            type="checkbox"
-                            checked={selectedProductHandoffIds.includes(product.id)}
-                            disabled={!canHandoff}
-                            onChange={() => handleToggleProductHandoff(product.id)}
-                            className="h-4 w-4 accent-emerald-600 disabled:cursor-not-allowed disabled:opacity-40"
-                          />
-                        )}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="truncate text-sm font-semibold text-slate-800">
-                          {(product.code || product.productCode || product.id) && product.name !== (product.code || product.productCode || product.id)
-                            ? `${product.code || product.productCode || product.id} - ${product.name}`
-                            : product.name}
-                        </div>
-                        <div className="text-[11px] text-slate-500">{product.orderName || product.orderId || ''}</div>
-                      </div>
-                      <div className="text-center text-sm font-semibold tabular-nums text-slate-700">{requiredQty}</div>
-                      <div className="text-center text-sm font-semibold tabular-nums text-emerald-700">{handoffRemaining}</div>
-                      <div>
-                        <input
-                          type="number"
-                          min="0"
-                          max={completionEntryRemaining}
-                          value={product.quantity_completed_entry ?? ''}
-                          disabled={isCompleted}
-                          onChange={(e) => handleChangeProductNumber(product.id, 'quantity_completed_entry', e.target.value)}
-                          onBlur={() => handleCommitProductCompletionEntry(product.id)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                              e.currentTarget.blur();
-                            }
-                          }}
-                          className="w-full rounded border border-slate-200 px-2 py-1.5 text-center text-sm font-semibold focus:outline-none focus:border-emerald-400 disabled:bg-gray-100"
-                          placeholder="0"
-                        />
-                        <div className="mt-1 text-center text-[11px] text-slate-400">
-                          Đã ghi nhận {completedQty}/{requiredQty}
-                        </div>
-                      </div>
-                      <div>
-                        {currentSlipType === 'PAINTING' ? (
-                          <select
-                            value={product.paintMode || ''}
-                            disabled={isCompleted}
-                            onChange={(e) => handleChangeProductMeta(product.id, 'paintMode', e.target.value)}
-                            className="w-full rounded border border-slate-200 bg-white px-2 py-1.5 text-sm focus:outline-none focus:border-emerald-400 disabled:bg-gray-100"
-                          >
-                            <option value="">Chọn kiểu sơn</option>
-                            <option value="DETAIL">Sơn chi tiết</option>
-                            <option value="PRODUCT">Sơn hoàn thiện sản phẩm</option>
-                          </select>
-                        ) : (
-                          <input
-                            value={product.note || ''}
-                            disabled={isCompleted}
-                            onChange={(e) => handleChangeProductMeta(product.id, 'note', e.target.value)}
-                            className="w-full rounded border border-slate-200 px-2 py-1.5 text-sm focus:outline-none focus:border-emerald-400 disabled:bg-gray-100"
-                          />
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Bottom action bar */}
-      {!isCompleted && (
-        <div className="bg-white border-t border-gray-200 p-3 md:p-4">
-          <div className="max-w-[760px] mx-auto">
-            {/* Progress indicator - show quantity progress */}
-            {detailRows.length > 0 && (
-              <div className="mb-2 text-center text-xs text-gray-500">
-                <span className="font-medium text-green-600">
-                  {detailRows.reduce((sum, r) => sum + getFinalCompleted(r), 0)}
-                </span>
-                /{detailRows.reduce((sum, r) => sum + (Number(r.quantity) || 0), 0)} cái hoàn thành
-              </div>
-            )}
-            <div className="flex gap-2 md:gap-3">
-              <button
-                onClick={handleCancelLot}
-                className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition"
-              >
-                Huỷ
-              </button>
-              <button
-                onClick={handleSaveDraft}
-                className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 active:scale-[0.98] transition"
-              >
-                <Save className="w-4 h-4" /> Lưu nháp
-              </button>
-              <button
-                onClick={handleConfirmProduction}
-                className="flex-[2] md:flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-3 py-2.5 md:py-3 rounded-lg text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 active:scale-[0.98] transition"
-              >
-                <Check className="w-4 h-4" /> Hoàn tất
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Order Selection Modal */}
-      {orderModalOpen && !isCompleted && (
-        <OrderSelectionModal
-          orders={orders}
-          selectedTargetProducts={selectedTargetProducts}
-          disabledProductIds={[...completedMoldingProductIds]}
-          onClose={() => setOrderModalOpen(false)}
-          onToggleProductSelection={handleToggleProductSelection}
-          onToggleOrderSelection={handleToggleOrderSelection}
-        />
-      )}
-
-      {/* Inventory Modal - Only SEMIFINISHED and SURPLUS */}
-      {inventoryModalOpen && !isCompleted && (
-        <MoldingInventoryModal
-          groupedInventory={groupedInventory}
-          selectedInputs={selectedInputs}
-          invSearch={invSearch}
-          setInvSearch={setInvSearch}
-          onClose={() => setInventoryModalOpen(false)}
-          onToggleInputSelection={handleToggleInputSelection}
-          onToggleModalBatchSelection={handleToggleModalBatchSelection}
-        />
-      )}
-
-      {productHandoffConfirm.isOpen && confirmedProductHandoffConfig && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-          <div className="flex max-h-[88vh] w-full max-w-[600px] flex-col overflow-hidden rounded-xl bg-white shadow-2xl">
-            <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50 px-5 py-4">
-              <h3 className="font-semibold text-gray-800">
-                {productHandoffConfirm.mode === 'complete' ? 'Xác nhận hoàn tất và giao công đoạn tiếp theo' : 'Xác nhận tạo phiếu giao'}
-              </h3>
-              <button
-                type="button"
-                onClick={() => setProductHandoffConfirm({ isOpen: false, toSlipType: null, mode: 'handoff', productIds: null })}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <X size={18} />
-              </button>
-            </div>
-            <div className="min-h-0 overflow-auto px-5 py-4 text-sm text-gray-600">
-              <div className="mb-3 rounded-lg border border-emerald-100 bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700">
-                Công đoạn tiếp theo: {confirmedProductHandoffConfig.label}
-              </div>
-              <p className="mb-3">
-                Các sản phẩm dưới đây sẽ được tạo vào {confirmedProductHandoffConfig.autoNamePrefix.toLowerCase()} mới. Số lượng đã giao trước đó đến công đoạn này sẽ không được tạo lại.
-              </p>
-              <div className="max-h-[320px] overflow-auto rounded-lg border border-gray-200">
-                {confirmedProductHandoffs.map(({ product, quantity }) => (
-                  <div key={product.id} className="grid grid-cols-[1fr_90px] gap-3 border-b border-gray-100 px-3 py-2 text-xs last:border-b-0">
-                    <div className="min-w-0">
-                      <div className="truncate font-semibold text-slate-800">
-                        {(product.code || product.productCode || product.id) && product.name !== (product.code || product.productCode || product.id)
-                          ? `${product.code || product.productCode || product.id} - ${product.name}`
-                          : product.name}
-                      </div>
-                      <div className="truncate text-slate-400">{product.orderName || product.orderId || ''}</div>
-                    </div>
-                    <div className="text-right font-semibold text-slate-800">{quantity} cái</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="flex justify-end gap-2 border-t border-gray-100 bg-gray-50 px-5 py-4">
-              <button
-                type="button"
-                onClick={() => setProductHandoffConfirm({ isOpen: false, toSlipType: null, mode: 'handoff', productIds: null })}
-                className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-              >
-                Hủy
-              </button>
-              <button
-                type="button"
-                disabled={confirmedProductHandoffs.length === 0}
-                onClick={() => {
-                  const { toSlipType, mode, productIds } = productHandoffConfirm;
-                  setProductHandoffConfirm({ isOpen: false, toSlipType: null, mode: 'handoff', productIds: null });
-                  createProductHandoffSlip(toSlipType, {
-                    productIds,
-                    completeSource: mode === 'complete',
-                  });
-                }}
-                className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                {productHandoffConfirm.mode === 'complete' ? 'Hoàn tất và tạo phiếu giao' : 'Tạo phiếu giao'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Alert/Confirm Modal */}
-      {modal.isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-[400px] overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-              <h3 className="font-semibold text-gray-800">{modal.title}</h3>
-              <button 
-                onClick={closeModal} 
-                disabled={isModalSubmitting} 
-                className="text-gray-400 hover:text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
-              >
-                <X size={18} />
-              </button>
-            </div>
-            <div className="px-5 py-6 text-gray-600 text-sm leading-relaxed">{modal.message}</div>
-            <div className="px-5 py-4 border-t border-gray-100 flex justify-end gap-2 bg-gray-50">
-              {modal.cancelText && (
-                <button 
-                  onClick={() => { if (modal.onCancel) modal.onCancel(); else closeModal(); }} 
-                  disabled={isModalSubmitting} 
-                  className="px-4 py-2 text-sm font-medium text-orange-600 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {modal.cancelText}
-                </button>
-              )}
-              <button
-                onClick={async () => {
-                  if (modal.onConfirm) {
-                    setIsModalSubmitting(true);
-                    try {
-                      await modal.onConfirm();
-                    } finally {
-                      setIsModalSubmitting(false);
-                      closeModal();
-                    }
-                  } else {
-                    closeModal();
-                  }
-                }}
-                disabled={isModalSubmitting}
-                className="px-4 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-1.5"
-              >
-                {isModalSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
-                {modal.confirmText || 'Xác nhận'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+  return {
+    currentSlipType, setCurrentSlipType,
+    slipConfig,
+    processStages,
+    newLotId,
+    lotName, setLotName,
+    slipDate, setSlipDate,
+    status, setStatus,
+    description, setDescription,
+    linkedHandoffMeta, setLinkedHandoffMeta,
+    orders,
+    selectedTargetProducts, setSelectedTargetProducts,
+    orderModalOpen, setOrderModalOpen,
+    availableInventory,
+    inventoryModalOpen, setInventoryModalOpen,
+    selectedInputs, setSelectedInputs,
+    invSearch, setInvSearch,
+    customRequests, setCustomRequests,
+    detailRows, setDetailRows,
+    selectedStageId, setSelectedStageId,
+    stageTickets, setStageTickets,
+    lastStageSave, setLastStageSave,
+    selectedProductHandoffIds, setSelectedProductHandoffIds,
+    selectedInputHandoffLotIds, setSelectedInputHandoffLotIds,
+    expandedHandoffLotId, setExpandedHandoffLotId,
+    productHandoffConfirm, setProductHandoffConfirm,
+    modal, setModal,
+    isConfirmingProduction, setIsConfirmingProduction,
+    closeModal,
+    toast,
+    isCompleted,
+    moldingInventory,
+    filteredInventory,
+    groupedInventory,
+    selectedProductIds,
+    linkedHandoffQty,
+    handoffLotsForCurrentSlip,
+    availableHandoffLots,
+    handleToggleInputHandoffLot,
+    handleImportHandoffLots,
+    completedMoldingProductIds,
+    handleToggleProductSelection,
+    handleToggleOrderSelection,
+    handleChangeProductQuantity,
+    handleRemoveProduct,
+    handleChangeProductMeta,
+    handleChangeProductNumber,
+    handleCommitProductCompletionEntry,
+    handleToggleInputSelection,
+    handleToggleModalBatchSelection,
+    handleRemoveInputItem,
+    handleChangeInputQuantity,
+    handleChangeInputVolume,
+    handleRemoveInputBatch,
+    handleAddCustomRequest,
+    handleRemoveCustomRequest,
+    handleChangeCustomRequest,
+    handleSendCustomRequests,
+    handleAddDetailRow,
+    handleRemoveDetailRow,
+    handleRowChange,
+    handleChangeDetailMeta,
+    handleChangeDetailNumber,
+    handleStageCompletedChange,
+    handleSaveStageProgress,
+    handleUndoStageProgress,
+    handleCompleteRowsStages,
+    handleCompleteProductStages,
+    handleCompleteDetailStages,
+    handleToggleDetailStage,
+    handleApplyDetailStages,
+    getProductCompleteQty,
+    getProductHandoffRemaining,
+    handleToggleProductHandoff,
+    getProductsToHandoff,
+    openProductHandoffConfirm,
+    createProductHandoffSlip,
+    getInputUsageError,
+    saveLotToDb,
+    handleSaveDraft,
+    handleBackToList,
+    handleCancelLot,
+    handleConfirmProduction,
+    finalizeProduction,
+    getProductRequiredQty,
+    getProductHandoffQty,
+    NEXT_FINISHING_SLIP
+  };
 }

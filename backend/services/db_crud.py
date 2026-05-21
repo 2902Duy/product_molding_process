@@ -2,13 +2,9 @@
 CRUD operations for Supabase PostgreSQL via SQLAlchemy async.
 """
 from datetime import date, datetime
-"""
-CRUD operations for Supabase PostgreSQL via SQLAlchemy async.
-"""
-from datetime import date, datetime
 from typing import Optional
 
-from sqlalchemy import select, delete, func
+from sqlalchemy import select, delete, func, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -176,15 +172,16 @@ async def get_inventory_stats(db: AsyncSession) -> dict:
 async def bulk_update_inventory_status(
     db: AsyncSession, ids: list[str], status: str
 ) -> int:
-    count = 0
-    for item_id in ids:
-        item = await get_inventory_item(db, item_id)
-        if item:
-            item.status = status
-            item.updated_at = datetime.utcnow()
-            count += 1
+    if not ids:
+        return 0
+    stmt = (
+        update(Inventory)
+        .where(Inventory.id.in_(ids))
+        .values(status=status, updated_at=datetime.utcnow())
+    )
+    result = await db.execute(stmt)
     await db.commit()
-    return count
+    return result.rowcount
 
 
 # =============================================================================
