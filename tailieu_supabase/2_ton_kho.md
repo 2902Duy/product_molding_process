@@ -1,0 +1,2220 @@
+# Báo cáo Tồn kho (Inventory)
+
+Tài liệu chi tiết về lượng gỗ thô, phôi thô và phôi tồn dư trong kho. Được tối ưu hóa cho tìm kiếm ngữ nghĩa RAG.
+
+- Lô tồn kho mã **MCP-INV-2855**: Loại gỗ  Loại MDF, Gia công ép dán giấyMặt 1 Giấy thường, , phân loại RAW, tên lô "Loại MDF, Gia công ép dán giấyMặt 1 Giấy thường, Mặt 2 Giấy thường, Đặc điểm Thấm sơn", quy cách 2440x1220x14 mm, số lượng 262 tấm/thanh, thể tích 10.9189 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4165**: Loại gỗ BẠCH DƯƠNG, phân loại RAW, tên lô "BẠCH DƯƠNG", quy cách 2440x1220x15 mm, số lượng 2 tấm/thanh, thể tích 0.0893 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2537**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 45 tấm/thanh, thể tích 0.4400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2752**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 200 tấm/thanh, thể tích 1.9880 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2814**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 273 tấm/thanh, thể tích 2.0080 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2472**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 3150x150x22 mm, số lượng 218 tấm/thanh, thể tích 2.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2485**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 3050x150x22 mm, số lượng 224 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2475**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 3050x150x22 mm, số lượng 221 tấm/thanh, thể tích 2.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2476**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2550x150x22 mm, số lượng 228 tấm/thanh, thể tích 1.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2474**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2550x150x22 mm, số lượng 232 tấm/thanh, thể tích 1.9600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2536**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 181 tấm/thanh, thể tích 1.7700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2535**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 90 tấm/thanh, thể tích 0.8800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2534**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 103 tấm/thanh, thể tích 1.0100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2533**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 57 tấm/thanh, thể tích 0.5600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2532**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 224 tấm/thanh, thể tích 2.1900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2531**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 55 tấm/thanh, thể tích 0.5400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2473**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2550x150x22 mm, số lượng 204 tấm/thanh, thể tích 1.7200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2481**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2550x150x22 mm, số lượng 222 tấm/thanh, thể tích 1.8700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2484**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x22 mm, số lượng 244 tấm/thanh, thể tích 2.0200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2483**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x22 mm, số lượng 225 tấm/thanh, thể tích 1.8600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2482**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x22 mm, số lượng 216 tấm/thanh, thể tích 1.7900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2530**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 177 tấm/thanh, thể tích 1.7300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2527**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 135 tấm/thanh, thể tích 1.3200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2526**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 181 tấm/thanh, thể tích 1.7700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2525**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 126 tấm/thanh, thể tích 1.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2524**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 25 tấm/thanh, thể tích 0.2500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2523**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 274 tấm/thanh, thể tích 2.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2522**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 158 tấm/thanh, thể tích 1.5500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2521**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 183 tấm/thanh, thể tích 1.7900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2520**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 179 tấm/thanh, thể tích 1.7500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2480**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x22 mm, số lượng 244 tấm/thanh, thể tích 2.0200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2479**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x22 mm, số lượng 221 tấm/thanh, thể tích 1.8300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2477**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x22 mm, số lượng 224 tấm/thanh, thể tích 1.8500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2455**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 11 tấm/thanh, thể tích 0.0700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2538**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 36 tấm/thanh, thể tích 0.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4179**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x22 mm, số lượng 251 tấm/thanh, thể tích 2.2800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4172**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2400x150x22 mm, số lượng 164 tấm/thanh, thể tích 2.1300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4168**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2300x150x22 mm, số lượng 161 tấm/thanh, thể tích 2.0800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4167**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2300x150x22 mm, số lượng 187 tấm/thanh, thể tích 2.4200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4170**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2230x150x22 mm, số lượng 167 tấm/thanh, thể tích 2.2200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4174**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2100x150x22 mm, số lượng 178 tấm/thanh, thể tích 2.1300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4173**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2100x150x22 mm, số lượng 175 tấm/thanh, thể tích 2.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4171**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2030x150x22 mm, số lượng 163 tấm/thanh, thể tích 2.4100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4169**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2000x150x22 mm, số lượng 126 tấm/thanh, thể tích 2.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4175**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2000x150x22 mm, số lượng 163 tấm/thanh, thể tích 1.9800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4059**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 3800x150x25 mm, số lượng 164 tấm/thanh, thể tích 2.7300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4058**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 3800x150x25 mm, số lượng 155 tấm/thanh, thể tích 2.7300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4063**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 3400x150x25 mm, số lượng 146 tấm/thanh, thể tích 2.4400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4062**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 3100x150x25 mm, số lượng 235 tấm/thanh, thể tích 3.3800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4061**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 3100x150x25 mm, số lượng 239 tấm/thanh, thể tích 3.3800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4060**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2050x150x25 mm, số lượng 251 tấm/thanh, thể tích 2.2400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2462**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 106 tấm/thanh, thể tích 1.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2459**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 192 tấm/thanh, thể tích 1.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2471**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 163 tấm/thanh, thể tích 2.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2470**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 205 tấm/thanh, thể tích 2.1100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2453**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 200 tấm/thanh, thể tích 2.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2452**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 208 tấm/thanh, thể tích 1.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2451**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 220 tấm/thanh, thể tích 1.7800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2463**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 37 tấm/thanh, thể tích 0.3300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2454**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 173 tấm/thanh, thể tích 1.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2755**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 80 tấm/thanh, thể tích 2.0590 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2757**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 280 tấm/thanh, thể tích 2.2440 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2754**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 287 tấm/thanh, thể tích 1.9000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2751**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 352 tấm/thanh, thể tích 1.9310 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2760**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 266 tấm/thanh, thể tích 2.2570 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2759**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 156 tấm/thanh, thể tích 2.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2758**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 312 tấm/thanh, thể tích 1.2350 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2756**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 320 tấm/thanh, thể tích 2.2680 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2468**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 155 tấm/thanh, thể tích 2.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1134**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2005x150x26 mm, số lượng 231 tấm/thanh, thể tích 1.8100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2585**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2300x150x22 mm, số lượng 283 tấm/thanh, thể tích 2.1500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2457**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 214 tấm/thanh, thể tích 1.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2456**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 226 tấm/thanh, thể tích 1.4200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2461**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 30 tấm/thanh, thể tích 0.2200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2460**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 6 tấm/thanh, thể tích 0.0400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2544**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2100x100x22 mm, số lượng 424 tấm/thanh, thể tích 1.9600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2543**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2100x100x22 mm, số lượng 463 tấm/thanh, thể tích 2.1400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2542**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2100x100x22 mm, số lượng 523 tấm/thanh, thể tích 2.4200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2541**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2100x100x22 mm, số lượng 463 tấm/thanh, thể tích 2.1400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2540**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2100x100x22 mm, số lượng 339 tấm/thanh, thể tích 1.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2762**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 296 tấm/thanh, thể tích 2.0880 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2750**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 280 tấm/thanh, thể tích 1.8480 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2465**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 189 tấm/thanh, thể tích 2.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2753**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 294 tấm/thanh, thể tích 2.6200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2539**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2100x100x22 mm, số lượng 500 tấm/thanh, thể tích 2.3100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1133**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2450x150x26 mm, số lượng 218 tấm/thanh, thể tích 2.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1132**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2450x150x26 mm, số lượng 219 tấm/thanh, thể tích 2.1000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2519**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 59 tấm/thanh, thể tích 0.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2529**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 51 tấm/thanh, thể tích 0.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2518**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 86 tấm/thanh, thể tích 0.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2528**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x26 mm, số lượng 179 tấm/thanh, thể tích 1.7500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2552**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2750x150x23 mm, số lượng 316 tấm/thanh, thể tích 3.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4180**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2200x150x22 mm, số lượng 198 tấm/thanh, thể tích 1.9900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2761**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 200 tấm/thanh, thể tích 1.0970 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2749**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 360 tấm/thanh, thể tích 2.6400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2467**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 203 tấm/thanh, thể tích 2.1100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2466**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 195 tấm/thanh, thể tích 2.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2469**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 171 tấm/thanh, thể tích 2.1300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2763**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 80 tấm/thanh, thể tích 1.6980 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2486**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2200x150x22 mm, số lượng 158 tấm/thanh, thể tích 1.1500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2450**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 202 tấm/thanh, thể tích 2.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2517**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2400x150x26 mm, số lượng 191 tấm/thanh, thể tích 1.7900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2553**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 3100x150x23 mm, số lượng 316 tấm/thanh, thể tích 3.3800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2555**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2450x150x23 mm, số lượng 315 tấm/thanh, thể tích 2.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2554**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2450x150x23 mm, số lượng 315 tấm/thanh, thể tích 2.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2478**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x22 mm, số lượng 207 tấm/thanh, thể tích 1.7100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2464**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 197 tấm/thanh, thể tích 1.9100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2458**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách Không xác định quy cách, số lượng 192 tấm/thanh, thể tích 2.1300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4181**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 3000x150x22 mm, số lượng 230 tấm/thanh, thể tích 2.7100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4176**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 3000x150x22 mm, số lượng 235 tấm/thanh, thể tích 2.8600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4177**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2800x150x22 mm, số lượng 239 tấm/thanh, thể tích 2.7500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4178**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2600x150x22 mm, số lượng 171 tấm/thanh, thể tích 1.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4182**: Loại gỗ DẺ GAI, phân loại RAW, tên lô "DẺ GAI", quy cách 2500x150x22 mm, số lượng 237 tấm/thanh, thể tích 2.5400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3951**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3600x150x25 mm, số lượng 134 tấm/thanh, thể tích 1.9400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2550**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 2400x150x25 mm, số lượng 231 tấm/thanh, thể tích 2.0800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2511**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3000x150x25 mm, số lượng 240 tấm/thanh, thể tích 2.7100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2515**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3000x150x25 mm, số lượng 190 tấm/thanh, thể tích 2.1400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2516**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3000x150x25 mm, số lượng 238 tấm/thanh, thể tích 2.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2514**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3000x150x25 mm, số lượng 196 tấm/thanh, thể tích 2.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3950**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 4800x150x25 mm, số lượng 103 tấm/thanh, thể tích 2.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3948**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 4800x150x25 mm, số lượng 55 tấm/thanh, thể tích 0.1100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2513**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3000x150x25 mm, số lượng 196 tấm/thanh, thể tích 2.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2698**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3600x150x25 mm, số lượng 60 tấm/thanh, thể tích 0.8100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2549**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3600x150x25 mm, số lượng 246 tấm/thanh, thể tích 3.3300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3953**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 4200x150x25 mm, số lượng 68 tấm/thanh, thể tích 1.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2551**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3600x150x25 mm, số lượng 246 tấm/thanh, thể tích 3.3300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3952**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3600x150x25 mm, số lượng 2 tấm/thanh, thể tích 3.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3949**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3600x150x25 mm, số lượng 206 tấm/thanh, thể tích 3.3100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2697**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 4200x150x25 mm, số lượng 39 tấm/thanh, thể tích 0.6142 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2700**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 4200x150x25 mm, số lượng 113 tấm/thanh, thể tích 1.7797 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2699**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3600x150x25 mm, số lượng 223 tấm/thanh, thể tích 3.0105 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2701**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3000x150x25 mm, số lượng 171 tấm/thanh, thể tích 1.9238 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2512**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 2400x150x25 mm, số lượng 235 tấm/thanh, thể tích 2.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3947**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 4800x150x25 mm, số lượng 37 tấm/thanh, thể tích 0.7200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2509**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3050x150x25 mm, số lượng 258 tấm/thanh, thể tích 2.9600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2510**: Loại gỗ HỒ ĐÀO, phân loại RAW, tên lô "HỒ ĐÀO", quy cách 3000x150x25 mm, số lượng 169 tấm/thanh, thể tích 1.9100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2857**: Loại gỗ Loại MDF, Gia công ép dán giấy//Đặc điểm Thấm sơn,, phân loại RAW, tên lô "Loại MDF, Gia công ép dán giấy//Đặc điểm Thấm sơn, Mặt 1 Giấy thường, Mặt 2 Giấy thường", quy cách 2440x1220x14 mm, số lượng 120 tấm/thanh, thể tích 5.0010 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2853**: Loại gỗ Loại MDF, Gia công ép dán giấyMặt 1 Giấy thường, M, phân loại RAW, tên lô "Loại MDF, Gia công ép dán giấyMặt 1 Giấy thường, Mặt 2 Giấy thường, Đặc điểm Thấm sơn", quy cách 2440x1220x17 mm, số lượng 11 tấm/thanh, thể tích 0.5567 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2858**: Loại gỗ Loại MDF,Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Gi, phân loại RAW, tên lô "Loại MDF,Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Giấy thường, Mặt 2 Giấy thường, Đặc điểm Thấm sơn", quy cách 2440x1220x3 mm, số lượng 24 tấm/thanh, thể tích 0.2143 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2854**: Loại gỗ Loại MDF.Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Gi, phân loại RAW, tên lô "Loại MDF.Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Giấy thường, Mặt 2 Giấy thường", quy cách 2440x1220x17 mm, số lượng 11 tấm/thanh, thể tích 0.5567 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2856**: Loại gỗ Loại MDF.Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Gi, phân loại RAW, tên lô "Loại MDF.Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Giấy thường, Mặt 2 Giấy thường", quy cách 2440x1220x3 mm, số lượng 45 tấm/thanh, thể tích 0.4019 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2560**: Loại gỗ LVD, phân loại RAW, tên lô "LVD", quy cách 818x396x15 mm, số lượng 50 tấm/thanh, thể tích 0.2429 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2564**: Loại gỗ MDF, phân loại RAW, tên lô "MDF", quy cách 3x594x240 mm, số lượng 182 tấm/thanh, thể tích 0.0778 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2839**: Loại gỗ MDF, phân loại RAW, tên lô "MDF", quy cách 1076x390x9 mm, số lượng 90 tấm/thanh, thể tích 0.3399 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2563**: Loại gỗ MDF, phân loại RAW, tên lô "MDF", quy cách 3x594x240 mm, số lượng 182 tấm/thanh, thể tích 0.0778 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2557**: Loại gỗ MDF, phân loại RAW, tên lô "MDF", quy cách 2440x1830x4 mm, số lượng 48 tấm/thanh, thể tích 1.0181 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2561**: Loại gỗ MDF, phân loại RAW, tên lô "MDF", quy cách 3x594x240 mm, số lượng 182 tấm/thanh, thể tích 0.0778 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2562**: Loại gỗ MDF, phân loại RAW, tên lô "MDF", quy cách 3x594x240 mm, số lượng 182 tấm/thanh, thể tích 0.0778 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2840**: Loại gỗ MDF, phân loại RAW, tên lô "MDF", quy cách 466x390x9 mm, số lượng 102 tấm/thanh, thể tích 0.1668 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2704**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3050x100x25 mm, số lượng 120 tấm/thanh, thể tích 0.9150 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4288**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3200x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3992**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3200x100x22 mm, số lượng 450 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4077**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3960x125x28 mm, số lượng 288 tấm/thanh, thể tích 3.5500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4057**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2703**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3960x125x22 mm, số lượng 384 tấm/thanh, thể tích 4.1818 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2702**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3960x125x22 mm, số lượng 130 tấm/thanh, thể tích 1.4157 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2923**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 4000x140x28 mm, số lượng 304 tấm/thanh, thể tích 4.6500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4078**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4076**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3660x145x28 mm, số lượng 257 tấm/thanh, thể tích 3.3800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4080**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2694**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 4000x150x32 mm, số lượng 371 tấm/thanh, thể tích 7.1232 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4235**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3960x125x28 mm, số lượng 138 tấm/thanh, thể tích 1.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2705**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 4000x125x32 mm, số lượng 256 tấm/thanh, thể tích 4.0960 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4081**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4074**: Loại gỗ Thông, phân loại RAW, tên lô "Thông", quy cách 2700x125x28 mm, số lượng 116 tấm/thanh, thể tích 1.6000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2026**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 149 tấm/thanh, thể tích 1.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2008**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2009**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2011**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2033**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2034**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2035**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2074**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2075**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2027**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 202 tấm/thanh, thể tích 1.6300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2051**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 525 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2052**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 525 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2040**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2041**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2043**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2029**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2030**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2031**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2032**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2046**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x150x22 mm, số lượng 83 tấm/thanh, thể tích 0.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2047**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2048**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2044**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2045**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2042**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2036**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2037**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2038**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1061**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 500745 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1062**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1067**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 301 tấm/thanh, thể tích 3.9800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1068**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 301 tấm/thanh, thể tích 3.9800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1065**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 324 tấm/thanh, thể tích 4.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1066**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 324 tấm/thanh, thể tích 4.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1055**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x25 mm, số lượng 300 tấm/thanh, thể tích 4.3200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1056**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x25 mm, số lượng 300 tấm/thanh, thể tích 4.3200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1058**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x25 mm, số lượng 300 tấm/thanh, thể tích 4.3200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1059**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x25 mm, số lượng 300 tấm/thanh, thể tích 4.3200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1060**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x28 mm, số lượng 299 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1063**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x28 mm, số lượng 304 tấm/thanh, thể tích 3.9000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1064**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x28 mm, số lượng 303 tấm/thanh, thể tích 4.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1910**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1911**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1912**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1913**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1914**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1915**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1916**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1908**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 239 tấm/thanh, thể tích 1.6100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1909**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1901**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 290 tấm/thanh, thể tích 1.9500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1903**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1904**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 201 tấm/thanh, thể tích 1.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1905**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1902**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1907**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 419 tấm/thanh, thể tích 3.3800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1959**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x22 mm, số lượng 450 tấm/thanh, thể tích 3.9600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1960**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x22 mm, số lượng 450 tấm/thanh, thể tích 3.9600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1955**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1956**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1957**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1958**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1967**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1968**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1969**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1970**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1971**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1685**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 335 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1678**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x75x28 mm, số lượng 438 tấm/thanh, thể tích 3.6500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1966**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1961**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1952**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1953**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1954**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1962**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x150x25 mm, số lượng 279 tấm/thanh, thể tích 4.4800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1963**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x150x25 mm, số lượng 279 tấm/thanh, thể tích 4.4800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1964**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4720x150x25 mm, số lượng 253 tấm/thanh, thể tích 4.4800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1965**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x150x25 mm, số lượng 279 tấm/thanh, thể tích 5.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1906**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x32 mm, số lượng 474 tấm/thanh, thể tích 2.7800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1972**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 223 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1981**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1976**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1977**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1978**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1979**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1980**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1973**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 216 tấm/thanh, thể tích 1.7400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1974**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 180 tấm/thanh, thể tích 1.4500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2004**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x25 mm, số lượng 142 tấm/thanh, thể tích 0.9800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1983**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1994**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1997**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1985**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1984**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1993**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x100x25 mm, số lượng 326 tấm/thanh, thể tích 3.9800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2000**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 308 tấm/thanh, thể tích 3.5300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2001**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2002**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1998**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1999**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2003**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x125x25 mm, số lượng 40 tấm/thanh, thể tích 0.6100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2248**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x32 mm, số lượng 286 tấm/thanh, thể tích 2.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2251**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x32 mm, số lượng 475 tấm/thanh, thể tích 4.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2249**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x75x32 mm, số lượng 475 tấm/thanh, thể tích 4.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2250**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x75x32 mm, số lượng 473 tấm/thanh, thể tích 4.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2392**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2403**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 335 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2404**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2418**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2402**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2420**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2419**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2401**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2273 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2379**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x100x25 mm, số lượng 100 tấm/thanh, thể tích 0.7500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2380**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x100x25 mm, số lượng 346 tấm/thanh, thể tích 2.6000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2355**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2745x125x25 mm, số lượng 215 tấm/thanh, thể tích 1.8500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2366**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 54 tấm/thanh, thể tích 0.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2324**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 335 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2325**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 335 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2365**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 71 tấm/thanh, thể tích 0.8200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2340**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 293 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2339**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x150x25 mm, số lượng 335 tấm/thanh, thể tích 4.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2341**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x25 mm, số lượng 294 tấm/thanh, thể tích 4.0400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2378**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2907**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3600x125x22 mm, số lượng 384 tấm/thanh, thể tích 3.8000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2897**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2898**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 336 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2892**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x125x28 mm, số lượng 240 tấm/thanh, thể tích 2.8200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2891**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x140x28 mm, số lượng 90 tấm/thanh, thể tích 1.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2894**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x145x28 mm, số lượng 28 tấm/thanh, thể tích 0.3400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2893**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x145x28 mm, số lượng 28 tấm/thanh, thể tích 0.3800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2895**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x32 mm, số lượng 320 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2896**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x32 mm, số lượng 320 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2234**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2232**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2238**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2235**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2236**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2237**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2233**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2296**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x32 mm, số lượng 255 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2297**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x32 mm, số lượng 255 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2393**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2421**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2406**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.8800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2405**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1927**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2363**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2364**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 45 tấm/thanh, thể tích 0.4300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2333**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2334**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2375**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2376**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 187 tấm/thanh, thể tích 3.6500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2377**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1837**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1841**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320000 tấm/thanh, thể tích 3500.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1842**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1843**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1844**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1845**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1846**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320000 tấm/thanh, thể tích 4000.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1847**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1848**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1851**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1852**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1838**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1839**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1840**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1932**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 395 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1933**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 395 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1934**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 395 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1105**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2587**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 71 tấm/thanh, thể tích 0.8200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2556**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2558**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x28 mm, số lượng 303 tấm/thanh, thể tích 3.2400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2559**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x28 mm, số lượng 303 tấm/thanh, thể tích 3.8900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1745**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1701**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-1687**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1688**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1689**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-1690**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1692**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1693**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1694**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1695**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-1696**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-1698**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1699**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-1751**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1755**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 69 tấm/thanh, thể tích 1.1520 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1749**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1750**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2191**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x205x25 mm, số lượng 158 tấm/thanh, thể tích 2.4700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1683**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 335 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1679**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2500x165x28 mm, số lượng 290 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1675**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x32 mm, số lượng 237 tấm/thanh, thể tích 2.3200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2417**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x95x28 mm, số lượng 228 tấm/thanh, thể tích 2.0400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1676**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x32 mm, số lượng 327 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3965**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3963**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3967**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2100x125x28 mm, số lượng 18 tấm/thanh, thể tích 0.1300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3976**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x28 mm, số lượng 87 tấm/thanh, thể tích 1.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4075**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x28 mm, số lượng 252 tấm/thanh, thể tích 3.4800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2239**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x25 mm, số lượng 100 tấm/thanh, thể tích 0.6100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2241**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 337 tấm/thanh, thể tích 2.5696 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2242**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1938**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1941**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1892**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1896**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1899**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 344 tấm/thanh, thể tích 1.8500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1895**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 250 tấm/thanh, thể tích 1.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1890**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 524 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1935**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 520 tấm/thanh, thể tích 3.4900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1937**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1893**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1891**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1900**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1942**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1883**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1946**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1878**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1880**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 196 tấm/thanh, thể tích 2.3700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1950**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1951**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1898**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3100x100x32 mm, số lượng 259 tấm/thanh, thể tích 2.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1897**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3700x100x32 mm, số lượng 289 tấm/thanh, thể tích 3.4300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2226**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x105x25 mm, số lượng 399 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2227**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x105x25 mm, số lượng 399 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2228**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x105x25 mm, số lượng 399 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2224**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x105x25 mm, số lượng 399 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2225**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x105x25 mm, số lượng 399 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2215**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2194**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x205x25 mm, số lượng 14 tấm/thanh, thể tích 0.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2195**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2745x205x25 mm, số lượng 128 tấm/thanh, thể tích 1.8100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1775**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 477909 tấm/thanh, thể tích 2250.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1787**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 460 tấm/thanh, thể tích 2.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1801**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1788**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1791**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2700x100x22 mm, số lượng 511 tấm/thanh, thể tích 3.0400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1803**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 49933 tấm/thanh, thể tích 301.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1781**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 499336 tấm/thanh, thể tích 3010.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1773**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 499336 tấm/thanh, thể tích 3010.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1777**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 509289 tấm/thanh, thể tích 3070.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1778**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3350.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1779**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3350.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1774**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 454545 tấm/thanh, thể tích 3050.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1782**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3350.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1783**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1784**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1785**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1786**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1776**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3350.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1790**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1806**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1792**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1794**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1795**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1796**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1797**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 220 tấm/thanh, thể tích 1.4800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1809**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1810**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1807**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x100x22 mm, số lượng 419 tấm/thanh, thể tích 3.1000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1808**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1805**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1798**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 190 tấm/thanh, thể tích 1.5300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1799**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1800**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4285**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2800x100x22 mm, số lượng 460 tấm/thanh, thể tích 2.8300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1789**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1771**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500496 tấm/thanh, thể tích 4030.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1814**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x150x22 mm, số lượng 349726 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1813**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 335 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1873**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 335 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1874**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1876**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x150x22 mm, số lượng 237 tấm/thanh, thể tích 2.1500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1875**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1871**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1872**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1811**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1812**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1877**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x150x22 mm, số lượng 272 tấm/thanh, thể tích 3.0200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2586**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3970x125x25 mm, số lượng 336 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1859**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1769**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x125x25 mm, số lượng 158523 tấm/thanh, thể tích 1932.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1860**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1853**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1855**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1856**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1857**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1858**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1759**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 217909 tấm/thanh, thể tích 3638.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1760**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 217969 tấm/thanh, thể tích 3639.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1761**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 217789 tấm/thanh, thể tích 3636.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1763**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 219586 tấm/thanh, thể tích 3666.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1764**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 218688 tấm/thanh, thể tích 3651.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1765**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 217610 tấm/thanh, thể tích 3633.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1818**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x205x28 mm, số lượng 175 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1826**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x120x32 mm, số lượng 297 tấm/thanh, thể tích 4.5163 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1829**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2036x125x32 mm, số lượng 54 tấm/thanh, thể tích 0.4400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1830**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2039x125x32 mm, số lượng 321 tấm/thanh, thể tích 2.6200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1828**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2039x125x32 mm, số lượng 321 tấm/thanh, thể tích 2.6200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1815**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x32 mm, số lượng 230 tấm/thanh, thể tích 4.2400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1816**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x32 mm, số lượng 68 tấm/thanh, thể tích 1.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1817**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x32 mm, số lượng 230 tấm/thanh, thể tích 4.2400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1819**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x32 mm, số lượng 159 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1820**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x32 mm, số lượng 159 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1821**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x32 mm, số lượng 159 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1822**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x32 mm, số lượng 159 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1823**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x32 mm, số lượng 159 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1824**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x32 mm, số lượng 159 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1825**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x32 mm, số lượng 159 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1827**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x32 mm, số lượng 159 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1835**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x32 mm, số lượng 159 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1836**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x32 mm, số lượng 159 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1923**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1921**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 546 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1929**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1756**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2430x200x25 mm, số lượng 1622 tấm/thanh, thể tích 19.7073 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1757**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 190 tấm/thanh, thể tích 3.1721 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1922**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x75x22 mm, số lượng 181 tấm/thanh, thể tích 0.8200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1928**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1924**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 286 tấm/thanh, thể tích 1.4400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1925**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 315 tấm/thanh, thể tích 1.5900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1926**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x22 mm, số lượng 259 tấm/thanh, thể tích 1.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1919**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1917**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1918**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2006**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2028**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2024**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 504 tấm/thanh, thể tích 3.0400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2025**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 199 tấm/thanh, thể tích 1.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2005**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.0100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2049**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2050**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1357**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1358**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1359**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1620**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1631**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 266 tấm/thanh, thể tích 1.4300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1321**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1322**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1323**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1318**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 555 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1320**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 310 tấm/thanh, thể tích 1.8700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1326**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.0100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1331**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.0100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1338**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 320 tấm/thanh, thể tích 1.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1339**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.0100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1260**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1340**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.0100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1345**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 280 tấm/thanh, thể tích 1.8800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1346**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1347**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1348**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1349**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1350**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1351**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1352**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1324**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1371**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1372**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1616**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2240**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 184 tấm/thanh, thể tích 1.4100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1882**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1617**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1622**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1623**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1381**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 487 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1627**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1628**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1629**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1630**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 229 tấm/thanh, thể tích 1.8500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1373**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1378**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1379**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1380**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1367**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4079**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1368**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1325**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1332**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1333**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1334**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1335**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1336**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1337**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1327**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1328**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1353**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1341**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1342**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1343**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1344**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2246**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 110 tấm/thanh, thể tích 0.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1330**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1632**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x25 mm, số lượng 420 tấm/thanh, thể tích 2.8800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1637**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 419 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1635**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x25 mm, số lượng 419 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1633**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 335 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1634**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 335 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1611**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x125x25 mm, số lượng 336 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1640**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1641**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1642**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1643**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1644**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1645**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1646**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1612**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 335 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1613**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3970x125x25 mm, số lượng 336 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1609**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x125x25 mm, số lượng 335 tấm/thanh, thể tích 4.4800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1610**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x125x25 mm, số lượng 335 tấm/thanh, thể tích 4.4800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1673**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1674**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1614**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x150x25 mm, số lượng 279 tấm/thanh, thể tích 5.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1666**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x200x25 mm, số lượng 174 tấm/thanh, thể tích 2.6100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1667**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x200x25 mm, số lượng 174 tấm/thanh, thể tích 2.6100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1672**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x200x25 mm, số lượng 171 tấm/thanh, thể tích 2.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1668**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 187 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1669**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 186 tấm/thanh, thể tích 3.6400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1670**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 184 tấm/thanh, thể tích 3.6000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1671**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 186 tấm/thanh, thể tích 3.6300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1663**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 187 tấm/thanh, thể tích 3.6500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1664**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 186 tấm/thanh, thể tích 3.6400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1665**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 187 tấm/thanh, thể tích 3.6500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1648**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1649**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1894**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 250 tấm/thanh, thể tích 1.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1650**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1651**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1652**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1653**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1655**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1638**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x245x25 mm, số lượng 163 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1626**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x250x25 mm, số lượng 167 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1625**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x250x25 mm, số lượng 168 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1636**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x250x25 mm, số lượng 167 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1624**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3970x250x25 mm, số lượng 168 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2678**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2679**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 205 tấm/thanh, thể tích 1.9539 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1944**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2682**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x125x28 mm, số lượng 200 tấm/thanh, thể tích 2.3520 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2681**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x28 mm, số lượng 304 tấm/thanh, thể tích 3.8942 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2683**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x135x28 mm, số lượng 96 tấm/thanh, thể tích 1.4370 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2680**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 70 tấm/thanh, thể tích 1.3440 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2244**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2190**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x205x25 mm, số lượng 69 tấm/thanh, thể tích 1.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1437**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1438**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1439**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1440**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1647**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1441**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1442**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1443**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1436**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x25 mm, số lượng 343 tấm/thanh, thể tích 4.2500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1408**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1409**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1410**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1411**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1412**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1413**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1414**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1415**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1418**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1419**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1420**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1421**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1422**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1423**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1425**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1426**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1427**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1428**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1429**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1430**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1432**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1433**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1434**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1435**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2609**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x22 mm, số lượng 268 tấm/thanh, thể tích 2.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2611**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2612**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2608**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x140x28 mm, số lượng 277 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2607**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x28 mm, số lượng 265 tấm/thanh, thể tích 3.9500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2193**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x205x25 mm, số lượng 199 tấm/thanh, thể tích 3.7500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2605**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x32 mm, số lượng 225 tấm/thanh, thể tích 2.8900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2606**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 223 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1737**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1723**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 187846 tấm/thanh, thể tích 3663.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1724**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x32 mm, số lượng 231 tấm/thanh, thể tích 3.9229 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1726**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x32 mm, số lượng 231 tấm/thanh, thể tích 3.9229 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1727**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x32 mm, số lượng 230 tấm/thanh, thể tích 3.9059 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1728**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x32 mm, số lượng 230 tấm/thanh, thể tích 3.9059 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1730**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x32 mm, số lượng 231 tấm/thanh, thể tích 3.9229 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1731**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x32 mm, số lượng 238 tấm/thanh, thể tích 4.0418 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1732**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x32 mm, số lượng 137 tấm/thanh, thể tích 2.3266 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1733**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x32 mm, số lượng 231 tấm/thanh, thể tích 3.9229 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1734**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x32 mm, số lượng 231 tấm/thanh, thể tích 4.2445 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1729**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x32 mm, số lượng 231 tấm/thanh, thể tích 4.2445 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1725**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x32 mm, số lượng 231 tấm/thanh, thể tích 4.2445 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2706**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2707**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2218**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x115x32 mm, số lượng 287 tấm/thanh, thể tích 3.8700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2436**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x95x28 mm, số lượng 373 tấm/thanh, thể tích 3.6400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2435**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x32 mm, số lượng 255 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2434**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 223 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1125**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x150x22 mm, số lượng 216 tấm/thanh, thể tích 1.9600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1126**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1127**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1137**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1138**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1139**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1140**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1141**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1142**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1129**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1130**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1136**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1097**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 335 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1093**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 335 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1092**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1122**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1128**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1115**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1116**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1104**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3978**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x125x28 mm, số lượng 11 tấm/thanh, thể tích 0.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1121**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1069**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.4700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1117**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1118**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 357 tấm/thanh, thể tích 4.3200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1119**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 357 tấm/thanh, thể tích 4.3200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1120**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 357 tấm/thanh, thể tích 4.3200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1123**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1124**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1114**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1098**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1099**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1100**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1101**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1102**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1103**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1736**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x32 mm, số lượng 231 tấm/thanh, thể tích 4.2445 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1106**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1107**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1108**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1109**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1110**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1111**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1112**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1096**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1070**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1071**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1073**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1074**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1075**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1076**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1077**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2437**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x95x28 mm, số lượng 373 tấm/thanh, thể tích 3.6400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1078**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1079**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1080**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1087**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1088**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1174**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x125x25 mm, số lượng 158 tấm/thanh, thể tích 1.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1175**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x125x25 mm, số lượng 292 tấm/thanh, thể tích 3.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1181**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x125x25 mm, số lượng 292 tấm/thanh, thể tích 3.5600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1176**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1177**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1178**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1179**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1180**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 280 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1173**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x150x25 mm, số lượng 252 tấm/thanh, thể tích 3.6900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1153**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x200x25 mm, số lượng 158 tấm/thanh, thể tích 2.3800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2212**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1154**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1155**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1156**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1157**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1158**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1159**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1160**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1161**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1162**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1164**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1165**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1166**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1167**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 189 tấm/thanh, thể tích 3.6900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1169**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1171**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 128 tấm/thanh, thể tích 2.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2229**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x105x25 mm, số lượng 399 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2214**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1770**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480033 tấm/thanh, thể tích 2260.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1172**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 187 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1143**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 131 tấm/thanh, thể tích 2.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1148**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1149**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1182**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 223 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1183**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 223 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1184**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x32 mm, số lượng 159 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2602**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 450x55x22 mm, số lượng 400 tấm/thanh, thể tích 0.2178 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2601**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 360x65x22 mm, số lượng 3000 tấm/thanh, thể tích 1.5444 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3983**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x125x28 mm, số lượng 183 tấm/thanh, thể tích 2.1400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1444**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2604**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 900x65x22 mm, số lượng 900 tấm/thanh, thể tích 1.1583 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2603**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 360x67x32 mm, số lượng 300 tấm/thanh, thể tích 0.2316 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3934**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3935**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x22 mm, số lượng 246 tấm/thanh, thể tích 2.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3932**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x22 mm, số lượng 384 tấm/thanh, thể tích 4.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3933**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x22 mm, số lượng 384 tấm/thanh, thể tích 4.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3930**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 336 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2213**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3923**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3924**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3925**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3926**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3927**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 336 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3928**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 336 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3929**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 336 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3946**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x95x28 mm, số lượng 22 tấm/thanh, thể tích 0.1400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3944**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2750x95x28 mm, số lượng 264 tấm/thanh, thể tích 1.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3940**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x95x28 mm, số lượng 418 tấm/thanh, thể tích 3.3900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3941**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x95x28 mm, số lượng 198 tấm/thanh, thể tích 1.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3942**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 220 tấm/thanh, thể tích 2.3100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1452**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x200x25 mm, số lượng 200000 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2219**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x115x32 mm, số lượng 287 tấm/thanh, thể tích 4.1900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3943**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1980x125x28 mm, số lượng 304 tấm/thanh, thể tích 2.1000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3945**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2750x125x28 mm, số lượng 88 tấm/thanh, thể tích 0.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3938**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x32 mm, số lượng 264 tấm/thanh, thể tích 3.3700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3939**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x32 mm, số lượng 264 tấm/thanh, thể tích 4.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3937**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x32 mm, số lượng 264 tấm/thanh, thể tích 4.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3936**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x145x32 mm, số lượng 231 tấm/thanh, thể tích 3.4300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2220**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x135x32 mm, số lượng 223 tấm/thanh, thể tích 3.8300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3974**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x28 mm, số lượng 100 tấm/thanh, thể tích 1.2800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1170**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 187 tấm/thanh, thể tích 3.6500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1287**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x25 mm, số lượng 204102 tấm/thanh, thể tích 1.9900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1288**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x25 mm, số lượng 231794 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1279**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x100x25 mm, số lượng 367 tấm/thanh, thể tích 3.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1772**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 749130 tấm/thanh, thể tích 3770.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1280**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x100x25 mm, số lượng 369 tấm/thanh, thể tích 3.6000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1281**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x100x25 mm, số lượng 125 tấm/thanh, thể tích 1.2200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1282**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x100x25 mm, số lượng 369 tấm/thanh, thể tích 3.6000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1283**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1284**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1285**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1286**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1269**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1270**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1271**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1272**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1273**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1274**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1275**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1276**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1277**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1278**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1243**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1244**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1245**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1246**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1247**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1248**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1250**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1251**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1252**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1220**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1221**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1222**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1223**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1224**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1225**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1226**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1300**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x25 mm, số lượng 293 tấm/thanh, thể tích 2.6900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1301**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x25 mm, số lượng 256 tấm/thanh, thể tích 2.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1289**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x150x25 mm, số lượng 294 tấm/thanh, thể tích 4.7100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1290**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x150x25 mm, số lượng 294 tấm/thanh, thể tích 4.7100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1291**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x150x25 mm, số lượng 294 tấm/thanh, thể tích 4.7100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1292**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x150x25 mm, số lượng 294 tấm/thanh, thể tích 4.7100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1218**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1219**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1402**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x125x25 mm, số lượng 320000 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1395**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4x125x25 mm, số lượng 320000 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1396**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4x125x25 mm, số lượng 320000 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1397**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4x125x25 mm, số lượng 320000 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1398**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4x125x25 mm, số lượng 320000 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1406**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1185**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x22 mm, số lượng 350 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1210**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1211**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1212**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1216**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x28 mm, số lượng 326 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1205**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x28 mm, số lượng 303 tấm/thanh, thể tích 4.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1206**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x28 mm, số lượng 303 tấm/thanh, thể tích 4.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1207**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x28 mm, số lượng 303 tấm/thanh, thể tích 4.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1294**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 417 tấm/thanh, thể tích 4.4000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1295**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 417 tấm/thanh, thể tích 4.4000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1296**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 369 tấm/thanh, thể tích 3.8900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1297**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 417 tấm/thanh, thể tích 4.4000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1298**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 417 tấm/thanh, thể tích 4.4000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3971**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x28 mm, số lượng 23 tấm/thanh, thể tích 0.2900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1299**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 369 tấm/thanh, thể tích 3.8900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1305**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x115x32 mm, số lượng 279 tấm/thanh, thể tích 3.7700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1306**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x115x32 mm, số lượng 279 tấm/thanh, thể tích 3.7700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1307**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x115x32 mm, số lượng 279 tấm/thanh, thể tích 3.7700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1302**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x120x32 mm, số lượng 279 tấm/thanh, thể tích 3.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1303**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x120x32 mm, số lượng 279 tấm/thanh, thể tích 3.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1304**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x120x32 mm, số lượng 279 tấm/thanh, thể tích 3.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-591**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x125x25 mm, số lượng 336 tấm/thanh, thể tích 3.1500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-592**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x125x25 mm, số lượng 336 tấm/thanh, thể tích 3.1500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2595**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x22 mm, số lượng 383 tấm/thanh, thể tích 4.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2596**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x22 mm, số lượng 227 tấm/thanh, thể tích 2.4800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2591**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2590**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x150x25 mm, số lượng 53 tấm/thanh, thể tích 0.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2592**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x145x28 mm, số lượng 265 tấm/thanh, thể tích 3.6200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2588**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x32 mm, số lượng 93 tấm/thanh, thể tích 1.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1317**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x115x32 mm, số lượng 214 tấm/thanh, thể tích 2.8900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1943**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1936**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1780**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3350.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1758**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 190 tấm/thanh, thể tích 3.1721 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1753**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 128 tấm/thanh, thể tích 2.1370 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1754**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 190 tấm/thanh, thể tích 3.1721 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1677**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x32 mm, số lượng 332 tấm/thanh, thể tích 3.2500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3966**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2745x125x25 mm, số lượng 65 tấm/thanh, thể tích 0.5600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3964**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1680**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x105x28 mm, số lượng 259 tấm/thanh, thể tích 2.3300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2245**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x25 mm, số lượng 60 tấm/thanh, thể tích 0.3700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3977**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x125x28 mm, số lượng 14 tấm/thanh, thể tích 0.1400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2230**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x105x25 mm, số lượng 399 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2231**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x105x25 mm, số lượng 399 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2211**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1804**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1802**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1407**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1945**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1948**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1949**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1886**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 360 tấm/thanh, thể tích 2.9000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1887**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1888**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 459 tấm/thanh, thể tích 3.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1889**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x22 mm, số lượng 256 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1879**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x150x22 mm, số lượng 349 tấm/thanh, thể tích 2.4700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1884**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1885**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1881**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2221**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x140x32 mm, số lượng 167 tấm/thanh, thể tích 2.2500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1768**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x125x25 mm, số lượng 340700 tấm/thanh, thể tích 3555.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3984**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x28 mm, số lượng 11 tấm/thanh, thể tích 0.1400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1762**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3339x200x25 mm, số lượng 217550 tấm/thanh, thể tích 3632.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1854**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2007**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1931**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1057**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x25 mm, số lượng 300 tấm/thanh, thể tích 4.3200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1975**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 666 tấm/thanh, thể tích 3.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1986**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1992**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x25 mm, số lượng 264 tấm/thanh, thể tích 2.4200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2356**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x125x25 mm, số lượng 23 tấm/thanh, thể tích 0.2500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1987**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 266 tấm/thanh, thể tích 2.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1988**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2890**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x140x28 mm, số lượng 72 tấm/thanh, thể tích 1.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2889**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x140x28 mm, số lượng 142 tấm/thanh, thể tích 2.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2422**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2423**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1849**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1850**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3979**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x28 mm, số lượng 11 tấm/thanh, thể tích 0.1400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2100**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2062**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2097**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 223 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2084**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2085**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2330**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 335 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2345**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x125x25 mm, số lượng 336 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2143**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2128**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2166**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x130x25 mm, số lượng 26733 tấm/thanh, thể tích 318.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2150**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2144**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2145**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2180**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x205x25 mm, số lượng 199 tấm/thanh, thể tích 4.3700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2179**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x205x25 mm, số lượng 194 tấm/thanh, thể tích 4.8700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2173**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2312**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1509**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1508**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1486**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1485**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1479**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1471**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1514**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1516**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1517**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1518**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1515**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2119**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x150x22 mm, số lượng 349 tấm/thanh, thể tích 2.4700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2120**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x150x22 mm, số lượng 335 tấm/thanh, thể tích 2.3700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2154**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3970x130x25 mm, số lượng 303 tấm/thanh, thể tích 3.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2200**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x115x32 mm, số lượng 287 tấm/thanh, thể tích 4.1900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2844**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2846**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x125x28 mm, số lượng 418 tấm/thanh, thể tích 3.7300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1525**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1564**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x150x25 mm, số lượng 196 tấm/thanh, thể tích 2.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1565**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x150x25 mm, số lượng 226 tấm/thanh, thể tích 2.5500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1588**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1576**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x200x25 mm, số lượng 199 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1867**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1868**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1231**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 650 tấm/thanh, thể tích 2.6200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1234**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 650 tấm/thanh, thể tích 2.6200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1229**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1238**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1239**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1240**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1319**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.0100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1618**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1619**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1365**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1366**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 140 tấm/thanh, thể tích 1.1300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1354**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 525 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1355**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 525 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1356**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 501 tấm/thanh, thể tích 4.0400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1639**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1615**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x150x25 mm, số lượng 279 tấm/thanh, thể tích 5.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1654**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1424**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1416**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1417**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1431**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1735**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x32 mm, số lượng 231 tấm/thanh, thể tích 4.2445 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1131**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1135**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1094**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1095**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1081**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1082**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1083**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1084**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1086**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1089**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1090**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1091**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1150**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x200x25 mm, số lượng 171 tấm/thanh, thể tích 2.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1151**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x200x25 mm, số lượng 171 tấm/thanh, thể tích 2.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1152**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x200x25 mm, số lượng 152 tấm/thanh, thể tích 2.2900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1168**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 187 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1249**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4286**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x100x22 mm, số lượng 390 tấm/thanh, thể tích 2.7400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4287**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x100x22 mm, số lượng 430 tấm/thanh, thể tích 3.0200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4283**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x100x22 mm, số lượng 450 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4284**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x100x22 mm, số lượng 440 tấm/thanh, thể tích 3.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4289**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x75x25 mm, số lượng 184 tấm/thanh, thể tích 1.1000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4260**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2400x100x25 mm, số lượng 400 tấm/thanh, thể tích 2.4000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4258**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4245**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x25 mm, số lượng 80 tấm/thanh, thể tích 0.8000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4246**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x25 mm, số lượng 112 tấm/thanh, thể tích 1.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4248**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4254**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x95x28 mm, số lượng 99 tấm/thanh, thể tích 0.8800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4250**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 174 tấm/thanh, thể tích 1.4900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4251**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 176 tấm/thanh, thể tích 1.7900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1293**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x150x25 mm, số lượng 167 tấm/thanh, thể tích 2.6900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1315**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x115x32 mm, số lượng 214 tấm/thanh, thể tích 2.8900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1316**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x115x32 mm, số lượng 214 tấm/thanh, thể tích 2.8900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1311**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x120x32 mm, số lượng 219 tấm/thanh, thể tích 3.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1312**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x120x32 mm, số lượng 219 tấm/thanh, thể tích 3.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1313**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x120x32 mm, số lượng 219 tấm/thanh, thể tích 3.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1314**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x120x32 mm, số lượng 219 tấm/thanh, thể tích 3.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1308**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4900x200x32 mm, số lượng 149 tấm/thanh, thể tích 4.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1309**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4900x200x32 mm, số lượng 137 tấm/thanh, thể tích 4.3200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1217**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2416**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3560x95x28 mm, số lượng 137 tấm/thanh, thể tích 1.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4259**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4249**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 162 tấm/thanh, thể tích 1.4500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4252**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x28 mm, số lượng 99 tấm/thanh, thể tích 1.0700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4253**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x28 mm, số lượng 69 tấm/thanh, thể tích 0.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4237**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x32 mm, số lượng 231 tấm/thanh, thể tích 4.2400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4236**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x175x32 mm, số lượng 198 tấm/thanh, thể tích 4.3900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1700**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1746**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1747**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1748**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1399**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4x125x25 mm, số lượng 320000 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1400**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4x125x25 mm, số lượng 320000 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1401**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4x125x25 mm, số lượng 320000 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1394**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1403**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1404**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1405**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1742**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1743**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1744**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1930**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1920**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 546 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1657**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x150x25 mm, số lượng 280 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1072**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1144**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 131 tấm/thanh, thể tích 2.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3931**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x22 mm, số lượng 384 tấm/thanh, thể tích 4.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1310**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x120x32 mm, số lượng 219 tấm/thanh, thể tích 3.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2415**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3560x75x28 mm, số lượng 230 tấm/thanh, thể tích 1.7200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2101**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2102**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2103**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2104**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2105**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2106**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 524 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2114**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 335 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2115**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 350 tấm/thanh, thể tích 2.8200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2116**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2117**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2110**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 385 tấm/thanh, thể tích 3.8800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2111**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 367 tấm/thanh, thể tích 3.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2113**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2107**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 385 tấm/thanh, thể tích 3.8800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2108**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 291 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2109**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 306 tấm/thanh, thể tích 3.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2112**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 306 tấm/thanh, thể tích 3.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2058**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x25 mm, số lượng 441 tấm/thanh, thể tích 3.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2059**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x25 mm, số lượng 520 tấm/thanh, thể tích 3.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2055**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x100x25 mm, số lượng 169 tấm/thanh, thể tích 1.4200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2060**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 179 tấm/thanh, thể tích 2.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2063**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2064**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2065**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2066**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 215 tấm/thanh, thể tích 2.4600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2067**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2068**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2069**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 97 tấm/thanh, thể tích 1.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2070**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2076**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2061**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2094**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x150x25 mm, số lượng 271 tấm/thanh, thể tích 3.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2054**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x150x25 mm, số lượng 139 tấm/thanh, thể tích 1.7600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2088**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4247**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x175x25 mm, số lượng 240 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1686**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1682**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2243**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x25 mm, số lượng 400 tấm/thanh, thể tích 2.4400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2056**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2057**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x25 mm, số lượng 20 tấm/thanh, thể tích 0.2800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2053**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2089**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 266 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2090**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 266 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2091**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 266 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2092**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 266 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2093**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 266 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2077**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2078**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2079**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2080**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2081**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2082**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2083**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2086**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2071**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2072**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2073**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2095**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 223 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2096**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 223 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2098**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 223 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2099**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 223 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2410**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2395**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2361**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 476 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2362**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x100x22 mm, số lượng 477 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2394**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2407**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2408**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2409**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2432**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x22 mm, số lượng 350 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2433**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x22 mm, số lượng 350 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2397**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x150x22 mm, số lượng 350 tấm/thanh, thể tích 3.1647 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2398**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 350 tấm/thanh, thể tích 3.5227 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2424**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2425**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2426**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2350**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x78x25 mm, số lượng 546 tấm/thanh, thể tích 3.2500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2346**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x78x25 mm, số lượng 546 tấm/thanh, thể tích 3.2500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2347**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x78x25 mm, số lượng 546 tấm/thanh, thể tích 3.2500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2354**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x78x25 mm, số lượng 546 tấm/thanh, thể tích 3.9000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2353**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3970x78x25 mm, số lượng 546 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2383**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x100x25 mm, số lượng 160 tấm/thanh, thể tích 1.5600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2352**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x125x25 mm, số lượng 336 tấm/thanh, thể tích 2.8800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2372**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x125x25 mm, số lượng 273 tấm/thanh, thể tích 2.5600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4261**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x175x25 mm, số lượng 240 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2351**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 335 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2348**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x125x25 mm, số lượng 336 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2349**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x125x25 mm, số lượng 336 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2327**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 335 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2328**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 335 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2329**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 335 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2336**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2337**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2338**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 293 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2382**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x200x25 mm, số lượng 80 tấm/thanh, thể tích 1.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2373**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 187 tấm/thanh, thể tích 3.6500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2374**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 189 tấm/thanh, thể tích 3.6900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2381**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 187 tấm/thanh, thể tích 3.6500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3982**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x28 mm, số lượng 52 tấm/thanh, thể tích 0.7200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2198**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2087**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2199**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2208**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2209**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2448**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4900x200x28 mm, số lượng 186 tấm/thanh, thể tích 5.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2449**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4900x200x28 mm, số lượng 186 tấm/thanh, thể tích 5.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2599**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 900x52x22 mm, số lượng 1200 tấm/thanh, thể tích 1.2355 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2597**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 450x55x22 mm, số lượng 400 tấm/thanh, thể tích 0.2178 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2598**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 360x65x22 mm, số lượng 3000 tấm/thanh, thể tích 1.5444 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2600**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 360x72x32 mm, số lượng 300 tấm/thanh, thể tích 0.2488 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2210**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2197**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2184**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x205x25 mm, số lượng 39 tấm/thanh, thể tích 0.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2253**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x32 mm, số lượng 474 tấm/thanh, thể tích 2.7800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2254**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x75x32 mm, số lượng 180 tấm/thanh, thể tích 1.7200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2252**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x75x32 mm, số lượng 284 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2222**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x125x32 mm, số lượng 239 tấm/thanh, thể tích 3.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2223**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x125x32 mm, số lượng 231 tấm/thanh, thể tích 3.1000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2255**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x32 mm, số lượng 255 tấm/thanh, thể tích 4.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2411**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-2412**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-2396**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.0100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2429**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2430**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2431**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x145x22 mm, số lượng 350 tấm/thanh, thể tích 3.7500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2428**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2399**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 350 tấm/thanh, thể tích 3.5227 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2400**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2273 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2427**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2360**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x78x25 mm, số lượng 532 tấm/thanh, thể tích 3.4800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2384**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x100x25 mm, số lượng 366 tấm/thanh, thể tích 3.5700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2335**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2331**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2332**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2385**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x125x25 mm, số lượng 141 tấm/thanh, thể tích 1.7300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2357**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3970x125x25 mm, số lượng 328 tấm/thanh, thể tích 4.0700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2358**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x125x25 mm, số lượng 335 tấm/thanh, thể tích 4.4800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2359**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4570x125x25 mm, số lượng 336 tấm/thanh, thể tích 4.8000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2343**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2745x150x25 mm, số lượng 69 tấm/thanh, thể tích 0.7200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2386**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x150x25 mm, số lượng 123 tấm/thanh, thể tích 1.3900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2371**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x150x25 mm, số lượng 108 tấm/thanh, thể tích 1.2200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2391**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x150x25 mm, số lượng 248 tấm/thanh, thể tích 2.7900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2344**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 20 tấm/thanh, thể tích 0.2400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2342**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2367**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x25 mm, số lượng 201 tấm/thanh, thể tích 2.7600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2368**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2369**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2370**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2387**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 187 tấm/thanh, thể tích 3.6500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2185**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x205x25 mm, số lượng 71 tấm/thanh, thể tích 0.9000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2388**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2389**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2390**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 188 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1697**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4082**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x165x28 mm, số lượng 120 tấm/thanh, thể tích 2.0700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1752**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4192**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2700x125x28 mm, số lượng 286 tấm/thanh, thể tích 3.7100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4193**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x125x28 mm, số lượng 240 tấm/thanh, thể tích 3.0700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2187**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2745x205x25 mm, số lượng 1777 tấm/thanh, thể tích 25.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1448**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1947**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2142**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x25 mm, số lượng 169 tấm/thanh, thể tích 0.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1449**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2137**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x125x25 mm, số lượng 175 tấm/thanh, thể tích 1.3400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2149**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x125x25 mm, số lượng 28 tấm/thanh, thể tích 0.2200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2141**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x125x25 mm, số lượng 221 tấm/thanh, thể tích 1.6900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2138**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2139**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2140**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2133**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2134**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 47 tấm/thanh, thể tích 0.4500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2135**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2136**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2127**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2129**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2130**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2131**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2132**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2146**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2147**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2148**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2168**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2169**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2170**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2167**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x130x25 mm, số lượng 167 tấm/thanh, thể tích 1.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2151**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2152**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2178**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2174**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2175**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2176**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2177**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x205x25 mm, số lượng 199 tấm/thanh, thể tích 3.7500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2181**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x205x25 mm, số lượng 68 tấm/thanh, thể tích 1.2900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2182**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3965x205x25 mm, số lượng 129 tấm/thanh, thể tích 2.6400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2172**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x205x25 mm, số lượng 213 tấm/thanh, thể tích 4.3700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2171**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x205x25 mm, số lượng 199 tấm/thanh, thể tích 5.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1995**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 395 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1996**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 395 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1990**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 209 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1991**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 209 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2314**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x95x22 mm, số lượng 511 tấm/thanh, thể tích 2.6100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2313**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2298**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 395 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2299**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x28 mm, số lượng 251 tấm/thanh, thể tích 3.7400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2294**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x32 mm, số lượng 255 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2295**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x32 mm, số lượng 255 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2441**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x22 mm, số lượng 383 tấm/thanh, thể tích 4.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2442**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x22 mm, số lượng 383 tấm/thanh, thể tích 4.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2444**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2745x100x25 mm, số lượng 100 tấm/thanh, thể tích 0.6900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2445**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 120 tấm/thanh, thể tích 0.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2443**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x25 mm, số lượng 400 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2446**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x100x25 mm, số lượng 50 tấm/thanh, thể tích 0.4200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2438**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 395 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2439**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 395 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2440**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x32 mm, số lượng 223 tấm/thanh, thể tích 4.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2589**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 181 tấm/thanh, thể tích 2.0800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1691**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1500**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2x75x22 mm, số lượng 623052 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1503**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2x75x22 mm, số lượng 650298 tấm/thanh, thể tích 2.9400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1506**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x75x22 mm, số lượng 649776 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1507**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1510**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1511**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1512**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1504**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1505**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1502**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1495**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2188**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x205x25 mm, số lượng 199 tấm/thanh, thể tích 3.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1496**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1497**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1498**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1499**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1501**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1493**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1494**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1484**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1487**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1488**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1468**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1470**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1490**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 499 tấm/thanh, thể tích 2.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1491**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1492**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3968**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2700x125x28 mm, số lượng 37 tấm/thanh, thể tích 0.3400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1450**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 350 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1477**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1478**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1489**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 421 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1480**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 421 tấm/thanh, thể tích 2.2600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1467**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x100x22 mm, số lượng 480 tấm/thanh, thể tích 2.5800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1481**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1482**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1472**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1473**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1474**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1475**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1465**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1459**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1461**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1462**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1463**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1466**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1469**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1476**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 459 tấm/thanh, thể tích 3.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1464**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1460**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1483**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1513**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1455**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1456**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1457**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1458**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2183**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x205x25 mm, số lượng 199 tấm/thanh, thể tích 3.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2121**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 350 tấm/thanh, thể tích 2.8200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2122**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 335 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1681**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1451**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x200x25 mm, số lượng 200000 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2118**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2126**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x150x22 mm, số lượng 244 tấm/thanh, thể tích 2.7100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2123**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2124**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2125**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x150x22 mm, số lượng 350 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2153**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x130x25 mm, số lượng 319 tấm/thanh, thể tích 3.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2156**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x130x25 mm, số lượng 319 tấm/thanh, thể tích 3.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2157**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x130x25 mm, số lượng 319 tấm/thanh, thể tích 3.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2155**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x130x25 mm, số lượng 319 tấm/thanh, thể tích 3.4900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2158**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x130x25 mm, số lượng 319 tấm/thanh, thể tích 3.8000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2159**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x130x25 mm, số lượng 319 tấm/thanh, thể tích 3.8000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2160**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x130x25 mm, số lượng 319 tấm/thanh, thể tích 3.8000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2161**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x130x25 mm, số lượng 319 tấm/thanh, thể tích 3.8000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2162**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x130x25 mm, số lượng 319 tấm/thanh, thể tích 3.8000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2201**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x115x32 mm, số lượng 287 tấm/thanh, thể tích 4.1900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2202**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x115x32 mm, số lượng 287 tấm/thanh, thể tích 4.1900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2203**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x115x32 mm, số lượng 287 tấm/thanh, thể tích 4.1900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2216**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x115x32 mm, số lượng 287 tấm/thanh, thể tích 4.1900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2217**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x115x32 mm, số lượng 278 tấm/thanh, thể tích 4.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2852**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2849**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x22 mm, số lượng 384 tấm/thanh, thể tích 4.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2850**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x22 mm, số lượng 384 tấm/thanh, thể tích 4.1800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2851**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x22 mm, số lượng 254 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2842**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2843**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2845**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x125x25 mm, số lượng 104 tấm/thanh, thể tích 1.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2847**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x28 mm, số lượng 304 tấm/thanh, thể tích 3.8900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1453**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x200x25 mm, số lượng 200000 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2848**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x28 mm, số lượng 366 tấm/thanh, thể tích 4.1200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1454**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x200x25 mm, số lượng 200000 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2186**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x205x25 mm, số lượng 19 tấm/thanh, thể tích 0.3400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1740**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.0140 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1741**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.0140 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1739**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.3550 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1738**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3600x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.9600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1713**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x150x25 mm, số lượng 280 tấm/thanh, thể tích 3.6750 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1703**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x150x25 mm, số lượng 280 tấm/thanh, thể tích 3.6750 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1704**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x150x25 mm, số lượng 280 tấm/thanh, thể tích 3.6750 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1709**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x150x25 mm, số lượng 280 tấm/thanh, thể tích 3.6750 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1716**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x150x25 mm, số lượng 280 tấm/thanh, thể tích 3.6750 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1717**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1718**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-1710**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-1711**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1712**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-1705**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1706**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-1707**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1708**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-1702**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1714**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1715**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 280 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1719**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1721**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1722**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3500x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1720**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2413**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3560x75x28 mm, số lượng 354 tấm/thanh, thể tích 2.6500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2414**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3560x175x28 mm, số lượng 100 tấm/thanh, thể tích 1.7600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1537**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2x75x22 mm, số lượng 710846 tấm/thanh, thể tích 2.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1538**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2x75x22 mm, số lượng 623052 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1539**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2x75x22 mm, số lượng 623052 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1540**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2x75x22 mm, số lượng 671197 tấm/thanh, thể tích 2.3700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1536**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x75x22 mm, số lượng 649776 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1531**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1939**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1532**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1533**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1534**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1535**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1526**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1530**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 489 tấm/thanh, thể tích 1.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1529**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1546**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1547**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.9200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1545**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2x150x22 mm, số lượng 335320 tấm/thanh, thể tích 2.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1544**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x150x22 mm, số lượng 350223 tấm/thanh, thể tích 4.2300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1542**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x150x22 mm, số lượng 188 tấm/thanh, thể tích 1.3300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1543**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x22 mm, số lượng 311 tấm/thanh, thể tích 2.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1541**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1527**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1940**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1528**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1519**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1520**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1521**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1522**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1523**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1524**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x22 mm, số lượng 349 tấm/thanh, thể tích 3.5200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1566**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x150x25 mm, số lượng 248 tấm/thanh, thể tích 2.7900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1567**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x150x25 mm, số lượng 247 tấm/thanh, thể tích 2.7800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1568**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x150x25 mm, số lượng 247 tấm/thanh, thể tích 2.7800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1556**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x150x25 mm, số lượng 259 tấm/thanh, thể tích 3.8000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1557**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x150x25 mm, số lượng 255 tấm/thanh, thể tích 3.7300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1558**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x150x25 mm, số lượng 240 tấm/thanh, thể tích 3.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1559**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x150x25 mm, số lượng 252 tấm/thanh, thể tích 3.7000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1560**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x150x25 mm, số lượng 258 tấm/thanh, thể tích 3.7800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2206**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x205x25 mm, số lượng 191 tấm/thanh, thể tích 3.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2207**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x205x25 mm, số lượng 173 tấm/thanh, thể tích 3.8000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1561**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x150x25 mm, số lượng 125 tấm/thanh, thể tích 1.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1562**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x150x25 mm, số lượng 257 tấm/thanh, thể tích 3.7600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1563**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x150x25 mm, số lượng 259 tấm/thanh, thể tích 3.7900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1603**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x150x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1604**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x150x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1605**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x150x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1606**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x150x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1571**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x200x25 mm, số lượng 200000 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1572**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x200x25 mm, số lượng 200000 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1573**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x200x25 mm, số lượng 200000 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1569**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x200x25 mm, số lượng 200000 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1570**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x200x25 mm, số lượng 200000 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1599**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2130x200x25 mm, số lượng 210 tấm/thanh, thể tích 2.2400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1595**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x200x25 mm, số lượng 209 tấm/thanh, thể tích 2.5600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1601**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x200x25 mm, số lượng 209 tấm/thanh, thể tích 2.5600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1598**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x200x25 mm, số lượng 209 tấm/thanh, thể tích 2.5600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1555**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2745x200x25 mm, số lượng 199 tấm/thanh, thể tích 2.7400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1575**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2745x200x25 mm, số lượng 200 tấm/thanh, thể tích 2.7500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1577**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1578**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1582**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1589**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1590**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1591**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1596**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 209 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1600**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 209 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1548**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1549**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1550**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1551**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1552**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3973**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2700x125x28 mm, số lượng 7 tấm/thanh, thể tích 0.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3981**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2700x125x28 mm, số lượng 41 tấm/thanh, thể tích 0.3800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1553**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1554**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1583**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x200x25 mm, số lượng 199 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1584**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x200x25 mm, số lượng 199 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1579**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1580**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1581**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1585**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1586**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1587**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1592**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1593**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1594**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x200x25 mm, số lượng 209 tấm/thanh, thể tích 3.8400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1602**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x200x25 mm, số lượng 200 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1574**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x200x25 mm, số lượng 147 tấm/thanh, thể tích 2.8800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1597**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4270x200x25 mm, số lượng 209 tấm/thanh, thể tích 4.4800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1607**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x28 mm, số lượng 303 tấm/thanh, thể tích 4.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1608**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x28 mm, số lượng 303 tấm/thanh, thể tích 4.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2274**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2275**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2317**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2318**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2289**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2290**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2291**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2257**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2258**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2259**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2256**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4880x150x25 mm, số lượng 279 tấm/thanh, thể tích 5.1057 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2305**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2306**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3975**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x125x28 mm, số lượng 7 tấm/thanh, thể tích 0.0700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4098**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3969**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3000x125x28 mm, số lượng 15 tấm/thanh, thể tích 0.1500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3980**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x125x28 mm, số lượng 1 tấm/thanh, thể tích 0.0100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4099**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4100**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4101**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4102**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x22 mm, số lượng 360 tấm/thanh, thể tích 3.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4103**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3200x125x22 mm, số lượng 246 tấm/thanh, thể tích 2.1600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4119**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.0500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4116**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1980x125x28 mm, số lượng 304 tấm/thanh, thể tích 2.1000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4117**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2700x125x28 mm, số lượng 184 tấm/thanh, thể tích 2.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4118**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2700x125x28 mm, số lượng 294 tấm/thanh, thể tích 3.7200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4114**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x32 mm, số lượng 231 tấm/thanh, thể tích 4.2400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4115**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x145x32 mm, số lượng 231 tấm/thanh, thể tích 4.2400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1445**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3970**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x125x28 mm, số lượng 119 tấm/thanh, thể tích 1.3900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1861**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1862**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1863**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1864**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1865**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1866**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1831**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3972**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3350x125x28 mm, số lượng 15 tấm/thanh, thể tích 0.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1832**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1833**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1834**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 1800x100x15 mm, số lượng 392 tấm/thanh, thể tích 1.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1869**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x125x32 mm, số lượng 167 tấm/thanh, thể tích 2.6200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1870**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3900x125x32 mm, số lượng 175 tấm/thanh, thể tích 2.7400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2272**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2273**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2315**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2282**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2283**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2284**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2285**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2286**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2287**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2288**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2267**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x150x25 mm, số lượng 219 tấm/thanh, thể tích 2.0100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2264**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2265**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 187 tấm/thanh, thể tích 2.1400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2266**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x150x25 mm, số lượng 279 tấm/thanh, thể tích 3.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2302**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2303**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2304**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2487**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x95x28 mm, số lượng 395 tấm/thanh, thể tích 4.1700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2204**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x205x25 mm, số lượng 184 tấm/thanh, thể tích 3.4700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1446**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1447**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2276**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2277**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2278**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2279**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2280**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2281**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 167 tấm/thanh, thể tích 1.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2268**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2269**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2270**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2271**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x100x25 mm, số lượng 400 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2292**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2293**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x125x25 mm, số lượng 320 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2307**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2308**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1656**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4x150x25 mm, số lượng 280000 tấm/thanh, thể tích 4.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1658**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x25 mm, số lượng 244 tấm/thanh, thể tích 3.6700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1659**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1660**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x200x25 mm, số lượng 200 tấm/thanh, thể tích 4.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1661**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x28 mm, số lượng 383 tấm/thanh, thể tích 2.9500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1662**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3960x75x28 mm, số lượng 438 tấm/thanh, thể tích 3.6500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2326**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x125x25 mm, số lượng 320 tấm/thanh, thể tích 3.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1232**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 650 tấm/thanh, thể tích 2.6200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1230**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1233**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x22 mm, số lượng 650 tấm/thanh, thể tích 3.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1227**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x22 mm, số lượng 650 tấm/thanh, thể tích 3.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1228**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x75x22 mm, số lượng 650 tấm/thanh, thể tích 3.9300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1242**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1203**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1204**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1209**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1213**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1214**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 500 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1235**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.6900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1208**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3355x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.6900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1241**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1236**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1215**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1194**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1195**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 417 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1196**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 417 tấm/thanh, thể tích 3.3600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1197**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1198**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2189**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x205x25 mm, số lượng 164 tấm/thanh, thể tích 3.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1199**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1200**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1201**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 507 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1202**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x100x22 mm, số lượng 500 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1186**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x22 mm, số lượng 350 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1187**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x22 mm, số lượng 350 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1188**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x22 mm, số lượng 350 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1189**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x22 mm, số lượng 262 tấm/thanh, thể tích 3.0600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1190**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x22 mm, số lượng 321 tấm/thanh, thể tích 3.7500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1191**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x22 mm, số lượng 321 tấm/thanh, thể tích 3.7500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1192**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x22 mm, số lượng 350 tấm/thanh, thể tích 4.0900 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1193**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x145x22 mm, số lượng 345 tấm/thanh, thể tích 4.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1237**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1253**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1254**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2205**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3970x205x25 mm, số lượng 10 tấm/thanh, thể tích 0.2100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1255**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1256**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1257**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1258**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1259**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1261**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1262**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1263**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1264**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1265**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1266**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1267**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1268**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 4000x150x22 mm, số lượng 300 tấm/thanh, thể tích 3.9700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2447**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3660x95x28 mm, số lượng 384 tấm/thanh, thể tích 3.7400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1621**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x100x22 mm, số lượng 499 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1364**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1386**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1387**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1388**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2140x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.2000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1389**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 635 tấm/thanh, thể tích 2.5600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1370**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2440x75x22 mm, số lượng 623 tấm/thanh, thể tích 2.5100 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1363**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x75x22 mm, số lượng 221 tấm/thanh, thể tích 1.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1369**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x75x22 mm, số lượng 221 tấm/thanh, thể tích 1.0000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1390**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x75x22 mm, số lượng 650 tấm/thanh, thể tích 2.9400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1391**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x75x22 mm, số lượng 650 tấm/thanh, thể tích 2.9400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1392**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x75x22 mm, số lượng 650 tấm/thanh, thể tích 2.9400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1393**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x75x22 mm, số lượng 650 tấm/thanh, thể tích 2.9400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1384**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 2740x75x22 mm, số lượng 650 tấm/thanh, thể tích 2.9400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1385**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1382**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1383**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1360**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1361**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.2700 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1362**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3050x75x22 mm, số lượng 131 tấm/thanh, thể tích 0.6600 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1375**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3360x75x22 mm, số lượng 649 tấm/thanh, thể tích 3.6000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-1329**: Loại gỗ THÔNG, phân loại RAW, tên lô "THÔNG", quy cách 3x100x22 mm, số lượng 499254 tấm/thanh, thể tích 3.3500 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2735**: Loại gỗ Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Giấy thường, phân loại RAW, tên lô "Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Giấy thường, Mặt 2 Giấy thường, Đặc điểm Thấm sơn, Loại MDF", quy cách 2440x1220x17 mm, số lượng 11 tấm/thanh, thể tích 0.5567 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2736**: Loại gỗ Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Giấy thường, phân loại RAW, tên lô "Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Giấy thường, Mặt 2 Giấy thường, Loại MDF, Đặc điểm Thấm sơn", quy cách 2440x1220x17 mm, số lượng 11 tấm/thanh, thể tích 0.5567 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4291**: Loại gỗ Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine 78, phân loại RAW, tên lô "Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine 78M, Mặt 2 Cốt", quy cách 2440x1220x4 mm, số lượng 20 tấm/thanh, thể tích 0.2827 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4292**: Loại gỗ Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine 78, phân loại RAW, tên lô "Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine 78M, Mặt 2 Cốt", quy cách 2440x1220x4 mm, số lượng 19 tấm/thanh, thể tích 0.2727 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4290**: Loại gỗ Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine 78, phân loại RAW, tên lô "Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine 78M, Mặt 2 Cốt", quy cách 2440x1220x4 mm, số lượng 20 tấm/thanh, thể tích 0.2827 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4088**: Loại gỗ Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine, M, phân loại RAW, tên lô "Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine, Mặt 2 Cốt, Loại MDF, Đặc điểm 389SH", quy cách 2440x1220x3 mm, số lượng 104 tấm/thanh, thể tích 0.9110 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4086**: Loại gỗ Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine, M, phân loại RAW, tên lô "Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine, Mặt 2 Cốt, Loại MDF, Đặc điểm 389SH", quy cách 2440x1220x3 mm, số lượng 102 tấm/thanh, thể tích 0.9109 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4087**: Loại gỗ Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine, M, phân loại RAW, tên lô "Ván dán phủ//Tiêu chuẩn CARB P2, Mặt 1 Melamine, Mặt 2 Cốt, Loại MDF, Đặc điểm 389SH", quy cách 2440x1220x3 mm, số lượng 102 tấm/thanh, thể tích 0.9109 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2584**: Loại gỗ VÁN ÉP, phân loại RAW, tên lô "VÁN ÉP", quy cách 2440x1220x18 mm, số lượng 9 tấm/thanh, thể tích 0.4822 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2582**: Loại gỗ VÁN ÉP, phân loại RAW, tên lô "VÁN ÉP", quy cách 2440x1220x18 mm, số lượng 61 tấm/thanh, thể tích 3.2685 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2583**: Loại gỗ VÁN ÉP, phân loại RAW, tên lô "VÁN ÉP", quy cách 2440x1220x18 mm, số lượng 40 tấm/thanh, thể tích 2.1433 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2594**: Loại gỗ VÁN ÉP, phân loại RAW, tên lô "VÁN ÉP", quy cách 2440x1220x18 mm, số lượng 92 tấm/thanh, thể tích 4.9296 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2593**: Loại gỗ VÁN ÉP, phân loại RAW, tên lô "VÁN ÉP", quy cách 2440x1220x18 mm, số lượng 41 tấm/thanh, thể tích 2.1969 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2780**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 855x409x3 mm, số lượng 28 tấm/thanh, thể tích 0.0294 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4244**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x3 mm, số lượng 170 tấm/thanh, thể tích 1.5182 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4016**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x3 mm, số lượng 180 tấm/thanh, thể tích 1.6075 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4018**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x25 mm, số lượng 19 tấm/thanh, thể tích 1.4130 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2868**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 476x388x2 mm, số lượng 72 tấm/thanh, thể tích 0.0332 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2731**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 650x340x3 mm, số lượng 150 tấm/thanh, thể tích 0.0994 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2866**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 482x340x3 mm, số lượng 396 tấm/thanh, thể tích 0.1946 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2917**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 482x340x3 mm, số lượng 351 tấm/thanh, thể tích 0.1720 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4037**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x11 mm, số lượng 60 tấm/thanh, thể tích 1.9640 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4036**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x9 mm, số lượng 88 tấm/thanh, thể tích 2.3570 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4035**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x3 mm, số lượng 169 tấm/thanh, thể tích 1.5092 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2916**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 650x340x3 mm, số lượng 66 tấm/thanh, thể tích 0.0430 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2865**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 650x340x3 mm, số lượng 176 tấm/thanh, thể tích 0.1166 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2915**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 663x340x3 mm, số lượng 198 tấm/thanh, thể tích 0.1330 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2914**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 779x340x3 mm, số lượng 361 tấm/thanh, thể tích 0.2860 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4190**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x3 mm, số lượng 177 tấm/thanh, thể tích 1.5806 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4161**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x18 mm, số lượng 13 tấm/thanh, thể tích 0.6965 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2836**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 476x388x2 mm, số lượng 69 tấm/thanh, thể tích 0.0318 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2863**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 779x340x3 mm, số lượng 182 tấm/thanh, thể tích 0.1446 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2785**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 363x355x3 mm, số lượng 56 tấm/thanh, thể tích 0.0216 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2784**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 471x363x3 mm, số lượng 30 tấm/thanh, thể tích 0.0154 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2723**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 471x363x3 mm, số lượng 75 tấm/thanh, thể tích 0.0385 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2783**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 657x363x3 mm, số lượng 28 tấm/thanh, thể tích 0.0200 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2782**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 713x363x3 mm, số lượng 112 tấm/thanh, thể tích 0.0870 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2781**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 734x409x3 mm, số lượng 28 tấm/thanh, thể tích 0.0252 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2799**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 431x303x3 mm, số lượng 105 tấm/thanh, thể tích 0.0411 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2779**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 590x429x3 mm, số lượng 30 tấm/thanh, thể tích 0.0228 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2733**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 590x429x3 mm, số lượng 24 tấm/thanh, thể tích 0.0182 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2732**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 597x569x3 mm, số lượng 24 tấm/thanh, thể tích 0.0245 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2772**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 597x569x3 mm, số lượng 30 tấm/thanh, thể tích 0.0306 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2862**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 621x642x3 mm, số lượng 108 tấm/thanh, thể tích 0.1291 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2913**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 621x642x3 mm, số lượng 117 tấm/thanh, thể tích 0.1390 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4126**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 409x734x3 mm, số lượng 51 tấm/thanh, thể tích 0.0459 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2861**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 754x1008x3 mm, số lượng 48 tấm/thanh, thể tích 0.1094 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2801**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 386x340x3 mm, số lượng 100 tấm/thanh, thể tích 0.0394 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2800**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 822x340x3 mm, số lượng 225 tấm/thanh, thể tích 0.1887 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2798**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 675x403x3 mm, số lượng 420 tấm/thanh, thể tích 0.3427 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2797**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 751x403x3 mm, số lượng 455 tấm/thanh, thể tích 0.4131 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2864**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 663x340x3 mm, số lượng 528 tấm/thanh, thể tích 0.3570 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2728**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 754x1008x3 mm, số lượng 48 tấm/thanh, thể tích 0.1094 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2727**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 642x621x3 mm, số lượng 48 tấm/thanh, thể tích 0.0574 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2729**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 779x340x3 mm, số lượng 93 tấm/thanh, thể tích 0.0739 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2730**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 663x340x3 mm, số lượng 451 tấm/thanh, thể tích 0.3050 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2869**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 642x350x2 mm, số lượng 132 tấm/thanh, thể tích 0.0741 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2714**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 482x340x3 mm, số lượng 144 tấm/thanh, thể tích 0.0708 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2867**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 781x388x2 mm, số lượng 176 tấm/thanh, thể tích 0.1333 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4189**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x3 mm, số lượng 130 tấm/thanh, thể tích 1.1609 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2802**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 858x713x3 mm, số lượng 59 tấm/thanh, thể tích 0.1083 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2721**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 826x363x3 mm, số lượng 93 tấm/thanh, thể tích 0.0837 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4135**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 355x363x3 mm, số lượng 102 tấm/thanh, thể tích 0.0394 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4131**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 363x383x3 mm, số lượng 70 tấm/thanh, thể tích 0.0291 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4130**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 363x471x3 mm, số lượng 156 tấm/thanh, thể tích 0.0800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4129**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 429x590x3 mm, số lượng 52 tấm/thanh, thể tích 0.0394 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4127**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 569x597x3 mm, số lượng 52 tấm/thanh, thể tích 0.0452 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2805**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 415x413x3 mm, số lượng 176 tấm/thanh, thể tích 0.0905 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2734**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 383x363x3 mm, số lượng 62 tấm/thanh, thể tích 0.0259 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4128**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 363x657x3 mm, số lượng 51 tấm/thanh, thể tích 0.0364 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4132**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 363x713x3 mm, số lượng 204 tấm/thanh, thể tích 0.1583 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4133**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 409x855x3 mm, số lượng 52 tấm/thanh, thể tích 0.0540 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2803**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 855x363x3 mm, số lượng 220 tấm/thanh, thể tích 0.2048 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2804**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 701x363x3 mm, số lượng 528 tấm/thanh, thể tích 0.4031 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4297**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x3 mm, số lượng 6 tấm/thanh, thể tích 0.0536 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4188**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x3 mm, số lượng 39 tấm/thanh, thể tích 0.3482 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4125**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 884x1119x3 mm, số lượng 6 tấm/thanh, thể tích 0.0178 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2829**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 754x1008x3 mm, số lượng 72 tấm/thanh, thể tích 0.1641 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2830**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 621x642x3 mm, số lượng 116 tấm/thanh, thể tích 0.1387 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2831**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 779x340x3 mm, số lượng 160 tấm/thanh, thể tích 0.1271 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2832**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 663x340x3 mm, số lượng 528 tấm/thanh, thể tích 0.3570 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2833**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 650x340x3 mm, số lượng 177 tấm/thanh, thể tích 0.1173 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2834**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 482x340x3 mm, số lượng 349 tấm/thanh, thể tích 0.1715 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4134**: Loại gỗ Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép LVD BB/CC//Tiêu chuẩn CARB P2, Mặt 1 Bạch dương, Mặt 2 Nhân tạo, Loại LVD", quy cách 363x826x3 mm, số lượng 105 tấm/thanh, thể tích 0.0944 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2841**: Loại gỗ Ván ép Sofa, phân loại RAW, tên lô "Ván ép Sofa", quy cách 2440x1220x18 mm, số lượng 51 tấm/thanh, thể tích 2.7327 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4203**: Loại gỗ Ván ép Thông /Tiêu chuẩn CARB P2, Mặt 2 Nhân tạo, , phân loại RAW, tên lô "Ván ép Thông /Tiêu chuẩn CARB P2, Mặt 2 Nhân tạo, Loại LVD", quy cách 2440x1220x25 mm, số lượng 15 tấm/thanh, thể tích 1.1163 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4211**: Loại gỗ Ván ép VN 2,5mm, phân loại RAW, tên lô "Ván ép VN 2,5mm", quy cách 642x350x2 mm, số lượng 104 tấm/thanh, thể tích 0.0584 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4007**: Loại gỗ Ván ép VN 2,5mm, phân loại RAW, tên lô "Ván ép VN 2,5mm", quy cách 642x350x2 mm, số lượng 120 tấm/thanh, thể tích 0.0670 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4005**: Loại gỗ Ván ép VN 2,5mm, phân loại RAW, tên lô "Ván ép VN 2,5mm", quy cách 781x388x2 mm, số lượng 69 tấm/thanh, thể tích 0.0520 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4216**: Loại gỗ Ván ép VN 2,5mm, phân loại RAW, tên lô "Ván ép VN 2,5mm", quy cách 781x388x2 mm, số lượng 168 tấm/thanh, thể tích 0.1270 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4209**: Loại gỗ Ván ép VN 2,5mm, phân loại RAW, tên lô "Ván ép VN 2,5mm", quy cách 781x388x2 mm, số lượng 186 tấm/thanh, thể tích 0.1409 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4217**: Loại gỗ Ván ép VN 2,5mm, phân loại RAW, tên lô "Ván ép VN 2,5mm", quy cách 476x388x2 mm, số lượng 88 tấm/thanh, thể tích 0.0406 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4006**: Loại gỗ Ván ép VN 2,5mm, phân loại RAW, tên lô "Ván ép VN 2,5mm", quy cách 476x388x2 mm, số lượng 145 tấm/thanh, thể tích 0.0660 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4218**: Loại gỗ Ván ép VN 2,5mm, phân loại RAW, tên lô "Ván ép VN 2,5mm", quy cách 642x350x2 mm, số lượng 117 tấm/thanh, thể tích 0.0657 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4210**: Loại gỗ Ván ép VN 2,5mm, phân loại RAW, tên lô "Ván ép VN 2,5mm", quy cách 476x388x2 mm, số lượng 104 tấm/thanh, thể tích 0.0480 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2835**: Loại gỗ Ván ép VN 2,5mm, phân loại RAW, tên lô "Ván ép VN 2,5mm", quy cách 871x388x2 mm, số lượng 180 tấm/thanh, thể tích 0.1520 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4208**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1518x60x17 mm, số lượng 435 tấm/thanh, thể tích 0.6735 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4104**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1518x60x17 mm, số lượng 790 tấm/thanh, thể tích 1.2232 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4197**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1946x60x17 mm, số lượng 650 tấm/thanh, thể tích 1.2902 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4227**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1365x60x17 mm, số lượng 40 tấm/thanh, thể tích 0.0556 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4228**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1518x60x17 mm, số lượng 120 tấm/thanh, thể tích 0.1858 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4206**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1518x60x17 mm, số lượng 670 tấm/thanh, thể tích 1.0374 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2817**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1365x60x17 mm, số lượng 595 tấm/thanh, thể tích 0.8284 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4202**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1365x60x17 mm, số lượng 441 tấm/thanh, thể tích 0.6140 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4105**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1946x60x17 mm, số lượng 750 tấm/thanh, thể tích 1.4868 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4139**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1518x60x17 mm, số lượng 330 tấm/thanh, thể tích 0.5109 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4200**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1635x60x17 mm, số lượng 670 tấm/thanh, thể tích 1.1173 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4199**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1946x60x17 mm, số lượng 300 tấm/thanh, thể tích 0.5954 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2816**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 986x60x17 mm, số lượng 480 tấm/thanh, thể tích 0.4827 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4150**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 986x60x17 mm, số lượng 730 tấm/thanh, thể tích 0.7342 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4207**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1518x60x17 mm, số lượng 330 tấm/thanh, thể tích 0.5109 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4152**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1518x60x17 mm, số lượng 240 tấm/thanh, thể tích 0.3716 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4198**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1946x60x17 mm, số lượng 676 tấm/thanh, thể tích 1.3418 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4030**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Cao, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Cao su, Mặt 1 Cao su", quy cách 1535x68x17 mm, số lượng 355 tấm/thanh, thể tích 0.6290 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2824**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Cao, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Cao su, Mặt 1 Cao su", quy cách 1535x68x17 mm, số lượng 180 tấm/thanh, thể tích 0.3194 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4109**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Cao, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Cao su, Mặt 1 Cao su", quy cách 971x68x17 mm, số lượng 570 tấm/thanh, thể tích 0.6286 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4067**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Cao, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Cao su, Mặt 1 Cao su", quy cách 1941x68x17 mm, số lượng 528 tấm/thanh, thể tích 1.1847 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4107**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tech, Mặt 1 Tech", quy cách 1376x50x17 mm, số lượng 1 tấm/thanh, thể tích 0.0010 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4110**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tech, Mặt 1 Tech", quy cách 976x50x17 mm, số lượng 645 tấm/thanh, thể tích 0.5351 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4106**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tech, Mặt 1 Tech", quy cách 976x50x17 mm, số lượng 5 tấm/thanh, thể tích 0.0041 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4226**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tech, Mặt 1 Tech", quy cách 1367x68x17 mm, số lượng 80 tấm/thanh, thể tích 0.1264 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4111**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tech, Mặt 1 Tech", quy cách 1376x50x17 mm, số lượng 645 tấm/thanh, thể tích 0.7544 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4201**: Loại gỗ Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tec, phân loại RAW, tên lô "Ván ép VN//Tiêu chuẩn CARB P2, Loại LVL, Mặt 2 Tech, Mặt 1 Tech", quy cách 1367x68x17 mm, số lượng 485 tấm/thanh, thể tích 0.7664 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4046**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 5 tấm/thanh, thể tích 0.1340 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4238**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Bạch dương", quy cách 2440x1220x9 mm, số lượng 23 tấm/thanh, thể tích 0.6161 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4273**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 13 tấm/thanh, thể tích 0.3483 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4044**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 108 tấm/thanh, thể tích 2.8935 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4054**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 76 tấm/thanh, thể tích 2.0361 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4022**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 12 tấm/thanh, thể tích 0.3215 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4084**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Bạch dương", quy cách 2440x1220x9 mm, số lượng 51 tấm/thanh, thể tích 1.3660 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4052**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 5 tấm/thanh, thể tích 0.1340 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4083**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Bạch dương", quy cách 2440x1220x9 mm, số lượng 225 tấm/thanh, thể tích 6.0280 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4268**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Bạch dương", quy cách 2440x1220x9 mm, số lượng 87 tấm/thanh, thể tích 2.3308 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4056**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 104 tấm/thanh, thể tích 2.7863 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4053**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 14 tấm/thanh, thể tích 0.3751 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4040**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 35 tấm/thanh, thể tích 0.9370 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4015**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 50 tấm/thanh, thể tích 1.3390 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4031**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 1547x512x9 mm, số lượng 71 tấm/thanh, thể tích 0.5133 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2837**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 642x350x2 mm, số lượng 104 tấm/thanh, thể tích 0.0657 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4049**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 6 tấm/thanh, thể tích 0.1608 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4050**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 10 tấm/thanh, thể tích 0.2679 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4051**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 6 tấm/thanh, thể tích 0.1608 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4187**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVB, Mặt 1 Bạch dương, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 65 tấm/thanh, thể tích 1.7414 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4271**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Bạch dương, Mặt 2 Bạch dương", quy cách 2440x1220x5 mm, số lượng 3 tấm/thanh, thể tích 0.0440 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4272**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Bạch dương, Mặt 2 Bạch dương", quy cách 2440x1220x5 mm, số lượng 4 tấm/thanh, thể tích 0.0590 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4270**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Bạch d, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Bạch dương, Mặt 2 Bạch dương", quy cách 2440x1220x5 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-2737**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 2440x1220x15 mm, số lượng 32 tấm/thanh, thể tích 1.4289 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4243**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 2440x1220x18 mm, số lượng 84 tấm/thanh, thể tích 4.5009 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3995**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x15 mm, số lượng 17 tấm/thanh, thể tích 0.7590 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4265**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 20 tấm/thanh, thể tích 1.0710 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4065**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x3 mm, số lượng 90 tấm/thanh, thể tích 0.8030 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4166**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x15 mm, số lượng 65 tấm/thanh, thể tích 2.9023 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3998**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 58 tấm/thanh, thể tích 3.1070 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3999**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 60 tấm/thanh, thể tích 3.2140 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4278**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x25 mm, số lượng 4 tấm/thanh, thể tích 0.2970 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2710**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6, Đặc điểm Cốt bạch đàn", quy cách 2440x1220x18 mm, số lượng 77 tấm/thanh, thể tích 4.1258 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4275**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 30 tấm/thanh, thể tích 1.6074 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4143**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 55 tấm/thanh, thể tích 2.9470 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4144**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 48 tấm/thanh, thể tích 2.5719 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4085**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 110 tấm/thanh, thể tích 5.8940 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4264**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x15 mm, số lượng 30 tấm/thanh, thể tích 1.3390 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4147**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 47 tấm/thanh, thể tích 2.5183 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4266**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x15 mm, số lượng 21 tấm/thanh, thể tích 0.9370 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4267**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 15 tấm/thanh, thể tích 0.8030 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4146**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x15 mm, số lượng 42 tấm/thanh, thể tích 1.8753 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4280**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x25 mm, số lượng 4 tấm/thanh, thể tích 0.2970 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4262**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x15 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **MCP-INV-4263**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 20 tấm/thanh, thể tích 1.0710 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4145**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 62 tấm/thanh, thể tích 3.3221 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4029**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 82 tấm/thanh, thể tích 4.3930 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4276**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x25 mm, số lượng 4 tấm/thanh, thể tích 0.2970 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4279**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 38 tấm/thanh, thể tích 2.0361 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4164**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 55 tấm/thanh, thể tích 2.9470 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4142**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x15 mm, số lượng 65 tấm/thanh, thể tích 2.9024 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3994**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x25 mm, số lượng 8 tấm/thanh, thể tích 0.5954 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3997**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 50 tấm/thanh, thể tích 2.6790 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3993**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x15 mm, số lượng 10 tấm/thanh, thể tích 0.4460 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4064**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x3 mm, số lượng 90 tấm/thanh, thể tích 0.8030 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4277**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x18 mm, số lượng 30 tấm/thanh, thể tích 1.6074 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4066**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x3 mm, số lượng 90 tấm/thanh, thể tích 0.8030 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3996**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông 0.6, Mặt 2 Thông 0.6", quy cách 2440x1220x15 mm, số lượng 15 tấm/thanh, thể tích 0.6690 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4153**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x18 mm, số lượng 27 tấm/thanh, thể tích 1.4467 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2645**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x18 mm, số lượng 125 tấm/thanh, thể tích 6.6978 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2674**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x18 mm, số lượng 68 tấm/thanh, thể tích 3.6436 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2675**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x15 mm, số lượng 76 tấm/thanh, thể tích 3.3935 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2684**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x15 mm, số lượng 177 tấm/thanh, thể tích 7.9034 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4093**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x5 mm, số lượng 50 tấm/thanh, thể tích 0.7442 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4159**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x5 mm, số lượng 50 tấm/thanh, thể tích 0.7442 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3985**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x18 mm, số lượng 60 tấm/thanh, thể tích 3.2140 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3954**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x18 mm, số lượng 165 tấm/thanh, thể tích 10.7165 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2873**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x18 mm, số lượng 180 tấm/thanh, thể tích 9.6448 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2818**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x25 mm, số lượng 3 tấm/thanh, thể tích 0.2230 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4094**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x18 mm, số lượng 39 tấm/thanh, thể tích 2.0897 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2677**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x18 mm, số lượng 49 tấm/thanh, thể tích 2.6255 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2676**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x18 mm, số lượng 69 tấm/thanh, thể tích 3.6972 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2874**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông,, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Thông, Mặt 2 Thông", quy cách 2440x1220x15 mm, số lượng 300 tấm/thanh, thể tích 13.3956 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2690**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 1551x666x5 mm, số lượng 75 tấm/thanh, thể tích 0.3874 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4008**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 998x50x15 mm, số lượng 925 tấm/thanh, thể tích 0.6920 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4010**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 998x50x15 mm, số lượng 1170 tấm/thanh, thể tích 0.8750 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4014**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 998x50x15 mm, số lượng 65 tấm/thanh, thể tích 0.0480 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4009**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 1375x50x15 mm, số lượng 180 tấm/thanh, thể tích 0.1850 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3959**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 1375x50x15 mm, số lượng 1780 tấm/thanh, thể tích 1.8350 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2685**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 998x50x15 mm, số lượng 1050 tấm/thanh, thể tích 0.7859 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2686**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 1375x50x15 mm, số lượng 690 tấm/thanh, thể tích 0.7116 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4017**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 2440x1220x9 mm, số lượng 15 tấm/thanh, thể tích 0.4010 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4148**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 1539x65x15 mm, số lượng 960 tấm/thanh, thể tích 1.4405 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4149**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 1945x65x15 mm, số lượng 300 tấm/thanh, thể tích 0.5689 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4151**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 1539x65x15 mm, số lượng 855 tấm/thanh, thể tích 1.2830 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4191**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 1945x65x15 mm, số lượng 270 tấm/thanh, thể tích 0.5120 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2689**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 1551x666x5 mm, số lượng 100 tấm/thanh, thể tích 0.5165 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2687**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 622x318x15 mm, số lượng 80 tấm/thanh, thể tích 0.2374 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2688**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân t, phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Nhân tạo, Mặt 2 Nhân tạo", quy cách 1685x421x15 mm, số lượng 66 tấm/thanh, thể tích 0.7023 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2908**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1998x70x21 mm, số lượng 500 tấm/thanh, thể tích 1.4680 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2909**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1575x70x21 mm, số lượng 250 tấm/thanh, thể tích 0.5780 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2910**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1998x70x21 mm, số lượng 250 tấm/thanh, thể tích 0.5870 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4028**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1998x70x21 mm, số lượng 250 tấm/thanh, thể tích 0.7343 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2911**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1575x70x21 mm, số lượng 250 tấm/thanh, thể tích 0.5780 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2633**: Loại gỗ Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, , phân loại RAW, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVL, Mặt 1 Tech, Mặt 2 Tech", quy cách 1998x70x21 mm, số lượng 250 tấm/thanh, thể tích 0.7343 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4282**: Loại gỗ Ván Ghép Cao Su AB//Đặc điểm Mộng nằm, phân loại RAW, tên lô "Ván Ghép Cao Su AB//Đặc điểm Mộng nằm", quy cách 2440x1220x18 mm, số lượng 8 tấm/thanh, thể tích 0.4287 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4281**: Loại gỗ Ván Ghép Cao Su AC//Đặc điểm Mộng nằm, phân loại RAW, tên lô "Ván Ghép Cao Su AC//Đặc điểm Mộng nằm", quy cách 2440x1220x20 mm, số lượng 40 tấm/thanh, thể tích 2.3814 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2748**: Loại gỗ Ván Ghép Cao Su AC//Đặc điểm Mộng nằm, phân loại RAW, tên lô "Ván Ghép Cao Su AC//Đặc điểm Mộng nằm", quy cách 2440x1220x20 mm, số lượng 69 tấm/thanh, thể tích 4.1080 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4092**: Loại gỗ Ván Ghép Tràm BC//Đặc điểm Mộng nằm, phân loại RAW, tên lô "Ván Ghép Tràm BC//Đặc điểm Mộng nằm", quy cách 2440x1220x35 mm, số lượng 22 tấm/thanh, thể tích 2.2921 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4091**: Loại gỗ Ván Ghép Tràm BC//Đặc điểm Mộng nằm, phân loại RAW, tên lô "Ván Ghép Tràm BC//Đặc điểm Mộng nằm", quy cách 2440x1220x25 mm, số lượng 21 tấm/thanh, thể tích 1.5628 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4090**: Loại gỗ Ván Ghép Tràm BC//Đặc điểm Mộng nằm, phân loại RAW, tên lô "Ván Ghép Tràm BC//Đặc điểm Mộng nằm", quy cách 2440x1220x18 mm, số lượng 53 tấm/thanh, thể tích 2.8399 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4020**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 20 tấm/thanh, thể tích 0.6540 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2639**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 22 tấm/thanh, thể tích 0.7204 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2708**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 33 tấm/thanh, thể tích 1.0806 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4043**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 3 tấm/thanh, thể tích 0.0980 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2712**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 57 tấm/thanh, thể tích 1.8664 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2791**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 476x388x2 mm, số lượng 3 tấm/thanh, thể tích 0.0014 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2618**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 3 tấm/thanh, thể tích 0.0982 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4239**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 34 tấm/thanh, thể tích 1.1133 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2792**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 642x350x2 mm, số lượng 48 tấm/thanh, thể tích 0.0270 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2642**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 56 tấm/thanh, thể tích 1.8337 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2713**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 87 tấm/thanh, thể tích 2.8488 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4301**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 88 tấm/thanh, thể tích 2.8815 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2617**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 2 tấm/thanh, thể tích 0.0655 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2640**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 22 tấm/thanh, thể tích 0.7204 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2709**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 5 tấm/thanh, thể tích 0.0655 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4001**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 65 tấm/thanh, thể tích 2.1280 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4048**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 15 tấm/thanh, thể tích 0.4910 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3991**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 68 tấm/thanh, thể tích 2.2266 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3990**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x9 mm, số lượng 62 tấm/thanh, thể tích 1.6610 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4274**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 23 tấm/thanh, thể tích 0.7530 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4269**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 57 tấm/thanh, thể tích 1.8664 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2615**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 1 tấm/thanh, thể tích 0.0327 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2616**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 2 tấm/thanh, thể tích 0.0655 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4047**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 3 tấm/thanh, thể tích 0.0982 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4021**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 20 tấm/thanh, thể tích 0.6540 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4045**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 55 tấm/thanh, thể tích 1.8010 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4298**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 15 tấm/thanh, thể tích 0.4912 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4002**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 71 tấm/thanh, thể tích 0.2320 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4023**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 5 tấm/thanh, thể tích 0.1637 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4042**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 41 tấm/thanh, thể tích 1.3425 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4000**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 59 tấm/thanh, thể tích 1.9310 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4041**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 44 tấm/thanh, thể tích 1.4400 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2711**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 38 tấm/thanh, thể tích 1.2443 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4019**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 12 tấm/thanh, thể tích 0.3920 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4300**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 88 tấm/thanh, thể tích 2.8815 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2789**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 781x388x2 mm, số lượng 153 tấm/thanh, thể tích 0.1159 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2790**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 476x388x2 mm, số lượng 36 tấm/thanh, thể tích 0.0166 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4302**: Loại gỗ Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVB//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại LVB", quy cách 2440x1220x11 mm, số lượng 88 tấm/thanh, thể tích 2.8815 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2888**: Loại gỗ Ván LVD Dán Veneer Hai Mặt Nhân Tạo, phân loại RAW, tên lô "Ván LVD Dán Veneer Hai Mặt Nhân Tạo", quy cách 1946x60x17 mm, số lượng 715 tấm/thanh, thể tích 1.4192 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2887**: Loại gỗ Ván LVD Dán Veneer Hai Mặt Nhân Tạo, phân loại RAW, tên lô "Ván LVD Dán Veneer Hai Mặt Nhân Tạo", quy cách 1365x60x17 mm, số lượng 89 tấm/thanh, thể tích 0.1239 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2673**: Loại gỗ Ván LVD//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVD//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại AA", quy cách 2440x1220x18 mm, số lượng 141 tấm/thanh, thể tích 7.5551 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2875**: Loại gỗ Ván LVD//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVD//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2", quy cách 625x341x5 mm, số lượng 594 tấm/thanh, thể tích 0.6320 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2672**: Loại gỗ Ván LVD//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVD//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại AA", quy cách 2440x1220x3 mm, số lượng 2 tấm/thanh, thể tích 0.0179 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4299**: Loại gỗ Ván LVD//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu , phân loại RAW, tên lô "Ván LVD//Mặt 1 Bạch dương, Mặt 2 Bạch dương, Tiêu chuẩn CARB P2, Loại AA", quy cách 2440x1220x3 mm, số lượng 30 tấm/thanh, thể tích 0.2679 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2920**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1547x512x9 mm, số lượng 55 tấm/thanh, thể tích 0.3920 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2919**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1952x512x9 mm, số lượng 8 tấm/thanh, thể tích 0.0710 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4157**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1952x512x9 mm, số lượng 144 tấm/thanh, thể tích 1.2953 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4121**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1952x512x9 mm, số lượng 151 tấm/thanh, thể tích 1.3582 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2632**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1952x512x9 mm, số lượng 108 tấm/thanh, thể tích 0.9714 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4097**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1547x512x9 mm, số lượng 112 tấm/thanh, thể tích 0.7984 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4004**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 663x340x3 mm, số lượng 20 tấm/thanh, thể tích 0.0130 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2872**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1952x509x9 mm, số lượng 16 tấm/thanh, thể tích 0.1430 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4003**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 754x1008x3 mm, số lượng 30 tấm/thanh, thể tích 0.0680 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2922**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1547x509x9 mm, số lượng 32 tấm/thanh, thể tích 0.2268 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2912**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1547x512x9 mm, số lượng 137 tấm/thanh, thể tích 0.9760 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2631**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1547x512x9 mm, số lượng 108 tấm/thanh, thể tích 0.7699 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2871**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1952x512x9 mm, số lượng 60 tấm/thanh, thể tích 0.5397 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2918**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1547x512x9 mm, số lượng 1 tấm/thanh, thể tích 0.0070 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2921**: Loại gỗ Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P, phân loại RAW, tên lô "Ván LVD//Mặt 1 Tech, Mặt 2 Tech, Tiêu chuẩn CARB P2", quy cách 1952x509x9 mm, số lượng 40 tấm/thanh, thể tích 0.5008 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2884**: Loại gỗ Ván MDF dán Veneer Thông 0.6 Thông, một mặ tạp 0.3, phân loại RAW, tên lô "Ván MDF dán Veneer Thông 0.6 Thông, một mặ tạp 0.3", quy cách 691x448x9 mm, số lượng 140 tấm/thanh, thể tích 0.3901 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2885**: Loại gỗ Ván MDF dán Veneer Thông 0.6 Thông, một mặ tạp 0.3, phân loại RAW, tên lô "Ván MDF dán Veneer Thông 0.6 Thông, một mặ tạp 0.3", quy cách 1880x620x9 mm, số lượng 56 tấm/thanh, thể tích 0.5875 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2882**: Loại gỗ Ván MDF dán Veneer Thông 0.6 Thông, một mặ tạp 0.3, phân loại RAW, tên lô "Ván MDF dán Veneer Thông 0.6 Thông, một mặ tạp 0.3", quy cách 488x346x9 mm, số lượng 192 tấm/thanh, thể tích 0.2917 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2886**: Loại gỗ Ván MDF dán Veneer Thông 0.6 Thông, một mặ tạp 0.3, phân loại RAW, tên lô "Ván MDF dán Veneer Thông 0.6 Thông, một mặ tạp 0.3", quy cách 1300x575x9 mm, số lượng 76 tấm/thanh, thể tích 0.5113 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2883**: Loại gỗ Ván MDF dán Veneer Thông 0.6 Thông, một mặ tạp 0.3, phân loại RAW, tên lô "Ván MDF dán Veneer Thông 0.6 Thông, một mặ tạp 0.3", quy cách 475x336x9 mm, số lượng 432 tấm/thanh, thể tích 0.6205 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2643**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2465x1245x14 mm, số lượng 5 tấm/thanh, thể tích 0.2148 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2878**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 826x463x3 mm, số lượng 37 tấm/thanh, thể tích 0.0420 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2877**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 727x464x3 mm, số lượng 140 tấm/thanh, thể tích 0.1416 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2876**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 826x464x3 mm, số lượng 71 tấm/thanh, thể tích 0.1360 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4163**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2440x1220x6 mm, số lượng 14 tấm/thanh, thể tích 0.2846 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4223**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 698x494x3 mm, số lượng 117 tấm/thanh, thể tích 0.1210 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4296**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2465x1245x6 mm, số lượng 25 tấm/thanh, thể tích 0.4603 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4230**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2465x1245x3 mm, số lượng 14 tấm/thanh, thể tích 0.1289 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2644**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2465x1245x14 mm, số lượng 5 tấm/thanh, thể tích 0.2148 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2641**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2465x1245x14 mm, số lượng 3 tấm/thanh, thể tích 0.1289 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4039**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2440x1220x17 mm, số lượng 126 tấm/thanh, thể tích 6.5736 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4162**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2440x1830x12 mm, số lượng 3 tấm/thanh, thể tích 0.1607 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4089**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2465x1245x17 mm, số lượng 256 tấm/thanh, thể tích 13.3560 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4225**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 604x240x3 mm, số lượng 234 tấm/thanh, thể tích 0.1017 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4224**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 364x494x3 mm, số lượng 117 tấm/thanh, thể tích 0.0577 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2879**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 440x430x3 mm, số lượng 142 tấm/thanh, thể tích 0.0800 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2880**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 465x419x3 mm, số lượng 52 tấm/thanh, thể tích 0.0300 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2881**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 859x358x3 mm, số lượng 136 tấm/thanh, thể tích 0.3000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2859**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 684x240x3 mm, số lượng 53 tấm/thanh, thể tích 0.0261 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2860**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 594x240x3 mm, số lượng 179 tấm/thanh, thể tích 0.0765 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4024**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2440x1220x17 mm, số lượng 25 tấm/thanh, thể tích 1.3043 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4038**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2440x1830x12 mm, số lượng 15 tấm/thanh, thể tích 0.8030 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4026**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2440x1830x9 mm, số lượng 56 tấm/thanh, thể tích 2.3046 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4025**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2440x1220x3 mm, số lượng 47 tấm/thanh, thể tích 0.4327 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3989**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2440x1220x3 mm, số lượng 22 tấm/thanh, thể tích 0.3750 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3987**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2440x1830x9 mm, số lượng 42 tấm/thanh, thể tích 1.6870 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3986**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2440x1830x14 mm, số lượng 101 tấm/thanh, thể tích 6.3120 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3988**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2", quy cách 2440x1220x17 mm, số lượng 42 tấm/thanh, thể tích 2.1250 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4034**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 439x418x4 mm, số lượng 50 tấm/thanh, thể tích 0.0450 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4160**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 2465x1550x2 mm, số lượng 13 tấm/thanh, thể tích 0.1242 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4293**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 2465x1245x17 mm, số lượng 125 tấm/thanh, thể tích 6.5214 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4295**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 2465x1245x17 mm, số lượng 126 tấm/thanh, thể tích 6.5736 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2786**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 450x382x4 mm, số lượng 222 tấm/thanh, thể tích 0.1813 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4033**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 450x380x4 mm, số lượng 200 tấm/thanh, thể tích 0.1710 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4234**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 2465x1550x2 mm, số lượng 45 tấm/thanh, thể tích 0.4298 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4294**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 2465x1245x17 mm, số lượng 125 tấm/thanh, thể tích 6.5214 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2743**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 2465x1550x21 mm, số lượng 1 tấm/thanh, thể tích 0.0802 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2788**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 439x418x4 mm, số lượng 58 tấm/thanh, thể tích 0.0505 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4032**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 450x429x4 mm, số lượng 150 tấm/thanh, thể tích 0.1440 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4154**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 2465x1245x4 mm, số lượng 6 tấm/thanh, thể tích 0.0875 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4027**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 2465x1550x2 mm, số lượng 69 tấm/thanh, thể tích 0.6591 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4120**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 2465x1855x4 mm, số lượng 103 tấm/thanh, thể tích 2.2371 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2787**: Loại gỗ Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt, phân loại RAW, tên lô "Ván MDF//Tiêu chuẩn CARB P2, Mặt 1 Cốt, Mặt 2 Cốt", quy cách 450x429x4 mm, số lượng 170 tấm/thanh, thể tích 0.1559 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4212**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 955x784x17 mm, số lượng 185 tấm/thanh, thể tích 2.3540 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2828**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 955x784x17 mm, số lượng 176 tấm/thanh, thể tích 2.2401 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2838**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 955x784x17 mm, số lượng 48 tấm/thanh, thể tích 2.2401 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4221**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 959x611x17 mm, số lượng 44 tấm/thanh, thể tích 0.4382 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4222**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 400x400x17 mm, số lượng 44 tấm/thanh, thể tích 0.1196 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3958**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 400x400x17 mm, số lượng 72 tấm/thanh, thể tích 0.1950 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2795**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 959x611x17 mm, số lượng 18 tấm/thanh, thể tích 0.1793 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4220**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 959x675x17 mm, số lượng 45 tấm/thanh, thể tích 0.4952 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4219**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 955x784x17 mm, số lượng 161 tấm/thanh, thể tích 2.0492 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2796**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 400x400x17 mm, số lượng 18 tấm/thanh, thể tích 0.0490 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4214**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 959x611x17 mm, số lượng 53 tấm/thanh, thể tích 0.5270 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4213**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 959x675x17 mm, số lượng 52 tấm/thanh, thể tích 0.5720 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2825**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 959x695x17 mm, số lượng 32 tấm/thanh, thể tích 0.3521 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3956**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 959x675x17 mm, số lượng 72 tấm/thanh, thể tích 0.7920 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2793**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 955x784x17 mm, số lượng 150 tấm/thanh, thể tích 1.9092 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2794**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 959x675x17 mm, số lượng 18 tấm/thanh, thể tích 0.1981 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4215**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 400x400x17 mm, số lượng 52 tấm/thanh, thể tích 0.1410 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3957**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 959x611x17 mm, số lượng 42 tấm/thanh, thể tích 0.4180 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2826**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 959x611x17 mm, số lượng 32 tấm/thanh, thể tích 0.3187 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2827**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 400x400x17 mm, số lượng 32 tấm/thanh, thể tích 0.0870 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3955**: Loại gỗ Ván PB//Tiêu chuẩn CARB P2, phân loại RAW, tên lô "Ván PB//Tiêu chuẩn CARB P2", quy cách 955x784x17 mm, số lượng 67 tấm/thanh, thể tích 0.8520 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3961**: Loại gỗ Veneer Hai Mặt Beech 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Beech 0.6", quy cách 1569x1220x18 mm, số lượng 15 tấm/thanh, thể tích 0.5168 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4204**: Loại gỗ Veneer Hai Mặt Beech 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Beech 0.6", quy cách 1559x1220x18 mm, số lượng 22 tấm/thanh, thể tích 0.7532 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4205**: Loại gỗ Veneer Hai Mặt Beech 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Beech 0.6", quy cách 1965x1220x18 mm, số lượng 16 tấm/thanh, thể tích 0.6904 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3960**: Loại gỗ Veneer Hai Mặt Beech 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Beech 0.6", quy cách 1975x1220x18 mm, số lượng 15 tấm/thanh, thể tích 0.6506 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2823**: Loại gỗ Veneer Hai Mặt Tạp A 0.3, phân loại RAW, tên lô "Veneer Hai Mặt Tạp A 0.3", quy cách 1000x894x17 mm, số lượng 44 tấm/thanh, thể tích 0.6687 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2822**: Loại gỗ Veneer Hai Mặt Tạp A 0.3, phân loại RAW, tên lô "Veneer Hai Mặt Tạp A 0.3", quy cách 1488x605x17 mm, số lượng 88 tấm/thanh, thể tích 1.3467 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2901**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2040x1220x25 mm, số lượng 21 tấm/thanh, thể tích 1.3066 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4013**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 1915x1220x25 mm, số lượng 28 tấm/thanh, thể tích 1.6354 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4012**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2040x1220x25 mm, số lượng 36 tấm/thanh, thể tích 2.2399 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2747**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x4 mm, số lượng 1 tấm/thanh, thể tích 0.0141 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2745**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x15 mm, số lượng 1 tấm/thanh, thể tích 0.0447 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4071**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 6 tấm/thanh, thể tích 0.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4240**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 30 tấm/thanh, thể tích 1.6074 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4184**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 45 tấm/thanh, thể tích 2.4112 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4194**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 56 tấm/thanh, thể tích 3.0006 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4113**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 19 tấm/thanh, thể tích 1.0180 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4124**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 20 tấm/thanh, thể tích 1.1252 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4138**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 46 tấm/thanh, thể tích 2.4647 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4155**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 50 tấm/thanh, thể tích 2.6791 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4257**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 658x431x15 mm, số lượng 49 tấm/thanh, thể tích 0.2084 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2744**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 3 tấm/thanh, thể tích 0.1608 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2746**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x25 mm, số lượng 1 tấm/thanh, thể tích 0.0744 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4011**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 1970x1120x25 mm, số lượng 14 tấm/thanh, thể tích 0.7722 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4185**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 460x439x4 mm, số lượng 551 tấm/thanh, thể tích 0.5309 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4072**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 6 tấm/thanh, thể tích 0.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4195**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x25 mm, số lượng 26 tấm/thanh, thể tích 1.9349 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4136**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x15 mm, số lượng 104 tấm/thanh, thể tích 4.6438 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4158**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x15 mm, số lượng 1 tấm/thanh, thể tích 0.0440 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4123**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 21 tấm/thanh, thể tích 1.1252 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4241**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 30 tấm/thanh, thể tích 1.6070 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4186**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 450x429x4 mm, số lượng 174 tấm/thanh, thể tích 0.1454 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4122**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x15 mm, số lượng 47 tấm/thanh, thể tích 2.0986 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4196**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 460x439x4 mm, số lượng 720 tấm/thanh, thể tích 0.6602 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4156**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 64 tấm/thanh, thể tích 3.4292 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4137**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 40 tấm/thanh, thể tích 2.1432 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4242**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 40 tấm/thanh, thể tích 1.7101 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4073**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 2440x1220x18 mm, số lượng 7 tấm/thanh, thể tích 0.5000 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2667**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 955x90x18 mm, số lượng 20 tấm/thanh, thể tích 0.0309 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2668**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 946x1085x15 mm, số lượng 22 tấm/thanh, thể tích 0.3387 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2670**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 946x1085x15 mm, số lượng 22 tấm/thanh, thể tích 0.3387 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2904**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 920x575x9 mm, số lượng 40 tấm/thanh, thể tích 0.1904 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2903**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 1455x620x9 mm, số lượng 30 tấm/thanh, thể tích 0.2436 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2902**: Loại gỗ Veneer Hai Mặt Thông 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Thông 0.6", quy cách 1915x1220x25 mm, số lượng 29 tấm/thanh, thể tích 1.6938 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2769**: Loại gỗ Veneer Hai Mặt Tràm 0.6, phân loại RAW, tên lô "Veneer Hai Mặt Tràm 0.6", quy cách 2440x1220x14 mm, số lượng 1 tấm/thanh, thể tích 0.0417 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2665**: Loại gỗ Veneer Một Mặt Bạch Dương 0.3, phân loại RAW, tên lô "Veneer Một Mặt Bạch Dương 0.3", quy cách 625x341x5 mm, số lượng 612 tấm/thanh, thể tích 0.6522 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4233**: Loại gỗ Veneer Một Mặt Beech 0.6, phân loại RAW, tên lô "Veneer Một Mặt Beech 0.6", quy cách 1088x825x4 mm, số lượng 45 tấm/thanh, thể tích 0.1616 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-3962**: Loại gỗ Veneer Một Mặt Beech 0.6, Một Mặt Tạp 0.3, phân loại RAW, tên lô "Veneer Một Mặt Beech 0.6, Một Mặt Tạp 0.3", quy cách 456x261x3 mm, số lượng 179 tấm/thanh, thể tích 0.0639 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4232**: Loại gỗ Veneer Một Mặt Beech 0.6, Một Mặt Tạp 0.3, phân loại RAW, tên lô "Veneer Một Mặt Beech 0.6, Một Mặt Tạp 0.3", quy cách 766x396x4 mm, số lượng 225 tấm/thanh, thể tích 0.2730 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4231**: Loại gỗ Veneer Một Mặt Beech 0.6, Một Mặt Tạp 0.3, phân loại RAW, tên lô "Veneer Một Mặt Beech 0.6, Một Mặt Tạp 0.3", quy cách 1010x465x4 mm, số lượng 90 tấm/thanh, thể tích 0.1691 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4229**: Loại gỗ Veneer Một Mặt Beech 0.6, Một Mặt Tạp 0.3, phân loại RAW, tên lô "Veneer Một Mặt Beech 0.6, Một Mặt Tạp 0.3", quy cách 456x261x3 mm, số lượng 225 tấm/thanh, thể tích 0.0803 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4112**: Loại gỗ Veneer một mặt Hồ Đào 0.6mm, phân loại RAW, tên lô "Veneer một mặt Hồ Đào 0.6mm", quy cách 2065x325x21 mm, số lượng 36 tấm/thanh, thể tích 0.5074 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2741**: Loại gỗ Veneer một mặt Hồ Đào 0.6mm, phân loại RAW, tên lô "Veneer một mặt Hồ Đào 0.6mm", quy cách 2065x325x21 mm, số lượng 42 tấm/thanh, thể tích 0.5919 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2764**: Loại gỗ Veneer một mặt Hồ Đào 0.6mm, phân loại RAW, tên lô "Veneer một mặt Hồ Đào 0.6mm", quy cách 2065x325x21 mm, số lượng 9 tấm/thanh, thể tích 0.1268 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2738**: Loại gỗ Veneer một mặt Hồ Đào 0.6mm, phân loại RAW, tên lô "Veneer một mặt Hồ Đào 0.6mm", quy cách 2065x325x21 mm, số lượng 36 tấm/thanh, thể tích 0.5074 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4183**: Loại gỗ Veneer một mặt Hồ Đào 0.6mm, phân loại RAW, tên lô "Veneer một mặt Hồ Đào 0.6mm", quy cách 2165x325x21 mm, số lượng 20 tấm/thanh, thể tích 0.2955 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2899**: Loại gỗ Veneer Một Mặt Tạp A 0.3, phân loại RAW, tên lô "Veneer Một Mặt Tạp A 0.3", quy cách 478x154x3 mm, số lượng 219 tấm/thanh, thể tích 0.0484 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2820**: Loại gỗ Veneer Một Mặt Thông 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.3", quy cách 924x630x17 mm, số lượng 62 tấm/thanh, thể tích 0.6135 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2821**: Loại gỗ Veneer Một Mặt Thông 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.3", quy cách 945x396x17 mm, số lượng 31 tấm/thanh, thể tích 0.1972 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4096**: Loại gỗ Veneer Một Mặt Thông 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.3", quy cách 924x630x17 mm, số lượng 30 tấm/thanh, thể tích 0.4250 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2742**: Loại gỗ Veneer Một Mặt Thông 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.3", quy cách 929x791x17 mm, số lượng 50 tấm/thanh, thể tích 0.6246 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2870**: Loại gỗ Veneer Một Mặt Thông 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.3", quy cách 929x791x17 mm, số lượng 5 tấm/thanh, thể tích 0.0625 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4069**: Loại gỗ Veneer Một Mặt Thông 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.3", quy cách 924x630x17 mm, số lượng 40 tấm/thanh, thể tích 0.3950 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4068**: Loại gỗ Veneer Một Mặt Thông 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.3", quy cách 929x791x17 mm, số lượng 68 tấm/thanh, thể tích 0.8490 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4095**: Loại gỗ Veneer Một Mặt Thông 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.3", quy cách 929x791x17 mm, số lượng 36 tấm/thanh, thể tích 0.4490 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4070**: Loại gỗ Veneer Một Mặt Thông 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.3", quy cách 945x396x17 mm, số lượng 38 tấm/thanh, thể tích 0.2410 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4256**: Loại gỗ Veneer Một Mặt thông 0.6, phân loại RAW, tên lô "Veneer Một Mặt thông 0.6", quy cách 823x401x15 mm, số lượng 97 tấm/thanh, thể tích 0.4802 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4255**: Loại gỗ Veneer Một Mặt thông 0.6, phân loại RAW, tên lô "Veneer Một Mặt thông 0.6", quy cách 627x323x15 mm, số lượng 21 tấm/thanh, thể tích 0.0638 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2905**: Loại gỗ Veneer Một Mặt Thông 0.6, Một Mặt Tạp 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.6, Một Mặt Tạp 0.3", quy cách 902x448x9 mm, số lượng 140 tấm/thanh, thể tích 0.5092 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2900**: Loại gỗ Veneer Một Mặt Thông 0.6, Một Mặt Tạp 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.6, Một Mặt Tạp 0.3", quy cách 488x346x9 mm, số lượng 23 tấm/thanh, thể tích 0.0349 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2906**: Loại gỗ Veneer Một Mặt Thông 0.6, Một Mặt Thông 0.3, phân loại RAW, tên lô "Veneer Một Mặt Thông 0.6, Một Mặt Thông 0.3", quy cách 1110x448x9 mm, số lượng 71 tấm/thanh, thể tích 0.3178 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2771**: Loại gỗ Veneer Một Mặt Tràm 0.6, phân loại RAW, tên lô "Veneer Một Mặt Tràm 0.6", quy cách 2440x1220x14 mm, số lượng 1 tấm/thanh, thể tích 0.0417 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4055**: Loại gỗ Veneer Một Mặt Tràm 0.6, Một Mặt Tạp 0.3, phân loại RAW, tên lô "Veneer Một Mặt Tràm 0.6, Một Mặt Tạp 0.3", quy cách 2440x1220x9 mm, số lượng 2 tấm/thanh, thể tích 0.0536 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2770**: Loại gỗ Veneer Một Mặt Tràm 0.6, Một Mặt Tạp 0.3, phân loại RAW, tên lô "Veneer Một Mặt Tràm 0.6, Một Mặt Tạp 0.3", quy cách 2440x1220x9 mm, số lượng 1 tấm/thanh, thể tích 0.0268 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2768**: Loại gỗ Veneer Một Mặt Tràm 0.6, Một Mặt Tạp 0.3, phân loại RAW, tên lô "Veneer Một Mặt Tràm 0.6, Một Mặt Tạp 0.3", quy cách 2440x1220x17 mm, số lượng 1 tấm/thanh, thể tích 0.0506 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2767**: Loại gỗ Veneer Tuyết Tùng một mặt 0.6, phân loại RAW, tên lô "Veneer Tuyết Tùng một mặt 0.6", quy cách 826x363x3 mm, số lượng 30 tấm/thanh, thể tích 0.0270 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2819**: Loại gỗ Veneer Tuyết Tùng một mặt 0.6, phân loại RAW, tên lô "Veneer Tuyết Tùng một mặt 0.6", quy cách 826x363x3 mm, số lượng 1 tấm/thanh, thể tích 0.0008 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4108**: Loại gỗ Veneer Tuyết Tùng một mặt 0.6, phân loại RAW, tên lô "Veneer Tuyết Tùng một mặt 0.6", quy cách 873x488x3 mm, số lượng 49 tấm/thanh, thể tích 0.0626 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2740**: Loại gỗ Veneer Tuyết Tùng một mặt 0.6, phân loại RAW, tên lô "Veneer Tuyết Tùng một mặt 0.6", quy cách 713x363x3 mm, số lượng 58 tấm/thanh, thể tích 0.0450 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4141**: Loại gỗ Veneer Tuyết Tùng một mặt 0.6, phân loại RAW, tên lô "Veneer Tuyết Tùng một mặt 0.6", quy cách 826x363x3 mm, số lượng 102 tấm/thanh, thể tích 0.0917 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-4140**: Loại gỗ Veneer Tuyết Tùng một mặt 0.6, phân loại RAW, tên lô "Veneer Tuyết Tùng một mặt 0.6", quy cách 671x488x3 mm, số lượng 36 tấm/thanh, thể tích 0.0354 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2739**: Loại gỗ Veneer Tuyết Tùng một mặt 0.6, phân loại RAW, tên lô "Veneer Tuyết Tùng một mặt 0.6", quy cách 671x488x3 mm, số lượng 42 tấm/thanh, thể tích 0.0413 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2766**: Loại gỗ Veneer Tuyết Tùng một mặt 0.6, phân loại RAW, tên lô "Veneer Tuyết Tùng một mặt 0.6", quy cách 873x488x3 mm, số lượng 28 tấm/thanh, thể tích 0.0358 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **MCP-INV-2765**: Loại gỗ Veneer Tuyết Tùng một mặt 0.6, phân loại RAW, tên lô "Veneer Tuyết Tùng một mặt 0.6", quy cách 671x488x3 mm, số lượng 16 tấm/thanh, thể tích 0.0157 m³, trạng thái AVAILABLE.
+- Lô tồn kho mã **INV-26565-82**: Loại gỗ  Chân trái đuôi giường, phân loại SEMIFINISHED, tên lô "Chân trái đuôi giường", quy cách 315x65x65 mm, số lượng 67 tấm/thanh, thể tích 0.0892 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26546-15**: Loại gỗ Chân phải đầu giường, phân loại SEMIFINISHED, tên lô "Chân phải đầu giường", quy cách 890x65x65 mm, số lượng 55 tấm/thanh, thể tích 0.2068 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26559-32**: Loại gỗ Chân phải đầu giường, phân loại SEMIFINISHED, tên lô "Chân phải đầu giường", quy cách 940x65x65 mm, số lượng 67 tấm/thanh, thể tích 0.2661 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26566-30**: Loại gỗ Chân phải đuôi giường, phân loại SEMIFINISHED, tên lô "Chân phải đuôi giường", quy cách 315x65x65 mm, số lượng 67 tấm/thanh, thể tích 0.0892 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26550-92**: Loại gỗ Chân phải đuôi giường, phân loại SEMIFINISHED, tên lô "Chân phải đuôi giường", quy cách 315x65x65 mm, số lượng 55 tấm/thanh, thể tích 0.0732 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26574-80**: Loại gỗ Chân phụ, phân loại SEMIFINISHED, tên lô "Chân phụ", quy cách 210x40x40 mm, số lượng 268 tấm/thanh, thể tích 0.0900 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26558-82**: Loại gỗ Chân trái đầu giường, phân loại SEMIFINISHED, tên lô "Chân trái đầu giường", quy cách 940x65x65 mm, số lượng 67 tấm/thanh, thể tích 0.2661 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26544-12**: Loại gỗ Chân trái đầu giường, phân loại SEMIFINISHED, tên lô "Chân trái đầu giường", quy cách 890x65x65 mm, số lượng 55 tấm/thanh, thể tích 0.2068 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26549-33**: Loại gỗ Chân trái đuôi giường, phân loại SEMIFINISHED, tên lô "Chân trái đuôi giường", quy cách 315x65x65 mm, số lượng 55 tấm/thanh, thể tích 0.0732 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26567-23**: Loại gỗ Gỗ ghép bo U 1, phân loại SEMIFINISHED, tên lô "Gỗ ghép bo U 1", quy cách 40x30x25 mm, số lượng 268 tấm/thanh, thể tích 0.0080 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26561-64**: Loại gỗ Gỗ ghép bo U 1, phân loại SEMIFINISHED, tên lô "Gỗ ghép bo U 1", quy cách 40x30x25 mm, số lượng 268 tấm/thanh, thể tích 0.0080 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26568-46**: Loại gỗ Gỗ ghép bo U 2, phân loại SEMIFINISHED, tên lô "Gỗ ghép bo U 2", quy cách 92x30x25 mm, số lượng 134 tấm/thanh, thể tích 0.0092 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26563-88**: Loại gỗ Gỗ ghép bo U 2, phân loại SEMIFINISHED, tên lô "Gỗ ghép bo U 2", quy cách 92x30x25 mm, số lượng 134 tấm/thanh, thể tích 0.0092 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-44083-46**: Loại gỗ Pacifica Modeno King Bed, phân loại SEMIFINISHED, tên lô "Pacifica Modeno King Bed", quy cách Không xác định quy cách, số lượng 67 tấm/thanh, thể tích 0.0000 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-43868-40**: Loại gỗ Pacifica Modeno King Bed, phân loại SEMIFINISHED, tên lô "Pacifica Modeno King Bed", quy cách Không xác định quy cách, số lượng 67 tấm/thanh, thể tích 0.0000 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-44082-88**: Loại gỗ Pacifica Modeno Twin Bed, phân loại SEMIFINISHED, tên lô "Pacifica Modeno Twin Bed", quy cách Không xác định quy cách, số lượng 55 tấm/thanh, thể tích 0.0000 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-43866-75**: Loại gỗ Pacifica Modeno Twin Bed, phân loại SEMIFINISHED, tên lô "Pacifica Modeno Twin Bed", quy cách Không xác định quy cách, số lượng 55 tấm/thanh, thể tích 0.0000 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26573-35**: Loại gỗ Thanh đỡ giữa, phân loại SEMIFINISHED, tên lô "Thanh đỡ giữa", quy cách 2070x50x30 mm, số lượng 134 tấm/thanh, thể tích 0.4161 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26570-41**: Loại gỗ Thanh đỡ vạt giường, phân loại SEMIFINISHED, tên lô "Thanh đỡ vạt giường", quy cách 623x25x25 mm, số lượng 402 tấm/thanh, thể tích 0.1565 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26552-29**: Loại gỗ Thanh đỡ vạt giường, phân loại SEMIFINISHED, tên lô "Thanh đỡ vạt giường", quy cách 582x25x25 mm, số lượng 330 tấm/thanh, thể tích 0.1200 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26557-33**: Loại gỗ Thanh đứng đầu giường, phân loại SEMIFINISHED, tên lô "Thanh đứng đầu giường", quy cách 640x60x20 mm, số lượng 67 tấm/thanh, thể tích 0.0515 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26543-55**: Loại gỗ Thanh đứng đầu giường, phân loại SEMIFINISHED, tên lô "Thanh đứng đầu giường", quy cách 595x60x20 mm, số lượng 55 tấm/thanh, thể tích 0.0393 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26542-67**: Loại gỗ Thanh ngang dưới đầu giường, phân loại SEMIFINISHED, tên lô "Thanh ngang dưới đầu giường", quy cách 966x150x20 mm, số lượng 55 tấm/thanh, thể tích 0.1594 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26556-34**: Loại gỗ Thanh ngang dưới đầu giường, phân loại SEMIFINISHED, tên lô "Thanh ngang dưới đầu giường", quy cách 1926x150x20 mm, số lượng 67 tấm/thanh, thể tích 0.3871 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26541-38**: Loại gỗ Thanh ngang trên đầu giường, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đầu giường", quy cách 1056x65x45 mm, số lượng 55 tấm/thanh, thể tích 0.1699 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26555-84**: Loại gỗ Thanh ngang trên đầu giường, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đầu giường", quy cách 2016x65x45 mm, số lượng 67 tấm/thanh, thể tích 0.3951 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26564-75**: Loại gỗ Thanh ngang trên đuôi giường, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đuôi giường", quy cách 1926x150x20 mm, số lượng 67 tấm/thanh, thể tích 0.3871 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26548-15**: Loại gỗ Thanh ngang trên đuôi giường, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đuôi giường", quy cách 966x150x20 mm, số lượng 55 tấm/thanh, thể tích 0.1594 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24797-44**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Vạt giường", quy cách 1365x60x17 mm, số lượng 780 tấm/thanh, thể tích 1.0860 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-65627-94**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "THÔNG", quy cách 2550x20x20 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **INV-23916-15**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "THÔNG", quy cách 580x22x25 mm, số lượng 5659 tấm/thanh, thể tích 1.8052 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24804-68**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân trái đầu giường", quy cách 890x65x65 mm, số lượng 55 tấm/thanh, thể tích 0.2068 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24810-10**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân phải đuôi giường", quy cách 315x65x65 mm, số lượng 55 tấm/thanh, thể tích 0.0732 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24789-72**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đuôi giường", quy cách 1345x150x20 mm, số lượng 65 tấm/thanh, thể tích 0.2623 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24795-13**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Ván hông giường", quy cách 1905x150x25 mm, số lượng 130 tấm/thanh, thể tích 0.9287 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24799-55**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân phụ", quy cách 210x40x40 mm, số lượng 65 tấm/thanh, thể tích 0.0218 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24801-40**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đầu giường", quy cách 1056x65x45 mm, số lượng 55 tấm/thanh, thể tích 0.1699 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24806-65**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Ván đầu giường", quy cách 453x575x9 mm, số lượng 110 tấm/thanh, thể tích 0.2579 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24813-40**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh đỡ vạt giường", quy cách 582x25x25 mm, số lượng 330 tấm/thanh, thể tích 0.1200 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-66629-25**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "THÔNG", quy cách 1254x25x25 mm, số lượng 259 tấm/thanh, thể tích 0.2030 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24819-26**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân trái đầu giường", quy cách 940x65x65 mm, số lượng 67 tấm/thanh, thể tích 0.2661 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24772-60**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bọ U 2", quy cách 92x30x25 mm, số lượng 90 tấm/thanh, thể tích 0.0062 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24778-96**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân phụ", quy cách 210x40x40 mm, số lượng 180 tấm/thanh, thể tích 0.0605 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24791-75**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân phải đuôi giường", quy cách 315x65x65 mm, số lượng 65 tấm/thanh, thể tích 0.0865 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24785-53**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Ván đầu giường", quy cách 642x575x9 mm, số lượng 130 tấm/thanh, thể tích 0.4319 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24779-40**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đầu giường", quy cách 1435x65x45 mm, số lượng 65 tấm/thanh, thể tích 0.2728 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24774-73**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Ván hông giường", quy cách 2030x150x25 mm, số lượng 180 tấm/thanh, thể tích 1.3702 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24768-81**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đuôi giường", quy cách 1498x150x20 mm, số lượng 90 tấm/thanh, thể tích 0.4045 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24762-32**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân trái đầu giường", quy cách 940x65x65 mm, số lượng 90 tấm/thanh, thể tích 0.3574 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24814-90**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Vạt giường", quy cách 986x60x17 mm, số lượng 660 tấm/thanh, thể tích 0.6638 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24808-45**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đuôi giường", quy cách 966x150x20 mm, số lượng 55 tấm/thanh, thể tích 0.1594 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24802-62**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang dưới đầu giường", quy cách 966x150x20 mm, số lượng 55 tấm/thanh, thể tích 0.1594 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24796-33**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh đỡ vạt giường", quy cách 582x25x25 mm, số lượng 390 tấm/thanh, thể tích 0.1419 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24790-80**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân trái đuôi giường", quy cách 315x65x65 mm, số lượng 65 tấm/thanh, thể tích 0.0865 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24781-15**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang dưới  đầu giường", quy cách 1345x150x20 mm, số lượng 65 tấm/thanh, thể tích 0.2623 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24786-76**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bọ U1", quy cách 40x30x25 mm, số lượng 130 tấm/thanh, thể tích 0.0039 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24833-71**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Vạt giường", quy cách 1946x60x17 mm, số lượng 871 tấm/thanh, thể tích 1.7289 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24827-97**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân phải đuôi giường", quy cách 315x65x65 mm, số lượng 67 tấm/thanh, thể tích 0.0892 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24831-19**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh đỡ vạt giường", quy cách 623x25x25 mm, số lượng 402 tấm/thanh, thể tích 0.1565 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24826-26**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân trái đuôi giường", quy cách 315x65x65 mm, số lượng 67 tấm/thanh, thể tích 0.0892 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24761-16**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh đứng đầu giường", quy cách 640x60x20 mm, số lượng 90 tấm/thanh, thể tích 0.0691 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24770-34**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân phải đuôi giường", quy cách 315x65x65 mm, số lượng 90 tấm/thanh, thể tích 0.1198 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24820-74**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân phải đầu giường", quy cách 940x65x65 mm, số lượng 67 tấm/thanh, thể tích 0.2661 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-65617-97**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "THÔNG", quy cách 2550x20x20 mm, số lượng 158 tấm/thanh, thể tích 0.1612 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24783-27**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân trái đầu giường", quy cách 890x65x65 mm, số lượng 65 tấm/thanh, thể tích 0.2444 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24777-46**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh đỡ giữa", quy cách 2070x50x30 mm, số lượng 90 tấm/thanh, thể tích 0.2794 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24824-49**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đuôi giường", quy cách 1926x150x20 mm, số lượng 67 tấm/thanh, thể tích 0.3871 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24805-55**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân phải đầu giường", quy cách 890x65x65 mm, số lượng 55 tấm/thanh, thể tích 0.2068 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24811-83**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Ván hông giường", quy cách 1905x150x25 mm, số lượng 110 tấm/thanh, thể tích 0.7858 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24817-19**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh đứng đầu giường", quy cách 640x60x20 mm, số lượng 67 tấm/thanh, thể tích 0.0515 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24823-25**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bo U 2", quy cách 92x30x25 mm, số lượng 134 tấm/thanh, thể tích 0.0092 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24829-14**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bo U 2", quy cách 92x30x25 mm, số lượng 134 tấm/thanh, thể tích 0.0092 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24788-20**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bọ U 2", quy cách 92x30x25 mm, số lượng 65 tấm/thanh, thể tích 0.0045 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24764-79**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Ván đầu giường", quy cách 719x620x9 mm, số lượng 180 tấm/thanh, thể tích 0.7222 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24835-36**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân phụ", quy cách 210x40x40 mm, số lượng 268 tấm/thanh, thể tích 0.0900 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24794-85**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bọ U 2", quy cách 92x30x25 mm, số lượng 65 tấm/thanh, thể tích 0.0045 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-23919-99**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "THÔNG", quy cách 1050x25x26 mm, số lượng 850 tấm/thanh, thể tích 0.5801 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24758-42**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đầu giường", quy cách 1588x65x45 mm, số lượng 90 tấm/thanh, thể tích 0.4180 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24782-57**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh đứng đầu giường", quy cách 595x60x20 mm, số lượng 65 tấm/thanh, thể tích 0.0464 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24776-88**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Vạt giường", quy cách 1518x60x17 mm, số lượng 1170 tấm/thanh, thể tích 1.8116 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-66624-65**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "THÔNG", quy cách 1254x25x25 mm, số lượng 259 tấm/thanh, thể tích 0.2030 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24784-66**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân phải đầu giường", quy cách 890x65x65 mm, số lượng 65 tấm/thanh, thể tích 0.2444 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24759-80**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang dưới đầu giường", quy cách 1498x150x20 mm, số lượng 90 tấm/thanh, thể tích 0.4045 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24822-43**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bo U 1", quy cách 40x30x25 mm, số lượng 268 tấm/thanh, thể tích 0.0080 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24828-53**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bo U 1", quy cách 40x30x25 mm, số lượng 268 tấm/thanh, thể tích 0.0080 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24834-24**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh đỡ giữa", quy cách 2070x50x30 mm, số lượng 134 tấm/thanh, thể tích 0.4161 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24771-59**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bọ U 1", quy cách 40x30x25 mm, số lượng 180 tấm/thanh, thể tích 0.0054 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-66620-92**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "THÔNG", quy cách 1254x25x25 mm, số lượng 259 tấm/thanh, thể tích 0.2030 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24041-25**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "THÔNG", quy cách 21x21x25 mm, số lượng 1254 tấm/thanh, thể tích 0.0138 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24765-73**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bọ U 1", quy cách 40x30x25 mm, số lượng 180 tấm/thanh, thể tích 0.0054 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24798-67**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh đỡ giữa", quy cách 1945x50x30 mm, số lượng 65 tấm/thanh, thể tích 0.1896 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24792-81**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bọ U1", quy cách 40x30x25 mm, số lượng 130 tấm/thanh, thể tích 0.0039 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24830-84**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Ván hông giường", quy cách 2030x150x25 mm, số lượng 134 tấm/thanh, thể tích 1.0201 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24803-20**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh đứng đầu giường", quy cách 595x60x20 mm, số lượng 55 tấm/thanh, thể tích 0.0393 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24809-22**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân trái đuôi giường", quy cách 315x65x65 mm, số lượng 55 tấm/thanh, thể tích 0.0732 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24815-22**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang trên đầu giường", quy cách 2016x65x45 mm, số lượng 67 tấm/thanh, thể tích 0.3951 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24821-27**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Ván đầu giường", quy cách 933x620x9 mm, số lượng 134 tấm/thanh, thể tích 0.6976 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24767-64**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Gỗ ghép bọ U 2", quy cách 92x30x25 mm, số lượng 90 tấm/thanh, thể tích 0.0062 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-65625-79**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "THÔNG", quy cách 2550x20x20 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **INV-24763-97**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân phải đầu giường", quy cách 940x65x65 mm, số lượng 90 tấm/thanh, thể tích 0.3574 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-24769-90**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Chân trái đuôi giường", quy cách 315x65x65 mm, số lượng 90 tấm/thanh, thể tích 0.1198 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24775-94**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh đỡ vạt giường", quy cách 623x25x25 mm, số lượng 540 tấm/thanh, thể tích 0.2103 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-67913-56**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "THÔNG", quy cách 25x25x25 mm, số lượng 25 tấm/thanh, thể tích 0.0004 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-23914-33**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "THÔNG", quy cách 1250x25x25 mm, số lượng 565 tấm/thanh, thể tích 0.4414 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-24816-20**: Loại gỗ THÔNG, phân loại SEMIFINISHED, tên lô "Thanh ngang dưới đầu giường", quy cách 1926x150x20 mm, số lượng 67 tấm/thanh, thể tích 0.3871 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26560-99**: Loại gỗ Ván đầu giường, phân loại SEMIFINISHED, tên lô "Ván đầu giường", quy cách 933x620x9 mm, số lượng 134 tấm/thanh, thể tích 0.6976 m³, trạng thái Đang dùng trong sản xuất.
+- Lô tồn kho mã **INV-26547-20**: Loại gỗ Ván đầu giường, phân loại SEMIFINISHED, tên lô "Ván đầu giường", quy cách 453x575x9 mm, số lượng 110 tấm/thanh, thể tích 0.2579 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26551-19**: Loại gỗ Ván hông giường, phân loại SEMIFINISHED, tên lô "Ván hông giường", quy cách 1905x150x25 mm, số lượng 110 tấm/thanh, thể tích 0.7858 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26569-31**: Loại gỗ Ván hông giường, phân loại SEMIFINISHED, tên lô "Ván hông giường", quy cách 2030x150x25 mm, số lượng 134 tấm/thanh, thể tích 1.0201 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26554-35**: Loại gỗ Vạt giường, phân loại SEMIFINISHED, tên lô "Vạt giường", quy cách 986x60x17 mm, số lượng 660 tấm/thanh, thể tích 0.6638 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-26572-17**: Loại gỗ Vạt giường, phân loại SEMIFINISHED, tên lô "Vạt giường", quy cách 1946x60x17 mm, số lượng 871 tấm/thanh, thể tích 1.7289 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-61706-96**: Loại gỗ Chưa rõ, phân loại SEMIFINISHED, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Bạch dương, Mặt 2 Bạch dương", quy cách 10x10x10 mm, số lượng 100 tấm/thanh, thể tích 0.0001 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-61710-83**: Loại gỗ Chưa rõ, phân loại SEMIFINISHED, tên lô "Ván ép//Tiêu chuẩn CARB P2, Loại LVD, Mặt 1 Bạch dương, Mặt 2 Bạch dương", quy cách 10x10x10 mm, số lượng 100 tấm/thanh, thể tích 0.0001 m³, trạng thái Sẵn sàng.
+- Lô tồn kho mã **INV-65626-70**: Loại gỗ THÔNG, phân loại SURPLUS, tên lô "THÔNG", quy cách 1570x25x26 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **INV-23917-89**: Loại gỗ THÔNG, phân loại SURPLUS, tên lô "THÔNG", quy cách Không xác định quy cách, số lượng 0 tấm/thanh, thể tích 0.2568 m³, trạng thái Tồn kho.
+- Lô tồn kho mã **INV-65628-47**: Loại gỗ THÔNG, phân loại SURPLUS, tên lô "THÔNG", quy cách 1570x25x26 mm, số lượng 0 tấm/thanh, thể tích 0.0000 m³, trạng thái USED.
+- Lô tồn kho mã **INV-24042-90**: Loại gỗ THÔNG, phân loại SURPLUS, tên lô "THÔNG", quy cách 454x22x26 mm, số lượng 125 tấm/thanh, thể tích 0.0325 m³, trạng thái Tồn kho.
+- Lô tồn kho mã **INV-65618-99**: Loại gỗ THÔNG, phân loại SURPLUS, tên lô "THÔNG", quy cách 1570x25x26 mm, số lượng 259 tấm/thanh, thể tích 0.2643 m³, trạng thái Tồn kho.
+- Lô tồn kho mã **INV-66625-88**: Loại gỗ THÔNG, phân loại SURPLUS, tên lô "THÔNG", quy cách Không xác định quy cách, số lượng 0 tấm/thanh, thể tích 0.0212 m³, trạng thái Tồn kho.
+- Lô tồn kho mã **INV-66621-68**: Loại gỗ THÔNG, phân loại SURPLUS, tên lô "THÔNG", quy cách Không xác định quy cách, số lượng 0 tấm/thanh, thể tích 0.0212 m³, trạng thái Tồn kho.
+- Lô tồn kho mã **INV-66630-11**: Loại gỗ THÔNG, phân loại SURPLUS, tên lô "THÔNG", quy cách Không xác định quy cách, số lượng 0 tấm/thanh, thể tích 0.0212 m³, trạng thái Tồn kho.
+- Lô tồn kho mã **INV-66622-89**: Loại gỗ THÔNG, phân loại WASTE, tên lô "THÔNG", quy cách Không xác định quy cách, số lượng 0 tấm/thanh, thể tích 0.0219 m³, trạng thái Loại bỏ.
+- Lô tồn kho mã **INV-24043-12**: Loại gỗ THÔNG, phân loại WASTE, tên lô "THÔNG", quy cách Không xác định quy cách, số lượng 0 tấm/thanh, thể tích 0.6980 m³, trạng thái Loại bỏ.
+- Lô tồn kho mã **INV-65628-67**: Loại gỗ THÔNG, phân loại WASTE, tên lô "THÔNG", quy cách 567x9x3 mm, số lượng 245 tấm/thanh, thể tích 0.0038 m³, trạng thái Loại bỏ.
+- Lô tồn kho mã **INV-66631-14**: Loại gỗ THÔNG, phân loại WASTE, tên lô "THÔNG", quy cách Không xác định quy cách, số lượng 0 tấm/thanh, thể tích 0.0219 m³, trạng thái Loại bỏ.
+- Lô tồn kho mã **INV-66626-46**: Loại gỗ THÔNG, phân loại WASTE, tên lô "THÔNG", quy cách Không xác định quy cách, số lượng 0 tấm/thanh, thể tích 0.0219 m³, trạng thái Loại bỏ.
+- Lô tồn kho mã **INV-65629-42**: Loại gỗ THÔNG, phân loại WASTE, tên lô "THÔNG", quy cách 567x9x3 mm, số lượng 245 tấm/thanh, thể tích 0.0038 m³, trạng thái Loại bỏ.
+- Lô tồn kho mã **INV-23918-63**: Loại gỗ THÔNG, phân loại WASTE, tên lô "THÔNG", quy cách Không xác định quy cách, số lượng 0 tấm/thanh, thể tích 0.5870 m³, trạng thái Loại bỏ.
+- Lô tồn kho mã **INV-65619-91**: Loại gỗ THÔNG, phân loại WASTE, tên lô "THÔNG", quy cách 567x9x3 mm, số lượng 245 tấm/thanh, thể tích 0.0038 m³, trạng thái Loại bỏ.

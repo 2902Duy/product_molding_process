@@ -59,3 +59,27 @@ export async function askAssistant(message, contextOptions) {
 
   return response.json();
 }
+
+export async function uploadChatFile(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch(`${API_BASE_URL}/chat/upload`, {
+    method: 'POST',
+    body: formData
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    let detail = errorText || `Upload error: ${response.status}`;
+    try {
+      const parsed = JSON.parse(errorText);
+      detail = parsed.detail || detail;
+    } catch {
+      // Keep original
+    }
+    throw new Error(detail);
+  }
+
+  return response.json();
+}

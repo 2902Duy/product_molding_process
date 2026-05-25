@@ -18,3 +18,12 @@ services:
         value: https://tool.vfmgroup.vn/db-mcp/mcp/
       - key: MCP_TOKEN
         sync: false
+      - key: SUPABASE_DB_URL
+        sync: false
+      - key: ANYTHINGLLM_URL
+        sync: false
+      - key: ANYTHINGLLM_API_KEY
+        sync: false
+      - key: ANYTHINGLLM_WORKSPACE
+        sync: false
+

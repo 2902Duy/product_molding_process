@@ -87,11 +87,150 @@ def _normalize_hermes_response(data: Any) -> ChatResponse:
 
 
 # =============================================================================
+# ANYTHINGLLM
+# =============================================================================
+
+def call_anythingllm(message: str) -> ChatResponse:
+    """Gọi AnythingLLM API để chat với tài liệu trong Workspace."""
+    api_key = os.getenv("ANYTHINGLLM_API_KEY", "").strip()
+    api_url = os.getenv("ANYTHINGLLM_URL", "http://localhost:3001").strip().rstrip("/")
+    workspace = os.getenv("ANYTHINGLLM_WORKSPACE", "").strip()
+
+    if not workspace:
+        return ChatResponse(
+            answer="Chưa cấu hình ANYTHINGLLM_WORKSPACE cho backend. Vui lòng thiết lập biến môi trường này.",
+            actions=[],
+            sources=[],
+            source="anythingllm",
+        )
+
+    endpoint = f"{api_url}/api/v1/workspace/{workspace}/chat"
+    payload = {
+        "message": message,
+        "mode": "chat"
+    }
+    body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    
+    request = urllib.request.Request(
+        endpoint,
+        data=body,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}"
+        },
+        method="POST"
+    )
+
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            raw = response.read().decode("utf-8")
+            data = json.loads(raw) if raw else {}
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        try:
+            err_json = json.loads(detail)
+            err_msg = err_json.get("error") or detail
+        except Exception:
+            err_msg = detail
+        raise HTTPException(status_code=502, detail=f"AnythingLLM HTTP {exc.code}: {err_msg}")
+    except urllib.error.URLError as exc:
+        raise HTTPException(status_code=502, detail=f"Không kết nối được AnythingLLM tại {api_url}: {exc.reason}")
+    except TimeoutError:
+        raise HTTPException(status_code=504, detail="AnythingLLM phản hồi quá lâu.")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=502, detail="AnythingLLM trả về dữ liệu không phải JSON.")
+
+    answer = data.get("textResponse", "").strip()
+    if not answer:
+        answer = "AnythingLLM không trả về câu trả lời."
+    
+    sources = data.get("sources", [])
+    
+    return ChatResponse(
+        answer=answer,
+        actions=[],
+        sources=sources,
+        source="anythingllm"
+    )
+
+
+def upload_file_to_anythingllm(file_bytes: bytes, filename: str) -> dict:
+    """Tải tệp tin lên AnythingLLM và tự động liên kết vào Workspace."""
+    import mimetypes
+    api_key = os.getenv("ANYTHINGLLM_API_KEY", "").strip()
+    api_url = os.getenv("ANYTHINGLLM_URL", "http://localhost:3001").strip().rstrip("/")
+    workspace = os.getenv("ANYTHINGLLM_WORKSPACE", "").strip()
+
+    if not api_key or not workspace:
+        raise HTTPException(
+            status_code=400,
+            detail="Chưa cấu hình ANYTHINGLLM_API_KEY hoặc ANYTHINGLLM_WORKSPACE cho backend."
+        )
+
+    endpoint = f"{api_url}/api/v1/document/upload"
+    boundary = "----AnythingLLMUploadFormBoundary123456789"
+    
+    parts = []
+    # File part
+    parts.append(f"--{boundary}".encode('utf-8'))
+    parts.append(f'Content-Disposition: form-data; name="file"; filename="{filename}"'.encode('utf-8'))
+    content_type = mimetypes.guess_type(filename)[0] or "application/octet-stream"
+    parts.append(f'Content-Type: {content_type}'.encode('utf-8'))
+    parts.append(b'')
+    parts.append(file_bytes)
+    
+    # addToWorkspaces part
+    parts.append(f"--{boundary}".encode('utf-8'))
+    parts.append(f'Content-Disposition: form-data; name="addToWorkspaces"'.encode('utf-8'))
+    parts.append(b'')
+    parts.append(workspace.encode('utf-8'))
+    
+    # End of parts
+    parts.append(f"--{boundary}--".encode('utf-8'))
+    
+    # Join bytes
+    body = b"\r\n".join(parts) + b"\r\n"
+    
+    request = urllib.request.Request(
+        endpoint,
+        data=body,
+        headers={
+            "Content-Type": f"multipart/form-data; boundary={boundary}",
+            "Authorization": f"Bearer {api_key}"
+        },
+        method="POST"
+    )
+    
+    try:
+        with urllib.request.urlopen(request, timeout=180) as response:
+            raw = response.read().decode("utf-8")
+            return json.loads(raw) if raw else {}
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        try:
+            err_json = json.loads(detail)
+            err_msg = err_json.get("error") or detail
+        except Exception:
+            err_msg = detail
+        raise HTTPException(status_code=502, detail=f"AnythingLLM Upload HTTP {exc.code}: {err_msg}")
+    except urllib.error.URLError as exc:
+        if isinstance(exc.reason, TimeoutError):
+            raise HTTPException(status_code=504, detail="AnythingLLM upload phản hồi quá lâu (quá 180 giây).")
+        raise HTTPException(status_code=502, detail=f"Không kết nối được AnythingLLM khi upload tại {api_url}: {exc.reason}")
+    except TimeoutError:
+        raise HTTPException(status_code=504, detail="AnythingLLM upload phản hồi quá lâu (quá 180 giây).")
+
+
+# =============================================================================
 # GEMINI
 # =============================================================================
 
 def call_gemini(message: str, context: dict[str, Any]) -> ChatResponse:
     """Gọi Gemini API bằng GEMINI_API_KEY từ env."""
+    anythingllm_key = os.getenv("ANYTHINGLLM_API_KEY", "").strip()
+    if anythingllm_key:
+        return call_anythingllm(message)
+
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
     if not api_key:
         return ChatResponse(

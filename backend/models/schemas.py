@@ -73,6 +73,7 @@ class ChatResponse(ApiBaseModel):
     """Response chat trả về frontend."""
     answer: str
     actions: List[dict[str, Any]] = Field(default_factory=list)
+    sources: Optional[List[dict[str, Any]]] = Field(default_factory=list)
     source: str = "backend"
 
 
